@@ -3,6 +3,7 @@
 	"editor.rulers": [100],
 	"editor.wordWrapColumn": 100,
 	"editor.formatOnSave": true,
+	"editor.tabSize": 2,
 	"barrelr.useDoubleQuotes": true,
 	"barrelr.useSemiColons": false,
 	"barrelr.lineEnding": "LF",
