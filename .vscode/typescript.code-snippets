@@ -1,0 +1,15 @@
+{
+	"React Component": {
+		"prefix": "react-component",
+		"body": [
+			"export interface ${1:name}Props {",
+			"\t${0}",
+			"}",
+			"",
+			"export const ${1:name} = (props: ${1:name}Props) => {",
+			"\treturn ()",
+			"}"
+		],
+		"description": "Log output to console"
+	}
+}

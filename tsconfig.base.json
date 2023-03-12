@@ -8,13 +8,16 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"importHelpers": true,
-		"target": "es2015",
+		"target": "ESNext",
 		"module": "esnext",
-		"lib": ["es2017", "dom"],
+		"lib": ["ES2022", "dom"],
+		"strict": true,
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
-		"paths": {}
+		"paths": {
+			"@prt/utils": ["libs/utils/src/index.ts"]
+		}
 	},
 	"exclude": ["node_modules", "tmp"]
 }
