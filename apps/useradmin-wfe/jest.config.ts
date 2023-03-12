@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-	displayName: "todo",
+	displayName: "useradmin-wfe",
 	preset: "../../jest.preset.js",
 	transform: {
 		"^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "@nrwl/react/plugins/jest",
 		"^.+\\.[tj]sx?$": ["@swc/jest", { jsc: { transform: { react: { runtime: "automatic" } } } }]
 	},
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
-	coverageDirectory: "../../coverage/apps/todo"
+	coverageDirectory: "../../coverage/apps/useradmin-wfe"
 }
