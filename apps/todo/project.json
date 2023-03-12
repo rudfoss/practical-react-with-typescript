@@ -1,0 +1,87 @@
+{
+	"name": "todo",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/todo/src",
+	"projectType": "application",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"defaultConfiguration": "production",
+			"options": {
+				"compiler": "swc",
+				"outputPath": "dist/apps/todo",
+				"index": "apps/todo/src/index.html",
+				"baseHref": "/",
+				"main": "apps/todo/src/main.tsx",
+				"tsConfig": "apps/todo/tsconfig.app.json",
+				"assets": ["apps/todo/src/favicon.ico", "apps/todo/src/assets"],
+				"styles": ["apps/todo/src/styles.css"],
+				"scripts": [],
+				"isolatedConfig": true,
+				"webpackConfig": "apps/todo/webpack.config.js"
+			},
+			"configurations": {
+				"development": {
+					"extractLicenses": false,
+					"optimization": false,
+					"sourceMap": true,
+					"vendorChunk": true
+				},
+				"production": {
+					"fileReplacements": [
+						{
+							"replace": "apps/todo/src/environments/environment.ts",
+							"with": "apps/todo/src/environments/environment.prod.ts"
+						}
+					],
+					"optimization": true,
+					"outputHashing": "all",
+					"sourceMap": false,
+					"namedChunks": false,
+					"extractLicenses": true,
+					"vendorChunk": false
+				}
+			}
+		},
+		"serve": {
+			"executor": "@nrwl/webpack:dev-server",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "todo:build",
+				"hmr": true
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "todo:build:development"
+				},
+				"production": {
+					"buildTarget": "todo:build:production",
+					"hmr": false
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/todo/**/*.{ts,tsx,js,jsx}"]
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/todo/jest.config.ts",
+				"passWithNoTests": true
+			},
+			"configurations": {
+				"ci": {
+					"ci": true,
+					"codeCoverage": true
+				}
+			}
+		}
+	},
+	"tags": []
+}

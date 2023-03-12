@@ -5,6 +5,7 @@
 		"dbaeumer.vscode-eslint",
 		"vscode-icons-team.vscode-icons",
 		"eamodio.gitlens",
-		"mikerhyssmith.ts-barrelr"
+		"mikerhyssmith.ts-barrelr",
+		"firsttris.vscode-jest-runner"
 	]
 }
