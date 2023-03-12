@@ -1,0 +1,17 @@
+{
+	"files.eol": "\n",
+	"editor.rulers": [100],
+	"editor.wordWrapColumn": 100,
+	"editor.formatOnSave": true,
+	"barrelr.useDoubleQuotes": true,
+	"barrelr.useSemiColons": false,
+	"barrelr.lineEnding": "LF",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"editor.wordWrap": "wordWrapColumn",
+	"task.quickOpen.history": 0,
+	"debug.console.collapseIdenticalLines": false
+}
