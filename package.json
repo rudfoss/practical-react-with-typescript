@@ -2,7 +2,9 @@
 	"name": "prt",
 	"version": "0.0.0",
 	"license": "MIT",
-	"scripts": {},
+	"scripts": {
+		"start": "nx serve useradmin-wfe"
+	},
 	"private": true,
 	"dependencies": {
 		"nanoid": "^3.3.4",

@@ -1,7 +1,5 @@
 import { useId, useState } from "react"
 
-import { onValueChange } from "@prt/utils"
-
 export interface TextFieldProps {
 	label: string
 }
@@ -13,7 +11,7 @@ export const TextField = ({ label }: TextFieldProps) => {
 	return (
 		<div>
 			<label htmlFor={id}>{label}</label>
-			<input id={id} type="text" value={value} onChange={onValueChange(setValue)} />
+			<input id={id} type="text" value={value} onChange={(evt) => setValue(evt.target.value)} />
 			<p>{value}</p>
 		</div>
 	)
