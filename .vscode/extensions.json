@@ -6,6 +6,7 @@
 		"vscode-icons-team.vscode-icons",
 		"eamodio.gitlens",
 		"mikerhyssmith.ts-barrelr",
-		"firsttris.vscode-jest-runner"
+		"firsttris.vscode-jest-runner",
+		"heaths.vscode-guid"
 	]
 }

@@ -11,6 +11,7 @@
 	"private": true,
 	"dependencies": {
 		"@anatine/zod-nestjs": "^1.9.2",
+		"@anatine/zod-openapi": "^1.12.0",
 		"@fastify/static": "^6.9.0",
 		"@nestjs/common": "^9.0.0",
 		"@nestjs/core": "^9.0.0",
@@ -25,7 +26,8 @@
 		"react-router-dom": "^6.9.0",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.0.0",
-		"tslib": "^2.3.0"
+		"tslib": "^2.3.0",
+		"zod": "^3.21.4"
 	},
 	"devDependencies": {
 		"@babel/preset-react": "^7.14.5",
