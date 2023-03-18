@@ -1,5 +1,3 @@
-import { createZodDto } from "@anatine/zod-nestjs"
-import { extendApi } from "@anatine/zod-openapi"
 import { z } from "zod"
 
 export const zGroup = z.object({
@@ -10,5 +8,3 @@ export const zGroup = z.object({
 	description: z.string().optional()
 })
 export type Group = z.infer<typeof zGroup>
-
-export class GroupDTO extends createZodDto(extendApi(zGroup)) {}

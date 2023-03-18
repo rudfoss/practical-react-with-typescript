@@ -1,5 +1,3 @@
-import { createZodDto } from "@anatine/zod-nestjs"
-import { extendApi } from "@anatine/zod-openapi"
 import { z } from "zod"
 
 export const zStoreDiagnosticsData = z.object({
@@ -16,5 +14,3 @@ export const zStoreDiagnosticsData = z.object({
 		.array()
 })
 export type StoreDiagnosticsData = z.infer<typeof zStoreDiagnosticsData>
-
-export class StoreDiagnosticsDataDTO extends createZodDto(extendApi(zStoreDiagnosticsData)) {}

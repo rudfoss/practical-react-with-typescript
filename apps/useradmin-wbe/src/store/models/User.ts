@@ -1,5 +1,3 @@
-import { createZodDto } from "@anatine/zod-nestjs"
-import { extendApi } from "@anatine/zod-openapi"
 import { z } from "zod"
 
 export const zUser = z.object({
@@ -18,5 +16,3 @@ export const zUser = z.object({
 	disabledSince: z.string().datetime().optional()
 })
 export type User = z.infer<typeof zUser>
-
-export class UserDTO extends createZodDto(extendApi(zUser)) {}

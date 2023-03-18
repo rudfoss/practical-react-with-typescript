@@ -6,6 +6,8 @@
 		"start:wbe": "nx serve useradmin-wbe",
 		"start-wfe": "nx serve useradm-wfe",
 		"start": "nx run-many --target=serve --parallel=true ",
+		"lint": "nx affected --target=lint",
+		"test": "nx affected --target=test",
 		"init": "npm i"
 	},
 	"private": true,
@@ -21,6 +23,7 @@
 		"axios": "^1.0.0",
 		"date-fns": "^2.29.3",
 		"nanoid": "^3.3.4",
+		"openapi3-ts": "^3.2.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-router-dom": "^6.9.0",
