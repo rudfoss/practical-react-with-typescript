@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common"
 
+import { FileStore } from "./FileStore"
 import { GroupStore_Token } from "./GroupStore"
 import { InMemoryStore } from "./InMemoryStore"
-import { FileStore } from "./PersistedStore"
 import { StoreDiagnostics_Token } from "./StoreDiagnostics"
 import { UserStore_Token } from "./UserStore"
 

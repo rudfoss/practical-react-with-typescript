@@ -42,12 +42,21 @@ export class DataStore {
 	 * Loads data from a JSON representation into this object
 	 * @param data
 	 */
-	public fromJSON({ users = {}, groups = {}, userIdsByGroupId = {} }: Partial<RawDataStore>) {
-		for (const user of Object.values(users)) {
-			this.users.set(user.id, user)
+	public fromJSON(
+		{ users = {}, groups = {}, userIdsByGroupId = {} }: Partial<RawDataStore>,
+		replace = false
+	) {
+		if (replace) {
+			this.users.clear()
+			this.groups.clear()
+			this.userIdsByGroupId.clear()
 		}
+
 		for (const group of Object.values(groups)) {
 			this.groups.set(group.id, group)
+		}
+		for (const user of Object.values(users)) {
+			this.users.set(user.id, user)
 		}
 		for (const [groupId, members] of Object.entries(userIdsByGroupId)) {
 			const existingMembers = this.userIdsByGroupId.get(groupId) ?? new Set()

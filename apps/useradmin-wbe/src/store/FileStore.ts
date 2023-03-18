@@ -16,18 +16,19 @@ export class FileStore extends InMemoryStore {
 	public constructor() {
 		super()
 		this.logger.log(`Using persisted store to file "${this.filePath}"`)
+		this.tryLoadData()
 	}
 
-	public async loadPersistedData() {
+	public async tryLoadData() {
 		this.logger.log(`Try loading data from "${this.filePath}"`)
 		if (!(await fs.exists(this.filePath))) {
 			this.logger.log("File not found")
 			return
 		}
 
-		const rawDataStore: RawDataStore = await fs.readJson(this.filePath)
+		const rawDataStore: RawDataStore = JSON.parse(await fs.readJson(this.filePath))
 		this.logger.log("Try parsing data into store")
-		this.dataStore.fromJSON(rawDataStore)
+		this.dataStore.fromJSON(rawDataStore, true)
 	}
 
 	public async persist() {

@@ -3,12 +3,13 @@
 	"version": "0.0.0",
 	"license": "MIT",
 	"scripts": {
+		"init": "npm i",
 		"start:wbe": "nx serve useradmin-wbe",
 		"start-wfe": "nx serve useradm-wfe",
 		"start": "nx run-many --target=serve --parallel=true ",
 		"lint": "nx affected --target=lint",
 		"test": "nx affected --target=test",
-		"init": "npm i"
+		"clear-pesisted-data": "rimraf dist/apps/useradmin-wbe/useradmin-wbe-data.json"
 	},
 	"private": true,
 	"dependencies": {
@@ -71,6 +72,7 @@
 		"prettier": "^2.6.2",
 		"react-refresh": "^0.10.0",
 		"react-test-renderer": "18.2.0",
+		"rimraf": "^4.4.0",
 		"swc-loader": "0.1.15",
 		"ts-jest": "^29.0.5",
 		"ts-node": "10.9.1",

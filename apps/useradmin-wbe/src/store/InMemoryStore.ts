@@ -8,11 +8,7 @@ import { Group, GroupMemberships, StoreDiagnosticsData, User, UserMemberships } 
 
 @Injectable()
 export class InMemoryStore implements UserStore, GroupStore, StoreDiagnostics {
-	protected readonly dataStore: DataStore
-
-	constructor() {
-		this.dataStore = new DataStore()
-	}
+	protected readonly dataStore: DataStore = DataStore.fromMockData()
 
 	public async getUser(id: string) {
 		return this.dataStore.users.get(id)
