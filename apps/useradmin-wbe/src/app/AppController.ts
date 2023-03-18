@@ -6,7 +6,7 @@ import { UserAdminWBEReply } from "../RequestReply"
 import { StoreDiagnostics, StoreDiagnostics_Token } from "../store"
 
 @Controller()
-@ApiTags("UserAdmin-WBE")
+@ApiTags("WBE")
 export class AppController {
 	private _bootTime = new Date()
 

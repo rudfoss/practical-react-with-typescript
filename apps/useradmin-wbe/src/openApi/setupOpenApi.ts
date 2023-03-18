@@ -6,7 +6,7 @@ import description from "./openapi-description.md"
 
 export const setupOpenApi = (app: INestApplication) => {
 	const config = new DocumentBuilder()
-		.setTitle("Event Service")
+		.setTitle("UserAdmin Web-Back-End")
 		.setDescription(description)
 		.setVersion("1.0")
 		.setExternalDoc("OpenAPI JSON document", "./docs-json")
