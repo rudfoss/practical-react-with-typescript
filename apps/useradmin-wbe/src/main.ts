@@ -16,8 +16,6 @@ async function bootstrap() {
 	const { SwaggerModule, doc } = setupOpenApi(app)
 	SwaggerModule.setup("/docs", app, doc)
 
-	console.log({ enableAuth: process.env["PRT_ENABLE_AUTH"] })
-
 	const port = process.env.PORT || 4210
 	await app.listen(port, "0.0.0.0")
 	Logger.log(`🚀 Application is running on: http://localhost:${port}`)

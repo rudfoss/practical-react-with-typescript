@@ -3,15 +3,15 @@ import { Injectable } from "@nestjs/common"
 import { GroupStore } from "./GroupStore"
 import { StoreDiagnostics } from "./StoreDiagnostics"
 import { UserStore } from "./UserStore"
-import { DataStore, createDataStore } from "./data"
+import { DataStore } from "./data"
 import { Group, GroupMemberships, StoreDiagnosticsData, User, UserMemberships } from "./models"
 
 @Injectable()
 export class InMemoryStore implements UserStore, GroupStore, StoreDiagnostics {
-	public readonly dataStore: DataStore
+	protected readonly dataStore: DataStore
 
 	constructor() {
-		this.dataStore = createDataStore()
+		this.dataStore = new DataStore()
 	}
 
 	public async getUser(id: string) {
@@ -154,8 +154,9 @@ export class InMemoryStore implements UserStore, GroupStore, StoreDiagnostics {
 		}
 	}
 
-	private static _instance: InMemoryStore | undefined
+	private static _inMemoryStoreInstance: InMemoryStore | undefined
 	public static getSharedInstance() {
-		return (InMemoryStore._instance = InMemoryStore._instance ?? new InMemoryStore())
+		return (InMemoryStore._inMemoryStoreInstance =
+			InMemoryStore._inMemoryStoreInstance ?? new InMemoryStore())
 	}
 }

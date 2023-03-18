@@ -1,1 +1,1 @@
-export * from "./createDataStore"
+export * from "./DataStore"
