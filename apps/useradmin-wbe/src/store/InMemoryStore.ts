@@ -13,11 +13,17 @@ export class InMemoryStore implements UserStore, GroupStore, StoreDiagnostics {
 	public async getUser(id: string) {
 		return this.dataStore.users.get(id)
 	}
+	public async getUserByUserName(userName: string): Promise<User | undefined> {
+		return Array.from(this.dataStore.users.values()).find((user) => user.userName === userName)
+	}
 	public async getUsers() {
 		return this.dataStore.users.values()
 	}
 	public async getGroup(id: string) {
 		return this.dataStore.groups.get(id)
+	}
+	public async getGroupByName(name: string): Promise<Group | undefined> {
+		return Array.from(this.dataStore.groups.values()).find((group) => group.name === name)
 	}
 	public async getGroups() {
 		return this.dataStore.groups.values()
