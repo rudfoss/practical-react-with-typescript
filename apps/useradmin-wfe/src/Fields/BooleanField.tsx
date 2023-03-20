@@ -1,8 +1,10 @@
 import styled from "@emotion/styled"
 import { useId } from "react"
 
+import { Container } from "./fieldComponents"
+
 const Checkbox = styled.input`
-	margin: 8px;
+	margin-right: 8px;
 `
 const Label = styled.label`
 	font-size: 1.1rem;
@@ -22,9 +24,9 @@ export const BooleanField = ({ label, value, onChange }: BooleanFieldProps) => {
 	}
 
 	return (
-		<div>
+		<Container>
 			<Checkbox id={id} type="checkbox" checked={value} onChange={onCheckedChange} />
 			<Label htmlFor={id}>{label}</Label>
-		</div>
+		</Container>
 	)
 }
