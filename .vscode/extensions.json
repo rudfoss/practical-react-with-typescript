@@ -7,6 +7,7 @@
 		"eamodio.gitlens",
 		"mikerhyssmith.ts-barrelr",
 		"firsttris.vscode-jest-runner",
-		"heaths.vscode-guid"
+		"heaths.vscode-guid",
+		"styled-components.vscode-styled-components"
 	]
 }

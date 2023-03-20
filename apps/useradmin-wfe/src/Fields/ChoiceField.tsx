@@ -1,15 +1,23 @@
 import styled from "@emotion/styled"
 import { useId } from "react"
 
-import { Container, Input, Label } from "./fieldComponents"
+import { Container, Label } from "./fieldComponents"
 
-const Fieldset = Input.withComponent("fieldset")
+const RadioContainer = styled.div`
+	display: flex;
+	align-items: center;
+`
 
 const Radio = styled.input`
 	margin-right: 8px;
 `
 const RadioLabel = styled.label`
 	font-size: 1.1rem;
+	flex: 1 1 auto;
+	padding: 8px 0;
+	&:hover {
+		text-decoration: underline;
+	}
 `
 
 export interface ChoiceBase {
@@ -62,10 +70,10 @@ export const ChoiceField = <TChoice extends ChoiceBase>({
 		}
 
 	return (
-		<Fieldset>
+		<fieldset>
 			<legend>{label}</legend>
 			{choices.map((choice) => (
-				<Container key={choice.value}>
+				<RadioContainer key={choice.value}>
 					<Radio
 						id={`${id}-${choice.value}`}
 						type="radio"
@@ -74,8 +82,8 @@ export const ChoiceField = <TChoice extends ChoiceBase>({
 						onChange={onRadioChange(choice)}
 					/>
 					<RadioLabel htmlFor={`${id}-${choice.value}`}>{choice.label}</RadioLabel>
-				</Container>
+				</RadioContainer>
 			))}
-		</Fieldset>
+		</fieldset>
 	)
 }
