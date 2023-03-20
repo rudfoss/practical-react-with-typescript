@@ -1,7 +1,8 @@
 import { useState } from "react"
 
+import { TextField } from "../Fields"
+
 import { ClickUntil } from "./ClickUntil"
-import { TextField } from "./TextField"
 
 export interface CombinedTextFieldClickUntilProps {
 	limit?: number

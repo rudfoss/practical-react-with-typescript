@@ -1,18 +1,24 @@
-import { useId, useState } from "react"
+import { useId } from "react"
+
+import { Container, Input, Label } from "./fieldComponents"
 
 export interface TextFieldProps {
 	label: string
+	value: string
+	onChange: (newValue: string) => unknown
 }
 
-export const TextField = ({ label }: TextFieldProps) => {
+export const TextField = ({ label, value, onChange }: TextFieldProps) => {
 	const id = useId()
-	const [value, setValue] = useState("")
+
+	const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
+		onChange(evt.target.value)
+	}
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
-			<input id={id} type="text" value={value} onChange={(evt) => setValue(evt.target.value)} />
-			<p>{value}</p>
-		</div>
+		<Container>
+			<Label htmlFor={id}>{label}</Label>
+			<Input id={id} type="text" value={value} onChange={onValueChange} />
+		</Container>
 	)
 }

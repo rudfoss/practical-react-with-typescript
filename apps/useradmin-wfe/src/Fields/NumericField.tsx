@@ -1,5 +1,7 @@
 import { useId } from "react"
 
+import { Container, Input, Label } from "./fieldComponents"
+
 export interface NumericFieldProps {
 	label: string
 	value: number
@@ -26,15 +28,15 @@ export const NumericField = ({
 	}
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
-			<input
+		<Container>
+			<Label htmlFor={id}>{label}</Label>
+			<Input
 				min={min}
 				max={max}
 				type={useRange ? "range" : "number"}
 				value={value}
 				onChange={onValueChange}
 			/>
-		</div>
+		</Container>
 	)
 }

@@ -15,6 +15,8 @@
 	"dependencies": {
 		"@anatine/zod-nestjs": "^1.9.2",
 		"@anatine/zod-openapi": "^1.12.0",
+		"@emotion/react": "^11.10.6",
+		"@emotion/styled": "^11.10.6",
 		"@fastify/static": "^6.9.0",
 		"@nestjs/common": "^9.0.0",
 		"@nestjs/core": "^9.0.0",
@@ -24,6 +26,7 @@
 		"axios": "^1.0.0",
 		"date-fns": "^2.29.3",
 		"fs-extra": "^11.1.0",
+		"modern-normalize": "^1.1.0",
 		"nanoid": "^3.3.4",
 		"openapi3-ts": "^3.2.0",
 		"react": "18.2.0",
