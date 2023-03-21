@@ -11,6 +11,10 @@ export class AuthController {
 	public constructor(@Inject(UserStore_Token) protected readonly userStore: UserStore) {}
 
 	@Post()
+	@ApiOperation({
+		description:
+			"Given a user name and password will check whether that user exists and if so return an object with the user ID and name."
+	})
 	@HttpCode(200)
 	@ApiOkResponse({
 		type: LoginResponseDTO,
