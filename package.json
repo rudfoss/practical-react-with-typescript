@@ -23,6 +23,8 @@
 		"@nestjs/platform-express": "^9.0.0",
 		"@nestjs/platform-fastify": "^9.3.10",
 		"@nestjs/swagger": "^6.2.1",
+		"@tanstack/react-query": "^4.28.0",
+		"@tanstack/react-query-devtools": "^4.28.0",
 		"axios": "^1.0.0",
 		"date-fns": "^2.29.3",
 		"fs-extra": "^11.1.0",
