@@ -13,7 +13,7 @@ export class AuthController {
 	@Post()
 	@ApiOperation({
 		description:
-			"Given a user name and password will check whether that user exists and if so return an object with t"
+			"Given a user name and password will check whether that user exists and if so return an object with the user ID and name."
 	})
 	@HttpCode(200)
 	@ApiOkResponse({
