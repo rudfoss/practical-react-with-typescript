@@ -15,9 +15,7 @@
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
-		"paths": {
-			"@prt/utils": ["libs/utils/src/index.ts"]
-		}
+		"paths": {}
 	},
 	"exclude": ["node_modules", "tmp"]
 }
