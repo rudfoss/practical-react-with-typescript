@@ -3,7 +3,11 @@ import { useState } from "react"
 import { BooleanField } from "./BooleanField"
 import { TextField } from "./TextField"
 
-export const Form = () => {
+interface FormProps {
+	children: React.ReactNode
+}
+
+export const Form = ({ children }: FormProps) => {
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
 	const [address, setAddress] = useState("")
@@ -20,7 +24,7 @@ export const Form = () => {
 
 	return (
 		<>
-			<h1>Hello world</h1>
+			{children}
 			<TextField label="Fornavn" value={firstName} onChange={setFirstName} />
 			<TextField label="Etternavn" value={lastName} onChange={setLastName} />
 			<TextField label="Adresse" value={address} onChange={setAddress} />
