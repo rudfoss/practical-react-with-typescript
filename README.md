@@ -23,4 +23,4 @@ Install all dependencies
 npm i
 ```
 
-Open VSCode in the root folder and install recommended extensions. You can use a new profile in VSCode if you don't want to alter your existing extensions.
+Open VSCode in the root folder and install recommended extensions. You can use a new profile in VSCode if you don't want to alter your existing extensions. There is also a profile included with this repository here: `.vscode\practical-react.code-profile`
