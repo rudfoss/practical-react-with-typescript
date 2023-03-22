@@ -4,8 +4,9 @@ export const App = () => {
 	return (
 		<>
 			<h1>Hello world</h1>
-			<TextField />
-			<TextField />
+			<TextField label="Fornavn" />
+			<TextField label="Etternavn" />
+			<TextField label="Adresse" />
 		</>
 	)
 }
