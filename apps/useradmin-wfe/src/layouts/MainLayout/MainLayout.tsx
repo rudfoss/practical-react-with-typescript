@@ -14,7 +14,7 @@ const globalStyles = css`
 `
 
 const Sidebar = styled.div`
-	width: 250px;
+	width: 200px;
 `
 const Main = styled.main`
 	flex: 1 1 auto;
