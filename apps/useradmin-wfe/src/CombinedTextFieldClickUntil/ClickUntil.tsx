@@ -12,6 +12,9 @@ export const ClickUntil = ({ limit, children }: ClickUntilProps) => {
 	const increment = () => {
 		setCount((current) => current + 1)
 	}
+	const onReset = () => {
+		setCount(0)
+	}
 
 	return (
 		<div>
@@ -19,6 +22,7 @@ export const ClickUntil = ({ limit, children }: ClickUntilProps) => {
 				Click me
 			</button>
 			{isAtLimit ? children : <p>You have clicked the button {count}</p>}
+			<button onClick={onReset}>Reset</button>
 		</div>
 	)
 }
