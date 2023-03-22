@@ -1,8 +1,13 @@
+import { lazy } from "react"
 import { RouteObject, RouterProvider, createBrowserRouter } from "react-router-dom"
 
 import { Bootstrap } from "./Bootstrap"
-import { Fields } from "./Fields"
 import { MainLayout } from "./layouts"
+import { HomePage } from "./pages"
+
+const FieldsPage = lazy(async () => ({
+	default: (await import("./pages/FieldsPage")).FieldsPage
+}))
 
 const routes: RouteObject[] = [
 	{
@@ -15,7 +20,11 @@ const routes: RouteObject[] = [
 		children: [
 			{
 				index: true,
-				element: <Fields />
+				element: <HomePage />
+			},
+			{
+				path: "fields",
+				element: <FieldsPage />
 			}
 		]
 	}
