@@ -1,26 +1,23 @@
-import { useId, useState } from "react"
+import { useId } from "react"
 
 interface TextFieldProps {
 	label?: string
+	value: string
+	onChange: (newValue: string) => unknown
 }
 
-export const TextField = ({ label = "Missing label" }: TextFieldProps) => {
+export const TextField = ({ label = "Missing label", value, onChange }: TextFieldProps) => {
 	const id = useId()
-	const [textValue, setTextValue] = useState("")
 
 	const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
-		setTextValue(evt.target.value)
+		onChange(evt.target.value)
 	}
-	// const onClear = () => {
-	// 	setTextValue("")
-	// }
 
 	return (
 		<>
-			{/* <button onClick={onClear}>Clear</button> */}
 			<label htmlFor={id}>{label}</label>
-			<input type="text" id={id} value={textValue} onChange={onInputChange} />
-			<p>{textValue}</p>
+			<input type="text" id={id} value={value} onChange={onInputChange} />
+			<p>{value}</p>
 		</>
 	)
 }

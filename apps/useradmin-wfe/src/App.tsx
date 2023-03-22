@@ -1,12 +1,5 @@
-import { TextField } from "./TextField"
+import { Form } from "./Form"
 
 export const App = () => {
-	return (
-		<>
-			<h1>Hello world</h1>
-			<TextField label="Fornavn" />
-			<TextField label="Etternavn" />
-			<TextField label="Adresse" />
-		</>
-	)
+	return <Form />
 }
