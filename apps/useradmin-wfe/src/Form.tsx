@@ -2,6 +2,7 @@ import { useState } from "react"
 
 import { BooleanField } from "./BooleanField"
 import { Field } from "./Field"
+import { NumericField } from "./NumericField"
 import { TextField } from "./TextField"
 
 interface FormProps {
@@ -13,6 +14,7 @@ export const Form = ({ children }: FormProps) => {
 	const [lastName, setLastName] = useState("")
 	const [address, setAddress] = useState("")
 	const [isActive, setIsActive] = useState(false)
+	const [age, setAge] = useState(0)
 
 	const onSubmit = () => {
 		console.log({
@@ -33,6 +35,7 @@ export const Form = ({ children }: FormProps) => {
 			<TextField label="Etternavn" value={lastName} onChange={setLastName} />
 			<TextField label="Adresse" value={address} onChange={setAddress} />
 			<BooleanField label="Active" value={isActive} onChange={setIsActive} />
+			<NumericField label="Age" value={age} onChange={setAge} min={0} max={60} />
 			<button onClick={onSubmit}>Submit</button>
 		</>
 	)
