@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { TextField } from "../Fields"
+import { TextField } from "@prt/fields"
 
 import { ClickUntil } from "./ClickUntil"
 
