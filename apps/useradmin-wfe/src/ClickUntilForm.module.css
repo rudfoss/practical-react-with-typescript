@@ -1,0 +1,6 @@
+.frame {
+	border: 3px dashed hotpink;
+	border-radius: 3px;
+	margin: 4px;
+	padding: 4px;
+}
