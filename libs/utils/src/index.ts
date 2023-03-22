@@ -1,1 +1,1 @@
-export * from "./onInputChange"
+export * from "./slowDown"

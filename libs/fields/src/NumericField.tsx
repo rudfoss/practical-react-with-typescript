@@ -21,7 +21,7 @@ export const NumericField = ({
 	allowDecimals = false
 }: NumericFieldProps) => {
 	const id = useId()
-	const useRange = Math.abs(max - min) < 10 && !allowDecimals
+	const useRange = Math.abs(max - min) <= 50 && !allowDecimals
 
 	const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
 		onChange(evt.target.valueAsNumber)

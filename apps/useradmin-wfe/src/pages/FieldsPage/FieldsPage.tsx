@@ -2,6 +2,7 @@ import { useState } from "react"
 
 import { StaticUser, staticUsers } from "@prt/data"
 import { BooleanField, ChoiceBase, ChoiceField, NumericField, TextField } from "@prt/fields"
+import { SlowDown } from "@prt/utils"
 
 const userChoices = staticUsers.map((user): ChoiceBase & StaticUser => ({
 	...user,
@@ -20,6 +21,7 @@ export const FieldsPage = () => {
 
 	return (
 		<div>
+			<SlowDown factor={smallIntValue} />
 			<TextField label="Name" value={name} onChange={setName} />
 			<BooleanField
 				label="use radio buttons"
@@ -34,7 +36,12 @@ export const FieldsPage = () => {
 				onChange={setSelectedUser}
 			/>
 			<NumericField label="Integer input" value={intValue} onChange={setIntValue} />
-			<NumericField label="Small input" value={smallIntValue} onChange={setSmallIntValue} max={9} />
+			<NumericField
+				label="Small input"
+				value={smallIntValue}
+				onChange={setSmallIntValue}
+				max={43}
+			/>
 			<NumericField
 				label="Decimal value"
 				value={decimalValue}
