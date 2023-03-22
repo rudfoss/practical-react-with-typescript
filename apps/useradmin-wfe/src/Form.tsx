@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 import { BooleanField } from "./BooleanField"
+import { Field } from "./Field"
 import { TextField } from "./TextField"
 
 interface FormProps {
@@ -25,6 +26,9 @@ export const Form = ({ children }: FormProps) => {
 	return (
 		<>
 			{children}
+			<Field label="Dynamic field">
+				<input type="text" value={firstName} onChange={(evt) => setFirstName(evt.target.value)} />
+			</Field>
 			<TextField label="Fornavn" value={firstName} onChange={setFirstName} />
 			<TextField label="Etternavn" value={lastName} onChange={setLastName} />
 			<TextField label="Adresse" value={address} onChange={setAddress} />
