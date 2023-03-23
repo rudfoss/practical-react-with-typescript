@@ -5,7 +5,7 @@
 	"scripts": {
 		"init": "npm i",
 		"start:wbe": "nx serve useradmin-wbe",
-		"start-wfe": "nx serve useradmin-wfe",
+		"start:wfe": "nx serve useradmin-wfe",
 		"start": "nx run-many --target=serve --parallel=true ",
 		"lint": "nx affected --target=lint",
 		"test": "nx affected --target=test",
