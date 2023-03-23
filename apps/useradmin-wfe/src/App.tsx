@@ -1,11 +1,5 @@
-import { ListData } from "./ListData"
-import { staticGroups } from "./staticGroups"
+import { DisplayUsersTable } from "./UsersTable/DisplayUsersTable"
 
 export const App = () => {
-	return (
-		<>
-			<ListData groups={staticGroups} />
-			<ListData groups={staticGroups} />
-		</>
-	)
+	return <DisplayUsersTable />
 }
