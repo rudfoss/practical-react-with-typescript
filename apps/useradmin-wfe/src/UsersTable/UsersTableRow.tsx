@@ -6,19 +6,28 @@ import { User } from "./usersStatic"
 
 export interface UsersTableRowProps {
 	user: User
+	setUser: (newUser: User) => unknown
 }
 
-export const UsersTableRow = ({ user }: UsersTableRowProps) => {
-	const { userName, firstName: initialFirstName, lastName, email } = user
-	const [firstName, setFirstName] = useState(initialFirstName)
+export const UsersTableRow = ({ user, setUser }: UsersTableRowProps) => {
+	const { userName, firstName, lastName, email } = user
+
+	const setProperty = (propName: keyof User) => (newProperty: unknown) => {
+		setUser({
+			...user,
+			[propName]: newProperty
+		})
+	}
 
 	return (
 		<tr>
 			<td>{userName}</td>
 			<td>
-				<TextField label="First name" value={firstName} onChange={setFirstName} />
+				<TextField label="First name" value={firstName} onChange={setProperty("firstName")} />
 			</td>
-			<td>{lastName}</td>
+			<td>
+				<TextField label="Last name" value={lastName} onChange={setProperty("lastName")} />
+			</td>
 			<td>{email}</td>
 		</tr>
 	)

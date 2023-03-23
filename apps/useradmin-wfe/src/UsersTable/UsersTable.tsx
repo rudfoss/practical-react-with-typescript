@@ -10,7 +10,8 @@ export interface UsersTableProps {
 type SortableColumns = "userName" | "firstName" | "lastName" | "email"
 type SortDirection = "asc" | "desc"
 
-export const UsersTable = ({ users }: UsersTableProps) => {
+export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
+	const [users, setUsers] = useState(initialUsers)
 	const [sortByColumn, setSortByColumn] = useState<SortableColumns>("firstName")
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 	const sortDirectionIcon = sortDirection === "asc" ? "⏬" : "⏫"
@@ -41,6 +42,13 @@ export const UsersTable = ({ users }: UsersTableProps) => {
 		setSortByColumn(columnName)
 		setSortDirection("asc")
 	}
+	const setUser = (newUser: User) => {
+		const userIndexToUpdate = users.findIndex((aUser) => aUser.id === newUser.id)
+		if (userIndexToUpdate < 0) return
+		const newUsers = [...users]
+		newUsers.splice(userIndexToUpdate, 1, newUser)
+		setUsers(newUsers)
+	}
 
 	return (
 		<table>
@@ -60,7 +68,7 @@ export const UsersTable = ({ users }: UsersTableProps) => {
 			</thead>
 			<tbody>
 				{sortedUsers.map((user) => (
-					<UsersTableRow key={user.id} user={user} />
+					<UsersTableRow key={user.id} user={user} setUser={setUser} />
 				))}
 			</tbody>
 		</table>
