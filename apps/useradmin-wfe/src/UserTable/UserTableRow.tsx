@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { useState } from "react"
 
 import { StaticUser } from "@prt/data"
 import { TextField } from "@prt/fields"
@@ -10,15 +9,23 @@ const TD = styled.td`
 
 export interface UserTableRowProps {
 	user: StaticUser
+	setUser: (user: StaticUser) => unknown
 }
 
-export const UserTableRow = ({ user }: UserTableRowProps) => {
-	const { userName: initialUserName, firstName, lastName, email, age } = user
-	const [userName, setUserName] = useState(initialUserName)
+export const UserTableRow = ({ user, setUser }: UserTableRowProps) => {
+	const { userName, firstName, lastName, email } = user
+	const setFirstName = (newFirstName: string) => {
+		setUser({
+			...user,
+			firstName: newFirstName
+		})
+	}
+
 	return (
 		<tr>
+			<TD>{userName}</TD>
 			<TD>
-				<TextField label="User name" value={userName} onChange={setUserName} />
+				<TextField label="First Name" value={firstName} onChange={setFirstName} />
 			</TD>
 			<TD>{firstName}</TD>
 			<TD>{lastName}</TD>

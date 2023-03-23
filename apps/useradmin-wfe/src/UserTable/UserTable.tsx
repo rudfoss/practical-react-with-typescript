@@ -6,6 +6,7 @@ import { UserTableRow } from "./UserTableRow"
 
 export interface UserTableProps {
 	users: StaticUser[]
+	setUsers: (users: StaticUser[]) => unknown
 }
 
 type SortableColumns = "userName" | "firstName" | "lastName" | "email"
@@ -42,6 +43,19 @@ export const UserTable = ({ users: initialUsers }: UserTableProps) => {
 		setSortByColumn(column)
 		setSortDirection("asc")
 	}
+	const setUser = (user: StaticUser) => {
+		const userIndexToUpdate = initialUsers.findIndex((aUser) => aUser.id === user.id)
+		if (userIndexToUpdate < 0) return
+		const userToUpdate = initialUsers[userIndexToUpdate]
+		const newUser = {
+			...userToUpdate,
+			...user
+		}
+
+		const newUsers = initialUsers.slice(0)
+		newUsers.splice(userIndexToUpdate, 1, newUser)
+		setUsers(newUsers)
+	}
 
 	return (
 		<table>
@@ -62,7 +76,7 @@ export const UserTable = ({ users: initialUsers }: UserTableProps) => {
 			<tbody>
 				{sortedUsers.map((user) => (
 					<Fragment key={user.id}>
-						<UserTableRow user={user} />
+						<UserTableRow user={user} setUser={setUser} />
 					</Fragment>
 				))}
 			</tbody>
