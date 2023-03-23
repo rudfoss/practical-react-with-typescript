@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 import { TextField } from "../TextField"
 
 import { User } from "./usersStatic"
