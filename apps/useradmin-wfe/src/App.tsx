@@ -4,6 +4,7 @@ import { RouteObject, RouterProvider, createBrowserRouter } from "react-router-d
 import { Bootstrap } from "./Bootstrap"
 import { MainLayout } from "./layouts"
 import { HomePage } from "./pages"
+import { UsersPage } from "./pages/UsersPage"
 
 const FieldsPage = lazy(async () => ({
 	default: (await import("./pages/FieldsPage")).FieldsPage
@@ -25,6 +26,10 @@ const routes: RouteObject[] = [
 			{
 				path: "fields",
 				element: <FieldsPage />
+			},
+			{
+				path: "users",
+				element: <UsersPage />
 			}
 		]
 	}
