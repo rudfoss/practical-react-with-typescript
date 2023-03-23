@@ -1,12 +1,14 @@
 import { useState } from "react"
 
+import { useLocalStorage } from "./useLocalStorage"
+
 export interface ClickUntilProps {
 	limit: number
 	limitMessage: string
 }
 
 export const ClickUntil = ({ limitMessage, limit }: ClickUntilProps) => {
-	const [count, setCount] = useState(0)
+	const [count, setCount] = useLocalStorage("increment", 0)
 	const isAtLimit = count >= limit
 
 	const increment = () => {

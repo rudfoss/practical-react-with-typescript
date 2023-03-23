@@ -1,5 +1,5 @@
-import { DisplayUsersTable } from "./UsersTable/DisplayUsersTable"
+import { ClickUntilForm } from "./ClickUntilForm"
 
 export const App = () => {
-	return <DisplayUsersTable />
+	return <ClickUntilForm />
 }
