@@ -1,5 +1,6 @@
-import { ClickUntilForm } from "./ClickUntilForm"
+import { ListData } from "./ListData"
+import { staticGroups } from "./staticGroups"
 
 export const App = () => {
-	return <ClickUntilForm />
+	return <ListData groups={staticGroups} />
 }
