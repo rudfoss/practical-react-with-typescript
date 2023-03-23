@@ -1,7 +1,12 @@
+import styled from "@emotion/styled"
 import { useState } from "react"
 
 import { StaticUser } from "@prt/data"
 import { TextField } from "@prt/fields"
+
+const TD = styled.td`
+	border: 1px solid #000;
+`
 
 export interface UserTableRowProps {
 	user: StaticUser
@@ -12,12 +17,12 @@ export const UserTableRow = ({ user }: UserTableRowProps) => {
 	const [userName, setUserName] = useState(initialUserName)
 	return (
 		<tr>
-			<td>
+			<TD>
 				<TextField label="User name" value={userName} onChange={setUserName} />
-			</td>
-			<td>{firstName}</td>
-			<td>{lastName}</td>
-			<td>{email}</td>
+			</TD>
+			<TD>{firstName}</TD>
+			<TD>{lastName}</TD>
+			<TD>{email}</TD>
 		</tr>
 	)
 }
