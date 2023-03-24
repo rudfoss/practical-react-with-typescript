@@ -2,11 +2,11 @@
 	"React Component": {
 		"prefix": "react-component",
 		"body": [
-			"export interface ${1:name}Props {",
+			"export interface ${1:$TM_FILENAME_BASE}Props {",
 			"\t${0}",
 			"}",
 			"",
-			"export const ${1:name} = (props: ${1:name}Props) => {",
+			"export const ${1:$TM_FILENAME_BASE} = (props: ${1:$TM_FILENAME_BASE}Props) => {",
 			"\treturn ()",
 			"}"
 		],
