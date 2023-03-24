@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query"
-
 import { useUsers } from "@prt/data"
 
 import { UsersTable } from "./UsersTable"
