@@ -2,8 +2,6 @@ import { useMemo, useState } from "react"
 
 import { UserDTO } from "@prt/data"
 
-import { useRandom } from "../useRandom"
-
 import { UsersTableRow } from "./UsersTableRow"
 
 export interface UsersTableProps {
@@ -16,8 +14,6 @@ type SortDirection = "asc" | "desc"
 export const UsersTable = ({ users }: UsersTableProps) => {
 	const [sortByColumn, setSortByColumn] = useState<SortableColumns>("firstName")
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
-
-	const randomValue = useRandom(sortByColumn)
 
 	const sortDirectionIcon = sortDirection === "asc" ? "⏬" : "⏫"
 	const sortedUsers = useMemo(() => {
@@ -48,32 +44,27 @@ export const UsersTable = ({ users }: UsersTableProps) => {
 	}
 
 	return (
-		<>
-			<table>
-				<thead>
-					<tr>
-						<th onClick={sortBy("userName")}>
-							User name {sortByColumn === "userName" && sortDirectionIcon}
-						</th>
-						<th onClick={sortBy("firstName")}>
-							First name {sortByColumn === "firstName" && sortDirectionIcon}
-						</th>
-						<th onClick={sortBy("lastName")}>
-							Last name {sortByColumn === "lastName" && sortDirectionIcon}
-						</th>
-						<th onClick={sortBy("email")}>
-							E-mail {sortByColumn === "email" && sortDirectionIcon}
-						</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{sortedUsers.map((user) => (
-						<UsersTableRow key={user.id} user={user} />
-					))}
-				</tbody>
-			</table>
-			<p>Random value: {randomValue}</p>
-		</>
+		<table>
+			<thead>
+				<tr>
+					<th onClick={sortBy("userName")}>
+						User name {sortByColumn === "userName" && sortDirectionIcon}
+					</th>
+					<th onClick={sortBy("firstName")}>
+						First name {sortByColumn === "firstName" && sortDirectionIcon}
+					</th>
+					<th onClick={sortBy("lastName")}>
+						Last name {sortByColumn === "lastName" && sortDirectionIcon}
+					</th>
+					<th onClick={sortBy("email")}>E-mail {sortByColumn === "email" && sortDirectionIcon}</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{sortedUsers.map((user) => (
+					<UsersTableRow key={user.id} user={user} />
+				))}
+			</tbody>
+		</table>
 	)
 }
