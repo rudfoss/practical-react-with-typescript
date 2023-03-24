@@ -6,7 +6,7 @@ interface FieldDisablingServiceContextProps {
 }
 
 const FieldDisablingServiceContext = createContext<FieldDisablingServiceContextProps>({
-	isDisabled: true,
+	isDisabled: false,
 	setIsDisabled: () => ""
 })
 FieldDisablingServiceContext.displayName = "FieldDisablingServiceContext"
