@@ -1,4 +1,5 @@
 import { UserDTO, useDeleteUser } from "@prt/data"
+import { ConfirmDeleteButton } from "@prt/fields"
 
 export interface UsersTableRowProps {
 	user: UserDTO
@@ -19,9 +20,9 @@ export const UsersTableRow = ({ user }: UsersTableRowProps) => {
 			<td>{lastName}</td>
 			<td>{email}</td>
 			<td>
-				<button disabled={isLoading} onClick={deleteUser}>
+				<ConfirmDeleteButton disabled={isLoading} onClick={deleteUser}>
 					Delete
-				</button>
+				</ConfirmDeleteButton>
 			</td>
 		</tr>
 	)

@@ -1,4 +1,5 @@
 import { GroupDTO, useDeleteGroup } from "@prt/data"
+import { ConfirmDeleteButton } from "@prt/fields"
 
 export interface GroupsTableRowProps {
 	group: GroupDTO
@@ -18,9 +19,9 @@ export const GroupsTableRow = ({ group }: GroupsTableRowProps) => {
 			<td>{name}</td>
 			<td>{role}</td>
 			<td>
-				<button disabled={isLoading} onClick={deleteGroup}>
+				<ConfirmDeleteButton disabled={isLoading} onClick={deleteGroup}>
 					Delete
-				</button>
+				</ConfirmDeleteButton>
 			</td>
 		</tr>
 	)

@@ -1,4 +1,5 @@
 export * from "./BooleanField"
+export * from "./ConfirmDeleteButton"
 export * from "./FieldDisablingService"
 export * from "./NumericField"
 export * from "./TextField"
