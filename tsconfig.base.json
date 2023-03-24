@@ -17,7 +17,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@prt/data": ["libs/data/src/index.ts"],
-			"@prt/fields": ["libs/fields/src/index.ts"]
+			"@prt/fields": ["libs/fields/src/index.ts"],
+			"@prt/utils": ["libs/utils/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
