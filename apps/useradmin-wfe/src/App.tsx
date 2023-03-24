@@ -4,6 +4,7 @@ import { Link, RouterProvider, createBrowserRouter } from "react-router-dom"
 
 import { ProvideAPIClientsService } from "@prt/data"
 
+import { Form } from "./Form"
 import { DisplayGroupsTable } from "./GroupsTable"
 import { DisplayUsersTable } from "./UsersTable/DisplayUsersTable"
 import { MainLayout } from "./layouts/MainLayout/MainLayout"
@@ -42,7 +43,7 @@ export const App = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ProvideAPIClientsService baseUrl="http://localhost:4210">
-				<RouterProvider router={myRouter} />
+				<Form />
 				<ReactQueryDevtools />
 			</ProvideAPIClientsService>
 		</QueryClientProvider>

@@ -2,8 +2,7 @@ import { memo, useState } from "react"
 
 import { BooleanField, NumericField, TextField } from "@prt/fields"
 
-import { ClickUntilForm } from "./ClickUntilForm"
-import { Field } from "./Field"
+import { InBetween } from "./InBetween"
 
 export const Form = memo(() => {
 	const [firstName, setFirstName] = useState("")
@@ -23,12 +22,8 @@ export const Form = memo(() => {
 
 	return (
 		<>
-			<ClickUntilForm />
-			<Field label="Dynamic field">
-				<input type="text" value={firstName} onChange={(evt) => setFirstName(evt.target.value)} />
-			</Field>
 			<TextField label="Fornavn" value={firstName} onChange={setFirstName} />
-			<TextField label="Etternavn" value={lastName} onChange={setLastName} />
+			<InBetween lastName={lastName} setLastName={setLastName} />
 			<TextField label="Adresse" value={address} onChange={setAddress} />
 			<BooleanField label="Active" value={isActive} onChange={setIsActive} />
 			<NumericField label="Age" value={age} onChange={setAge} min={0} max={60} />
