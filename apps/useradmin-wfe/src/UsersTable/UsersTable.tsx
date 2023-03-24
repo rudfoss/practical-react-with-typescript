@@ -13,7 +13,7 @@ export interface UsersTableProps {
 type SortableColumns = "userName" | "firstName" | "lastName" | "email"
 type SortDirection = "asc" | "desc"
 
-export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
+export const UsersTable = ({ users }: UsersTableProps) => {
 	const [sortByColumn, setSortByColumn] = useState<SortableColumns>("firstName")
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 
@@ -21,7 +21,7 @@ export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
 
 	const sortDirectionIcon = sortDirection === "asc" ? "⏬" : "⏫"
 	const sortedUsers = useMemo(() => {
-		const usersToSort = initialUsers.slice(0)
+		const usersToSort = users.slice(0)
 		usersToSort.sort((a, b) => {
 			const columnFromA = a[sortByColumn] ?? ""
 			const columnFromB = b[sortByColumn] ?? ""
@@ -31,7 +31,7 @@ export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
 			return columnFromB.localeCompare(columnFromA)
 		})
 		return usersToSort
-	}, [initialUsers, sortByColumn, sortDirection])
+	}, [sortByColumn, sortDirection, users])
 
 	const sortBy = (columnName: SortableColumns) => () => {
 		if (columnName === sortByColumn) {
