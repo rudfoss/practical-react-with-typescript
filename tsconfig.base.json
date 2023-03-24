@@ -16,7 +16,9 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@prt/fields": ["libs/fields/src/index.ts"]
+			"@prt/data": ["libs/data/src/index.ts"],
+			"@prt/fields": ["libs/fields/src/index.ts"],
+			"@prt/services": ["libs/services/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

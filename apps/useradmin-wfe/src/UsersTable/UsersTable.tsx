@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react"
 
+import { User } from "@prt/data"
+
 import { useRandom } from "../useRandom"
 
 import { UsersTableRow } from "./UsersTableRow"
-import { User } from "./usersStatic"
 
 export interface UsersTableProps {
 	users: User[]

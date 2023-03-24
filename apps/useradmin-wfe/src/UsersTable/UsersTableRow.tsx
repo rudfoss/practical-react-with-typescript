@@ -1,6 +1,5 @@
+import { User } from "@prt/data"
 import { TextField } from "@prt/fields"
-
-import { User } from "./usersStatic"
 
 export interface UsersTableRowProps {
 	user: User

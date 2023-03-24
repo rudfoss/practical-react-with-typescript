@@ -1,14 +1,11 @@
-import { useState } from "react"
+import { memo, useState } from "react"
 
 import { BooleanField, NumericField, TextField } from "@prt/fields"
 
+import { ClickUntilForm } from "./ClickUntilForm"
 import { Field } from "./Field"
 
-interface FormProps {
-	children: React.ReactNode
-}
-
-export const Form = ({ children }: FormProps) => {
+export const Form = memo(() => {
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
 	const [address, setAddress] = useState("")
@@ -26,7 +23,7 @@ export const Form = ({ children }: FormProps) => {
 
 	return (
 		<>
-			{children}
+			<ClickUntilForm />
 			<Field label="Dynamic field">
 				<input type="text" value={firstName} onChange={(evt) => setFirstName(evt.target.value)} />
 			</Field>
@@ -38,4 +35,4 @@ export const Form = ({ children }: FormProps) => {
 			<button onClick={onSubmit}>Submit</button>
 		</>
 	)
-}
+})

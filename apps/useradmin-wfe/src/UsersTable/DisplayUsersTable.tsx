@@ -1,5 +1,6 @@
+import { usersStatic } from "@prt/data"
+
 import { UsersTable } from "./UsersTable"
-import { usersStatic } from "./usersStatic"
 
 export const DisplayUsersTable = () => {
 	return <UsersTable users={usersStatic} />
