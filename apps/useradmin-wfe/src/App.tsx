@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 import { ProvideAPIClientsService } from "@prt/data"
 
+import { DisplayGroupsTable } from "./GroupsTable"
 import { DisplayUsersTable } from "./UsersTable/DisplayUsersTable"
 
 const queryClient = new QueryClient({
@@ -18,6 +19,7 @@ export const App = () => {
 		<QueryClientProvider client={queryClient}>
 			<ProvideAPIClientsService baseUrl="http://localhost:4210">
 				<DisplayUsersTable />
+				<DisplayGroupsTable />
 				<ReactQueryDevtools />
 			</ProvideAPIClientsService>
 		</QueryClientProvider>

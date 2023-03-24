@@ -1,9 +1,10 @@
 import { createContext, useContext, useMemo } from "react"
 
-import { UsersControllerClient } from "./clients"
+import { GroupsControllerClient, UsersControllerClient } from "./clients"
 
 interface APIClientsServiceContextProps {
 	usersClient: UsersControllerClient
+	groupsClient: GroupsControllerClient
 }
 
 const APIClientsServiceContext = createContext<APIClientsServiceContextProps | undefined>(undefined)
@@ -23,7 +24,8 @@ export interface ProvideAPIClientsServiceProps {
 export const ProvideAPIClientsService = ({ baseUrl, children }: ProvideAPIClientsServiceProps) => {
 	const value = useMemo((): APIClientsServiceContextProps => {
 		return {
-			usersClient: new UsersControllerClient(baseUrl)
+			usersClient: new UsersControllerClient(baseUrl),
+			groupsClient: new GroupsControllerClient(baseUrl)
 		}
 	}, [baseUrl])
 
