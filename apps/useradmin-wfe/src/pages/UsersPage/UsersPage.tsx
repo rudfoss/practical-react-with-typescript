@@ -1,6 +1,4 @@
-import { useState } from "react"
-
-import { staticUsers, useUsers } from "@prt/data"
+import { useUsers } from "@prt/data"
 
 import { UserTable } from "../../UserTable"
 
