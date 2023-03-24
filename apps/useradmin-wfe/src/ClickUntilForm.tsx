@@ -1,9 +1,9 @@
 import styled from "@emotion/styled"
 import { useState } from "react"
 
+import { NumericField, TextField } from "@prt/fields"
+
 import { ClickUntil } from "./ClickUntil"
-import { NumericField } from "./NumericField"
-import { TextField } from "./TextField"
 
 interface ContainerProps {
 	borderSize: number

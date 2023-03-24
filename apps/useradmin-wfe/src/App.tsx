@@ -1,5 +1,9 @@
-import { ClickUntilForm } from "./ClickUntilForm"
+import { Form } from "./Form"
 
 export const App = () => {
-	return <ClickUntilForm />
+	return (
+		<Form>
+			<h1>Form</h1>
+		</Form>
+	)
 }

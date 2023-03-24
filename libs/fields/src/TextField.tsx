@@ -1,7 +1,5 @@
 import { useId } from "react"
 
-import { TextFieldValue } from "./TextFieldValue"
-
 interface TextFieldProps {
 	label?: string
 	className?: string
@@ -25,7 +23,6 @@ export const TextField = ({
 		<div className={className}>
 			<label htmlFor={id}>{label}</label>
 			<input type="text" id={id} value={value} onChange={onInputChange} />
-			<TextFieldValue value={value} />
 		</div>
 	)
 }
