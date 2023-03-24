@@ -1,16 +1,15 @@
-import { ProvideFieldDisablingService } from "@prt/fields"
-import { ProvideUserService } from "@prt/services"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
-import { DisableFields } from "./DisableFields"
-import { Form } from "./Form"
+import { DisplayUsersTable } from "./UsersTable/DisplayUsersTable"
+
+const queryClient = new QueryClient()
 
 export const App = () => {
 	return (
-		<ProvideUserService>
-			<ProvideFieldDisablingService>
-				<Form />
-				<DisableFields />
-			</ProvideFieldDisablingService>
-		</ProvideUserService>
+		<QueryClientProvider client={queryClient}>
+			<DisplayUsersTable />
+			<ReactQueryDevtools />
+		</QueryClientProvider>
 	)
 }

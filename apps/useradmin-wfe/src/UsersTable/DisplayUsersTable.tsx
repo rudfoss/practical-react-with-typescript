@@ -1,7 +1,15 @@
-import { usersStatic } from "@prt/data"
+import { useQuery } from "@tanstack/react-query"
+
+import { useUsers } from "@prt/data"
 
 import { UsersTable } from "./UsersTable"
 
 export const DisplayUsersTable = () => {
-	return <UsersTable users={usersStatic} />
+	const { data: users = [], isLoading } = useUsers()
+
+	if (isLoading) {
+		return <p>Loading...</p>
+	}
+
+	return <UsersTable users={users} />
 }
