@@ -1,4 +1,4 @@
-export const staticGroups = [
+export const groupsStatic = [
 	{
 		id: "25b60313-ee67-4d96-87f1-930647810d33",
 		name: "User",
@@ -25,7 +25,7 @@ export const staticGroups = [
 	}
 ]
 
-export type Group = (typeof staticGroups)[number]
+export type Group = (typeof groupsStatic)[number]
 
 // export interface Group {
 //   id: string

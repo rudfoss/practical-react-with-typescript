@@ -1,4 +1,4 @@
-import { Group } from "./staticGroups"
+import { Group } from "./groupsStatic"
 
 export interface ListDataItemProps {
 	group: Group

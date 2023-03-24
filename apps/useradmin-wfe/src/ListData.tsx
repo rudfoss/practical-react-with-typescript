@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 
 import { ListDataItem } from "./ListDataItem"
-import { Group } from "./staticGroups"
+import { Group } from "./groupsStatic"
 
 export interface ListDataProps {
 	groups: Group[]
