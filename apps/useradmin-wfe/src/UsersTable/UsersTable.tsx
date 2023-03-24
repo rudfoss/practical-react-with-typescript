@@ -14,7 +14,6 @@ type SortableColumns = "userName" | "firstName" | "lastName" | "email"
 type SortDirection = "asc" | "desc"
 
 export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
-	const [users, setUsers] = useState(initialUsers)
 	const [sortByColumn, setSortByColumn] = useState<SortableColumns>("firstName")
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 
@@ -22,7 +21,7 @@ export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
 
 	const sortDirectionIcon = sortDirection === "asc" ? "⏬" : "⏫"
 	const sortedUsers = useMemo(() => {
-		const usersToSort = users.slice(0)
+		const usersToSort = initialUsers.slice(0)
 		usersToSort.sort((a, b) => {
 			const columnFromA = a[sortByColumn]
 			const columnFromB = b[sortByColumn]
@@ -32,7 +31,7 @@ export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
 			return columnFromB.localeCompare(columnFromA)
 		})
 		return usersToSort
-	}, [users, sortByColumn, sortDirection])
+	}, [initialUsers, sortByColumn, sortDirection])
 
 	const sortBy = (columnName: SortableColumns) => () => {
 		if (columnName === sortByColumn) {
@@ -46,13 +45,6 @@ export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
 
 		setSortByColumn(columnName)
 		setSortDirection("asc")
-	}
-	const setUser = (newUser: User) => {
-		const userIndexToUpdate = users.findIndex((aUser) => aUser.id === newUser.id)
-		if (userIndexToUpdate < 0) return
-		const newUsers = [...users]
-		newUsers.splice(userIndexToUpdate, 1, newUser)
-		setUsers(newUsers)
 	}
 
 	return (
@@ -72,11 +64,12 @@ export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
 						<th onClick={sortBy("email")}>
 							E-mail {sortByColumn === "email" && sortDirectionIcon}
 						</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					{sortedUsers.map((user) => (
-						<UsersTableRow key={user.id} user={user} setUser={setUser} />
+						<UsersTableRow key={user.id} user={user} />
 					))}
 				</tbody>
 			</table>

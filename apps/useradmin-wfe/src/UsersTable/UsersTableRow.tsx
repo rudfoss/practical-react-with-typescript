@@ -1,31 +1,28 @@
-import { User } from "@prt/data"
-import { TextField } from "@prt/fields"
+import { User, useDeleteUser } from "@prt/data"
 
 export interface UsersTableRowProps {
 	user: User
-	setUser: (newUser: User) => unknown
 }
 
-export const UsersTableRow = ({ user, setUser }: UsersTableRowProps) => {
-	const { userName, firstName, lastName, email } = user
+export const UsersTableRow = ({ user }: UsersTableRowProps) => {
+	const { id, userName, firstName, lastName, email } = user
+	const { mutate: deleteUserById, isLoading } = useDeleteUser()
 
-	const setProperty = (propName: keyof User) => (newProperty: unknown) => {
-		setUser({
-			...user,
-			[propName]: newProperty
-		})
+	const deleteUser = () => {
+		deleteUserById(id)
 	}
 
 	return (
 		<tr>
 			<td>{userName}</td>
-			<td>
-				<TextField label="First name" value={firstName} onChange={setProperty("firstName")} />
-			</td>
-			<td>
-				<TextField label="Last name" value={lastName} onChange={setProperty("lastName")} />
-			</td>
+			<td>{firstName}</td>
+			<td>{lastName}</td>
 			<td>{email}</td>
+			<td>
+				<button disabled={isLoading} onClick={deleteUser}>
+					Delete
+				</button>
+			</td>
 		</tr>
 	)
 }
