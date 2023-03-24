@@ -14,6 +14,13 @@ export const useUsers = () => {
 		queryFn: () => usersClient.getUsers()
 	})
 }
+export const useUser = (userId: string) => {
+	const { usersClient } = useAPIClientsService()
+	return useQuery({
+		queryKey: usersKeys.byId(userId),
+		queryFn: () => usersClient.getUser(userId)
+	})
+}
 
 export const useDeleteUser = () => {
 	const queryClient = useQueryClient()

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import { UserDTO, useDeleteUser } from "@prt/data"
 import { ConfirmDeleteButton } from "@prt/fields"
 
@@ -15,7 +17,9 @@ export const UsersTableRow = ({ user }: UsersTableRowProps) => {
 
 	return (
 		<tr>
-			<td>{userName}</td>
+			<td>
+				<Link to={`/users/${id}`}>{userName}</Link>
+			</td>
 			<td>{firstName}</td>
 			<td>{lastName}</td>
 			<td>{email}</td>
