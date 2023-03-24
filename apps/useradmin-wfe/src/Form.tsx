@@ -1,9 +1,8 @@
 import { useState } from "react"
 
-import { BooleanField } from "./BooleanField"
+import { BooleanField, NumericField, TextField } from "@prt/fields"
+
 import { Field } from "./Field"
-import { NumericField } from "./NumericField"
-import { TextField } from "./TextField"
 
 interface FormProps {
 	children: React.ReactNode
