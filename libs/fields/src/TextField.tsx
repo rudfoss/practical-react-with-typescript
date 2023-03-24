@@ -1,5 +1,7 @@
 import { useId } from "react"
 
+import { useFieldDisablingService } from "./FieldDisablingService"
+
 interface TextFieldProps {
 	label?: string
 	className?: string
@@ -14,6 +16,7 @@ export const TextField = ({
 	onChange
 }: TextFieldProps) => {
 	const id = useId()
+	const { isDisabled } = useFieldDisablingService()
 
 	const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
 		onChange(evt.target.value)
@@ -22,7 +25,7 @@ export const TextField = ({
 	return (
 		<div className={className}>
 			<label htmlFor={id}>{label}</label>
-			<input type="text" id={id} value={value} onChange={onInputChange} />
+			<input type="text" id={id} value={value} onChange={onInputChange} disabled={isDisabled} />
 		</div>
 	)
 }

@@ -1,5 +1,7 @@
 import { useId } from "react"
 
+import { useFieldDisablingService } from "./FieldDisablingService"
+
 export interface BooleanFieldProps {
 	label: string
 	value: boolean
@@ -8,6 +10,7 @@ export interface BooleanFieldProps {
 
 export const BooleanField = ({ label, value, onChange }: BooleanFieldProps) => {
 	const id = useId()
+	const { isDisabled } = useFieldDisablingService()
 
 	const onCheckboxChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
 		onChange(evt.target.checked)
@@ -15,7 +18,13 @@ export const BooleanField = ({ label, value, onChange }: BooleanFieldProps) => {
 
 	return (
 		<div>
-			<input id={id} type="checkbox" checked={value} onChange={onCheckboxChange} />
+			<input
+				id={id}
+				type="checkbox"
+				disabled={isDisabled}
+				checked={value}
+				onChange={onCheckboxChange}
+			/>
 			<label htmlFor={id}>{label}</label>
 		</div>
 	)
