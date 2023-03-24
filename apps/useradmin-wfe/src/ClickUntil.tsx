@@ -1,6 +1,3 @@
-import { NumericField } from "@prt/fields"
-import { useUserService } from "@prt/services"
-
 import { useLocalStorage } from "./useLocalStorage"
 
 export interface ClickUntilProps {
@@ -10,7 +7,6 @@ export interface ClickUntilProps {
 
 export const ClickUntil = ({ limitMessage, limit }: ClickUntilProps) => {
 	const [count, setCount] = useLocalStorage("increment", 0)
-	const { user, userIndex, changeUserIndex } = useUserService()
 	const isAtLimit = count >= limit
 
 	const increment = () => {
@@ -22,17 +18,10 @@ export const ClickUntil = ({ limitMessage, limit }: ClickUntilProps) => {
 
 	return (
 		<>
-			<NumericField
-				label="Pick user"
-				value={userIndex}
-				onChange={changeUserIndex}
-				min={0}
-				max={9}
-			/>
 			<button disabled={isAtLimit} onClick={increment}>
 				Increment
 			</button>
-			<p>{isAtLimit ? limitMessage : `${user.firstName} clicked: ${count} time(s)`}</p>
+			<p>{isAtLimit ? limitMessage : `X clicked: ${count} time(s)`}</p>
 			<button onClick={reset}>Reset</button>
 		</>
 	)

@@ -1,7 +1,7 @@
-import { User, useDeleteUser } from "@prt/data"
+import { UserDTO, useDeleteUser } from "@prt/data"
 
 export interface UsersTableRowProps {
-	user: User
+	user: UserDTO
 }
 
 export const UsersTableRow = ({ user }: UsersTableRowProps) => {

@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react"
 
-import { User } from "@prt/data"
+import { UserDTO } from "@prt/data"
 
 import { useRandom } from "../useRandom"
 
 import { UsersTableRow } from "./UsersTableRow"
 
 export interface UsersTableProps {
-	users: User[]
+	users: UserDTO[]
 }
 
 type SortableColumns = "userName" | "firstName" | "lastName" | "email"
@@ -23,8 +23,8 @@ export const UsersTable = ({ users: initialUsers }: UsersTableProps) => {
 	const sortedUsers = useMemo(() => {
 		const usersToSort = initialUsers.slice(0)
 		usersToSort.sort((a, b) => {
-			const columnFromA = a[sortByColumn]
-			const columnFromB = b[sortByColumn]
+			const columnFromA = a[sortByColumn] ?? ""
+			const columnFromB = b[sortByColumn] ?? ""
 			if (sortDirection === "asc") {
 				return columnFromA.localeCompare(columnFromB)
 			}
