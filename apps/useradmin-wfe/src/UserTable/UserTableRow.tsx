@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 
-import { StaticUser } from "@prt/data"
+import { IUserDTO } from "@prt/clients"
 import { TextField } from "@prt/fields"
 
 const TD = styled.td`
@@ -8,8 +8,8 @@ const TD = styled.td`
 `
 
 export interface UserTableRowProps {
-	user: StaticUser
-	setUser: (user: StaticUser) => unknown
+	user: IUserDTO
+	setUser: (user: IUserDTO) => unknown
 }
 
 export const UserTableRow = ({ user, setUser }: UserTableRowProps) => {
@@ -25,7 +25,7 @@ export const UserTableRow = ({ user, setUser }: UserTableRowProps) => {
 		<tr>
 			<TD>{userName}</TD>
 			<TD>
-				<TextField label="First Name" value={firstName} onChange={setFirstName} />
+				<TextField label="First Name" value={firstName ?? ""} onChange={setFirstName} />
 			</TD>
 			<TD>{firstName}</TD>
 			<TD>{lastName}</TD>

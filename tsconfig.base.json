@@ -16,6 +16,7 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@prt/clients": ["libs/clients/src/index.ts"],
 			"@prt/data": ["libs/data/src/index.ts"],
 			"@prt/fields": ["libs/fields/src/index.ts"],
 			"@prt/utils": ["libs/utils/src/index.ts"]

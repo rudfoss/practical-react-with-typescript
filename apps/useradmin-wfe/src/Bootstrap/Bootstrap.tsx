@@ -1,3 +1,5 @@
+import { APIClientsProvider } from "@prt/data"
+
 import { BootstrapTanstackQuery } from "./BootstrapTanstackQuery"
 
 export interface BootstrapProps {
@@ -5,5 +7,9 @@ export interface BootstrapProps {
 }
 
 export const Bootstrap = ({ children }: BootstrapProps) => {
-	return <BootstrapTanstackQuery>{children}</BootstrapTanstackQuery>
+	return (
+		<BootstrapTanstackQuery>
+			<APIClientsProvider baseUrl="http://localhost:4210">{children}</APIClientsProvider>
+		</BootstrapTanstackQuery>
+	)
 }

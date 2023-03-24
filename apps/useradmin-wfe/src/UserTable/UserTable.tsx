@@ -1,12 +1,12 @@
 import { Fragment, useMemo, useState } from "react"
 
-import { StaticUser } from "@prt/data"
+import { IUserDTO } from "@prt/clients"
 
 import { UserTableRow } from "./UserTableRow"
 
 export interface UserTableProps {
-	users: StaticUser[]
-	setUsers: (users: StaticUser[]) => unknown
+	users: IUserDTO[]
+	setUsers?: (users: IUserDTO[]) => unknown
 }
 
 type SortableColumns = "userName" | "firstName" | "lastName" | "email"
@@ -19,8 +19,8 @@ export const UserTable = ({ users: initialUsers }: UserTableProps) => {
 	const sortedUsers = useMemo(() => {
 		const usersToSort = users.slice(0)
 		usersToSort.sort((a, b) => {
-			const propertyOnA = a[sortByColumn]
-			const propertyOnB = b[sortByColumn]
+			const propertyOnA = a[sortByColumn] ?? ""
+			const propertyOnB = b[sortByColumn] ?? ""
 			if (sortDirection === "asc") {
 				return propertyOnA.localeCompare(propertyOnB)
 			}
@@ -43,7 +43,7 @@ export const UserTable = ({ users: initialUsers }: UserTableProps) => {
 		setSortByColumn(column)
 		setSortDirection("asc")
 	}
-	const setUser = (user: StaticUser) => {
+	const setUser = (user: IUserDTO) => {
 		const userIndexToUpdate = initialUsers.findIndex((aUser) => aUser.id === user.id)
 		if (userIndexToUpdate < 0) return
 		const userToUpdate = initialUsers[userIndexToUpdate]
