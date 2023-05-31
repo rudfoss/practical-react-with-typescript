@@ -10,7 +10,6 @@ export const TextField = (props: TextFieldProps) => {
 	const id = useId()
 
 	const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
-		console.log("input changed", evt.target.value)
 		props.onChange(evt.target.value)
 	}
 
