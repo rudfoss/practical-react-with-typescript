@@ -2,25 +2,19 @@ import { useState } from "react"
 
 import { BooleanField } from "./BooleanField"
 import { ClickUntil } from "./ClickUntil"
+import { NumericField } from "./NumericField"
 import { TextField } from "./TextField"
 
 export const App = () => {
-	const [firstName, setFirstName] = useState("")
-	const [lastName, setLastName] = useState("")
-	const [isAdmin, setIsAdmin] = useState(false)
-	const [isDisabled, setIsDisabled] = useState(false)
+	const [numValue, setNumValue] = useState(0)
 
 	return (
-		<ClickUntil limit={10}>
-			<div>
-				<div>
-					<pre>
-						<code>Limit reached</code>
-					</pre>
-				</div>
-			</div>
-		</ClickUntil>
-
+		<NumericField
+			label="Numeric Value"
+			value={numValue}
+			onChange={setNumValue}
+			max={40}
+		/>
 		// <>
 		// 	<TextField label="First name" value={firstName} onChange={setFirstName} />
 		// 	<TextField label="Last name" value={lastName} onChange={setLastName} />
