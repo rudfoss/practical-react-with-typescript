@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 import { BooleanField } from "./BooleanField"
+import { ClickUntil } from "./ClickUntil"
 import { TextField } from "./TextField"
 
 export const App = () => {
@@ -10,19 +11,29 @@ export const App = () => {
 	const [isDisabled, setIsDisabled] = useState(false)
 
 	return (
-		<>
-			<TextField label="First name" value={firstName} onChange={setFirstName} />
-			<TextField label="Last name" value={lastName} onChange={setLastName} />
-			<BooleanField label="Make admin" value={isAdmin} onChange={setIsAdmin} />
-			<BooleanField
-				label="Disabled"
-				value={isDisabled}
-				onChange={setIsDisabled}
-			/>
-			<p>
-				Hi {isAdmin ? "admin" : ""} {firstName} {lastName}{" "}
-				{isDisabled ? "disabled" : ""}
-			</p>
-		</>
+		<ClickUntil limit={10}>
+			<div>
+				<div>
+					<pre>
+						<code>Limit reached</code>
+					</pre>
+				</div>
+			</div>
+		</ClickUntil>
+
+		// <>
+		// 	<TextField label="First name" value={firstName} onChange={setFirstName} />
+		// 	<TextField label="Last name" value={lastName} onChange={setLastName} />
+		// 	<BooleanField label="Make admin" value={isAdmin} onChange={setIsAdmin} />
+		// 	<BooleanField
+		// 		label="Disabled"
+		// 		value={isDisabled}
+		// 		onChange={setIsDisabled}
+		// 	/>
+		// 	<p>
+		// 		Hi {isAdmin ? "admin" : ""} {firstName} {lastName}{" "}
+		// 		{isDisabled ? "disabled" : ""}
+		// 	</p>
+		// </>
 	)
 }
