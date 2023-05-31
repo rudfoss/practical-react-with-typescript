@@ -1,12 +1,12 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nrwl/nx", "import"],
+	"plugins": ["@nx", "import"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
 			"rules": {
-				"@nrwl/nx/enforce-module-boundaries": [
+				"@nx/enforce-module-boundaries": [
 					"error",
 					{
 						"enforceBuildableLibDependency": true,
@@ -22,36 +22,30 @@
 				"import/order": [
 					"warn",
 					{
-						"groups": ["builtin", "external", "parent", ["sibling", "index", "internal"]],
-						"pathGroups": [{ "pattern": "@prt/**", "group": "parent", "position": "before" }],
+						"groups": [
+							"builtin",
+							"external",
+							"parent",
+							["sibling", "index", "internal"]
+						],
+						"pathGroups": [
+							{ "pattern": "@prwt/**", "group": "parent", "position": "before" }
+						],
 						"pathGroupsExcludedImportTypes": [],
 						"alphabetize": { "order": "asc", "caseInsensitive": false },
 						"newlines-between": "always"
-					}
-				],
-				"sort-imports": [
-					"warn",
-					{
-						"ignoreDeclarationSort": true
 					}
 				]
 			}
 		},
 		{
 			"files": ["*.ts", "*.tsx"],
-			"extends": ["plugin:@nrwl/nx/typescript"],
+			"extends": ["plugin:@nx/typescript"],
 			"rules": {}
 		},
 		{
 			"files": ["*.js", "*.jsx"],
-			"extends": ["plugin:@nrwl/nx/javascript"],
-			"rules": {}
-		},
-		{
-			"files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
-			"env": {
-				"jest": true
-			},
+			"extends": ["plugin:@nx/javascript"],
 			"rules": {}
 		}
 	]

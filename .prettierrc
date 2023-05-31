@@ -1,11 +1,7 @@
 {
+	"editorconfig": true,
 	"semi": false,
-	"singleQuote": false,
-	"tabWidth": 2,
-	"useTabs": true,
+	"arrowParens": "always",
 	"jsxSingleQuote": false,
-	"trailingComma": "none",
-	"printWidth": 100,
-	"endOfLine": "lf",
-	"arrowParens": "always"
+	"trailingComma": "none"
 }

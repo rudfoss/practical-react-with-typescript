@@ -1,18 +1,26 @@
 import { createContext, useContext, useMemo } from "react"
 
-import { GroupsControllerClient, UsersControllerClient } from "@prt/clients"
+import {
+	GroupsControllerClient,
+	UsersControllerClient
+} from "@prwt/useradmin-wbe-client"
+
+export * from "@prwt/useradmin-wbe-client"
 
 interface APIClientsContextProps {
 	usersClient: UsersControllerClient
 	groupsClient: GroupsControllerClient
 }
 
-const APIClientsContext = createContext<APIClientsContextProps | undefined>(undefined)
+const APIClientsContext = createContext<APIClientsContextProps | undefined>(
+	undefined
+)
 APIClientsContext.displayName = "APIClientsContext"
 
 export const useAPIClients = () => {
 	const ctx = useContext(APIClientsContext)
-	if (!ctx) throw new Error("Cannot use APIClientsContext before it is provided.")
+	if (!ctx)
+		throw new Error("Cannot use APIClientsContext before it is provided.")
 	return ctx
 }
 
@@ -21,7 +29,10 @@ export interface APIClientsProviderProps {
 	children: React.ReactNode
 }
 
-export const APIClientsProvider = ({ baseUrl = "/", children }: APIClientsProviderProps) => {
+export const APIClientsProvider = ({
+	baseUrl = "/",
+	children
+}: APIClientsProviderProps) => {
 	const apiClients = useMemo((): APIClientsContextProps => {
 		return {
 			usersClient: new UsersControllerClient(baseUrl),
@@ -29,5 +40,9 @@ export const APIClientsProvider = ({ baseUrl = "/", children }: APIClientsProvid
 		}
 	}, [baseUrl])
 
-	return <APIClientsContext.Provider value={apiClients}>{children}</APIClientsContext.Provider>
+	return (
+		<APIClientsContext.Provider value={apiClients}>
+			{children}
+		</APIClientsContext.Provider>
+	)
 }

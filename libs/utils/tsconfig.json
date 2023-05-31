@@ -1,13 +1,12 @@
 {
-	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"module": "ESNext",
-		"forceConsistentCasingInFileNames": true,
+		"jsx": "react-jsx",
+		"allowJs": false,
+		"esModuleInterop": false,
+		"allowSyntheticDefaultImports": true,
 		"strict": true,
-		"noImplicitOverride": true,
-		"noPropertyAccessFromIndexSignature": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true
+		"jsxImportSource": "@emotion/react",
+		"types": ["vitest"]
 	},
 	"files": [],
 	"include": [],
@@ -18,5 +17,6 @@
 		{
 			"path": "./tsconfig.spec.json"
 		}
-	]
+	],
+	"extends": "../../tsconfig.base.json"
 }
