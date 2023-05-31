@@ -8,14 +8,21 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"importHelpers": true,
-		"target": "ESNext",
+		"target": "es2015",
 		"module": "esnext",
-		"lib": ["ES2022", "dom"],
+		"lib": ["es2020", "dom"],
 		"strict": true,
 		"skipLibCheck": true,
+		"downlevelIteration": true,
+		"esModuleInterop": true,
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
-		"paths": {}
+		"paths": {
+			"@prwt/data": ["libs/data/src/index.ts"],
+			"@prwt/fields": ["libs/fields/src/index.ts"],
+			"@prwt/useradmin-wbe-client": ["libs/useradmin-wbe-client/src/index.ts"],
+			"@prwt/utils": ["libs/utils/src/index.ts"]
+		}
 	},
 	"exclude": ["node_modules", "tmp"]
 }

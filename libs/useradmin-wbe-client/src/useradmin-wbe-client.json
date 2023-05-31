@@ -1,0 +1,570 @@
+{
+	"openapi": "3.0.0",
+	"paths": {
+		"/health": {
+			"get": {
+				"operationId": "AppController_getHealth",
+				"parameters": [],
+				"responses": { "200": { "description": "" } },
+				"tags": ["WBE"]
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"operationId": "UsersController_getUser",
+				"summary": "",
+				"description": "Get a specific user based on their ID",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/UserDTO" }
+							}
+						}
+					},
+					"404": { "description": "No user with this ID exists" }
+				},
+				"tags": ["Users"]
+			},
+			"delete": {
+				"operationId": "UsersController_deleteUser",
+				"summary": "",
+				"description": "Delete a specific user",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The deleted user",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/UserDTO" }
+							}
+						}
+					},
+					"404": { "description": "No user with the given id exists" }
+				},
+				"tags": ["Users"]
+			}
+		},
+		"/users": {
+			"get": {
+				"operationId": "UsersController_getUsers",
+				"summary": "",
+				"description": "Get all users in the system",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "The user",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/UserDTO" }
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Users"]
+			},
+			"post": {
+				"operationId": "UsersController_createUser",
+				"summary": "",
+				"description": "Create a new user with a new ID",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/UserWithoutIDDTO" }
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "The newly created user",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/UserDTO" }
+							}
+						}
+					}
+				},
+				"tags": ["Users"]
+			},
+			"put": {
+				"operationId": "UsersController_updateUser",
+				"summary": "",
+				"description": "Update an existing user.",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/UserDTO" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The updated user",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/UserDTO" }
+							}
+						}
+					},
+					"404": { "description": "No user with the given ID exists" }
+				},
+				"tags": ["Users"]
+			}
+		},
+		"/users/{id}/memberships": {
+			"get": {
+				"operationId": "UsersController_getUserMemberships",
+				"summary": "",
+				"description": "Get all memberships for the user",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "All memberships for the current user",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GroupIdsDTO" }
+							}
+						}
+					},
+					"404": { "description": "No user exists with the specified id" }
+				},
+				"tags": ["Users"]
+			},
+			"put": {
+				"operationId": "UsersController_setUserMemberships",
+				"summary": "",
+				"description": "Set user memberships to the specified group ids",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/GroupIdsDTO" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The new memberships for the user",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/UserMembershipsDTO" }
+							}
+						}
+					}
+				},
+				"tags": ["Users"]
+			}
+		},
+		"/groups/{id}": {
+			"get": {
+				"operationId": "GroupsController_getGroup",
+				"summary": "",
+				"description": "Get a specific group based on their ID",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GroupDTO" }
+							}
+						}
+					},
+					"404": { "description": "No group with this ID exists" }
+				},
+				"tags": ["Groups"]
+			},
+			"delete": {
+				"operationId": "GroupsController_deleteGroup",
+				"summary": "",
+				"description": "Delete a specific group",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The deleted group",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GroupDTO" }
+							}
+						}
+					},
+					"404": { "description": "No group with the given id exists" }
+				},
+				"tags": ["Groups"]
+			}
+		},
+		"/groups": {
+			"get": {
+				"operationId": "GroupsController_getGroups",
+				"summary": "",
+				"description": "Get all groups in the system",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "All groups",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/GroupDTO" }
+								}
+							}
+						}
+					}
+				},
+				"tags": ["Groups"]
+			},
+			"post": {
+				"operationId": "GroupsController_createGroup",
+				"summary": "",
+				"description": "Create a new group with a new ID",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/GroupWithoutIDDTO" }
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "The newly created group",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GroupDTO" }
+							}
+						}
+					}
+				},
+				"tags": ["Groups"]
+			},
+			"put": {
+				"operationId": "GroupsController_updateGroup",
+				"summary": "",
+				"description": "Update an existing group.",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/GroupDTO" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The updated group",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GroupDTO" }
+							}
+						}
+					},
+					"404": { "description": "No group with the given ID exists" }
+				},
+				"tags": ["Groups"]
+			}
+		},
+		"/groups/{id}/members": {
+			"get": {
+				"operationId": "GroupsController_getMembers",
+				"summary": "",
+				"description": "Get all members of a specific group.",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "User ids for all members of the group.",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/UserIdsDTO" }
+							}
+						}
+					},
+					"404": { "description": "No group exists with the specified id." }
+				},
+				"tags": ["Groups"]
+			},
+			"put": {
+				"operationId": "GroupsController_setMembers",
+				"summary": "",
+				"description": "Set members of the specific group",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/UserIdsDTO" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The new members of the group",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GroupMembershipsDTO" }
+							}
+						}
+					}
+				},
+				"tags": ["Groups"]
+			}
+		},
+		"/auth": {
+			"post": {
+				"operationId": "AuthController_auth",
+				"summary": "",
+				"description": "Given a user name and password will check whether that user exists and if so return an object with the user ID and name.",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/AuthDTO" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The userName and password to attempt to log in",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/AuthResponseDTO" }
+							}
+						}
+					},
+					"401": { "description": "UserName or password incorrect" }
+				},
+				"tags": ["Auth"]
+			}
+		}
+	},
+	"info": {
+		"title": "UserAdmin Web-Back-End",
+		"description": "A very basic user-management server that stores data in-memory.\n",
+		"version": "1.0",
+		"contact": {
+			"name": "Practical React with Typescript",
+			"url": "https://github.com/rudfoss/practical-react-with-typescript",
+			"email": "thomas.rudfoss@bouvet.no"
+		}
+	},
+	"tags": [],
+	"servers": [],
+	"components": {
+		"schemas": {
+			"UserDTO": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "minLength": 8 },
+					"userName": { "type": "string", "minLength": 2 },
+					"password": {
+						"type": "string",
+						"minLength": 6,
+						"maxLength": 64,
+						"description": "A password between 6-64 characters"
+					},
+					"firstName": { "type": "string" },
+					"lastName": { "type": "string" },
+					"email": { "type": "string", "format": "email" },
+					"age": { "type": "number" },
+					"comments": { "type": "string" },
+					"disabled": { "type": "boolean" },
+					"disabledSince": { "type": "string", "format": "date-time" }
+				},
+				"required": ["id", "userName", "password"]
+			},
+			"UserWithoutIDDTO": {
+				"type": "object",
+				"properties": {
+					"userName": { "type": "string", "minLength": 2 },
+					"password": {
+						"type": "string",
+						"minLength": 6,
+						"maxLength": 64,
+						"description": "A password between 6-64 characters"
+					},
+					"firstName": { "type": "string" },
+					"lastName": { "type": "string" },
+					"email": { "type": "string", "format": "email" },
+					"age": { "type": "number" },
+					"comments": { "type": "string" },
+					"disabled": { "type": "boolean" },
+					"disabledSince": { "type": "string", "format": "date-time" }
+				},
+				"required": ["userName", "password"]
+			},
+			"GroupIdsDTO": { "type": "array", "items": { "type": "string" } },
+			"UserMembershipsDTO": {
+				"type": "object",
+				"properties": {
+					"user": {
+						"type": "object",
+						"properties": {
+							"id": { "type": "string", "minLength": 8 },
+							"userName": { "type": "string", "minLength": 2 },
+							"password": {
+								"type": "string",
+								"minLength": 6,
+								"maxLength": 64,
+								"description": "A password between 6-64 characters"
+							},
+							"firstName": { "type": "string" },
+							"lastName": { "type": "string" },
+							"email": { "type": "string", "format": "email" },
+							"age": { "type": "number" },
+							"comments": { "type": "string" },
+							"disabled": { "type": "boolean" },
+							"disabledSince": { "type": "string", "format": "date-time" }
+						},
+						"required": ["id", "userName", "password"]
+					},
+					"memberOfIds": {
+						"type": "array",
+						"items": { "type": "string" },
+						"description": "Group ids of groups this user is a member of"
+					}
+				},
+				"required": ["user", "memberOfIds"]
+			},
+			"GroupDTO": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "minLength": 8 },
+					"name": { "type": "string", "minLength": 2 },
+					"role": {
+						"type": "string",
+						"enum": ["guest", "user", "userAdmin", "groupAdmin"]
+					},
+					"description": { "type": "string" }
+				},
+				"required": ["id", "name", "role"]
+			},
+			"GroupWithoutIDDTO": {
+				"type": "object",
+				"properties": {
+					"name": { "type": "string", "minLength": 2 },
+					"role": {
+						"type": "string",
+						"enum": ["guest", "user", "userAdmin", "groupAdmin"]
+					},
+					"description": { "type": "string" }
+				},
+				"required": ["name", "role"]
+			},
+			"UserIdsDTO": { "type": "array", "items": { "type": "string" } },
+			"GroupMembershipsDTO": {
+				"type": "object",
+				"properties": {
+					"group": {
+						"type": "object",
+						"properties": {
+							"id": { "type": "string", "minLength": 8 },
+							"name": { "type": "string", "minLength": 2 },
+							"role": {
+								"type": "string",
+								"enum": ["guest", "user", "userAdmin", "groupAdmin"]
+							},
+							"description": { "type": "string" }
+						},
+						"required": ["id", "name", "role"]
+					},
+					"memberIds": {
+						"type": "array",
+						"items": { "type": "string" },
+						"description": "User ids of users that are members of this group."
+					}
+				},
+				"required": ["group", "memberIds"]
+			},
+			"AuthDTO": {
+				"type": "object",
+				"properties": {
+					"userName": { "type": "string", "minLength": 1, "maxLength": 64 },
+					"password": { "type": "string", "minLength": 1, "maxLength": 64 }
+				},
+				"required": ["userName", "password"]
+			},
+			"AuthResponseDTO": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string" },
+					"userName": { "type": "string" },
+					"authenticated": { "type": "boolean", "enum": [true] }
+				},
+				"required": ["id", "userName", "authenticated"]
+			}
+		}
+	},
+	"externalDocs": {
+		"description": "OpenAPI JSON document",
+		"url": "./docs-json"
+	}
+}

@@ -17,10 +17,10 @@ Clone the code from the repository here: https://github.com/rudfoss/practical-re
 git clone https://github.com/rudfoss/practical-react-with-typescript.git
 ```
 
-Install all dependencies
+Initialize the repository locally by running this npm script in the root folder:
 
 ```bash
-npm i
+npm run init
 ```
 
-Open VSCode in the root folder and install recommended extensions. You can use a new profile in VSCode if you don't want to alter your existing extensions. There is also a profile included with this repository here: `.vscode\practical-react.code-profile`
+You can now open VSCode in the repository folder. The repository comes with a set of recommended extensions and settings. You can install these when prompted by VSCode or by going to the `Extensions` panel and searching for `@recommended`. You can also swich to the included VSCode Profile which also includes the recommended extensions automatically. To switch profile click the ⚙ icon at the bottom left and select "Profile" -> "Import Profile". The profile is located here: `.vscode\practical-react.code-profile`.

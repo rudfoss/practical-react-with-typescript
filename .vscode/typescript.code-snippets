@@ -2,14 +2,44 @@
 	"React Component": {
 		"prefix": "react-component",
 		"body": [
-			"export interface ${1:name}Props {",
+			"export interface ${1:$TM_FILENAME_BASE}Props {",
 			"\t${0}",
 			"}",
 			"",
-			"export const ${1:name} = (props: ${1:name}Props) => {",
+			"export const ${1:$TM_FILENAME_BASE} = (props: ${1:$TM_FILENAME_BASE}Props) => {",
 			"\treturn ()",
 			"}"
 		],
 		"description": "Log output to console"
+	},
+	"React Service": {
+		"prefix": "react-service",
+		"body": [
+			"import { createContext, useContext, useMemo } from \"react\"",
+			"",
+			"interface ${1:$TM_FILENAME_BASE}ContextProps {",
+			"\t${0}",
+			"}",
+			"",
+			"const ${1:$TM_FILENAME_BASE}Context = createContext<${1:$TM_FILENAME_BASE}ContextProps | undefined>(undefined)",
+			"${1:$TM_FILENAME_BASE}Context.displayName = \"${1:$TM_FILENAME_BASE}Context\"",
+			"",
+			"export const use${1:$TM_FILENAME_BASE} = () => {",
+			"\tconst ctx = useContext(${1:$TM_FILENAME_BASE}Context)",
+			"\tif (!ctx) throw new Error(\"${1:$TM_FILENAME_BASE} must be provided before use\")",
+			"\treturn ctx",
+			"}",
+			"",
+			"export interface Provide${1:$TM_FILENAME_BASE}Props {",
+			"\tchildren: React.ReactNode",
+			"}",
+			"",
+			"export const Provide${1:$TM_FILENAME_BASE} = ({children}: Provide${1:$TM_FILENAME_BASE}Props) => {",
+			"\tconst value = useMemo((): ${1:$TM_FILENAME_BASE}ContextProps => {",
+			"\t\treturn {}",
+			"\t}, [])",
+			"\treturn <${1:$TM_FILENAME_BASE}Context.Provider value={value}>{children}</${1:$TM_FILENAME_BASE}Context.Provider>",
+			"}"
+		]
 	}
 }

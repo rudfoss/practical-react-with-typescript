@@ -22,7 +22,7 @@ export class FileStore extends InMemoryStore {
 	public async tryLoadData() {
 		this.logger.log(`Try loading data from "${this.filePath}"`)
 		if (!(await fs.exists(this.filePath))) {
-			this.logger.log("File not found")
+			this.logger.log(`File not found "${this.filePath}"`)
 			return
 		}
 

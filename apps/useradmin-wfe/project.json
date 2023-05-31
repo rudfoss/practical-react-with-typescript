@@ -5,48 +5,31 @@
 	"projectType": "application",
 	"targets": {
 		"build": {
-			"executor": "@nrwl/webpack:webpack",
+			"executor": "@nx/vite:build",
 			"outputs": ["{options.outputPath}"],
 			"defaultConfiguration": "production",
 			"options": {
-				"compiler": "swc",
-				"outputPath": "dist/apps/useradmin-wfe",
-				"index": "apps/useradmin-wfe/src/index.html",
-				"baseHref": "/",
-				"main": "apps/useradmin-wfe/src/main.tsx",
-				"tsConfig": "apps/useradmin-wfe/tsconfig.app.json",
-				"assets": ["apps/useradmin-wfe/src/favicon.ico"],
-				"scripts": [],
-				"isolatedConfig": true,
-				"webpackConfig": "apps/useradmin-wfe/webpack.config.js"
+				"outputPath": "dist/apps/useradmin-wfe"
 			},
 			"configurations": {
 				"development": {
-					"extractLicenses": false,
-					"optimization": false,
-					"sourceMap": true,
-					"vendorChunk": true
+					"mode": "development"
 				},
 				"production": {
-					"optimization": true,
-					"outputHashing": "all",
-					"sourceMap": false,
-					"namedChunks": false,
-					"extractLicenses": true,
-					"vendorChunk": false
+					"mode": "production"
 				}
 			}
 		},
 		"serve": {
-			"executor": "@nrwl/webpack:dev-server",
+			"executor": "@nx/vite:dev-server",
 			"defaultConfiguration": "development",
 			"options": {
-				"buildTarget": "useradmin-wfe:build",
-				"hmr": true
+				"buildTarget": "useradmin-wfe:build"
 			},
 			"configurations": {
 				"development": {
-					"buildTarget": "useradmin-wfe:build:development"
+					"buildTarget": "useradmin-wfe:build:development",
+					"hmr": true
 				},
 				"production": {
 					"buildTarget": "useradmin-wfe:build:production",
@@ -54,25 +37,34 @@
 				}
 			}
 		},
-		"lint": {
-			"executor": "@nrwl/linter:eslint",
-			"outputs": ["{options.outputFile}"],
+		"preview": {
+			"executor": "@nx/vite:preview-server",
+			"defaultConfiguration": "development",
 			"options": {
-				"lintFilePatterns": ["apps/useradmin-wfe/**/*.{ts,tsx,js,jsx}"]
+				"buildTarget": "useradmin-wfe:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "useradmin-wfe:build:development"
+				},
+				"production": {
+					"buildTarget": "useradmin-wfe:build:production"
+				}
 			}
 		},
 		"test": {
-			"executor": "@nrwl/jest:jest",
-			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"executor": "@nx/vite:test",
+			"outputs": ["coverage/apps/useradmin-wfe"],
 			"options": {
-				"jestConfig": "apps/useradmin-wfe/jest.config.ts",
-				"passWithNoTests": true
-			},
-			"configurations": {
-				"ci": {
-					"ci": true,
-					"codeCoverage": true
-				}
+				"passWithNoTests": true,
+				"reportsDirectory": "../../coverage/apps/useradmin-wfe"
+			}
+		},
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/useradmin-wfe/**/*.{ts,tsx,js,jsx}"]
 			}
 		}
 	},

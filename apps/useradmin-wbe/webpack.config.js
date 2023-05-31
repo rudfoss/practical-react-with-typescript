@@ -1,6 +1,6 @@
 const path = require("node:path")
 
-const { composePlugins, withNx } = require("@nrwl/webpack")
+const { composePlugins, withNx } = require("@nx/webpack")
 
 // Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
@@ -16,7 +16,5 @@ module.exports = composePlugins(withNx(), (config) => {
 		return `webpack:///./${rel}`
 	}
 
-	// Update the webpack config as needed here.
-	// e.g. `config.plugins.push(new MyPlugin())`
 	return config
 })
