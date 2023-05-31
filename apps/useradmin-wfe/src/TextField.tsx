@@ -8,10 +8,20 @@ export const TextField = () => {
 		setInputValue(evt.target.value)
 	}
 
+	const clearField = () => {
+		setInputValue("")
+	}
+
 	return (
 		<>
 			<label htmlFor="text-field">Text field</label>
-			<input id="text-field" type="text" onChange={onInputChange} />
+			<input
+				id="text-field"
+				type="text"
+				value={inputValue}
+				onChange={onInputChange}
+			/>
+			<button onClick={clearField}>Clear</button>
 			<p>{inputValue}</p>
 		</>
 	)
