@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react"
+
+import { TextField } from "./TextField"
 import { User } from "./staticUser"
 
 export interface UserDetailsProps {
@@ -6,23 +9,47 @@ export interface UserDetailsProps {
 }
 
 export const UserDetails = ({ user, onSave }: UserDetailsProps) => {
-	const clearFirstName = () => {
+	const [firstName, setFirstName] = useState(user.firstName)
+	const [lastName, setLastName] = useState(user.lastName)
+
+	useEffect(() => {
+		setFirstName(user.firstName)
+		setLastName(user.lastName)
+	}, [user])
+
+	const saveUser = () => {
 		onSave({
 			...user,
-			firstName: ""
+			firstName,
+			lastName
 		})
 	}
 
 	return (
-		<dl>
-			<dt>User name</dt>
-			<dd>{user.userName}</dd>
-			<dt>Id</dt>
-			<dd>{user.id}</dd>
-			<dt onClick={clearFirstName}>First name</dt>
-			<dd>{user.firstName}</dd>
-			<dt>Last name</dt>
-			<dd>{user.lastName}</dd>
-		</dl>
+		<>
+			<dl>
+				<dt>User name</dt>
+				<dd>{user.userName}</dd>
+				<dt>Id</dt>
+				<dd>{user.id}</dd>
+				<dt>First name</dt>
+				<dd>
+					<TextField
+						label="First name"
+						value={firstName}
+						onChange={setFirstName}
+					/>
+				</dd>
+				<dt>Last name</dt>
+				<dd>
+					<TextField
+						label="Last name"
+						value={lastName}
+						onChange={setLastName}
+					/>
+				</dd>
+			</dl>
+			<button onClick={saveUser}>Save</button>
+		</>
 	)
 }
