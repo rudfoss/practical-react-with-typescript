@@ -1,5 +1,5 @@
-import { ListGroups } from "@prwt/tasks"
+import { UsersTableStaticUsers } from "@prwt/user"
 
 export const App = () => {
-	return <ListGroups />
+	return <UsersTableStaticUsers />
 }
