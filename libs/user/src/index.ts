@@ -1,4 +1,5 @@
 export * from "./staticGroups"
 export * from "./staticUser"
+export * from "./staticUsers"
 export * from "./UserDetails"
 export * from "./Users"
