@@ -6,7 +6,14 @@ import { staticUsers } from "../staticUsers"
 
 import { UsersTable, UsersTableProps } from "./UsersTable"
 
-export const UsersTableStaticUsers = () => {
+export type UsersTableStaticUsersProps = Pick<
+	UsersTableProps,
+	"detailsLinkRenderer"
+>
+
+export const UsersTableStaticUsers = ({
+	detailsLinkRenderer
+}: UsersTableStaticUsersProps) => {
 	const [modifiedUsers, setModifiedUsers] = useState([...staticUsers])
 	const [searchQuery, setSearchQuery] = useState("")
 
@@ -39,7 +46,11 @@ export const UsersTableStaticUsers = () => {
 				value={searchQuery}
 				onChange={setSearchQuery}
 			/>
-			<UsersTable users={filteredUsers} saveUser={saveUser} />
+			<UsersTable
+				users={filteredUsers}
+				saveUser={saveUser}
+				detailsLinkRenderer={detailsLinkRenderer}
+			/>
 		</>
 	)
 }

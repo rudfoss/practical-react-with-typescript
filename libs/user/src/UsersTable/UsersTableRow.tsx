@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import { TextField } from "@prwt/fields"
 
 import { User } from "../staticUsers"
@@ -8,12 +10,14 @@ export interface UsersTableRowProps {
 	columnOrder: ColumnNames[]
 	user: User
 	onSave: (modifiedUser: User) => unknown
+	detailsLinkRenderer: (userId: string, text: string) => React.ReactNode
 }
 
 export const UsersTableRow = ({
 	user,
 	onSave,
-	columnOrder
+	columnOrder,
+	detailsLinkRenderer
 }: UsersTableRowProps) => {
 	const saveFirstName = (newFirstName: string) => {
 		onSave({
@@ -24,6 +28,8 @@ export const UsersTableRow = ({
 
 	return (
 		<tr>
+			<td>{detailsLinkRenderer(user.id, "View")}</td>
+
 			{columnOrder.map((colName) => (
 				<td key={colName}>
 					{colName === "firstName" ? (

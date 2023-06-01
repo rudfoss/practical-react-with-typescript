@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 
 import { TextField } from "@prwt/fields"
 
-import { User } from "./staticUser"
+import { User } from "./staticUsers"
 
 export interface UserDetailsProps {
 	user: Readonly<User>
-	onSave: (newUser: User) => unknown
+	onSave?: (newUser: User) => unknown
 }
 
 export const UserDetails = ({ user, onSave }: UserDetailsProps) => {
@@ -19,7 +19,7 @@ export const UserDetails = ({ user, onSave }: UserDetailsProps) => {
 	}, [user])
 
 	const saveUser = () => {
-		onSave({
+		onSave?.({
 			...user,
 			firstName,
 			lastName

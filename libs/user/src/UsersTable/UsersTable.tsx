@@ -5,7 +5,8 @@ import { User } from "../staticUsers"
 import { UsersTableRow, UsersTableRowProps } from "./UsersTableRow"
 import { ColumnNames } from "./userTableTypes"
 
-export interface UsersTableProps {
+export interface UsersTableProps
+	extends Pick<UsersTableRowProps, "detailsLinkRenderer"> {
 	users: User[]
 	saveUser: UsersTableRowProps["onSave"]
 }
@@ -13,7 +14,11 @@ export interface UsersTableProps {
 type SortableColumns = ColumnNames
 type SortDirection = "asc" | "desc"
 
-export const UsersTable = ({ users, saveUser }: UsersTableProps) => {
+export const UsersTable = ({
+	users,
+	saveUser,
+	detailsLinkRenderer
+}: UsersTableProps) => {
 	const [sortColumn, setSortColumn] = useState<SortableColumns>()
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 	const [columnOrder] = useState<ColumnNames[]>([
@@ -50,6 +55,7 @@ export const UsersTable = ({ users, saveUser }: UsersTableProps) => {
 		<table>
 			<thead>
 				<tr>
+					<th></th>
 					{columnOrder.map((colName) => (
 						<th
 							key={colName}
@@ -72,6 +78,7 @@ export const UsersTable = ({ users, saveUser }: UsersTableProps) => {
 						key={user.id}
 						user={user}
 						onSave={saveUser}
+						detailsLinkRenderer={detailsLinkRenderer}
 					/>
 				))}
 			</tbody>
