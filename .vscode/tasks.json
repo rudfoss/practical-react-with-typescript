@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start:wbe",
+			"problemMatcher": ["$webpack-builder"],
+			"label": "npm: start:wbe",
+			"detail": "nx serve useradmin-wbe"
+		},
+		{
+			"type": "npm",
+			"script": "start:wfe",
+			"problemMatcher": ["$webpack-builder"],
+			"label": "npm: start:wfe",
+			"detail": "nx serve useradmin-wfe"
+		}
+	]
+}
