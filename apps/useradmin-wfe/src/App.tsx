@@ -4,25 +4,33 @@ import {
 	RouteObject
 } from "react-router-dom"
 
+import { MainLayout } from "@prwt/layouts"
+
+import { Navigation } from "./Navigation"
 import { HomePage } from "./pages/HomePage"
 import { UserDetailsPage } from "./pages/UserDetailsPage"
 import { UsersPage } from "./pages/UsersPage"
 
 const routes: RouteObject[] = [
 	{
-		index: true,
-		element: <HomePage />
-	},
-	{
-		path: "users",
+		element: <MainLayout navigation={<Navigation />} />,
 		children: [
 			{
 				index: true,
-				element: <UsersPage />
+				element: <HomePage />
 			},
 			{
-				path: ":userId",
-				element: <UserDetailsPage />
+				path: "users",
+				children: [
+					{
+						index: true,
+						element: <UsersPage />
+					},
+					{
+						path: ":userId",
+						element: <UserDetailsPage />
+					}
+				]
 			}
 		]
 	}

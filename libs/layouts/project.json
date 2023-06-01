@@ -1,0 +1,24 @@
+{
+	"name": "layouts",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/layouts/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/layouts/**/*.{ts,tsx,js,jsx}"]
+			}
+		},
+		"test": {
+			"executor": "@nx/vite:test",
+			"outputs": ["coverage/libs/layouts"],
+			"options": {
+				"passWithNoTests": true,
+				"reportsDirectory": "../../coverage/libs/layouts"
+			}
+		}
+	}
+}

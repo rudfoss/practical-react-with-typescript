@@ -19,6 +19,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@prwt/fields": ["libs/fields/src/index.ts"],
+			"@prwt/layouts": ["libs/layouts/src/index.ts"],
 			"@prwt/tasks": ["libs/tasks/src/index.ts"],
 			"@prwt/user": ["libs/user/src/index.ts"],
 			"@prwt/useradmin-wbe-client": ["libs/useradmin-wbe-client/src/index.ts"],
