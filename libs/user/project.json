@@ -1,0 +1,24 @@
+{
+	"name": "user",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/user/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["libs/user/**/*.{ts,tsx,js,jsx}"]
+			}
+		},
+		"test": {
+			"executor": "@nx/vite:test",
+			"outputs": ["coverage/libs/user"],
+			"options": {
+				"passWithNoTests": true,
+				"reportsDirectory": "../../coverage/libs/user"
+			}
+		}
+	}
+}

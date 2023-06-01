@@ -1,8 +1,8 @@
 import { useState } from "react"
 
+import { NumericField, TextField } from "@prwt/fields"
+
 import { ClickUntil } from "./ClickUntil"
-import { NumericField } from "./NumericField"
-import { TextField } from "./TextField"
 
 export const ClickUntilForm = () => {
 	const [message, setMessage] = useState("")

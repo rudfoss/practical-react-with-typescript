@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
-import { TextField } from "./TextField"
+import { TextField } from "@prwt/fields"
+
 import { User } from "./staticUser"
 
 export interface UserDetailsProps {
