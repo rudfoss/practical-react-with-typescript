@@ -31,6 +31,10 @@ const routes: RouteObject[] = [
 						element: <UserDetailsPage />
 					}
 				]
+			},
+			{
+				path: "*",
+				element: <p>Not found</p>
 			}
 		]
 	}
