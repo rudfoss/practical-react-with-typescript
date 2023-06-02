@@ -12,6 +12,15 @@
 		],
 		"description": "Log output to console"
 	},
+	"React Propless Component": {
+		"prefix": "react-component-propless",
+		"body": [
+			"export const ${1:$TM_FILENAME_BASE} = () => {",
+			"\treturn (${0})",
+			"}"
+		],
+		"description": "Log output to console"
+	},
 	"React Service": {
 		"prefix": "react-service",
 		"body": [

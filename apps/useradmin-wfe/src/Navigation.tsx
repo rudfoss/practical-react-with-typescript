@@ -26,6 +26,7 @@ export const Navigation = () => {
 			<StyledLink to="/">Home</StyledLink>
 			<StyledLink to="/users">Users</StyledLink>
 			<StyledLink to="/groups">Groups</StyledLink>
+			<StyledLink to="/server-data-demo">Server data demo</StyledLink>
 			<button onClick={toggleFieldsDisabled}>
 				{isDisabled ? "Enable fields" : "Disable fields"}
 			</button>

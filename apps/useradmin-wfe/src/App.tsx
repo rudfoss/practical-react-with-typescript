@@ -8,6 +8,7 @@ import { Bootstrap } from "./Bootstrap"
 import { GroupDetailsPage } from "./pages/GroupDetailsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
+import { ServerDataDemoPage } from "./pages/ServerDataDemoPage"
 import { UserDetailsPage } from "./pages/UserDetailsPage"
 import { UsersPage } from "./pages/UsersPage"
 
@@ -18,6 +19,10 @@ const routes: RouteObject[] = [
 			{
 				index: true,
 				element: <HomePage />
+			},
+			{
+				path: "server-data-demo",
+				element: <ServerDataDemoPage />
 			},
 			{
 				path: "users",
