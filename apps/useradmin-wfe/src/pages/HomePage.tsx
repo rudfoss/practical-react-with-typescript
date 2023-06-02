@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom"
+import { useRandom } from "@prwt/utils"
 
 export const HomePage = () => {
+	const randomNumber = useRandom("foo")
+
 	return (
 		<>
 			<h1>User administration</h1>
-			<p>Welcome, please navigate to the underlying tools.</p>
-			<ul>
-				<li>
-					<Link to="/users">Users</Link>
-				</li>
-			</ul>
+			<p>Welcome user number: {randomNumber}</p>
 		</>
 	)
 }
