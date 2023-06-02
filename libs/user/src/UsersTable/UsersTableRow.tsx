@@ -1,45 +1,27 @@
-import { TextField } from "@prwt/fields"
+import { Link } from "react-router-dom"
 
-import { User } from "../staticUsers"
+import { IUserDTO } from "@prwt/useradmin-wbe-client"
+
+import { useUserNavService } from "../userNavService"
 
 import { ColumnNames } from "./userTableTypes"
 
 export interface UsersTableRowProps {
 	columnOrder: ColumnNames[]
-	user: User
-	onSave: (modifiedUser: User) => unknown
-	detailsLinkRenderer: (userId: string, text: string) => React.ReactNode
+	user: IUserDTO
 }
 
-export const UsersTableRow = ({
-	user,
-	onSave,
-	columnOrder,
-	detailsLinkRenderer
-}: UsersTableRowProps) => {
-	const saveFirstName = (newFirstName: string) => {
-		onSave({
-			...user,
-			firstName: newFirstName
-		})
-	}
+export const UsersTableRow = ({ user, columnOrder }: UsersTableRowProps) => {
+	const { createUserDetailsPath } = useUserNavService()
 
 	return (
 		<tr>
-			<td>{detailsLinkRenderer(user.id, "View")}</td>
+			<td>
+				<Link to={createUserDetailsPath(user.id)}>View</Link>
+			</td>
 
 			{columnOrder.map((colName) => (
-				<td key={colName}>
-					{colName === "firstName" ? (
-						<TextField
-							label=""
-							value={user[colName]}
-							onChange={saveFirstName}
-						/>
-					) : (
-						user[colName]
-					)}
-				</td>
+				<td key={colName}>{user[colName]}</td>
 			))}
 		</tr>
 	)

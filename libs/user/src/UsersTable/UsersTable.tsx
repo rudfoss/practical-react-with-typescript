@@ -1,24 +1,18 @@
 import { useMemo, useState } from "react"
 
-import { User } from "../staticUsers"
+import { IUserDTO } from "@prwt/useradmin-wbe-client"
 
-import { UsersTableRow, UsersTableRowProps } from "./UsersTableRow"
+import { UsersTableRow } from "./UsersTableRow"
 import { ColumnNames } from "./userTableTypes"
 
-export interface UsersTableProps
-	extends Pick<UsersTableRowProps, "detailsLinkRenderer"> {
-	users: User[]
-	saveUser: UsersTableRowProps["onSave"]
+export interface UsersTableProps {
+	users: IUserDTO[]
 }
 
 type SortableColumns = ColumnNames
 type SortDirection = "asc" | "desc"
 
-export const UsersTable = ({
-	users,
-	saveUser,
-	detailsLinkRenderer
-}: UsersTableProps) => {
+export const UsersTable = ({ users }: UsersTableProps) => {
 	const [sortColumn, setSortColumn] = useState<SortableColumns>()
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 	const [columnOrder] = useState<ColumnNames[]>([
@@ -35,8 +29,8 @@ export const UsersTable = ({
 		const reverse = sortDirection === "asc" ? 1 : -1
 
 		sortableUsers.sort((a, b) => {
-			const columnAValue = a[sortColumn]
-			const columnBValue = b[sortColumn]
+			const columnAValue = a[sortColumn] ?? ""
+			const columnBValue = b[sortColumn] ?? ""
 			return columnAValue.localeCompare(columnBValue) * reverse
 		})
 		return sortableUsers
@@ -73,13 +67,7 @@ export const UsersTable = ({
 			</thead>
 			<tbody>
 				{sortedUsers.map((user) => (
-					<UsersTableRow
-						columnOrder={columnOrder}
-						key={user.id}
-						user={user}
-						onSave={saveUser}
-						detailsLinkRenderer={detailsLinkRenderer}
-					/>
+					<UsersTableRow columnOrder={columnOrder} key={user.id} user={user} />
 				))}
 			</tbody>
 		</table>

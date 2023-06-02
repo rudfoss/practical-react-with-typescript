@@ -4,40 +4,25 @@ import { TextField } from "@prwt/fields"
 
 import { staticUsers } from "../staticUsers"
 
-import { UsersTable, UsersTableProps } from "./UsersTable"
+import { UsersTable } from "./UsersTable"
 
-export type UsersTableStaticUsersProps = Pick<
-	UsersTableProps,
-	"detailsLinkRenderer"
->
-
-export const UsersTableStaticUsers = ({
-	detailsLinkRenderer
-}: UsersTableStaticUsersProps) => {
-	const [modifiedUsers, setModifiedUsers] = useState([...staticUsers])
+export const UsersTableStaticUsers = () => {
 	const [searchQuery, setSearchQuery] = useState("")
 
 	const filteredUsers = useMemo(() => {
-		if (searchQuery.trim() === "") return modifiedUsers
+		if (searchQuery.trim() === "") return staticUsers
 		const words = searchQuery
 			.toLocaleLowerCase()
 			.split(/\s+/)
 			.filter((word) => word.trim() !== "")
 
-		return modifiedUsers.filter((user) => {
+		return staticUsers.filter((user) => {
 			const propsToSearch =
 				`${user.firstName} ${user.lastName} ${user.email}`.toLocaleLowerCase()
 
 			return words.some((word) => propsToSearch.includes(word))
 		})
-	}, [modifiedUsers, searchQuery])
-
-	const saveUser: UsersTableProps["saveUser"] = (updatedUser) => {
-		const newUsers = modifiedUsers.slice(0)
-		const userIndex = newUsers.findIndex((user) => user.id === updatedUser.id)
-		newUsers.splice(userIndex, 1, updatedUser)
-		setModifiedUsers(newUsers)
-	}
+	}, [searchQuery])
 
 	return (
 		<>
@@ -46,11 +31,7 @@ export const UsersTableStaticUsers = ({
 				value={searchQuery}
 				onChange={setSearchQuery}
 			/>
-			<UsersTable
-				users={filteredUsers}
-				saveUser={saveUser}
-				detailsLinkRenderer={detailsLinkRenderer}
-			/>
+			<UsersTable users={filteredUsers} />
 		</>
 	)
 }
