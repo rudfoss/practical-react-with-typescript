@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import { NavLink } from "react-router-dom"
 
+import { useFieldStateService } from "@prwt/fields"
+
 const StyledLink = styled(NavLink)`
 	display: block;
 	text-decoration: none;
@@ -13,11 +15,20 @@ const StyledLink = styled(NavLink)`
 `
 
 export const Navigation = () => {
+	const { isDisabled, setIsDisabled } = useFieldStateService()
+
+	const toggleFieldsDisabled = () => {
+		setIsDisabled(!isDisabled)
+	}
+
 	return (
 		<nav>
 			<StyledLink to="/">Home</StyledLink>
 			<StyledLink to="/users">Users</StyledLink>
 			<StyledLink to="/groups">Groups</StyledLink>
+			<button onClick={toggleFieldsDisabled}>
+				{isDisabled ? "Enable fields" : "Disable fields"}
+			</button>
 		</nav>
 	)
 }

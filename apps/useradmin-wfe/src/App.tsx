@@ -4,10 +4,7 @@ import {
 	RouteObject
 } from "react-router-dom"
 
-import { MainLayout } from "@prwt/layouts"
-
-import { NavServiceProvider } from "./NavServiceProvider"
-import { Navigation } from "./Navigation"
+import { Bootstrap } from "./Bootstrap"
 import { GroupDetailsPage } from "./pages/GroupDetailsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
@@ -16,11 +13,7 @@ import { UsersPage } from "./pages/UsersPage"
 
 const routes: RouteObject[] = [
 	{
-		element: (
-			<NavServiceProvider>
-				<MainLayout navigation={<Navigation />} heading="User management" />
-			</NavServiceProvider>
-		),
+		element: <Bootstrap />,
 		children: [
 			{
 				index: true,

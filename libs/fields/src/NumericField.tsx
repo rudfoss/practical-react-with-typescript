@@ -1,5 +1,7 @@
 import { useId } from "react"
 
+import { useFieldStateService } from "./fieldStateService"
+
 export interface NumericFieldProps {
 	label: string
 	value: number
@@ -20,6 +22,7 @@ export const NumericField = ({
 	allowDecimals = false
 }: NumericFieldProps) => {
 	const id = useId()
+	const { isDisabled } = useFieldStateService()
 	const useRangeType = Math.abs(max - min) <= 50 && !allowDecimals
 
 	const onValueChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
@@ -37,6 +40,7 @@ export const NumericField = ({
 				max={max}
 				value={value}
 				onChange={onValueChange}
+				disabled={isDisabled}
 			/>
 		</>
 	)

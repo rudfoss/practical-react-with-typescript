@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import React, { useId } from "react"
 
+import { useFieldStateService } from "./fieldStateService"
+
 const Container = styled.div`
 	padding: 8px;
 	margin-bottom: 8px;
@@ -22,6 +24,7 @@ interface TextFieldProps {
 
 export const TextField = (props: TextFieldProps) => {
 	const id = useId()
+	const { isDisabled } = useFieldStateService()
 
 	const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
 		props.onChange(evt.target.value)
@@ -30,7 +33,13 @@ export const TextField = (props: TextFieldProps) => {
 	return (
 		<Container>
 			<Label htmlFor={id}>{props.label}</Label>
-			<Input id={id} type="text" value={props.value} onChange={onInputChange} />
+			<Input
+				id={id}
+				type="text"
+				value={props.value}
+				onChange={onInputChange}
+				disabled={isDisabled}
+			/>
 		</Container>
 	)
 }
