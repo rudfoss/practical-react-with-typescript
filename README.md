@@ -24,3 +24,7 @@ npm run init
 ```
 
 You can now open VSCode in the repository folder. The repository comes with a set of recommended extensions and settings. You can install these when prompted by VSCode or by going to the `Extensions` panel and searching for `@recommended`. You can also swich to the included VSCode Profile which also includes the recommended extensions automatically. To switch profile click the ⚙ icon at the bottom left and select "Profile" -> "Import Profile". The profile is located here: `.vscode\practical-react.code-profile`.
+
+## Contact
+
+thomas.rudfoss@bouvet.no
