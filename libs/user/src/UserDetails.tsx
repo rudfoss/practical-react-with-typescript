@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-import { TextField } from "@prwt/fields"
-
-import { User } from "./staticUsers"
+import { NumericField, TextField } from "@prwt/fields"
+import { IUserDTO } from "@prwt/useradmin-wbe-client"
 
 export interface UserDetailsProps {
-	user: Readonly<User>
-	onSave?: (newUser: User) => unknown
+	user: Readonly<IUserDTO>
+	onSave?: (newUser: IUserDTO) => unknown
 }
 
 export const UserDetails = ({ user, onSave }: UserDetailsProps) => {
-	const [firstName, setFirstName] = useState(user.firstName)
-	const [lastName, setLastName] = useState(user.lastName)
+	const [firstName, setFirstName] = useState(user.firstName ?? "")
+	const [lastName, setLastName] = useState(user.lastName ?? "")
+	const [email, setEmail] = useState(user.email ?? "")
+	const [age, setAge] = useState(user.age ?? 0)
 
-	useEffect(() => {
-		setFirstName(user.firstName)
-		setLastName(user.lastName)
-	}, [user])
+	const isFirstNameDirty = (user.firstName ?? "") !== firstName
 
 	const saveUser = () => {
 		onSave?.({
 			...user,
 			firstName,
-			lastName
+			lastName,
+			age,
+			email
 		})
 	}
 
@@ -33,7 +33,7 @@ export const UserDetails = ({ user, onSave }: UserDetailsProps) => {
 				<dd>{user.userName}</dd>
 				<dt>Id</dt>
 				<dd>{user.id}</dd>
-				<dt>First name</dt>
+				<dt>First name {isFirstNameDirty ? "*" : ""}</dt>
 				<dd>
 					<TextField
 						label="First name"
@@ -47,6 +47,20 @@ export const UserDetails = ({ user, onSave }: UserDetailsProps) => {
 						label="Last name"
 						value={lastName}
 						onChange={setLastName}
+					/>
+				</dd>
+				<dt>Email</dt>
+				<dd>
+					<TextField label="Email" value={email} onChange={setEmail} />
+				</dd>
+				<dt>Age</dt>
+				<dd>
+					<NumericField
+						label="Age"
+						value={age}
+						onChange={setAge}
+						min={0}
+						max={120}
 					/>
 				</dd>
 			</dl>
