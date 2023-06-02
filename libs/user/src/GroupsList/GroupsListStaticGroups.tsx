@@ -2,18 +2,10 @@ import { useState } from "react"
 
 import { Group, staticGroups } from "../staticGroups"
 
-import { GroupsList, GroupsListProps } from "./GroupsList"
+import { GroupsList } from "./GroupsList"
 
-export const GroupsListStaticGroups = ({
-	detailsLinkRenderer
-}: Pick<GroupsListProps, "detailsLinkRenderer">) => {
+export const GroupsListStaticGroups = () => {
 	const [groups, setGroups] = useState<Group[]>(staticGroups)
 
-	return (
-		<GroupsList
-			groups={groups}
-			setGroups={setGroups}
-			detailsLinkRenderer={detailsLinkRenderer}
-		/>
-	)
+	return <GroupsList groups={groups} setGroups={setGroups} />
 }

@@ -1,20 +1,18 @@
 import { useMemo, useState } from "react"
+import { Link } from "react-router-dom"
 
 import { Group } from "../staticGroups"
+import { useUserNavService } from "../userNavService"
 
 type SortDirection = "asc" | "desc"
 
 export interface GroupsListProps {
 	groups: Group[]
 	setGroups: (newGroups: Group[]) => unknown
-	detailsLinkRenderer: (groupId: string, text: string) => React.ReactNode
 }
 
-export const GroupsList = ({
-	groups,
-	setGroups,
-	detailsLinkRenderer
-}: GroupsListProps) => {
+export const GroupsList = ({ groups, setGroups }: GroupsListProps) => {
+	const { createGroupDetailsPath } = useUserNavService()
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 	const [selectedGroupId, setSelectedGroupId] = useState<string>()
 
@@ -62,7 +60,7 @@ export const GroupsList = ({
 			<ol>
 				{sortedGroups.map((item) => (
 					<li key={item.id}>
-						{detailsLinkRenderer(item.id, item.name)}
+						<Link to={createGroupDetailsPath(item.id)}>View</Link>
 						<button onClick={selectGroup(item.id)}>{item.id}</button>
 						<button onClick={deleteGroupById(item.id)}>Delete</button>
 					</li>

@@ -6,6 +6,7 @@ import {
 
 import { MainLayout } from "@prwt/layouts"
 
+import { NavServiceProvider } from "./NavServiceProvider"
 import { Navigation } from "./Navigation"
 import { GroupDetailsPage } from "./pages/GroupDetailsPage"
 import { GroupsPage } from "./pages/GroupsPage"
@@ -16,7 +17,9 @@ import { UsersPage } from "./pages/UsersPage"
 const routes: RouteObject[] = [
 	{
 		element: (
-			<MainLayout navigation={<Navigation />} heading="User management" />
+			<NavServiceProvider>
+				<MainLayout navigation={<Navigation />} heading="User management" />
+			</NavServiceProvider>
 		),
 		children: [
 			{
