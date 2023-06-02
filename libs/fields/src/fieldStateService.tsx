@@ -1,3 +1,4 @@
+import { useIsFetching } from "@tanstack/react-query"
 import { createContext, useContext, useState } from "react"
 
 interface FieldStateServiceContextProps {
@@ -24,9 +25,10 @@ export const ProvideFieldStateService = ({
 	children
 }: ProvideFieldStateServiceProps) => {
 	const [isDisabled, setIsDisabled] = useState(false)
+	const fetchCount = useIsFetching()
 
 	const value: FieldStateServiceContextProps = {
-		isDisabled,
+		isDisabled: fetchCount > 0 ? true : isDisabled,
 		setIsDisabled
 	}
 
