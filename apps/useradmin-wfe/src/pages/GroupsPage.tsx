@@ -1,8 +1,8 @@
-import { GroupsListStaticGroups } from "@prwt/user"
+import { GroupsListServer } from "@prwt/user"
 import { useWindowTitle } from "@prwt/utils"
 
 export const GroupsPage = () => {
 	useWindowTitle("Groups")
 
-	return <GroupsListStaticGroups />
+	return <GroupsListServer />
 }

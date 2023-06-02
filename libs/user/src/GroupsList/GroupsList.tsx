@@ -1,17 +1,17 @@
 import { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 
-import { Group } from "../staticGroups"
+import { IGroupDTO } from "@prwt/useradmin-wbe-client"
+
 import { useUserNavService } from "../userNavService"
 
 type SortDirection = "asc" | "desc"
 
 export interface GroupsListProps {
-	groups: Group[]
-	setGroups: (newGroups: Group[]) => unknown
+	groups: IGroupDTO[]
 }
 
-export const GroupsList = ({ groups, setGroups }: GroupsListProps) => {
+export const GroupsList = ({ groups }: GroupsListProps) => {
 	const { createGroupDetailsPath } = useUserNavService()
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 	const [selectedGroupId, setSelectedGroupId] = useState<string>()
@@ -40,10 +40,6 @@ export const GroupsList = ({ groups, setGroups }: GroupsListProps) => {
 	const toggleSortDirection = () => {
 		setSortDirection(sortDirection === "asc" ? "desc" : "asc")
 	}
-	const deleteGroupById = (idToDelete: string) => () => {
-		const filteredGroups = groups.filter((item) => item.id !== idToDelete)
-		setGroups(filteredGroups)
-	}
 	const selectGroup = (id: string) => () => {
 		setSelectedGroupId(id)
 	}
@@ -58,11 +54,10 @@ export const GroupsList = ({ groups, setGroups }: GroupsListProps) => {
 				</p>
 			)}
 			<ol>
-				{sortedGroups.map((item) => (
-					<li key={item.id}>
-						<Link to={createGroupDetailsPath(item.id)}>View</Link>
-						<button onClick={selectGroup(item.id)}>{item.id}</button>
-						<button onClick={deleteGroupById(item.id)}>Delete</button>
+				{sortedGroups.map((group) => (
+					<li key={group.id}>
+						<Link to={createGroupDetailsPath(group.id)}>View</Link>
+						<button onClick={selectGroup(group.id)}>{group.name}</button>
 					</li>
 				))}
 			</ol>
