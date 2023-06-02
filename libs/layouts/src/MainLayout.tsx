@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { Suspense } from "react"
 import { Outlet } from "react-router-dom"
 
 import { LayoutProps } from "./LayoutProps"
@@ -33,7 +34,11 @@ export const MainLayout = ({
 			)}
 			<Container>
 				<NavContainer>{navigation}</NavContainer>
-				<MainContainer>{children}</MainContainer>
+				<MainContainer>
+					<Suspense fallback={<p>Loading lazy page...</p>}>
+						<Outlet />
+					</Suspense>
+				</MainContainer>
 			</Container>
 		</>
 	)

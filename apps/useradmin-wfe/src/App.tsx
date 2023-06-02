@@ -1,3 +1,4 @@
+import { lazy } from "react"
 import {
 	RouterProvider,
 	createBrowserRouter,
@@ -10,7 +11,13 @@ import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { ServerDataDemoPage } from "./pages/ServerDataDemoPage"
 import { UserDetailsPage } from "./pages/UserDetailsPage"
-import { UsersPage } from "./pages/UsersPage"
+
+const UsersPage = lazy(async () => {
+	const usersPageImport = await import("./pages/UsersPage")
+	return {
+		default: usersPageImport.UsersPage
+	}
+})
 
 const routes: RouteObject[] = [
 	{
