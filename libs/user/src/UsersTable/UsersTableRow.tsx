@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom"
-
 import { TextField } from "@prwt/fields"
 
 import { User } from "../staticUsers"

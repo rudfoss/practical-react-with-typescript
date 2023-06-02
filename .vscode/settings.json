@@ -12,5 +12,5 @@
 	"editor.wordWrap": "wordWrapColumn",
 	"task.quickOpen.history": 0,
 	"debug.console.collapseIdenticalLines": false,
-	"exportall.config.folderListener": ["/libs/tasks/src"]
+	"exportall.config.folderListener": []
 }
