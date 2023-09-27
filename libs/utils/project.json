@@ -11,14 +11,6 @@
 			"options": {
 				"lintFilePatterns": ["libs/utils/**/*.{ts,tsx,js,jsx}"]
 			}
-		},
-		"test": {
-			"executor": "@nx/vite:test",
-			"outputs": ["coverage/libs/utils"],
-			"options": {
-				"passWithNoTests": true,
-				"reportsDirectory": "../../coverage/libs/utils"
-			}
 		}
 	}
 }

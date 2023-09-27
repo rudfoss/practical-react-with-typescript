@@ -5,13 +5,19 @@
 
 import { Logger } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
-import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify"
+import {
+	FastifyAdapter,
+	NestFastifyApplication
+} from "@nestjs/platform-fastify"
 
 import { MainModule } from "./mainModule"
 import { setupOpenApi } from "./openApi"
 
 async function bootstrap() {
-	const app = await NestFactory.create<NestFastifyApplication>(MainModule, new FastifyAdapter())
+	const app = await NestFactory.create<NestFastifyApplication>(
+		MainModule,
+		new FastifyAdapter()
+	)
 	app.enableCors()
 
 	const { SwaggerModule, doc } = setupOpenApi(app)

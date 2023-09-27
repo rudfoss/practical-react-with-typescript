@@ -18,13 +18,6 @@
 		},
 		"test": {
 			"inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
-		},
-		"lint": {
-			"inputs": [
-				"default",
-				"{workspaceRoot}/.eslintrc.json",
-				"{workspaceRoot}/.eslintignore"
-			]
 		}
 	},
 	"namedInputs": {
@@ -33,8 +26,9 @@
 			"default",
 			"!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
 			"!{projectRoot}/tsconfig.spec.json",
-			"!{projectRoot}/.eslintrc.json",
-			"!{projectRoot}/jest.config.[jt]s"
+			"!{projectRoot}/jest.config.[jt]s",
+			"!{projectRoot}/src/test-setup.[jt]s",
+			"!{projectRoot}/test-setup.[jt]s"
 		],
 		"sharedGlobals": []
 	},
@@ -54,9 +48,7 @@
 				"style": "@emotion/styled"
 			},
 			"library": {
-				"style": "@emotion/styled",
-				"linter": "eslint",
-				"unitTestRunner": "vitest"
+				"unitTestRunner": "none"
 			}
 		}
 	}

@@ -18,9 +18,6 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@prwt/data": ["libs/data/src/index.ts"],
-			"@prwt/fields": ["libs/fields/src/index.ts"],
-			"@prwt/useradmin-wbe-client": ["libs/useradmin-wbe-client/src/index.ts"],
 			"@prwt/utils": ["libs/utils/src/index.ts"]
 		}
 	},
