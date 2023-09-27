@@ -12,5 +12,16 @@
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"editor.wordWrap": "wordWrapColumn",
 	"task.quickOpen.history": 0,
-	"debug.console.collapseIdenticalLines": false
+	"debug.console.collapseIdenticalLines": false,
+	"files.exclude": {
+		// ".editorconfig": true,
+		// ".env": true,
+		// ".eslintignore": true,
+		// ".eslintrc.json": true,
+		// ".gitattributes": true,
+		// ".gitignore": true,
+		// ".prettierignore": true,
+		// ".prettierrc": true,
+		// "package-lock.json": true
+	}
 }
