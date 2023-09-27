@@ -2,24 +2,28 @@
 // 	return "TextField component"
 // }
 
-import { useId, useState } from "react"
+import { useId } from "react"
 
-export const TextField = () => {
+interface TextFieldProps {
+	label: string
+	value: string
+	onChange: (newValue: string) => unknown
+}
+
+export const TextField = ({ label, value, onChange }: TextFieldProps) => {
 	const id = useId()
-	const [value, setValue] = useState("...")
 
 	const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-		setValue(evt.target.value)
+		onChange(evt.target.value)
 	}
 	const clearValue = () => {
-		setValue("")
+		onChange("")
 	}
 
 	return (
 		<div>
-			<label htmlFor={id}>Enter some text</label>
+			<label htmlFor={id}>{label}</label>
 			<input id={id} type="text" value={value} onChange={onInputChange} />
-			<p>{value}</p>
 			<button onClick={clearValue}>Clear</button>
 		</div>
 	)

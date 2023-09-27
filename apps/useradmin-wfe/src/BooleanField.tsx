@@ -1,27 +1,22 @@
-import { useId, useState } from "react"
+import { useId } from "react"
 
-export const BooleanField = () => {
+interface BooleanFieldProps {
+	label: string
+	value: boolean
+	onChange: (newValue: boolean) => unknown
+}
+
+export const BooleanField = ({ label, value, onChange }: BooleanFieldProps) => {
 	const id = useId()
-	const [checked, setChecked] = useState(false)
 
 	const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-		setChecked(evt.target.checked)
+		onChange(evt.target.checked)
 	}
 
 	return (
 		<div>
-			<input
-				id={id}
-				type="checkbox"
-				checked={checked}
-				onChange={onInputChange}
-			/>
-			<label htmlFor={id}>Check the box</label>
-			{checked && (
-				<span role="img" aria-label="Flag indicating the box is checked">
-					🚩
-				</span>
-			)}
+			<input id={id} type="checkbox" checked={value} onChange={onInputChange} />
+			<label htmlFor={id}>{label}</label>
 		</div>
 	)
 }
