@@ -8,6 +8,7 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
+	"workbench.iconTheme": "vscode-icons",
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"editor.wordWrap": "wordWrapColumn",
 	"task.quickOpen.history": 0,
