@@ -14,14 +14,18 @@
 	"task.quickOpen.history": 0,
 	"debug.console.collapseIdenticalLines": false,
 	"files.exclude": {
-		// ".editorconfig": true,
-		// ".env": true,
-		// ".eslintignore": true,
-		// ".eslintrc.json": true,
-		// ".gitattributes": true,
-		// ".gitignore": true,
-		// ".prettierignore": true,
-		// ".prettierrc": true,
-		// "package-lock.json": true
+		".editorconfig": true,
+		".env": true,
+		".eslintignore": true,
+		".eslintrc.json": true,
+		".gitattributes": true,
+		".gitignore": true,
+		".prettierignore": true,
+		".prettierrc": true,
+		"package-lock.json": true,
+		"nx.json": true,
+		"jest.config.ts": true,
+		"jest.preset.js": true,
+		"tsconfig.base.json": true,
 	}
 }
