@@ -1,0 +1,27 @@
+{
+	"files.eol": "\n",
+	"editor.rulers": [120],
+	"editor.wordWrapColumn": 120,
+	"editor.formatOnSave": true,
+	"editor.tabSize": 2,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"workbench.iconTheme": "vscode-icons",
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"editor.wordWrap": "wordWrapColumn",
+	"task.quickOpen.history": 0,
+	"debug.console.collapseIdenticalLines": false,
+	"files.exclude": {
+		// ".editorconfig": true,
+		// ".env": true,
+		// ".eslintignore": true,
+		// ".eslintrc.json": true,
+		// ".gitattributes": true,
+		// ".gitignore": true,
+		// ".prettierignore": true,
+		// ".prettierrc": true,
+		// "package-lock.json": true
+	}
+}

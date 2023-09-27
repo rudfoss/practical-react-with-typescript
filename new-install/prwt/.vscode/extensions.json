@@ -1,0 +1,13 @@
+{
+	"recommendations": [
+		"nrwl.angular-console",
+		"esbenp.prettier-vscode",
+		"dbaeumer.vscode-eslint",
+		"vscode-icons-team.vscode-icons",
+		"eliostruyf.vscode-typescript-exportallmodules",
+		"firsttris.vscode-jest-runner",
+		"heaths.vscode-guid",
+		"styled-components.vscode-styled-components",
+		"editorconfig.editorconfig"
+	]
+}
