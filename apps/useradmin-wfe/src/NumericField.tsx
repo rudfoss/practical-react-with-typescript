@@ -1,6 +1,20 @@
+import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
+interface ContainerProps {
+	borderSize: number
+}
+const Container = styled.div<ContainerProps>`
+	padding: 4px;
+	border: ${(props) => props.borderSize}px solid #ccc;
+`
+const Label = styled.label`
+	display: block;
+	padding-bottom: 4px;
+`
+
 export interface NumericFieldProps {
+	borderSize?: number
 	label: string
 	value: number
 	onChange: (newValue: number) => unknown
@@ -11,6 +25,7 @@ export interface NumericFieldProps {
 }
 
 export const NumericField = ({
+	borderSize = 1,
 	label,
 	value,
 	onChange,
@@ -28,8 +43,8 @@ export const NumericField = ({
 	}
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
+		<Container borderSize={value}>
+			<Label htmlFor={id}>{label}</Label>
 			<input
 				id={id}
 				type={shouldUseRangeType ? "range" : "number"}
@@ -38,6 +53,6 @@ export const NumericField = ({
 				value={value}
 				onChange={onNumericInputChange}
 			/>
-		</div>
+		</Container>
 	)
 }

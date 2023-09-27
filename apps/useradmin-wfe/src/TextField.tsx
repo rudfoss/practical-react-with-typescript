@@ -4,13 +4,22 @@
 
 import { useId } from "react"
 
+import styles from "./TextField.module.css"
+
 interface TextFieldProps {
+	borderSize?: number
+
 	label: string
 	value: string
 	onChange: (newValue: string) => unknown
 }
 
-export const TextField = ({ label, value, onChange }: TextFieldProps) => {
+export const TextField = ({
+	borderSize = 1,
+	label,
+	value,
+	onChange
+}: TextFieldProps) => {
 	const id = useId()
 
 	const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,8 +30,10 @@ export const TextField = ({ label, value, onChange }: TextFieldProps) => {
 	}
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
+		<div className={styles.container} style={{ borderWidth: borderSize }}>
+			<label className={styles.label} htmlFor={id}>
+				{label}
+			</label>
 			<input id={id} type="text" value={value} onChange={onInputChange} />
 			<button onClick={clearValue}>Clear</button>
 		</div>

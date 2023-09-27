@@ -11,7 +11,13 @@ export const ClickUntilForm = () => {
 	return (
 		<>
 			<TextField label="Message" value={message} onChange={setMessage} />
-			<NumericField label="Limit" value={limit} onChange={setLimit} />
+			<NumericField
+				label="Limit"
+				value={limit}
+				onChange={setLimit}
+				min={1}
+				max={40}
+			/>
 			<ClickUntil limit={limit}>
 				<p>{message}</p>
 			</ClickUntil>
