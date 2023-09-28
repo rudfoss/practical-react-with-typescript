@@ -1,8 +1,35 @@
-import { useState } from "react"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
-import { ListGroups, groups as initialGroups } from "@prwt/tasks"
+import { MainLayout } from "./MainLayout"
+import { HomePage } from "./pages/HomePage"
+import { UserDetailsPage } from "./pages/UserDetailsPage"
+import { UsersListPage } from "./pages/UsersListPage"
+
+const router = createBrowserRouter([
+	{
+		element: <MainLayout />,
+		children: [
+			{
+				index: true,
+				element: <HomePage />
+			},
+			{
+				path: "users",
+				children: [
+					{
+						index: true,
+						element: <UsersListPage />
+					},
+					{
+						path: ":userId",
+						element: <UserDetailsPage />
+					}
+				]
+			}
+		]
+	}
+])
 
 export const App = () => {
-	const [groups, setGroups] = useState(initialGroups)
-	return <ListGroups groups={groups} onChange={setGroups} />
+	return <RouterProvider router={router} />
 }
