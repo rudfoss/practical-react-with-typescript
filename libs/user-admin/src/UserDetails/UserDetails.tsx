@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 
 import { NumericField, TextField } from "@prwt/fields"
 
-import { User } from "./user"
+import { User } from "../users"
 
 const Container = styled.div`
 	padding: 4px;

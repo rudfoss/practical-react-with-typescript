@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import { TextField } from "@prwt/fields"
 
-import { Group } from "./group"
+import { Group } from "../groups"
 
 export interface GroupDetailsProps {
 	initialGroup: Group

@@ -1,3 +1,5 @@
+import { UsersTableFromConstants } from "@prwt/user-admin"
+
 export const UsersListPage = () => {
-	return <h1>List of users</h1>
+	return <UsersTableFromConstants />
 }

@@ -3,7 +3,7 @@ import { useMemo, useState } from "react"
 
 import { slowDown } from "@prwt/utils"
 
-import { Group } from "./groups"
+import { Group } from "../groups"
 
 interface ButtonProps {
 	isSelected: boolean
