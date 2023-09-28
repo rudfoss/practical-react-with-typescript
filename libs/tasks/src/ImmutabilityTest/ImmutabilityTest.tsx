@@ -1,5 +1,6 @@
+import { useState } from "react"
+
 import { TextField } from "@prwt/fields"
-import { ChangeEvent, useState } from "react"
 
 interface Person {
 	firstName: string
