@@ -9,7 +9,8 @@
 		"start": "nx run-many --target=serve --parallel=true ",
 		"lint": "nx run-many --target=lint",
 		"test": "nx run-many --target=test",
-		"clear-pesisted-data": "rimraf dist/apps/useradmin-wbe/useradmin-wbe-data.json"
+		"clear-pesisted-data": "rimraf dist/apps/useradmin-wbe/useradmin-wbe-data.json",
+		"nx:graph": "nx graph --affected --watch"
 	},
 	"private": true,
 	"devDependencies": {
