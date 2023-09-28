@@ -5,7 +5,6 @@ export const user = {
 	lastName: "Trenaman",
 	email: "strenaman0@gov.uk",
 	age: 79,
-	isAdmin: false,
 	comments:
 		"ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus",
 	password: "QlgJ3WUh7lE"

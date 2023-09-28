@@ -50,14 +50,6 @@ export const UserDetails = ({ user, onChange }: UserDetailsProps) => {
 				</dd>
 				<dt>Email</dt>
 				<dd>{user.email}</dd>
-				<dt>IsAdmin</dt>
-				<dd>
-					<BooleanField
-						label="Is admin"
-						value={user.isAdmin}
-						onChange={changePropertyOnUser("isAdmin")}
-					/>
-				</dd>
 				<dt>Age</dt>
 				<dd>
 					<NumericField
