@@ -1,7 +1,5 @@
 import { useState } from "react"
 
-import { TextField } from "@prwt/fields"
-
 import { Person } from "./people"
 
 export interface LoopExampleProps {
