@@ -9,13 +9,10 @@ export interface LoopExampleProps {
 export const LoopExample = ({ people: initialPeople }: LoopExampleProps) => {
 	const [people, setPeople] = useState(initialPeople)
 
-	const replaceItem = () => {
+	const moveItem = () => {
 		const newPeopleList = [...people]
-		newPeopleList.splice(1, 1, {
-			id: "",
-			name: "Odin",
-			age: 1293
-		})
+		const sourceItem = newPeopleList.splice(0, 1)[0]
+		newPeopleList.splice(3, 0, sourceItem)
 		setPeople(newPeopleList)
 	}
 
@@ -26,7 +23,7 @@ export const LoopExample = ({ people: initialPeople }: LoopExampleProps) => {
 	return (
 		<>
 			<ul>{listItems}</ul>
-			<button onClick={replaceItem}>Replace item</button>
+			<button onClick={moveItem}>Replace item</button>
 		</>
 	)
 }

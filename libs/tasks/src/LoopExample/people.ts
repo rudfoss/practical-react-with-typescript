@@ -12,7 +12,7 @@ export const people: Person[] = [
 	},
 	{
 		id: "e96b6f48-6820-4cf7-9b8c-5eb265af6bf7",
-		name: "Thomas",
+		name: "Anders",
 		age: 20
 	},
 	{
