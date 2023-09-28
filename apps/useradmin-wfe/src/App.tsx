@@ -1,5 +1,8 @@
-import { LoopExample, people } from "@prwt/tasks"
+import { useState } from "react"
+
+import { ListGroups, groups as initialGroups } from "@prwt/tasks"
 
 export const App = () => {
-	return <LoopExample people={people} />
+	const [groups, setGroups] = useState(initialGroups)
+	return <ListGroups groups={groups} onChange={setGroups} />
 }
