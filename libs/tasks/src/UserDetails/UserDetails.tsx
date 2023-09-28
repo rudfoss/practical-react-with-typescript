@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 
-import { BooleanField, NumericField, TextField } from "@prwt/fields"
+import { NumericField, TextField } from "@prwt/fields"
 
 import { User } from "./user"
 
