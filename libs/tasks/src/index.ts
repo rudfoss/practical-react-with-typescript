@@ -1,5 +1,6 @@
 export * from "./ClickUntil"
 export * from "./GroupDetails"
 export * from "./ImmutabilityTest"
+export * from "./LoopExample"
 export * from "./RedFrame"
 export * from "./UserDetails"
