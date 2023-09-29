@@ -19,6 +19,7 @@ export const Nav = () => {
 				<Link to="/test-error-boundary">Test error boundary</Link>
 				<Link to="/test-network">Test network</Link>
 				<Link to="/pick-user">Pick user</Link>
+				<Link to="/test-server-data">Test Server Data</Link>
 			</nav>
 			<input
 				type="checkbox"

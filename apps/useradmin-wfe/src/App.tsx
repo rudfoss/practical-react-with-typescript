@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage"
 import { PickUserPage } from "./pages/PickUserPage"
 import { TestErrorBoundaryPage } from "./pages/TestErrorBoundaryPage"
 import { TestNetworkConnectionPage } from "./pages/TestNetworkConnectionPage"
+import { TestServerDataPage } from "./pages/TestServerDataPage"
 import { UserDetailsPage } from "./pages/UserDetailsPage"
 import { UsersListPage } from "./pages/UsersListPage"
 
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
 			{
 				path: "pick-user",
 				element: <PickUserPage />
+			},
+			{
+				path: "test-server-data",
+				element: <TestServerDataPage />
 			}
 		]
 	}
