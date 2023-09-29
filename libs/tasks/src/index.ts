@@ -1,4 +1,5 @@
 export * from "./ClickUntil"
+export * from "./ErrorBoundaryExample"
 export * from "./ImmutabilityTest"
 export * from "./LoopExample"
 export * from "./RedFrame"
