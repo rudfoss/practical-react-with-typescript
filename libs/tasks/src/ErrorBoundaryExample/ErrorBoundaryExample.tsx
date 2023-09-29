@@ -1,13 +1,10 @@
-import { useState } from "react"
+import { ErrorBoundary } from "./ErrorBoundary"
+import { Explode } from "./Explode"
 
 export const ErrorBoundaryExample = () => {
-	const [throwError, setThrowError] = useState(false)
-
-	if (throwError) {
-		throw new Error("Boom!")
-	}
-
-	const explode = () => setThrowError(true)
-
-	return <button onClick={explode}>Explode!</button>
+	return (
+		<ErrorBoundary>
+			<Explode />
+		</ErrorBoundary>
+	)
 }
