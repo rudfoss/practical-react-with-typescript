@@ -51,15 +51,7 @@ export const UserDetails = ({ user, onChange }: UserDetailsProps) => {
 				<dt>Email</dt>
 				<dd>{user.email}</dd>
 				<dt>Age</dt>
-				<dd>
-					<NumericField
-						label="Age"
-						value={user.age}
-						min={10}
-						max={30}
-						onChange={changePropertyOnUser("age")}
-					/>
-				</dd>
+				<dd>{user.age}</dd>
 			</dl>
 		</Container>
 	)
