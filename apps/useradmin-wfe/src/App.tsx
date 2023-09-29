@@ -4,6 +4,7 @@ import { MainLayout } from "./MainLayout"
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage"
 import { HomePage } from "./pages/HomePage"
 import { TestErrorBoundaryPage } from "./pages/TestErrorBoundaryPage"
+import { TestNetworkConnectionPage } from "./pages/TestNetworkConnectionPage"
 import { UserDetailsPage } from "./pages/UserDetailsPage"
 import { UsersListPage } from "./pages/UsersListPage"
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
 			{
 				path: "test-error-boundary",
 				element: <TestErrorBoundaryPage />
+			},
+			{
+				path: "test-network",
+				element: <TestNetworkConnectionPage />
 			}
 		]
 	}
