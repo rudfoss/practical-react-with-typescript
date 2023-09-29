@@ -1,3 +1,4 @@
+import { lazy } from "react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
 import { Bootstrap } from "./Bootstrap"
@@ -9,7 +10,10 @@ import { TestErrorBoundaryPage } from "./pages/TestErrorBoundaryPage"
 import { TestNetworkConnectionPage } from "./pages/TestNetworkConnectionPage"
 import { TestServerDataPage } from "./pages/TestServerDataPage"
 import { UserDetailsPage } from "./pages/UserDetailsPage"
-import { UsersListPage } from "./pages/UsersListPage"
+
+const UsersListPage = lazy(async () => ({
+	default: (await import("./pages/UsersListPage")).UsersListPage
+}))
 
 const router = createBrowserRouter([
 	{
