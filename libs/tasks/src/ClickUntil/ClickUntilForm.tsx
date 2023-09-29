@@ -1,7 +1,8 @@
 import { useState } from "react"
 
-import { ClickUntil } from "./ClickUntil"
 import { NumericField, TextField } from "@prwt/fields"
+
+import { ClickUntil } from "./ClickUntil"
 
 export const ClickUntilForm = () => {
 	const [limit, setLimit] = useState(5)
