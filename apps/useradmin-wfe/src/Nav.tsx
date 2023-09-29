@@ -7,6 +7,7 @@ export const Nav = () => {
 			<Link to="/users">Users</Link>
 			<Link to="/test-error-boundary">Test error boundary</Link>
 			<Link to="/test-network">Test network</Link>
+			<Link to="/pick-user">Pick user</Link>
 		</nav>
 	)
 }

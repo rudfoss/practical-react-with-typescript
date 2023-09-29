@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { MainLayout } from "./MainLayout"
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage"
 import { HomePage } from "./pages/HomePage"
+import { PickUserPage } from "./pages/PickUserPage"
 import { TestErrorBoundaryPage } from "./pages/TestErrorBoundaryPage"
 import { TestNetworkConnectionPage } from "./pages/TestNetworkConnectionPage"
 import { UserDetailsPage } from "./pages/UserDetailsPage"
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
 			{
 				path: "test-network",
 				element: <TestNetworkConnectionPage />
+			},
+			{
+				path: "pick-user",
+				element: <PickUserPage />
 			}
 		]
 	}
