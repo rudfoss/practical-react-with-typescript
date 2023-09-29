@@ -7,6 +7,8 @@ export const HomePage = () => {
 	const [value, setValue] = useState("")
 	const randomValue = useRandom(value)
 
+	throw new Error("boo!")
+
 	return (
 		<>
 			<h1>Home page</h1>
