@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from "@nestjs/common"
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Inject,
+	Param,
+	Post,
+	Put
+} from "@nestjs/common"
 import { NotFoundException } from "@nestjs/common/exceptions"
 import {
 	ApiCreatedResponse,
@@ -11,19 +20,21 @@ import { nanoid } from "nanoid"
 
 import { GroupStore, GroupStore_Token } from "../store"
 
-import { GroupDTO, GroupMembershipsDTO, GroupWithoutIDDTO, UserIdsDTO } from "./dtos"
+import { Group, GroupMemberships, GroupWithoutID, UserIds } from "./models"
 
 @Controller("groups")
 @ApiTags("Groups")
 export class GroupsController {
-	public constructor(@Inject(GroupStore_Token) protected readonly groupStore: GroupStore) {}
+	public constructor(
+		@Inject(GroupStore_Token) protected readonly groupStore: GroupStore
+	) {}
 
 	@Get(":id")
 	@ApiOperation({
 		description: "Get a specific group based on their ID"
 	})
 	@ApiOkResponse({
-		type: GroupDTO
+		type: Group
 	})
 	@ApiNotFoundResponse({
 		description: "No group with this ID exists"
@@ -40,7 +51,7 @@ export class GroupsController {
 	})
 	@ApiOkResponse({
 		description: "All groups",
-		type: GroupDTO,
+		type: Group,
 		isArray: true
 	})
 	public async getGroups() {
@@ -53,9 +64,9 @@ export class GroupsController {
 	})
 	@ApiCreatedResponse({
 		description: "The newly created group",
-		type: GroupDTO
+		type: Group
 	})
-	public async createGroup(@Body() createGroupDto: GroupWithoutIDDTO) {
+	public async createGroup(@Body() createGroupDto: GroupWithoutID) {
 		const id = nanoid()
 		return this.groupStore.setGroup({
 			...createGroupDto,
@@ -69,12 +80,12 @@ export class GroupsController {
 	})
 	@ApiOkResponse({
 		description: "The updated group",
-		type: GroupDTO
+		type: Group
 	})
 	@ApiNotFoundResponse({
 		description: "No group with the given ID exists"
 	})
-	public async updateGroup(@Body() updateGroupDto: GroupDTO) {
+	public async updateGroup(@Body() updateGroupDto: Group) {
 		if (!(await this.groupStore.getGroup(updateGroupDto.id))) {
 			throw new NotFoundException(`No group with id ${updateGroupDto.id} found`)
 		}
@@ -87,7 +98,7 @@ export class GroupsController {
 	})
 	@ApiOkResponse({
 		description: "The deleted group",
-		type: GroupDTO
+		type: Group
 	})
 	@ApiNotFoundResponse({
 		description: "No group with the given id exists"
@@ -104,14 +115,15 @@ export class GroupsController {
 	})
 	@ApiOkResponse({
 		description: "User ids for all members of the group.",
-		type: UserIdsDTO
+		type: UserIds
 	})
 	@ApiNotFoundResponse({
 		description: "No group exists with the specified id."
 	})
 	public async getMembers(@Param("id") id: string) {
 		const members = await this.groupStore.getMembersOfGroup(id)
-		if (!members) throw new NotFoundException(`No group exists with the id ${id}`)
+		if (!members)
+			throw new NotFoundException(`No group exists with the id ${id}`)
 		return members.memberIds
 	}
 
@@ -121,9 +133,9 @@ export class GroupsController {
 	})
 	@ApiOkResponse({
 		description: "The new members of the group",
-		type: GroupMembershipsDTO
+		type: GroupMemberships
 	})
-	public async setMembers(@Param("id") id: string, @Body() userIds: UserIdsDTO) {
+	public async setMembers(@Param("id") id: string, @Body() userIds: UserIds) {
 		return this.groupStore.setMembersOfGroup(id, userIds)
 	}
 }

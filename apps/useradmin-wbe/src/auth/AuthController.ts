@@ -1,14 +1,28 @@
-import { Body, Controller, HttpCode, Inject, Post, UnauthorizedException } from "@nestjs/common"
-import { ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from "@nestjs/swagger"
+import {
+	Body,
+	Controller,
+	HttpCode,
+	Inject,
+	Post,
+	UnauthorizedException
+} from "@nestjs/common"
+import {
+	ApiOkResponse,
+	ApiOperation,
+	ApiTags,
+	ApiUnauthorizedResponse
+} from "@nestjs/swagger"
 
 import { UserStore, UserStore_Token } from "../store"
 
-import { AuthDTO, AuthResponseDTO } from "./dtos"
+import { Login, LoginResponse } from "./models"
 
 @Controller("auth")
 @ApiTags("Auth")
 export class AuthController {
-	public constructor(@Inject(UserStore_Token) protected readonly userStore: UserStore) {}
+	public constructor(
+		@Inject(UserStore_Token) protected readonly userStore: UserStore
+	) {}
 
 	@Post()
 	@ApiOperation({
@@ -17,13 +31,13 @@ export class AuthController {
 	})
 	@HttpCode(200)
 	@ApiOkResponse({
-		type: AuthResponseDTO,
+		type: LoginResponse,
 		description: "The userName and password to attempt to log in"
 	})
 	@ApiUnauthorizedResponse({
 		description: "UserName or password incorrect"
 	})
-	public async auth(@Body() authDto: AuthDTO): Promise<AuthResponseDTO> {
+	public async auth(@Body() authDto: Login): Promise<LoginResponse> {
 		const user = await this.userStore.getUserByUserName(authDto.userName)
 		if (user?.password !== authDto.password) throw new UnauthorizedException()
 		return { id: user.id, userName: authDto.userName, authenticated: true }

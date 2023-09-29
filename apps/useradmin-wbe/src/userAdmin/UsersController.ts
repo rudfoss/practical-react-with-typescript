@@ -22,20 +22,22 @@ import { nanoid } from "nanoid"
 
 import { UserStore, UserStore_Token } from "../store"
 
-import { GroupIdsDTO, UserDTO, UserMembershipsDTO, UserWithoutIDDTO } from "./dtos"
+import { GroupIds, User, UserMemberships, UserWithoutID } from "./models"
 
 @Controller("users")
 @ApiTags("Users")
 @UsePipes(ZodValidationPipe)
 export class UsersController {
-	public constructor(@Inject(UserStore_Token) protected readonly userStore: UserStore) {}
+	public constructor(
+		@Inject(UserStore_Token) protected readonly userStore: UserStore
+	) {}
 
 	@Get(":id")
 	@ApiOperation({
 		description: "Get a specific user based on their ID"
 	})
 	@ApiOkResponse({
-		type: UserDTO
+		type: User
 	})
 	@ApiNotFoundResponse({
 		description: "No user with this ID exists"
@@ -52,7 +54,7 @@ export class UsersController {
 	})
 	@ApiOkResponse({
 		description: "The user",
-		type: UserDTO,
+		type: User,
 		isArray: true
 	})
 	public async getUsers() {
@@ -65,9 +67,9 @@ export class UsersController {
 	})
 	@ApiCreatedResponse({
 		description: "The newly created user",
-		type: UserDTO
+		type: User
 	})
-	public async createUser(@Body() createUserDto: UserWithoutIDDTO) {
+	public async createUser(@Body() createUserDto: UserWithoutID) {
 		const id = nanoid()
 		return this.userStore.setUser({
 			...createUserDto,
@@ -81,12 +83,12 @@ export class UsersController {
 	})
 	@ApiOkResponse({
 		description: "The updated user",
-		type: UserDTO
+		type: User
 	})
 	@ApiNotFoundResponse({
 		description: "No user with the given ID exists"
 	})
-	public async updateUser(@Body() updateUserDto: UserDTO) {
+	public async updateUser(@Body() updateUserDto: User) {
 		if (!(await this.userStore.getUser(updateUserDto.id))) {
 			throw new NotFoundException(`No user with id ${updateUserDto.id} found`)
 		}
@@ -99,7 +101,7 @@ export class UsersController {
 	})
 	@ApiOkResponse({
 		description: "The deleted user",
-		type: UserDTO
+		type: User
 	})
 	@ApiNotFoundResponse({
 		description: "No user with the given id exists"
@@ -118,14 +120,15 @@ export class UsersController {
 	})
 	@ApiOkResponse({
 		description: "All memberships for the current user",
-		type: GroupIdsDTO
+		type: GroupIds
 	})
 	@ApiNotFoundResponse({
 		description: "No user exists with the specified id"
 	})
 	public async getUserMemberships(@Param("id") id: string) {
 		const memberships = await this.userStore.getUserMemberships(id)
-		if (!memberships) throw new NotFoundException(`No user exists with the id ${id}`)
+		if (!memberships)
+			throw new NotFoundException(`No user exists with the id ${id}`)
 		return memberships.memberOfIds
 	}
 
@@ -135,9 +138,12 @@ export class UsersController {
 	})
 	@ApiOkResponse({
 		description: "The new memberships for the user",
-		type: UserMembershipsDTO
+		type: UserMemberships
 	})
-	public async setUserMemberships(@Param("id") id: string, @Body() groupIds: GroupIdsDTO) {
+	public async setUserMemberships(
+		@Param("id") id: string,
+		@Body() groupIds: GroupIds
+	) {
 		return this.userStore.setUserMemberships(id, groupIds)
 	}
 }

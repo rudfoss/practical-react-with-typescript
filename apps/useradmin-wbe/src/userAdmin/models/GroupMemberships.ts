@@ -3,4 +3,6 @@ import { extendApi } from "@anatine/zod-openapi"
 
 import { zGroupMemberships } from "../../store"
 
-export class GroupMembershipsDTO extends createZodDto(extendApi(zGroupMemberships)) {}
+export class GroupMemberships extends createZodDto(
+	extendApi(zGroupMemberships)
+) {}
