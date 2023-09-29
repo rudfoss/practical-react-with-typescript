@@ -1,6 +1,5 @@
-import { useState } from "react"
-
 import { ChoiceField, ChoiceOption } from "@prwt/fields"
+import { useNavService } from "@prwt/tasks"
 import { User, users } from "@prwt/user-admin"
 
 const choiceToOption = (user: User): ChoiceOption => {
@@ -11,21 +10,21 @@ const choiceToOption = (user: User): ChoiceOption => {
 }
 
 export const PickUserPage = () => {
-	const [selectedUser, setSelectedUser] = useState<User>()
+	const { user, setUser, navigateToTheUser } = useNavService()
 
-	const pickUser = () => {
-		setSelectedUser(users[4])
+	const goToTheUser = () => {
+		navigateToTheUser()
 	}
 
 	return (
 		<>
-			<button onClick={pickUser}>Pick user</button>
+			<button onClick={goToTheUser}>Go to the user</button>
 			<ChoiceField
 				label="Select a user"
-				value={selectedUser}
+				value={user}
 				choices={users}
 				choiceToOption={choiceToOption}
-				onChange={setSelectedUser}
+				onChange={setUser}
 			/>
 		</>
 	)
