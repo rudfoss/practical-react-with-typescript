@@ -1,6 +1,11 @@
 import { ErrorInfo, PureComponent, ReactNode } from "react"
 
+export interface ErrorElementProps {
+	error: unknown
+	tryAgain: () => void
+}
 interface ErrorBoundaryProps {
+	errorElement: (props: ErrorElementProps) => JSX.Element
 	children: ReactNode
 }
 interface ErrorBoundaryState {
@@ -36,12 +41,8 @@ export class ErrorBoundary extends PureComponent<
 
 	public render() {
 		if (this.state.hasError) {
-			return (
-				<p>
-					An error has occurred{" "}
-					<button onClick={this.tryAgain}>try again?</button>
-				</p>
-			)
+			const ErrorElement = this.props.errorElement
+			return <ErrorElement error={this.state.error} tryAgain={this.tryAgain} />
 		}
 
 		return this.props.children
