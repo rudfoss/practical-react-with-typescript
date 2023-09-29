@@ -1,10 +1,11 @@
 import { ChangeEvent } from "react"
 import { Link } from "react-router-dom"
 
-import { useFieldsService } from "@prwt/fields"
+import { useFieldsService, useFieldsStore } from "@prwt/fields"
 
 export const Nav = () => {
 	const { isDisabled, setIsDisabled } = useFieldsService()
+	// const { isDisabled, setIsDisabled } = useFieldsStore()
 
 	const onDisableFieldsToggle = (evt: ChangeEvent<HTMLInputElement>) => {
 		setIsDisabled(evt.target.checked)
