@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
+import { useFieldsService } from "../FieldsService"
+
 interface ContainerProps {
 	borderSize: number
 }
@@ -35,6 +37,7 @@ export const NumericField = ({
 	allowDecimals = false
 }: NumericFieldProps) => {
 	const id = useId()
+	const { isDisabled } = useFieldsService()
 	const shouldUseRangeType = Math.abs(max - min) <= 50 && !allowDecimals
 
 	const onNumericInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +55,7 @@ export const NumericField = ({
 				max={max}
 				value={value}
 				onChange={onNumericInputChange}
+				disabled={isDisabled}
 			/>
 		</Container>
 	)

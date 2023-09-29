@@ -4,6 +4,8 @@
 
 import { useId } from "react"
 
+import { useFieldsService } from "../FieldsService"
+
 import styles from "./TextField.module.css"
 
 interface TextFieldProps {
@@ -21,6 +23,7 @@ export const TextField = ({
 	onChange
 }: TextFieldProps) => {
 	const id = useId()
+	const { isDisabled } = useFieldsService()
 
 	const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(evt.target.value)
@@ -34,7 +37,13 @@ export const TextField = ({
 			<label className={styles.label} htmlFor={id}>
 				{label}
 			</label>
-			<input id={id} type="text" value={value} onChange={onInputChange} />
+			<input
+				id={id}
+				type="text"
+				value={value}
+				onChange={onInputChange}
+				disabled={isDisabled}
+			/>
 			<button onClick={clearValue}>Clear</button>
 		</div>
 	)

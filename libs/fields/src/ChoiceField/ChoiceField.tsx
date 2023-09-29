@@ -1,5 +1,7 @@
 import { ChangeEvent, useId, useMemo } from "react"
 
+import { useFieldsService } from "../FieldsService"
+
 export interface ChoiceOption {
 	label: string
 	id: string
@@ -24,6 +26,8 @@ export const ChoiceField = <TChoice,>({
 	onChange
 }: ChoiceFieldProps<TChoice>) => {
 	const id = useId()
+	const { isDisabled } = useFieldsService()
+
 	const selectedChoiceValue = useMemo(() => {
 		if (!value) return ""
 		return choiceToOption(value).id
@@ -51,7 +55,12 @@ export const ChoiceField = <TChoice,>({
 	return (
 		<div>
 			<label htmlFor={id}>{label}</label>
-			<select id={id} onChange={onSelectChoice} value={selectedChoiceValue}>
+			<select
+				id={id}
+				onChange={onSelectChoice}
+				value={selectedChoiceValue}
+				disabled={isDisabled}
+			>
 				<option value="">(no user selected)</option>
 				{choiceOptions}
 			</select>
