@@ -10,6 +10,7 @@ export interface NavContextProps {
 }
 
 const NavContext = createContext<NavContextProps | undefined>(undefined)
+NavContext.displayName = "NavContext"
 
 export const useNavService = () => {
 	const ctx = useContext(NavContext)
