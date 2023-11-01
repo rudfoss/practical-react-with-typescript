@@ -22,6 +22,11 @@
 		// ".gitignore": true,
 		// ".prettierignore": true,
 		// ".prettierrc": true,
-		// "package-lock.json": true
-	}
+		// "package-lock.json": true,
+		// "nx.json": true,
+		// "jest.config.ts": true,
+		// "jest.preset.js": true,
+		// "tsconfig.base.json": true,
+	},
+	"exportall.config.folderListener": ["/libs/tasks/src"]
 }

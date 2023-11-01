@@ -18,6 +18,9 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@prwt/fields": ["libs/fields/src/index.ts"],
+			"@prwt/tasks": ["libs/tasks/src/index.ts"],
+			"@prwt/user-admin": ["libs/user-admin/src/index.ts"],
 			"@prwt/utils": ["libs/utils/src/index.ts"]
 		}
 	},

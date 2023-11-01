@@ -17,7 +17,7 @@
 		"body": [
 			"import { createContext, useContext, useMemo } from \"react\"",
 			"",
-			"interface ${1:$TM_FILENAME_BASE}ContextProps {",
+			"export interface ${1:$TM_FILENAME_BASE}ContextProps {",
 			"\t${0}",
 			"}",
 			"",
