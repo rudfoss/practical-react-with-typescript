@@ -6,6 +6,7 @@ import {
 	NotFoundException,
 	Param,
 	Query,
+	Res,
 	StreamableFile
 } from "@nestjs/common"
 import {
@@ -19,6 +20,8 @@ import { extendApi } from "@anatine/zod-openapi"
 import { GetProductsOptions, ProductsService } from "./ProductsService"
 import { Product } from "./data"
 import { createReadStream } from "fs"
+import { HttpProblemResponse } from "../exceptions"
+import { StoreApiReply } from "../RequestReply"
 
 class GetProductsOptionsQuery extends createZodDto(
 	extendApi(GetProductsOptions)
@@ -48,7 +51,10 @@ export class ProductsController {
 	@ApiOkResponse({
 		type: ProductResponse
 	})
-	@ApiNotFoundResponse()
+	@ApiNotFoundResponse({
+		description: "No such product exists",
+		type: HttpProblemResponse
+	})
 	public async getProduct(@Param("productId") productId: string) {
 		const productIdNum = parseInt(productId)
 		const product = await this.productsService.getProduct(productIdNum)
@@ -57,8 +63,13 @@ export class ProductsController {
 	}
 
 	@Get(":productId/image")
+	@ApiNotFoundResponse({
+		description: "No image exists for the provided product ID",
+		type: HttpProblemResponse
+	})
 	public async getImage(
-		@Param("productId") productId: string
+		@Param("productId") productId: string,
+		@Res({ passthrough: true }) res: StoreApiReply
 	): Promise<StreamableFile | undefined> {
 		const productIdNum = parseInt(productId)
 		const product = await this.productsService.getProduct(productIdNum)
@@ -69,6 +80,8 @@ export class ProductsController {
 		)
 		if (!imageFile) throw new NotFoundException()
 
-		return new StreamableFile(createReadStream(imageFile))
+		return new StreamableFile(createReadStream(imageFile.path), {
+			type: imageFile.mimeType
+		})
 	}
 }
