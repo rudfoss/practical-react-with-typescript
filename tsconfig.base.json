@@ -16,10 +16,10 @@
 		"downlevelIteration": true,
 		"esModuleInterop": true,
 		"skipDefaultLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
-		"paths": {
-			"@prwt/utils": ["libs/utils/src/index.ts"]
-		}
+		"paths": {}
 	},
 	"exclude": ["node_modules", "tmp"]
 }

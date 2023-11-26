@@ -1,0 +1,24 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start:store-api",
+			"problemMatcher": [],
+			"label": "start:store-api"
+		},
+		{
+			"type": "npm",
+			"script": "start:store-front",
+			"problemMatcher": [],
+			"label": "start:store-front"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": [],
+			"label": "start",
+			"dependsOn": ["start:store-api", "start:store-front"]
+		}
+	]
+}
