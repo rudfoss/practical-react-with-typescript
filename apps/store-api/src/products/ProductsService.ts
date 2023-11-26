@@ -14,4 +14,5 @@ export type GetProductsOptions = z.infer<typeof GetProductsOptions>
 export interface ProductsService {
 	getProducts(options?: GetProductsOptions): Promise<Product[]>
 	getProduct(id: number): Promise<Product | undefined>
+	getProductImageFile(name: string): Promise<string | undefined>
 }

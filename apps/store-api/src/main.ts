@@ -12,6 +12,7 @@ import {
 
 import { AppModule } from "./app"
 import { setupOpenApi } from "./openApi"
+import { HttpExceptionFilter } from "./exceptions"
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
@@ -19,6 +20,7 @@ async function bootstrap() {
 		new FastifyAdapter()
 	)
 	app.enableCors()
+	app.useGlobalFilters(new HttpExceptionFilter())
 
 	const { SwaggerModule, doc } = setupOpenApi(app)
 	SwaggerModule.setup("/docs", app, doc)

@@ -1,10 +1,18 @@
 import { GetProductsOptions, ProductsService } from "./ProductsService"
 import { Product, products as staticProducts } from "./data"
+import path from "node:path"
+import fs from "fs-extra"
 
 export class InMemoryProductsService implements ProductsService {
 	protected inMemoryProductList: Product[]
 
-	public constructor(products: Product[]) {
+	public constructor(
+		products: Product[],
+		protected productImagesPath: string = path.join(
+			__dirname,
+			"products/data/images"
+		)
+	) {
 		this.inMemoryProductList = products || staticProducts
 	}
 
@@ -31,7 +39,19 @@ export class InMemoryProductsService implements ProductsService {
 		productList = productList.slice(offset * count).slice(0, count)
 		return productList
 	}
+
 	public async getProduct(idToFind: number) {
 		return this.inMemoryProductList.find(({ id }) => idToFind === id)
+	}
+
+	public async getProductImageFile(name: string) {
+		const fileNames = await fs.readdir(this.productImagesPath)
+		for (const fileName of fileNames) {
+			if (fileName === name) {
+				return path.join(this.productImagesPath, fileName)
+			}
+		}
+
+		return undefined
 	}
 }

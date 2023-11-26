@@ -6,7 +6,7 @@ export const Product = z.object({
 	price: z.number().min(0).max(Infinity),
 	description: z.string().max(8196),
 	category: z.string().max(512),
-	image: z.string().url(),
+	image: z.string(),
 	rating: z.object({
 		rate: z.number().min(0).max(6),
 		count: z.number().min(0).max(Infinity)
