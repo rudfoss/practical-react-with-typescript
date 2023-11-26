@@ -13,3 +13,6 @@ export const Product = z.object({
 	})
 })
 export type Product = z.infer<typeof Product>
+
+export const NewProduct = Product.omit({ id: true })
+export type NewProduct = z.infer<typeof Product>
