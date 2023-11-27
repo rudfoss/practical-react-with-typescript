@@ -6,6 +6,12 @@ import { Outlet } from "react-router-dom"
 const Container = styled.div`
 	display: flex;
 `
+const Nav = styled.nav`
+	flex: 0 0 150px;
+`
+const Main = styled.main`
+	flex: 1 1 auto;
+`
 
 export interface MainLayoutProps extends LayoutProps {
 	nav: ReactNode
@@ -20,8 +26,8 @@ export const MainLayout = ({
 	return (
 		<>
 			<Container>
-				<nav>{nav}</nav>
-				<main>{children}</main>
+				<Nav>{nav}</Nav>
+				<Main>{children}</Main>
 			</Container>
 			<footer>{footer}</footer>
 		</>

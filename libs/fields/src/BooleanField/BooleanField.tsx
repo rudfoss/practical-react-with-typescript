@@ -1,8 +1,13 @@
 import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
+const Container = styled.div`
+	display: flex;
+	align-items: center;
+	padding: 4px;
+`
 const Label = styled.label`
-	display: block;
+	padding-left: 4px;
 `
 
 export interface BooleanFieldProps {
@@ -24,9 +29,9 @@ export const BooleanField = ({
 	}
 
 	return (
-		<div>
+		<Container>
 			<input id={id} type="checkbox" checked={value} onChange={onInputChange} />
 			<Label htmlFor={id}>{label}</Label>
-		</div>
+		</Container>
 	)
 }

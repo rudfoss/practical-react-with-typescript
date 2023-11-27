@@ -1,11 +1,16 @@
 import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
+const Container = styled.div`
+	padding: 4px;
+`
 const Label = styled.label`
 	display: block;
+	padding-bottom: 4px;
 `
 const Input = styled.input`
 	display: block;
+	width: 100%;
 `
 
 export interface TextFieldProps {
@@ -23,9 +28,9 @@ export const TextField = ({ value = "", onChange, label }: TextFieldProps) => {
 	}
 
 	return (
-		<div>
+		<Container>
 			<Label htmlFor={id}>{label}</Label>
 			<Input id={id} type="text" value={value} onChange={onInputChange} />
-		</div>
+		</Container>
 	)
 }
