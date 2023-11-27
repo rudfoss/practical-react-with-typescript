@@ -6,7 +6,7 @@ import {
 import { Product, UpsertProduct, products as staticProducts } from "./data"
 import path from "node:path"
 import fs from "fs-extra"
-import { loadNanoid } from "../loadNanoid"
+import { importNanoid } from "../esmLoader"
 
 export class InMemoryProductsService implements ProductsService {
 	protected inMemoryProductList: Map<string, Product>
@@ -97,7 +97,7 @@ export class InMemoryProductsService implements ProductsService {
 			return updatedProduct
 		}
 
-		const { nanoid } = await loadNanoid()
+		const { nanoid } = await importNanoid()
 
 		const newProduct: Product = {
 			...upsertProduct,
