@@ -2,7 +2,7 @@ import { Product } from "./Product"
 
 export const products: Product[] = [
 	{
-		id: "1",
+		id: "a31bb826-bc33-4ba3-a03c-8995da7ff4db",
 		title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
 		price: 109.95,
 		description:
@@ -15,7 +15,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "2",
+		id: "506a7566-6897-4009-95f2-3025af2a6d7b",
 		title: "Mens Casual Premium Slim Fit T-Shirts ",
 		price: 22.3,
 		description:
@@ -28,7 +28,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "3",
+		id: "8df1c298-bedf-453c-ba79-7459b4cba1bf",
 		title: "Mens Cotton Jacket",
 		price: 55.99,
 		description:
@@ -41,7 +41,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "4",
+		id: "75e02bdc-8b54-4026-9614-35f109d4bed3",
 		title: "Mens Casual Slim Fit",
 		price: 15.99,
 		description:
@@ -54,7 +54,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "5",
+		id: "a2328f73-cc67-4746-9ef9-e5ba37dd6667",
 		title:
 			"John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
 		price: 695,
@@ -68,7 +68,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "6",
+		id: "236658cc-23dd-413a-aefa-f8e162f807ea",
 		title: "Solid Gold Petite Micropave ",
 		price: 168,
 		description:
@@ -81,7 +81,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "7",
+		id: "4d12732d-47ab-4c64-9a00-f104d938f00c",
 		title: "White Gold Plated Princess",
 		price: 9.99,
 		description:
@@ -94,7 +94,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "8",
+		id: "3f55e797-84d2-4fd9-a5b7-1afcf25906dc",
 		title: "Pierced Owl Rose Gold Plated Stainless Steel Double",
 		price: 10.99,
 		description:
@@ -107,7 +107,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "9",
+		id: "05a794a2-c787-4a9d-b53e-24657f9e8dc7",
 		title: "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
 		price: 64,
 		description:
@@ -120,7 +120,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "10",
+		id: "36f3d939-e7ae-498d-9af8-0cf9a5727226",
 		title: "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
 		price: 109,
 		description:
@@ -133,7 +133,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "11",
+		id: "15927cd8-c792-4f4f-aff4-b2a0b9552c33",
 		title:
 			"Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
 		price: 109,
@@ -147,7 +147,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "12",
+		id: "159c5299-b8d2-44f6-8198-5c66d1b91ad8",
 		title:
 			"WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
 		price: 114,
@@ -161,7 +161,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "13",
+		id: "f2291f47-c2c6-42fe-a3c9-e308b3d61faf",
 		title: "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
 		price: 599,
 		description:
@@ -174,7 +174,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "14",
+		id: "296f1133-5ebf-4633-81f2-c620a98f2cc7",
 		title:
 			"Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ",
 		price: 999.99,
@@ -188,7 +188,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "15",
+		id: "9b7d5c2a-c253-420c-9f4a-c969d2ceb80c",
 		title: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
 		price: 56.99,
 		description:
@@ -201,7 +201,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "16",
+		id: "3900d579-3357-4eec-8d25-f173b9558043",
 		title:
 			"Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
 		price: 29.95,
@@ -215,7 +215,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "17",
+		id: "61a5fe80-d771-4b28-9520-86e2e0ad683a",
 		title: "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
 		price: 39.99,
 		description:
@@ -228,7 +228,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "18",
+		id: "0e0eccdf-91e4-48ad-942a-a358cd163793",
 		title: "MBJ Women's Solid Short Sleeve Boat Neck V ",
 		price: 9.85,
 		description:
@@ -241,7 +241,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "19",
+		id: "22fdb75a-6678-45fa-827d-2c61101e9193",
 		title: "Opna Women's Short Sleeve Moisture",
 		price: 7.95,
 		description:
@@ -254,7 +254,7 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: "20",
+		id: "fa3dd80f-2668-4a8f-8d11-20661519f963",
 		title: "DANVOUY Womens T Shirt Casual Cotton Short",
 		price: 12.99,
 		description:

@@ -107,4 +107,8 @@ export class InMemoryProductsService implements ProductsService {
 		this.inMemoryProductList.set(newProduct.id, newProduct)
 		return newProduct
 	}
+
+	public async setProductImage(id: string) {
+		return this.inMemoryProductList.get("")
+	}
 }

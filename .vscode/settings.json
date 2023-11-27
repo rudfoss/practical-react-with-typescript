@@ -27,5 +27,6 @@
 		// "jest.config.ts": true,
 		// "jest.preset.js": true,
 		// "tsconfig.base.json": true,
-	}
+	},
+	"debug.javascript.autoAttachFilter": "onlyWithFlag"
 }

@@ -28,10 +28,27 @@
 				"production": {}
 			}
 		},
-		"build": {
+		"openApi": {
 			"executor": "nx:run-commands",
 			"dependsOn": [
 				"buildCode"
+			],
+			"outputs": [
+				"{workspaceRoot}/dist/apps/store-api/store-api-openapi.json"
+			],
+			"options": {
+				"parallel": false,
+				"cwd": "dist/apps/store-api",
+				"commands": [
+					"node ./main.js openApi"
+				]
+			}
+		},
+		"build": {
+			"executor": "nx:run-commands",
+			"dependsOn": [
+				"buildCode",
+				"openApi"
 			],
 			"outputs": [
 				"{workspaceRoot}/dist/apps/store-api"
@@ -48,7 +65,9 @@
 			"executor": "@nx/js:node",
 			"defaultConfiguration": "development",
 			"options": {
-				"buildTarget": "store-api:buildCode"
+				"buildTarget": "store-api:buildCode",
+				"inspect": true,
+				"port": 9229
 			},
 			"configurations": {
 				"development": {
@@ -56,6 +75,12 @@
 				},
 				"production": {
 					"buildTarget": "store-api:buildCode:production"
+				},
+				"openApi": {
+					"buildTarget": "store-api:buildCode:development",
+					"args": [
+						"openApi"
+					]
 				}
 			}
 		},

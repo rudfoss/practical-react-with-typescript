@@ -24,4 +24,5 @@ export interface ProductsService {
 	getProductImageFile(name: string): Promise<GetProductImageResult | undefined>
 
 	upsertProduct(upsertProduct: UpsertProduct): Promise<Product | undefined>
+	setProductImage(id: string): Promise<Product | undefined>
 }

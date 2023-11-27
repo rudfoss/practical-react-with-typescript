@@ -13,8 +13,11 @@ import {
 import { AppModule } from "./app"
 import { setupOpenApi } from "./openApi"
 import { HttpExceptionFilter } from "./exceptions"
+import path from "node:path"
+import fs from "fs-extra"
 
-async function bootstrap() {
+async function bootstrap(args: string[]) {
+	const [, , openApiArg] = args
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
 		new FastifyAdapter()
@@ -24,10 +27,18 @@ async function bootstrap() {
 
 	const { SwaggerModule, doc } = setupOpenApi(app)
 	SwaggerModule.setup("/docs", app, doc)
+	if (openApiArg.toLocaleLowerCase() === "openapi") {
+		const openApiPath = path.join(__dirname, "store-api-openapi.json")
+		Logger.log(
+			`App run with arg 'openApi'. Outputting openApi doc to "${openApiPath}" and exiting`
+		)
+		await fs.writeFile(openApiPath, JSON.stringify(doc))
+		process.exit(0)
+	}
 
 	const port = process.env.PORT || 4210
 	await app.listen(port)
 	Logger.log(`🚀 Application is running on: http://localhost:${port}`)
 }
 
-bootstrap()
+bootstrap(process.argv)
