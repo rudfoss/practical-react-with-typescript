@@ -10,4 +10,3 @@ export const HealthData = z
 	})
 	.describe("Health data information about the API")
 export type HealthData = z.infer<typeof HealthData>
-export class HealthDataResponse extends createZodDto(extendApi(HealthData)) {}

@@ -7,7 +7,11 @@ import {
 } from "@nestjs/swagger"
 import { StoreApiReply } from "../RequestReply"
 import { formatISODuration, intervalToDuration } from "date-fns"
-import { HealthData, HealthDataResponse } from "./HealthData"
+import { HealthData as HealthDataModel } from "./HealthData"
+import { createZodDto } from "@anatine/zod-nestjs"
+import { extendApi } from "@anatine/zod-openapi"
+
+export class HealthData extends createZodDto(extendApi(HealthDataModel)) {}
 
 @Controller()
 @ApiTags("App")
@@ -26,10 +30,10 @@ export class AppController {
 		description: "Provides some health information about the API."
 	})
 	@ApiOkResponse({
-		description: HealthData.description,
-		type: HealthDataResponse
+		description: HealthDataModel.description,
+		type: HealthData
 	})
-	public async getHealth(): Promise<HealthDataResponse> {
+	public async getHealth(): Promise<HealthData> {
 		return {
 			ok: true,
 			bootTime: this._bootTime.toISOString(),

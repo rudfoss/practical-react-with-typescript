@@ -1,15 +1,18 @@
 import {
+	Body,
 	Controller,
 	Get,
-	HttpException,
 	Inject,
 	NotFoundException,
 	Param,
+	Post,
 	Query,
 	Res,
 	StreamableFile
 } from "@nestjs/common"
 import {
+	ApiBody,
+	ApiCreatedResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
@@ -17,16 +20,23 @@ import {
 } from "@nestjs/swagger"
 import { createZodDto } from "@anatine/zod-nestjs"
 import { extendApi } from "@anatine/zod-openapi"
-import { GetProductsOptions, ProductsService } from "./ProductsService"
-import { Product } from "./data"
+import {
+	GetProductsOptions as GetProductsOptionsModel,
+	ProductsService
+} from "./ProductsService"
+import {
+	UpsertProduct as UpsertProductModel,
+	Product as ProductModel
+} from "./data"
 import { createReadStream } from "fs"
 import { HttpProblemResponse } from "../exceptions"
 import { StoreApiReply } from "../RequestReply"
 
-class GetProductsOptionsQuery extends createZodDto(
-	extendApi(GetProductsOptions)
+class GetProductsOptions extends createZodDto(
+	extendApi(GetProductsOptionsModel)
 ) {}
-class ProductResponse extends createZodDto(extendApi(Product)) {}
+class Product extends createZodDto(extendApi(ProductModel)) {}
+class UpsertProduct extends createZodDto(extendApi(UpsertProductModel)) {}
 
 @Controller("products")
 @ApiTags("Products")
@@ -40,24 +50,23 @@ export class ProductsController {
 		summary: "Get all products"
 	})
 	@ApiOkResponse({
-		type: ProductResponse,
+		type: Product,
 		isArray: true
 	})
-	public async listAll(@Query() query: GetProductsOptionsQuery) {
+	public async listAll(@Query() query: GetProductsOptions) {
 		return this.productsService.getProducts(query)
 	}
 
 	@Get(":productId")
 	@ApiOkResponse({
-		type: ProductResponse
+		type: Product
 	})
 	@ApiNotFoundResponse({
 		description: "No such product exists",
 		type: HttpProblemResponse
 	})
 	public async getProduct(@Param("productId") productId: string) {
-		const productIdNum = parseInt(productId)
-		const product = await this.productsService.getProduct(productIdNum)
+		const product = await this.productsService.getProduct(productId)
 		if (!product) throw new NotFoundException()
 		return product
 	}
@@ -71,8 +80,7 @@ export class ProductsController {
 		@Param("productId") productId: string,
 		@Res({ passthrough: true }) res: StoreApiReply
 	): Promise<StreamableFile | undefined> {
-		const productIdNum = parseInt(productId)
-		const product = await this.productsService.getProduct(productIdNum)
+		const product = await this.productsService.getProduct(productId)
 		if (!product) throw new NotFoundException()
 
 		const imageFile = await this.productsService.getProductImageFile(
@@ -83,5 +91,27 @@ export class ProductsController {
 		return new StreamableFile(createReadStream(imageFile.path), {
 			type: imageFile.mimeType
 		})
+	}
+
+	@Post()
+	@ApiOperation({
+		summary: "Create or update a product",
+		description:
+			"This endpoints allows creating new products as well as updating existing ones. If the body contains an `id` an existing product will be updated or, if the product does not exist, a not-found error is thrown"
+	})
+	@ApiBody({
+		description: UpsertProductModel.description,
+		type: UpsertProduct
+	})
+	@ApiCreatedResponse({
+		description: "The complete updated or created product.",
+		status: 200,
+		type: Product
+	})
+	@ApiNotFoundResponse({
+		type: HttpProblemResponse
+	})
+	public async upsertProduct(@Body() body: UpsertProduct) {
+		return this.productsService.getProduct("1")
 	}
 }

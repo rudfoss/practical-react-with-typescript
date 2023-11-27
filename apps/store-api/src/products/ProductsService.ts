@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { Product } from "./data"
+import { Product, UpsertProduct } from "./data"
 
 export const ProductsService = Symbol("ProductsService")
 
@@ -20,6 +20,8 @@ export type GetProductImageResult = z.infer<typeof GetProductImageResult>
 
 export interface ProductsService {
 	getProducts(options?: GetProductsOptions): Promise<Product[]>
-	getProduct(id: number): Promise<Product | undefined>
+	getProduct(id: string): Promise<Product | undefined>
 	getProductImageFile(name: string): Promise<GetProductImageResult | undefined>
+
+	upsertProduct(upsertProduct: UpsertProduct): Promise<Product | undefined>
 }

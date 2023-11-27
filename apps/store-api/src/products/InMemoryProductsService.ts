@@ -3,12 +3,13 @@ import {
 	GetProductsOptions,
 	ProductsService
 } from "./ProductsService"
-import { Product, products as staticProducts } from "./data"
+import { Product, UpsertProduct, products as staticProducts } from "./data"
 import path from "node:path"
 import fs from "fs-extra"
+import { loadNanoid } from "../loadNanoid"
 
 export class InMemoryProductsService implements ProductsService {
-	protected inMemoryProductList: Product[]
+	protected inMemoryProductList: Map<string, Product>
 
 	public constructor(
 		products: Product[],
@@ -17,25 +18,33 @@ export class InMemoryProductsService implements ProductsService {
 			"products/data/images"
 		)
 	) {
-		this.inMemoryProductList = products || staticProducts
+		this.inMemoryProductList = new Map(
+			(products || staticProducts).map((product) => [
+				product.id.toString(),
+				product
+			])
+		)
 	}
 
 	public async getProducts(options?: GetProductsOptions) {
 		const { count, offset, sortBy, sortDirection } =
 			GetProductsOptions.parse(options)
 
-		let productList = this.inMemoryProductList.slice(0)
+		let productList = Array.from(this.inMemoryProductList.values())
 		productList.sort((a, b) => {
 			const aValue = a[sortBy]
 			const bValue = b[sortBy]
 			let result = 0
+
+			if (aValue === undefined) return -1
+			if (bValue === undefined) return 1
 
 			if (typeof aValue === "number" && typeof bValue === "number") {
 				result = aValue - bValue
 			} else if (typeof aValue === "string" && typeof bValue === "string") {
 				result = aValue.localeCompare(bValue)
 			} else if (typeof aValue === "object" && typeof bValue === "object") {
-				result = aValue.rate - bValue.rate
+				result = (aValue.rate ?? 0) - (bValue.rate ?? 0)
 			}
 
 			return sortDirection === "asc" ? result : result * -1
@@ -44,8 +53,8 @@ export class InMemoryProductsService implements ProductsService {
 		return productList
 	}
 
-	public async getProduct(idToFind: number) {
-		return this.inMemoryProductList.find(({ id }) => idToFind === id)
+	public async getProduct(id: string) {
+		return this.inMemoryProductList.get(id)
 	}
 
 	public async getProductImageFile(
@@ -66,5 +75,36 @@ export class InMemoryProductsService implements ProductsService {
 		}
 
 		return undefined
+	}
+
+	public async upsertProduct(
+		upsertProduct: UpsertProduct
+	): Promise<Product | undefined> {
+		if (upsertProduct.id) {
+			const existingProduct = this.inMemoryProductList.get(upsertProduct.id)
+			if (!existingProduct) return undefined
+
+			const updatedProduct: Product = {
+				...existingProduct,
+				...upsertProduct,
+				rating: {
+					...(existingProduct.rating ?? {}),
+					...(upsertProduct.rating ?? {})
+				}
+			}
+
+			this.inMemoryProductList.set(updatedProduct.id, updatedProduct)
+			return updatedProduct
+		}
+
+		const { nanoid } = await loadNanoid()
+
+		const newProduct: Product = {
+			...upsertProduct,
+			id: nanoid()
+		}
+
+		this.inMemoryProductList.set(newProduct.id, newProduct)
+		return newProduct
 	}
 }
