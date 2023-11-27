@@ -4,7 +4,7 @@
 	"sourceRoot": "apps/store-api/src",
 	"projectType": "application",
 	"targets": {
-		"build": {
+		"buildCode": {
 			"executor": "@nx/webpack:webpack",
 			"outputs": [
 				"{options.outputPath}"
@@ -16,6 +16,7 @@
 				"outputPath": "dist/apps/store-api",
 				"main": "apps/store-api/src/main.ts",
 				"tsConfig": "apps/store-api/tsconfig.app.json",
+				"generatePackageJson": true,
 				"assets": [
 					"apps/store-api/src/products/data/images"
 				],
@@ -27,18 +28,33 @@
 				"production": {}
 			}
 		},
+		"build": {
+			"executor": "nx:run-commands",
+			"dependsOn": [
+				"buildCode"
+			],
+			"outputs": [
+				"dist/apps/store-api"
+			],
+			"options": {
+				"parallel": false,
+				"commands": [
+					"npm i --prefix dist/apps/store-api"
+				]
+			}
+		},
 		"serve": {
 			"executor": "@nx/js:node",
 			"defaultConfiguration": "development",
 			"options": {
-				"buildTarget": "store-api:build"
+				"buildTarget": "store-api:buildCode"
 			},
 			"configurations": {
 				"development": {
-					"buildTarget": "store-api:build:development"
+					"buildTarget": "store-api:buildCode:development"
 				},
 				"production": {
-					"buildTarget": "store-api:build:production"
+					"buildTarget": "store-api:buildCode:production"
 				}
 			}
 		},

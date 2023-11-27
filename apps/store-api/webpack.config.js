@@ -1,3 +1,4 @@
+const webpack = require("webpack")
 const { composePlugins, withNx } = require("@nx/webpack")
 const path = require("node:path")
 
@@ -12,6 +13,14 @@ module.exports = composePlugins(withNx(), (config) => {
 		const rel = path.relative(process.cwd(), info.absoluteResourcePath)
 		return `webpack:///./${rel}`
 	}
+
+	config.plugins.push(
+		new webpack.optimize.LimitChunkCountPlugin({
+			maxChunks: 1
+		})
+	)
+
+	console.log(JSON.stringify(config, null, 1))
 
 	return config
 })
