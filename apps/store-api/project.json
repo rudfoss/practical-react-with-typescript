@@ -64,6 +64,9 @@
 		"serve": {
 			"executor": "@nx/js:node",
 			"defaultConfiguration": "development",
+			"dependsOn": [
+				"^genClient"
+			],
 			"options": {
 				"buildTarget": "store-api:buildCode",
 				"inspect": true,

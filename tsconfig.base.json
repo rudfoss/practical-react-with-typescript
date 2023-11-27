@@ -19,7 +19,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
-		"paths": {}
+		"paths": {
+			"@prwt/generated/store-api": ["libs/generated/store-api/index.ts"]
+		}
 	},
 	"exclude": ["node_modules", "tmp"]
 }

@@ -4,9 +4,15 @@
 	"sourceRoot": "apps/store-front/src",
 	"projectType": "application",
 	"targets": {
-		"build": {
+		"buildCode": {
 			"executor": "@nx/vite:build",
-			"outputs": ["{options.outputPath}"],
+			"dependsOn": [
+				"^genClient",
+				"buildCode"
+			],
+			"outputs": [
+				"{options.outputPath}"
+			],
 			"defaultConfiguration": "production",
 			"options": {
 				"outputPath": "dist/apps/store-front"
@@ -20,19 +26,28 @@
 				}
 			}
 		},
+		"build": {
+			"executor": "nx:noop",
+			"dependsOn": [
+				"buildCode"
+			]
+		},
 		"serve": {
 			"executor": "@nx/vite:dev-server",
 			"defaultConfiguration": "development",
+			"dependsOn": [
+				"^genClient"
+			],
 			"options": {
-				"buildTarget": "store-front:build"
+				"buildTarget": "store-front:buildCode"
 			},
 			"configurations": {
 				"development": {
-					"buildTarget": "store-front:build:development",
+					"buildTarget": "store-front:buildCode:development",
 					"hmr": true
 				},
 				"production": {
-					"buildTarget": "store-front:build:production",
+					"buildTarget": "store-front:buildCode:production",
 					"hmr": false
 				}
 			}
@@ -54,7 +69,9 @@
 		},
 		"test": {
 			"executor": "@nx/vite:test",
-			"outputs": ["{options.reportsDirectory}"],
+			"outputs": [
+				"{options.reportsDirectory}"
+			],
 			"options": {
 				"passWithNoTests": true,
 				"reportsDirectory": "../../coverage/apps/store-front"
@@ -62,11 +79,18 @@
 		},
 		"lint": {
 			"executor": "@nx/eslint:lint",
-			"outputs": ["{options.outputFile}"],
+			"outputs": [
+				"{options.outputFile}"
+			],
 			"options": {
-				"lintFilePatterns": ["apps/store-front/**/*.{ts,tsx,js,jsx}"]
+				"lintFilePatterns": [
+					"apps/store-front/**/*.{ts,tsx,js,jsx}"
+				]
 			}
 		}
 	},
-	"tags": []
+	"tags": [],
+	"implicitDependencies": [
+		"generated-store-api"
+	]
 }
