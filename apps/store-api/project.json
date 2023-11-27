@@ -34,12 +34,13 @@
 				"buildCode"
 			],
 			"outputs": [
-				"dist/apps/store-api"
+				"{workspaceRoot}/dist/apps/store-api"
 			],
 			"options": {
 				"parallel": false,
+				"cwd": "dist/apps/store-api",
 				"commands": [
-					"npm i --prefix dist/apps/store-api"
+					"npm i"
 				]
 			}
 		},

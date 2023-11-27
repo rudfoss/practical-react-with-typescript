@@ -14,13 +14,5 @@ module.exports = composePlugins(withNx(), (config) => {
 		return `webpack:///./${rel}`
 	}
 
-	config.plugins.push(
-		new webpack.optimize.LimitChunkCountPlugin({
-			maxChunks: 1
-		})
-	)
-
-	console.log(JSON.stringify(config, null, 1))
-
 	return config
 })
