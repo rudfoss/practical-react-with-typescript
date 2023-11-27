@@ -61,6 +61,9 @@ export class ProductsController {
 	@ApiOkResponse({
 		type: Product
 	})
+	@ApiOperation({
+		summary: "Get information about a product"
+	})
 	@ApiNotFoundResponse({
 		description: "No such product exists",
 		type: HttpProblemResponse
@@ -72,6 +75,9 @@ export class ProductsController {
 	}
 
 	@Get(":productId/image")
+	@ApiOperation({
+		summary: "Get the image for a product if one is assigned"
+	})
 	@ApiNotFoundResponse({
 		description: "No image exists for the provided product ID",
 		type: HttpProblemResponse

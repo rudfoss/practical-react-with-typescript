@@ -17,7 +17,7 @@ import path from "node:path"
 import fs from "fs-extra"
 
 async function bootstrap(args: string[]) {
-	const [, , openApiArg] = args
+	const [, , openApiArg = ""] = args
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
 		new FastifyAdapter()
