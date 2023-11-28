@@ -6,17 +6,5 @@ export const builtInUsers: User[] = [
 		role: "admin",
 		username: "admin",
 		password: "admin"
-	},
-	{
-		id: "2abade53-d0e8-4223-932d-cc994e410e1d",
-		role: "warehouseAdmin",
-		username: "warehouse",
-		password: "warehouse"
-	},
-	{
-		id: "b1b11a71-0e9b-44ed-86a7-015ffba5824f",
-		role: "customer",
-		username: "customer",
-		password: "customer"
 	}
 ]

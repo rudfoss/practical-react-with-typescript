@@ -20,8 +20,29 @@ export const GetProductsOptions = z.object({
 })
 export type GetProductsOptions = z.infer<typeof GetProductsOptions>
 
+export const GetProductsResult = z.object({
+	results: Product.array(),
+	totalResults: z
+		.number()
+		.min(0)
+		.max(Infinity)
+		.describe("The total number of results regardless of paging"),
+	pageCount: z
+		.number()
+		.min(1)
+		.max(Infinity)
+		.describe("The total number of pages with the provided count"),
+	countPerPage: z
+		.number()
+		.min(1)
+		.max(100)
+		.default(10)
+		.describe("The number of items per page")
+})
+export type GetProductsResult = z.infer<typeof GetProductsResult>
+
 export interface ProductsService {
-	getProducts(options?: GetProductsOptions): Promise<Product[]>
+	getProducts(options?: GetProductsOptions): Promise<GetProductsResult>
 	getProduct(id: string): Promise<Product | undefined>
 
 	newProduct(newProduct: NewProduct): Promise<Product | undefined>

@@ -2,7 +2,8 @@ import {
 	CanActivate,
 	ExecutionContext,
 	Inject,
-	Injectable
+	Injectable,
+	UnauthorizedException
 } from "@nestjs/common"
 import { AuthService } from "./AuthService"
 import { StoreApiRequest } from "../RequestReply"
@@ -32,7 +33,10 @@ export class AuthGuard implements CanActivate {
 		if (!session || !user) return false
 
 		if (roles && user.role !== "admin") {
-			if (!roles.includes(user.role)) return false
+			if (!roles.includes(user.role))
+				throw new UnauthorizedException(
+					`User does not have role: ${JSON.stringify(roles)}`
+				)
 		}
 
 		request.user = user

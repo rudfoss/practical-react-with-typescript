@@ -109,4 +109,18 @@ export class AuthController {
 	public async login(@Body() { username, password }: LoginRequest) {
 		return await this.authService.loginUser(username, password)
 	}
+
+	@Post("logout")
+	@ApiOperation({
+		summary: "Log the user out"
+	})
+	@ApiOkResponse({
+		status: 201,
+		description: "The user has been logged out"
+	})
+	public async logout(@Req() request: StoreApiRequest) {
+		if (request.session) {
+			this.authService.logoutUser(request.session.token)
+		}
+	}
 }

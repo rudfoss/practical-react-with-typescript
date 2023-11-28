@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export const Role = z
-	.enum(["admin", "customer", "warehouseAdmin"])
+	.enum(["admin", "productAdmin", "warehouseAdmin"])
 	.describe("The role of the user")
 export type Role = z.infer<typeof Role>
 

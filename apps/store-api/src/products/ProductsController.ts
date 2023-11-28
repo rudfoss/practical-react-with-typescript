@@ -21,6 +21,7 @@ import { createZodDto } from "@anatine/zod-nestjs"
 import { extendApi } from "@anatine/zod-openapi"
 import {
 	GetProductsOptions as GetProductsOptionsModel,
+	GetProductsResult as GetProductsResultModel,
 	ProductsService
 } from "./ProductsService"
 import {
@@ -33,6 +34,9 @@ import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
 
 class GetProductsOptions extends createZodDto(
 	extendApi(GetProductsOptionsModel)
+) {}
+class GetProductsResult extends createZodDto(
+	extendApi(GetProductsResultModel)
 ) {}
 class Product extends createZodDto(extendApi(ProductModel)) {}
 class NewProduct extends createZodDto(extendApi(NewProductModel)) {}
@@ -55,8 +59,7 @@ export class ProductsController {
 		summary: "Get all products"
 	})
 	@ApiOkResponse({
-		type: Product,
-		isArray: true
+		type: GetProductsResult
 	})
 	@ZodGuardQuery(GetProductsOptions)
 	public async listAll(@Query() query: GetProductsOptions) {

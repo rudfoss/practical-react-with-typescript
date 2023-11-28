@@ -1,4 +1,8 @@
-import { GetProductsOptions, ProductsService } from "./ProductsService"
+import {
+	GetProductsOptions,
+	GetProductsResult,
+	ProductsService
+} from "./ProductsService"
 import { Product, NewProduct, UpdateProduct } from "./Product"
 import { importNanoid } from "../esmLoader"
 import { initialProducts } from "./initialProducts"
@@ -56,16 +60,25 @@ export class InMemoryProductsService implements ProductsService {
 		)
 	}
 
-	public async getProducts(options?: GetProductsOptions) {
+	public async getProducts(
+		options?: GetProductsOptions
+	): Promise<GetProductsResult> {
 		const { query, categories, count, offset, sortBy, sortDirection } =
 			GetProductsOptions.parse(options)
 
 		let productList = Array.from(this.inMemoryProductList.values()).filter(
 			createProductsFilter(query, categories)
 		)
+		const totalResults = productList.length
 		productList.sort(createProductSorter(sortBy, sortDirection === "desc"))
 
-		return productList.slice(offset * count).slice(0, count)
+		const results = productList.slice(offset * count).slice(0, count)
+		return {
+			results,
+			totalResults,
+			pageCount: Math.ceil(totalResults / count),
+			countPerPage: count
+		}
 	}
 
 	public async getProduct(id: string) {
