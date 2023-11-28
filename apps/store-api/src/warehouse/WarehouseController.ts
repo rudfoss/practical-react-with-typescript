@@ -76,7 +76,7 @@ export class WarehouseController {
 		description: "The new inventory count",
 		type: InventoryResult
 	})
-	@ZodGuardBody(z.number().min(0).max(Infinity))
+	@ZodGuardBody(z.number().min(0))
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	@RequireRoles(["warehouseAdmin"])

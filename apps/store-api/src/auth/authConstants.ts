@@ -7,5 +7,5 @@ export const bearerConfig: SecuritySchemeObject = {
 	name: "Authorization",
 	bearerFormat: "Bearer",
 	scheme: "Bearer",
-	in: "Header"
+	in: "header"
 }

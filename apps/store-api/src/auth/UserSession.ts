@@ -6,12 +6,7 @@ export const UserSession = z.object({
 	createdAt: z
 		.number()
 		.min(0)
-		.max(Infinity)
 		.describe("Timestamp for when the session was started."),
-	expiresAt: z
-		.number()
-		.min(0)
-		.max(Infinity)
-		.describe("Timestamp when the token expires.")
+	expiresAt: z.number().min(0).describe("Timestamp when the token expires.")
 })
 export type UserSession = z.infer<typeof UserSession>

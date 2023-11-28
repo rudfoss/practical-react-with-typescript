@@ -4,7 +4,7 @@ export const WarehouseService = Symbol("WarehouseService")
 
 export const InventoryResult = z.object({
 	productId: z.string(),
-	count: z.number().min(0).max(Infinity)
+	count: z.number().min(0)
 })
 export type InventoryResult = z.infer<typeof InventoryResult>
 

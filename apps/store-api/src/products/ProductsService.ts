@@ -12,7 +12,7 @@ export const GetProductsOptions = z.object({
 		),
 	categories: ProductCategory.array().min(1).optional(),
 	count: z.coerce.number().min(1).max(100).default(10),
-	offset: z.coerce.number().min(0).max(Infinity).default(0),
+	offset: z.coerce.number().min(0).default(0),
 	sortBy: z
 		.enum(["id", "title", "price", "rating", "nrOfRatings"])
 		.default("id"),
@@ -25,12 +25,10 @@ export const GetProductsResult = z.object({
 	totalResults: z
 		.number()
 		.min(0)
-		.max(Infinity)
 		.describe("The total number of results regardless of paging"),
 	pageCount: z
 		.number()
 		.min(1)
-		.max(Infinity)
 		.describe("The total number of pages with the provided count"),
 	countPerPage: z
 		.number()
