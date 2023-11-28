@@ -3,8 +3,9 @@ import {
 	Controller,
 	Get,
 	Inject,
-	Logger,
+	NotFoundException,
 	Post,
+	Query,
 	Req,
 	UseGuards
 } from "@nestjs/common"
@@ -25,7 +26,7 @@ import { extendApi } from "@anatine/zod-openapi"
 import { z } from "zod"
 import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
 import { UserSession as UserSessionModel } from "./UserSession"
-import { ZodGuard, ZodGuardBody } from "../ZodGuard"
+import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
 
 class LoginRequest extends createZodDto(
 	extendApi(
@@ -36,6 +37,16 @@ class LoginRequest extends createZodDto(
 	)
 ) {}
 class UserSession extends createZodDto(extendApi(UserSessionModel)) {}
+class RefreshSessionQuery extends createZodDto(
+	extendApi(
+		z.object({
+			refresh: z
+				.enum(["true", "false"])
+				.transform((value) => value === "true")
+				.optional()
+		})
+	)
+) {}
 
 @Controller("auth")
 @ApiTags("Auth")
@@ -53,10 +64,35 @@ export class AuthController {
 	@ApiOperation({
 		summary: "Get the current users active session"
 	})
+	@ApiOkResponse({
+		description: "The live session",
+		type: UserSession
+	})
+	@ApiNotFoundResponse({
+		description: "The user has no active session",
+		type: HttpProblemResponse
+	})
 	@ApiBearerAuth(bearerAuthName)
+	@ZodGuardQuery(RefreshSessionQuery)
 	@UseGuards(AuthGuard)
-	public async getSession(@Req() request: StoreApiRequest) {
-		Logger.log(`User: ${JSON.stringify(request.user)}`)
+	public async getSession(
+		@Req() request: StoreApiRequest,
+		@Query() query?: RefreshSessionQuery
+	) {
+		const sessionInfo = this.authService.getUserSession(
+			request.session?.token ?? ""
+		)
+		if (!sessionInfo) {
+			throw new NotFoundException()
+		}
+
+		if (query?.refresh) {
+			return await this.authService.refreshUserSession(
+				sessionInfo.session.token
+			)
+		}
+
+		return sessionInfo.session
 	}
 
 	@Post("login")

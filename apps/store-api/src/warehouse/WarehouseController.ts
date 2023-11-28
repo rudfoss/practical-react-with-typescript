@@ -15,6 +15,7 @@ import {
 } from "./WarehouseService"
 import {
 	ApiBadRequestResponse,
+	ApiBearerAuth,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
@@ -25,6 +26,8 @@ import { extendApi } from "@anatine/zod-openapi"
 import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
 import { ZodGuard, ZodGuardBody } from "../ZodGuard"
 import { z } from "zod"
+import { bearerAuthName } from "../auth"
+import { AuthGuard, RequireRoles } from "../auth"
 
 class InventoryResult extends createZodDto(extendApi(InventoryResultModel)) {}
 
@@ -66,6 +69,7 @@ export class WarehouseController {
 
 	@Put("inventory/:productId")
 	@ApiOperation({
+		description: "The role warehouseAdmin is required to use this endpoint.",
 		summary: "Set the new inventory count for a product"
 	})
 	@ApiOkResponse({
@@ -73,6 +77,9 @@ export class WarehouseController {
 		type: InventoryResult
 	})
 	@ZodGuardBody(z.number().min(0).max(Infinity))
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@RequireRoles(["warehouseAdmin"])
 	public async updateInventory(
 		@Param("productId") productId: string,
 		@Body() count: number

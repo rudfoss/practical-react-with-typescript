@@ -9,7 +9,7 @@ import { StoreApiRequest } from "../RequestReply"
 import { Reflector } from "@nestjs/core"
 import { Role } from "./User"
 
-export const Roles = Reflector.createDecorator<Role[]>()
+export const RequireRoles = Reflector.createDecorator<Role[]>()
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
 	) {}
 
 	public async canActivate(context: ExecutionContext): Promise<boolean> {
-		const roles = this.reflector.getAllAndOverride(Roles, [
+		const roles = this.reflector.getAllAndOverride(RequireRoles, [
 			context.getHandler(),
 			context.getClass()
 		])
@@ -30,7 +30,10 @@ export class AuthGuard implements CanActivate {
 		const { session, user } =
 			this.authService.getUserSession(sessionToken) ?? {}
 		if (!session || !user) return false
-		if (!roles.includes(user.role)) return false
+
+		if (roles && user.role !== "admin") {
+			if (!roles.includes(user.role)) return false
+		}
 
 		request.user = user
 		request.session = session

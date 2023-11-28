@@ -42,4 +42,10 @@ export class AppController {
 			)
 		}
 	}
+
+	@Get("____")
+	@ApiExcludeEndpoint()
+	public "🥚"() {
+		return "❤️🐧"
+	}
 }

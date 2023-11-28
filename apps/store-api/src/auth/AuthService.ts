@@ -6,10 +6,15 @@ import {
 import { UpdateUser, User } from "./User"
 import { importNanoid } from "../esmLoader"
 import { UserSession } from "./UserSession"
+import { builtInUsers } from "./builtInUsers"
+
+export const SESSION_EXPIRES_MS = 1000 * 60 * 30 // 30 mins
 
 @Injectable()
 export class AuthService {
-	protected readonly usersById = new Map<string, User>()
+	protected readonly usersById = new Map<string, User>(
+		builtInUsers.map((user) => [user.id, user])
+	)
 	protected readonly userSessionsByToken = new Map<string, UserSession>()
 
 	public getUsers() {
@@ -67,7 +72,9 @@ export class AuthService {
 		const { nanoid } = await importNanoid()
 		const session = UserSession.parse({
 			token: nanoid(64),
-			userId: user.id
+			userId: user.id,
+			createdAt: new Date().getTime(),
+			expiresAt: new Date().getTime() + SESSION_EXPIRES_MS
 		} as UserSession)
 
 		this.userSessionsByToken.set(session.token, session)
@@ -79,6 +86,11 @@ export class AuthService {
 		return true
 	}
 
+	/**
+	 * Gets the users active session. If the session is expired it is deleted.
+	 * @param token
+	 * @returns
+	 */
 	public getUserSession(token: string) {
 		const session = this.userSessionsByToken.get(token)
 		if (!session) return undefined
@@ -88,7 +100,7 @@ export class AuthService {
 			return undefined
 		}
 
-		if (session.expiresAt >= new Date().getTime()) {
+		if (session.expiresAt <= new Date().getTime()) {
 			this.logoutUser(token)
 			return undefined
 		}
