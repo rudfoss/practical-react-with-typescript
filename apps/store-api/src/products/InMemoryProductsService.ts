@@ -32,13 +32,11 @@ const createProductSorter =
 		return reverse ? result * -1 : result
 	}
 
-const createProductsFilter = (query?: string, categories?: string[]) => {
-	if (!query && !categories) return () => true
+const createProductsFilter = (query?: string, categoryFilter?: string) => {
+	if (!query && !categoryFilter) return () => true
 	const lowerQuery = query?.toLocaleLowerCase()
 	return ({ category, title, id, description }: Product) => {
-		if (categories) {
-			if (!categories.includes(category)) return false
-		}
+		if (categoryFilter && category !== categoryFilter) return false
 		if (!lowerQuery) return true
 
 		return (
@@ -63,11 +61,11 @@ export class InMemoryProductsService implements ProductsService {
 	public async getProducts(
 		options?: GetProductsOptions
 	): Promise<GetProductsResult> {
-		const { query, categories, count, offset, sortBy, sortDirection } =
+		const { query, category, count, offset, sortBy, sortDirection } =
 			GetProductsOptions.parse(options)
 
 		let productList = Array.from(this.inMemoryProductList.values()).filter(
-			createProductsFilter(query, categories)
+			createProductsFilter(query, category)
 		)
 		const totalResults = productList.length
 		productList.sort(createProductSorter(sortBy, sortDirection === "desc"))

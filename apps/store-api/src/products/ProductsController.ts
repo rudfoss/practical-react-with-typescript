@@ -29,11 +29,13 @@ import {
 import {
 	Product as ProductModel,
 	NewProduct as NewProductModel,
-	UpdateProduct as UpdateProductModel
+	UpdateProduct as UpdateProductModel,
+	ProductCategory
 } from "./Product"
 import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
 import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
+import { z } from "zod"
 
 class GetProductsOptions extends createZodDto(
 	extendApi(GetProductsOptionsModel)

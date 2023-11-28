@@ -10,7 +10,7 @@ export const GetProductsOptions = z.object({
 		.describe(
 			"A short text to search for in either the title, description or category."
 		),
-	categories: ProductCategory.array().min(1).optional(),
+	category: ProductCategory.optional(), // Ideally this should be an array of allowable enum values, but that causes a NullReferenceException in NSwag (even though it is valid OpenAPI according to https://editor-next.swagger.io/)
 	count: z.coerce.number().min(1).max(100).default(10),
 	offset: z.coerce.number().min(0).default(0),
 	sortBy: z
