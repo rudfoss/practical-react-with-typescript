@@ -16,9 +16,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
 		const ctx = host.switchToHttp()
 		const response = ctx.getResponse<StoreApiReply>()
 
-		let problem = HttpProblemException.NewInternalServerErrorException()
+		let problem: HttpProblemException
 		if (exception instanceof HttpException) {
 			problem = HttpProblemException.NewFromHttpException(exception)
+		} else if (exception instanceof HttpProblemException) {
+			problem = exception
+		} else {
+			problem = HttpProblemException.NewInternalServerErrorException()
 		}
 
 		response.status(problem.httpProblem.status).send(problem.httpProblem)

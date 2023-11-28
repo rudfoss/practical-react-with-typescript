@@ -17,9 +17,7 @@
 				"main": "apps/store-api/src/main.ts",
 				"tsConfig": "apps/store-api/tsconfig.app.json",
 				"generatePackageJson": true,
-				"assets": [
-					"apps/store-api/src/products/data/images"
-				],
+				"assets": [],
 				"isolatedConfig": true,
 				"webpackConfig": "apps/store-api/webpack.config.js"
 			},

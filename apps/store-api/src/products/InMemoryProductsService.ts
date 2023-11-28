@@ -1,25 +1,55 @@
-import {
-	GetProductImageResult,
-	GetProductsOptions,
-	ProductsService
-} from "./ProductsService"
-import { Product, UpsertProduct, products as staticProducts } from "./data"
-import path from "node:path"
-import fs from "fs-extra"
+import { GetProductsOptions, ProductsService } from "./ProductsService"
+import { Product, NewProduct, UpdateProduct } from "./Product"
 import { importNanoid } from "../esmLoader"
+import { initialProducts } from "./initialProducts"
+
+const createProductSorter =
+	(byField: GetProductsOptions["sortBy"], reverse = false) =>
+	(a: Product, b: Product) => {
+		let result = 0
+		switch (byField) {
+			case "id":
+				result = a.id.localeCompare(b.id)
+				break
+			case "title":
+				result = a.title.localeCompare(b.title)
+				break
+			case "price":
+				result = b.price - a.price
+				break
+			case "rating":
+				result = (b.rating ?? 0) - (a.rating ?? 0)
+				break
+			case "nrOfRatings":
+				result = b.nrOfRatings - a.nrOfRatings
+				break
+		}
+
+		return reverse ? result * -1 : result
+	}
+
+const createProductsFilter = (query?: string, categories?: string[]) => {
+	if (!query && !categories) return () => true
+	const lowerQuery = query?.toLocaleLowerCase()
+	return ({ category, title, id, description }: Product) => {
+		if (categories) {
+			if (!categories.includes(category)) return false
+		}
+		if (!lowerQuery) return true
+
+		return (
+			`${title} ${id} ${description}`.toLocaleLowerCase().indexOf(lowerQuery) >=
+			0
+		)
+	}
+}
 
 export class InMemoryProductsService implements ProductsService {
 	protected inMemoryProductList: Map<string, Product>
 
-	public constructor(
-		products: Product[],
-		protected productImagesPath: string = path.join(
-			__dirname,
-			"products/data/images"
-		)
-	) {
+	public constructor(products: Product[]) {
 		this.inMemoryProductList = new Map(
-			(products || staticProducts).map((product) => [
+			(products || initialProducts).map((product) => [
 				product.id.toString(),
 				product
 			])
@@ -27,88 +57,47 @@ export class InMemoryProductsService implements ProductsService {
 	}
 
 	public async getProducts(options?: GetProductsOptions) {
-		const { count, offset, sortBy, sortDirection } =
+		const { query, categories, count, offset, sortBy, sortDirection } =
 			GetProductsOptions.parse(options)
 
-		let productList = Array.from(this.inMemoryProductList.values())
-		productList.sort((a, b) => {
-			const aValue = a[sortBy]
-			const bValue = b[sortBy]
-			let result = 0
+		let productList = Array.from(this.inMemoryProductList.values()).filter(
+			createProductsFilter(query, categories)
+		)
+		productList.sort(createProductSorter(sortBy, sortDirection === "desc"))
 
-			if (aValue === undefined) return -1
-			if (bValue === undefined) return 1
-
-			if (typeof aValue === "number" && typeof bValue === "number") {
-				result = aValue - bValue
-			} else if (typeof aValue === "string" && typeof bValue === "string") {
-				result = aValue.localeCompare(bValue)
-			} else if (typeof aValue === "object" && typeof bValue === "object") {
-				result = (aValue.rate ?? 0) - (bValue.rate ?? 0)
-			}
-
-			return sortDirection === "asc" ? result : result * -1
-		})
-		productList = productList.slice(offset * count).slice(0, count)
-		return productList
+		return productList.slice(offset * count).slice(0, count)
 	}
 
 	public async getProduct(id: string) {
 		return this.inMemoryProductList.get(id)
 	}
 
-	public async getProductImageFile(
-		name: string
-	): Promise<GetProductImageResult | undefined> {
-		const fileNames = await fs.readdir(this.productImagesPath)
-		for (const fileName of fileNames) {
-			if (fileName === name) {
-				const [name, ext] = fileName.split(".")
-				const fullPath = path.join(this.productImagesPath, fileName)
-				return {
-					path: fullPath,
-					extension: ext,
-					mimeType:
-						ext.toLocaleLowerCase() === "png" ? "image/png" : "image/jpeg" // Hacky, I know
-				}
-			}
-		}
-
-		return undefined
-	}
-
-	public async upsertProduct(
-		upsertProduct: UpsertProduct
+	public async newProduct(
+		newProduct: NewProduct
 	): Promise<Product | undefined> {
-		if (upsertProduct.id) {
-			const existingProduct = this.inMemoryProductList.get(upsertProduct.id)
-			if (!existingProduct) return undefined
-
-			const updatedProduct: Product = {
-				...existingProduct,
-				...upsertProduct,
-				rating: {
-					...(existingProduct.rating ?? {}),
-					...(upsertProduct.rating ?? {})
-				}
-			}
-
-			this.inMemoryProductList.set(updatedProduct.id, updatedProduct)
-			return updatedProduct
-		}
-
 		const { nanoid } = await importNanoid()
-
-		const newProduct: Product = {
-			...upsertProduct,
+		const newProductWithData = Product.parse({
+			...newProduct,
 			id: nanoid()
-		}
+		})
 
-		this.inMemoryProductList.set(newProduct.id, newProduct)
-		return newProduct
+		this.inMemoryProductList.set(newProductWithData.id, newProductWithData)
+		return newProductWithData
 	}
 
-	public async setProductImage(id: string) {
-		return this.inMemoryProductList.get("")
+	public async updateProduct(
+		id: string,
+		updateProduct: UpdateProduct
+	): Promise<Product | undefined> {
+		const product = await this.getProduct(id)
+		if (!product) return undefined
+
+		const safeUpdatedProduct = Product.parse({
+			...product,
+			...updateProduct
+		})
+
+		this.inMemoryProductList.set(safeUpdatedProduct.id, safeUpdatedProduct)
+		return safeUpdatedProduct
 	}
 }

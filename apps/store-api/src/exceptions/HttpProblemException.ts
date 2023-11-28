@@ -53,8 +53,10 @@ export class HttpProblemException {
 	public static NewFromHttpException(httpException: HttpException) {
 		return new HttpProblemException(
 			{
-				type: HttpProblemException.createType(httpException.message),
-				status: httpException.getStatus()
+				type: HttpProblemException.createType(httpException.name),
+				detail: httpException.message,
+				status: httpException.getStatus(),
+				stack: httpException.stack?.split("\n")
 			},
 			httpException
 		)

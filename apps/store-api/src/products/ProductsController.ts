@@ -6,12 +6,14 @@ import {
 	NotFoundException,
 	Param,
 	Post,
+	Put,
 	Query,
 	Res,
 	StreamableFile
 } from "@nestjs/common"
 import {
 	ApiBody,
+	ApiConflictResponse,
 	ApiCreatedResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -25,18 +27,18 @@ import {
 	ProductsService
 } from "./ProductsService"
 import {
-	UpsertProduct as UpsertProductModel,
-	Product as ProductModel
-} from "./data"
-import { createReadStream } from "fs"
-import { HttpProblemResponse } from "../exceptions"
-import { StoreApiReply } from "../RequestReply"
+	Product as ProductModel,
+	NewProduct as NewProductModel,
+	UpdateProduct as UpdateProductModel
+} from "./Product"
+import { HttpProblemException, HttpProblemResponse } from "../exceptions"
 
 class GetProductsOptions extends createZodDto(
 	extendApi(GetProductsOptionsModel)
 ) {}
 class Product extends createZodDto(extendApi(ProductModel)) {}
-class UpsertProduct extends createZodDto(extendApi(UpsertProductModel)) {}
+class NewProduct extends createZodDto(extendApi(NewProductModel)) {}
+class UpdateProduct extends createZodDto(extendApi(UpdateProductModel)) {}
 
 @Controller("products")
 @ApiTags("Products")
@@ -74,50 +76,42 @@ export class ProductsController {
 		return product
 	}
 
-	@Get(":productId/image")
-	@ApiOperation({
-		summary: "Get the image for a product if one is assigned"
-	})
-	@ApiNotFoundResponse({
-		description: "No image exists for the provided product ID",
-		type: HttpProblemResponse
-	})
-	public async getImage(
-		@Param("productId") productId: string,
-		@Res({ passthrough: true }) res: StoreApiReply
-	): Promise<StreamableFile | undefined> {
-		const product = await this.productsService.getProduct(productId)
-		if (!product) throw new NotFoundException()
-
-		const imageFile = await this.productsService.getProductImageFile(
-			product.image
-		)
-		if (!imageFile) throw new NotFoundException()
-
-		return new StreamableFile(createReadStream(imageFile.path), {
-			type: imageFile.mimeType
-		})
-	}
-
 	@Post()
 	@ApiOperation({
-		summary: "Create or update a product",
-		description:
-			"This endpoints allows creating new products as well as updating existing ones. If the body contains an `id` an existing product will be updated or, if the product does not exist, a not-found error is thrown"
+		summary: "Create a new product"
 	})
-	@ApiBody({
-		description: UpsertProductModel.description,
-		type: UpsertProduct
-	})
-	@ApiCreatedResponse({
-		description: "The complete updated or created product.",
-		status: 200,
+	@ApiOkResponse({
+		description: "The newly created product",
 		type: Product
 	})
+	public async createProduct(@Body() newProduct: NewProduct) {
+		return this.productsService.newProduct(newProduct)
+	}
+
+	@Put(":productId")
+	@ApiOperation({
+		summary: "Update an existing product"
+	})
 	@ApiNotFoundResponse({
+		description: "No product with the provided ID exists",
 		type: HttpProblemResponse
 	})
-	public async upsertProduct(@Body() body: UpsertProduct) {
-		return this.productsService.getProduct("1")
+	@ApiOkResponse({
+		description: "The updated product",
+		type: Product
+	})
+	public async updateProduct(
+		@Param("productId") productId: string,
+		@Body() updateProduct: UpdateProduct
+	) {
+		const newProduct = await this.productsService.updateProduct(
+			productId,
+			updateProduct
+		)
+		if (!newProduct) {
+			throw new NotFoundException(`No product exists with id ${productId}`)
+		}
+
+		return newProduct
 	}
 }
