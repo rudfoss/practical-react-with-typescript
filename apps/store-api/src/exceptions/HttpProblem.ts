@@ -12,3 +12,15 @@ export const HttpProblem = z.object({
 })
 export type HttpProblem = z.infer<typeof HttpProblem>
 export class HttpProblemResponse extends createZodDto(extendApi(HttpProblem)) {}
+
+export class BadRequestHttpProblem extends createZodDto(
+	extendApi(
+		HttpProblem.extend({
+			errors: z
+				.unknown()
+				.describe(
+					"Contains details about why the request is bad. Format is not well-known."
+				)
+		}).describe("An HttpProblem response used when the request is malformed.")
+	)
+) {}

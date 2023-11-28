@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 
 import description from "./openApiDescription.md"
 import { patchNestjsSwagger } from "@anatine/zod-nestjs"
+import { bearerAuthName, bearerConfig } from "../auth"
 
 export const setupOpenApi = (app: INestApplication) => {
 	const config = new DocumentBuilder()
@@ -15,6 +16,7 @@ export const setupOpenApi = (app: INestApplication) => {
 			"https://github.com/rudfoss/practical-react-with-typescript",
 			"thomas.rudfoss@bouvet.no"
 		)
+		.addBearerAuth(bearerConfig, bearerAuthName)
 		.build()
 
 	// Enable support for zod in swagger definition

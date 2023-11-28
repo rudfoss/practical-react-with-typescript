@@ -15,6 +15,7 @@ import { setupOpenApi } from "./openApi"
 import { HttpExceptionFilter } from "./exceptions"
 import path from "node:path"
 import fs from "fs-extra"
+import { prepareFastifyRequest } from "./RequestReply"
 
 async function bootstrap(args: string[]) {
 	const [, , openApiArg = ""] = args
@@ -22,6 +23,7 @@ async function bootstrap(args: string[]) {
 		AppModule,
 		new FastifyAdapter()
 	)
+	prepareFastifyRequest(app)
 	app.enableCors()
 	app.useGlobalFilters(new HttpExceptionFilter())
 

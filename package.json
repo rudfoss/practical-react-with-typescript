@@ -5,6 +5,7 @@
 	"scripts": {
 		"init": "npm i",
 		"start:store-api": "nx serve store-api",
+		"start:store-api:debug": "nx run store-api:serve:debug",
 		"start:store-front": "nx serve store-front",
 		"start": "nx run-many --target=serve --parallel=true"
 	},

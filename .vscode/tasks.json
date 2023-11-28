@@ -9,6 +9,12 @@
 		},
 		{
 			"type": "npm",
+			"script": "start:store-api:debug",
+			"problemMatcher": [],
+			"label": "start:store-api:debug"
+		},
+		{
+			"type": "npm",
 			"script": "start:store-front",
 			"problemMatcher": [],
 			"label": "start:store-front"

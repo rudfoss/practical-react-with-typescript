@@ -1,4 +1,8 @@
-import { HttpException, InternalServerErrorException } from "@nestjs/common"
+import {
+	HttpException,
+	InternalServerErrorException,
+	Logger
+} from "@nestjs/common"
 import { HttpProblem } from "./HttpProblem"
 import { ZodError } from "zod"
 
@@ -9,7 +13,8 @@ export class HttpProblemException {
 		public catchError = true
 	) {
 		try {
-			this.httpProblem = HttpProblem.parse(httpProblem)
+			this.httpProblem = HttpProblem.passthrough().parse(httpProblem)
+			Logger.error(JSON.stringify(this.httpProblem))
 		} catch (error: unknown) {
 			if (error instanceof ZodError) {
 				this.httpProblem = {

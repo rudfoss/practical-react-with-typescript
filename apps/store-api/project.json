@@ -66,13 +66,17 @@
 				"^genClient"
 			],
 			"options": {
-				"buildTarget": "store-api:buildCode",
-				"inspect": true,
-				"port": 9229
+				"buildTarget": "store-api:buildCode"
 			},
 			"configurations": {
 				"development": {
-					"buildTarget": "store-api:buildCode:development"
+					"buildTarget": "store-api:buildCode:development",
+					"inspect": false
+				},
+				"debug": {
+					"buildTarget": "store-api:buildCode:development",
+					"inspect": true,
+					"port": 9229
 				},
 				"production": {
 					"buildTarget": "store-api:buildCode:production"

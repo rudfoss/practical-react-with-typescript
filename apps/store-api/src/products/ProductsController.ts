@@ -8,13 +8,10 @@ import {
 	Post,
 	Put,
 	Query,
-	Res,
-	StreamableFile
+	UseGuards
 } from "@nestjs/common"
 import {
-	ApiBody,
-	ApiConflictResponse,
-	ApiCreatedResponse,
+	ApiBadRequestResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
@@ -31,7 +28,8 @@ import {
 	NewProduct as NewProductModel,
 	UpdateProduct as UpdateProductModel
 } from "./Product"
-import { HttpProblemException, HttpProblemResponse } from "../exceptions"
+import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
+import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
 
 class GetProductsOptions extends createZodDto(
 	extendApi(GetProductsOptionsModel)
@@ -42,6 +40,11 @@ class UpdateProduct extends createZodDto(extendApi(UpdateProductModel)) {}
 
 @Controller("products")
 @ApiTags("Products")
+@UseGuards(ZodGuard)
+@ApiBadRequestResponse({
+	description: BadRequestHttpProblem.zodSchema.description,
+	type: BadRequestHttpProblem
+})
 export class ProductsController {
 	public constructor(
 		@Inject(ProductsService) protected readonly productsService: ProductsService
@@ -55,6 +58,7 @@ export class ProductsController {
 		type: Product,
 		isArray: true
 	})
+	@ZodGuardQuery(GetProductsOptions)
 	public async listAll(@Query() query: GetProductsOptions) {
 		return this.productsService.getProducts(query)
 	}
@@ -84,6 +88,7 @@ export class ProductsController {
 		description: "The newly created product",
 		type: Product
 	})
+	@ZodGuardBody(NewProduct)
 	public async createProduct(@Body() newProduct: NewProduct) {
 		return this.productsService.newProduct(newProduct)
 	}
@@ -100,6 +105,7 @@ export class ProductsController {
 		description: "The updated product",
 		type: Product
 	})
+	@ZodGuardBody(UpdateProduct)
 	public async updateProduct(
 		@Param("productId") productId: string,
 		@Body() updateProduct: UpdateProduct
