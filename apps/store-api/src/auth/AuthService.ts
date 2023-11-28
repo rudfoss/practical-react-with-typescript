@@ -1,9 +1,11 @@
 import {
+	BadRequestException,
 	ConflictException,
+	ForbiddenException,
 	Injectable,
 	NotFoundException
 } from "@nestjs/common"
-import { UpdateUser, User } from "./User"
+import { NewUser, UpdateUser, User } from "./User"
 import { importNanoid } from "../esmLoader"
 import { UserSession } from "./UserSession"
 import { builtInUsers } from "./builtInUsers"
@@ -28,22 +30,22 @@ export class AuthService {
 		return this.getUsers().find((user) => user.username === username)
 	}
 
-	public async addUser(username: string) {
-		const existingUser = this.getUserByUsername(username)
+	public async createUser(newUser: NewUser) {
+		const existingUser = this.getUserByUsername(newUser.username)
 		if (existingUser)
-			throw new ConflictException(`User with name ${username} already exists`)
+			throw new ConflictException(
+				`User with name ${newUser.username} already exists`
+			)
 
 		const { nanoid } = await importNanoid()
-		const newUser = User.parse({
-			id: nanoid(),
-			username: username,
-			password: nanoid(8)
+		const createdUser = User.parse({
+			...newUser,
+			id: nanoid()
 		} as User)
 
-		this.usersById.set(newUser.id, newUser)
+		this.usersById.set(createdUser.id, createdUser)
 		return newUser
 	}
-
 	public updateUser(userId: string, updateUser: UpdateUser) {
 		const existingUser = this.getUserById(userId)
 		if (!existingUser)
@@ -56,6 +58,26 @@ export class AuthService {
 
 		this.usersById.set(updatedUser.id, updatedUser)
 		return updatedUser
+	}
+	public deleteUser(userId: string) {
+		const admins = Array.from(this.usersById.values()).filter(
+			(user) => user.role === "admin"
+		)
+		if (admins.length === 1 && admins[0].id === userId) {
+			throw new ForbiddenException("The last admin cannot be deleted.")
+		}
+
+		if (!this.usersById.delete(userId)) {
+			return false
+		}
+
+		const sessions = Array.from(this.userSessionsByToken.values()).filter(
+			(session) => session.userId === userId
+		)
+		for (const session of sessions) {
+			this.logoutUser(session.token)
+		}
+		return true
 	}
 
 	/**

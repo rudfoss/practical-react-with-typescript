@@ -15,7 +15,7 @@ export const Product = z.object({
 		.min(1)
 		.max(64)
 		.describe("The unique ID for the product (format not guaranteed)"),
-	title: z.string().max(512),
+	title: z.string().min(1).max(512),
 	price: z
 		.number()
 		.min(0)
@@ -23,6 +23,7 @@ export const Product = z.object({
 		.describe("The current price of the product in NOK"),
 	description: z
 		.string()
+		.min(1)
 		.max(8196)
 		.optional()
 		.describe("A short description of the product"),

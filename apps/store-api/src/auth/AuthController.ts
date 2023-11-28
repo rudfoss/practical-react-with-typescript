@@ -1,9 +1,12 @@
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
+	HttpCode,
 	Inject,
 	NotFoundException,
+	Param,
 	Post,
 	Query,
 	Req,
@@ -13,13 +16,14 @@ import { AuthService } from "./AuthService"
 import {
 	ApiBadRequestResponse,
 	ApiBearerAuth,
+	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
 	ApiTags
 } from "@nestjs/swagger"
 import { bearerAuthName } from "./authConstants"
-import { AuthGuard } from "./AuthGuard"
+import { AuthGuard, RequireRoles } from "./AuthGuard"
 import { StoreApiRequest } from "../RequestReply"
 import { createZodDto } from "@anatine/zod-nestjs"
 import { extendApi } from "@anatine/zod-openapi"
@@ -27,7 +31,10 @@ import { z } from "zod"
 import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
 import { UserSession as UserSessionModel } from "./UserSession"
 import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
+import { NewUser as NewUserModel, User as UserModel } from "./User"
 
+class User extends createZodDto(extendApi(UserModel)) {}
+class NewUser extends createZodDto(extendApi(NewUserModel)) {}
 class LoginRequest extends createZodDto(
 	extendApi(
 		z.object({
@@ -111,6 +118,7 @@ export class AuthController {
 	}
 
 	@Post("logout")
+	@HttpCode(201)
 	@ApiOperation({
 		summary: "Log the user out"
 	})
@@ -121,6 +129,60 @@ export class AuthController {
 	public async logout(@Req() request: StoreApiRequest) {
 		if (request.session) {
 			this.authService.logoutUser(request.session.token)
+		}
+	}
+
+	@Get("users")
+	@ApiOperation({
+		description: "Requires the admin role",
+		summary: "List all users"
+	})
+	@ApiOkResponse({
+		type: User,
+		isArray: true
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@RequireRoles(["admin"])
+	@UseGuards(AuthGuard)
+	public getUsers() {
+		return this.authService.getUsers()
+	}
+
+	@Post("users")
+	@HttpCode(200)
+	@ApiOperation({
+		summary: "Create a new user"
+	})
+	@ApiOkResponse({
+		description: "The new user",
+		type: User
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@RequireRoles(["admin"])
+	@UseGuards(AuthGuard)
+	@ZodGuardBody(NewUser)
+	public async createUser(@Body() newUser: NewUser) {
+		return await this.authService.createUser(newUser)
+	}
+
+	@Delete("users/:userId")
+	@ApiOperation({
+		summary: "Delete a user"
+	})
+	@ApiNotFoundResponse({
+		description: "No user with the provided ID existed.",
+		type: HttpProblemResponse
+	})
+	@ApiForbiddenResponse({
+		description: "This user cannot be deleted. See response for details.",
+		type: HttpProblemResponse
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@RequireRoles(["admin"])
+	public deleteUser(@Param("userId") userId?: string) {
+		if (!userId) return
+		if (!this.authService.deleteUser(userId)) {
+			throw new NotFoundException(`No user with id ${userId} exists`)
 		}
 	}
 }

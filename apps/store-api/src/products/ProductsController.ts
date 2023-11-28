@@ -2,6 +2,7 @@ import {
 	Body,
 	Controller,
 	Get,
+	HttpCode,
 	Inject,
 	NotFoundException,
 	Param,
@@ -12,6 +13,7 @@ import {
 } from "@nestjs/common"
 import {
 	ApiBadRequestResponse,
+	ApiBearerAuth,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
@@ -31,6 +33,7 @@ import {
 } from "./Product"
 import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
 import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
+import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 
 class GetProductsOptions extends createZodDto(
 	extendApi(GetProductsOptionsModel)
@@ -87,11 +90,16 @@ export class ProductsController {
 	@ApiOperation({
 		summary: "Create a new product"
 	})
+	@HttpCode(200)
 	@ApiOkResponse({
+		status: 200,
 		description: "The newly created product",
 		type: Product
 	})
 	@ZodGuardBody(NewProduct)
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@RequireRoles(["productAdmin"])
 	public async createProduct(@Body() newProduct: NewProduct) {
 		return this.productsService.newProduct(newProduct)
 	}
@@ -109,6 +117,9 @@ export class ProductsController {
 		type: Product
 	})
 	@ZodGuardBody(UpdateProduct)
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@RequireRoles(["productAdmin"])
 	public async updateProduct(
 		@Param("productId") productId: string,
 		@Body() updateProduct: UpdateProduct
