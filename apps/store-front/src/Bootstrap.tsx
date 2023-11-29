@@ -6,5 +6,5 @@ export interface BootstrapProps {
 }
 
 export const Bootstrap = ({ children = <Outlet /> }: BootstrapProps) => {
-	return <>{children}</>
+	return children
 }

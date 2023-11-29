@@ -1,13 +1,22 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { Bootstrap } from "./Bootstrap"
 import { lazy } from "react"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+
 import { MainLayout } from "@prwt/layouts"
-import { ErrorPage } from "./pages/ErrorPage"
+
+import { Bootstrap } from "./Bootstrap"
 import { Nav } from "./Nav"
+import { ErrorPage } from "./pages/ErrorPage"
+import { LoaderPage } from "./pages/LoaderPage"
 
 const FieldsPage = lazy(async () => ({
 	default: (await import("./pages/FieldsPage")).FieldsPage
 }))
+const SlowFieldsPage = lazy(async () => {
+	await new Promise((resolve) => setTimeout(resolve, 2000))
+	return {
+		default: (await import("./pages/FieldsPage")).FieldsPage
+	}
+})
 
 const router = createBrowserRouter([
 	{
@@ -24,7 +33,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "fields",
-				element: <FieldsPage />
+				element: <SlowFieldsPage />
+			},
+			{
+				path: "loader",
+				element: <LoaderPage />
 			}
 		]
 	}
