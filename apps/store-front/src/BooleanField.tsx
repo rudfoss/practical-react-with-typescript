@@ -1,22 +1,23 @@
-import { ChangeEvent, useId, useState } from "react"
+import { ChangeEvent, useId } from "react"
 
 export interface BooleanFieldProps {
 	label: string
+	value: boolean
+	setValue: (newValue: boolean) => unknown
 }
 
-export const BooleanField = (props: BooleanFieldProps) => {
+export const BooleanField = ({ label, value, setValue }: BooleanFieldProps) => {
 	const id = useId()
-	const [checked, setChecked] = useState(false)
 
 	const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-		setChecked(evt.target.checked)
+		setValue(evt.target.checked)
 	}
 
 	return (
 		<>
-			<input id={id} type="checkbox" onChange={onInputChange} />
-			<label htmlFor={id}>{props.label}</label>
-			<p>Checked: {checked ? "true" : "false"}</p>
+			<input id={id} type="checkbox" checked={value} onChange={onInputChange} />
+			<label htmlFor={id}>{label}</label>
+			<p>Checked: {value ? "true" : "false"}</p>
 		</>
 	)
 }

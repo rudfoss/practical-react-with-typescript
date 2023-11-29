@@ -3,11 +3,13 @@ import { useState } from "react"
 export interface ClickUntilProps {
 	limit?: number
 	message?: string
+	bypassLimit?: boolean
 }
 
 export const ClickUntil = ({
 	limit = 10,
-	message = "Limit reached"
+	message = "Limit reached",
+	bypassLimit = false
 }: ClickUntilProps) => {
 	const [count, setCount] = useState(0)
 	const isLimitReached = count >= limit
@@ -21,7 +23,7 @@ export const ClickUntil = ({
 
 	return (
 		<>
-			<button onClick={increment} disabled={isLimitReached}>
+			<button onClick={increment} disabled={isLimitReached && !bypassLimit}>
 				Click me!
 			</button>
 			<p>{isLimitReached ? message : count}</p>

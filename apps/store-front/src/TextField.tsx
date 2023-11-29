@@ -20,7 +20,7 @@ export const TextField = ({ label, value, setValue }: TextFieldProps) => {
 	return (
 		<>
 			<label htmlFor={id}>{label}</label>
-			<input id={id} type="text" onChange={onChangeHandler} />
+			<input id={id} type="text" value={value} onChange={onChangeHandler} />
 			<p>{value}</p>
 		</>
 	)

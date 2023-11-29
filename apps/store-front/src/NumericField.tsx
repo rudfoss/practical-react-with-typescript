@@ -1,7 +1,10 @@
-import { ChangeEvent, useId, useState } from "react"
+import { ChangeEvent, useId } from "react"
 
 export interface NumericFieldProps {
 	label: string
+
+	value: number
+	setValue: (newValue: number) => unknown
 
 	/**
 	 * The minimum value allowed.
@@ -23,12 +26,13 @@ export interface NumericFieldProps {
 
 export const NumericField = ({
 	label,
+	value,
+	setValue,
 	min = 0,
 	max = 100,
 	allowDecimals = false
 }: NumericFieldProps) => {
 	const id = useId()
-	const [value, setValue] = useState(0)
 	const shouldUseRangeType = Math.abs(max - min) <= 50 && !allowDecimals
 
 	const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
