@@ -16,9 +16,13 @@
 		"downlevelIteration": true,
 		"esModuleInterop": true,
 		"skipDefaultLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
 		"paths": {
-			"@prwt/utils": ["libs/utils/src/index.ts"]
+			"@prwt/fields": ["libs/fields/src/index.ts"],
+			"@prwt/generated/store-api": ["libs/generated/store-api/index.ts"],
+			"@prwt/layouts": ["libs/layouts/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

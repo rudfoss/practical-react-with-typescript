@@ -1,0 +1,101 @@
+{
+	"name": "store-front",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/store-front/src",
+	"projectType": "application",
+	"targets": {
+		"buildCode": {
+			"executor": "@nx/vite:build",
+			"dependsOn": [
+				"^genClient",
+				"buildCode"
+			],
+			"outputs": [
+				"{options.outputPath}"
+			],
+			"defaultConfiguration": "production",
+			"options": {
+				"outputPath": "dist/apps/store-front"
+			},
+			"configurations": {
+				"development": {
+					"mode": "development"
+				},
+				"production": {
+					"mode": "production"
+				}
+			}
+		},
+		"build": {
+			"executor": "nx:noop",
+			"dependsOn": [
+				"buildCode"
+			]
+		},
+		"serve": {
+			"executor": "@nx/vite:dev-server",
+			"defaultConfiguration": "development",
+			"dependsOn": [
+				"^genClient"
+			],
+			"options": {
+				"buildTarget": "store-front:buildCode"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "store-front:buildCode:development",
+					"hmr": true
+				},
+				"production": {
+					"buildTarget": "store-front:buildCode:production",
+					"hmr": false
+				}
+			}
+		},
+		"preview": {
+			"executor": "@nx/vite:preview-server",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "store-front:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "store-front:build:development"
+				},
+				"production": {
+					"buildTarget": "store-front:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/vite:test",
+			"outputs": [
+				"{options.reportsDirectory}"
+			],
+			"options": {
+				"passWithNoTests": true,
+				"reportsDirectory": "../../coverage/apps/store-front"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": [
+				"{options.outputFile}"
+			],
+			"options": {
+				"lintFilePatterns": [
+					"apps/store-front/**/*.{ts,tsx,js,jsx}"
+				]
+			},
+			"configurations": {
+				"fix": {
+					"fix": true
+				}
+			}
+		}
+	},
+	"tags": [],
+	"implicitDependencies": [
+		"generated-store-api"
+	]
+}

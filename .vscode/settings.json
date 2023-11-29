@@ -28,5 +28,5 @@
 		// "jest.preset.js": true,
 		// "tsconfig.base.json": true,
 	},
-	"exportall.config.folderListener": ["/libs/tasks/src"]
+	"debug.javascript.autoAttachFilter": "onlyWithFlag"
 }

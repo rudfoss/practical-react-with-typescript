@@ -1,0 +1,32 @@
+{
+	"name": "generated-store-api",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/generated/store-api",
+	"projectType": "library",
+	"targets": {
+		"genCode": {
+			"executor": "nx:run-commands",
+			"outputs": [
+				"{workspaceRoot}/libs/generated/store-api/StoreApiClient.ts"
+			],
+			"dependsOn": [
+				"^openApi"
+			],
+			"options": {
+				"parallel": false,
+				"commands": [
+					"cross-env TS_NODE_PROJECT=tools/tsconfig.tools.json node --loader ts-node/esm -r ts-node/register/transpile-only tools/generateTsClient.ts StoreApiClient dist/apps/store-api/store-api-openapi.json libs/generated/store-api"
+				]
+			}
+		},
+		"serve": {
+			"executor": "nx:noop",
+			"dependsOn": [
+				"genCode"
+			]
+		}
+	},
+	"implicitDependencies": [
+		"store-api"
+	]
+}
