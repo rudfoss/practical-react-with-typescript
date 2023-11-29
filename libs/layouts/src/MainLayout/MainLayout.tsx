@@ -6,7 +6,13 @@ import { LayoutProps } from "../LayoutProps"
 
 import { DefaultLoader } from "./DefaultLoader"
 
+const Wrapper = styled.div`
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+`
 const Container = styled.div`
+	flex: 1 0 auto;
 	display: flex;
 `
 const Nav = styled.nav`
@@ -29,7 +35,7 @@ export const MainLayout = ({
 	children = <Outlet />
 }: MainLayoutProps) => {
 	return (
-		<>
+		<Wrapper>
 			<Container>
 				<Nav>{nav}</Nav>
 				<Main>
@@ -37,6 +43,6 @@ export const MainLayout = ({
 				</Main>
 			</Container>
 			<footer>{footer}</footer>
-		</>
+		</Wrapper>
 	)
 }
