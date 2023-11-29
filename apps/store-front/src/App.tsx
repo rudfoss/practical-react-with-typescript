@@ -1,5 +1,10 @@
-import { RouterProvider } from "react-router-dom"
-
-import { router } from "./router"
-
-export const App = () => <RouterProvider router={router} />
+export const App = () => {
+	return (
+		<h1>
+			<span role="img" aria-label="Rocket">
+				🚀
+			</span>{" "}
+			It works
+		</h1>
+	)
+}
