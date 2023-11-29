@@ -126,6 +126,8 @@ export class AuthController {
 		status: 201,
 		description: "The user has been logged out"
 	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
 	public async logout(@Req() request: StoreApiRequest) {
 		if (request.session) {
 			this.authService.logoutUser(request.session.token)
