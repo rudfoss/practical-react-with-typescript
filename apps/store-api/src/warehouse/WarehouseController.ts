@@ -1,3 +1,5 @@
+import { createZodDto } from "@anatine/zod-nestjs"
+import { extendApi } from "@anatine/zod-openapi"
 import {
 	Body,
 	Controller,
@@ -6,13 +8,8 @@ import {
 	NotFoundException,
 	Param,
 	Put,
-	Query,
 	UseGuards
 } from "@nestjs/common"
-import {
-	InventoryResult as InventoryResultModel,
-	WarehouseService
-} from "./WarehouseService"
 import {
 	ApiBadRequestResponse,
 	ApiBearerAuth,
@@ -21,13 +18,17 @@ import {
 	ApiOperation,
 	ApiTags
 } from "@nestjs/swagger"
-import { createZodDto } from "@anatine/zod-nestjs"
-import { extendApi } from "@anatine/zod-openapi"
-import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
-import { ZodGuard, ZodGuardBody } from "../ZodGuard"
 import { z } from "zod"
+
+import { ZodGuard, ZodGuardBody } from "../ZodGuard"
 import { bearerAuthName } from "../auth"
 import { AuthGuard, RequireRoles } from "../auth"
+import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
+
+import {
+	InventoryResult as InventoryResultModel,
+	WarehouseService
+} from "./WarehouseService"
 
 class InventoryResult extends createZodDto(extendApi(InventoryResultModel)) {}
 

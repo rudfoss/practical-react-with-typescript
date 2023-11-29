@@ -1,3 +1,5 @@
+import { createZodDto } from "@anatine/zod-nestjs"
+import { extendApi } from "@anatine/zod-openapi"
 import { Controller, Get, Res } from "@nestjs/common"
 import {
 	ApiExcludeEndpoint,
@@ -5,11 +7,11 @@ import {
 	ApiOperation,
 	ApiTags
 } from "@nestjs/swagger"
-import { StoreApiReply } from "../RequestReply"
 import { formatISODuration, intervalToDuration } from "date-fns"
+
+import { StoreApiReply } from "../RequestReply"
+
 import { HealthData as HealthDataModel } from "./HealthData"
-import { createZodDto } from "@anatine/zod-nestjs"
-import { extendApi } from "@anatine/zod-openapi"
 
 export class HealthData extends createZodDto(extendApi(HealthDataModel)) {}
 

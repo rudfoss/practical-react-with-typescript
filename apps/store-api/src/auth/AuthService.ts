@@ -1,12 +1,13 @@
 import {
-	BadRequestException,
 	ConflictException,
 	ForbiddenException,
 	Injectable,
 	NotFoundException
 } from "@nestjs/common"
-import { NewUser, UpdateUser, User } from "./User"
+
 import { importNanoid } from "../esmLoader"
+
+import { NewUser, UpdateUser, User } from "./User"
 import { UserSession } from "./UserSession"
 import { builtInUsers } from "./builtInUsers"
 

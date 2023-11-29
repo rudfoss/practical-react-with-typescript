@@ -1,10 +1,13 @@
-import { Module } from "@nestjs/common"
-import { AppController } from "./AppController"
-import { ProductsModule } from "../products"
-import { ServeStaticModule } from "@nestjs/serve-static"
 import path from "node:path"
-import { WarehouseModule } from "../warehouse"
+
+import { Module } from "@nestjs/common"
+import { ServeStaticModule } from "@nestjs/serve-static"
+
 import { AuthModule } from "../auth"
+import { ProductsModule } from "../products"
+import { WarehouseModule } from "../warehouse"
+
+import { AppController } from "./AppController"
 
 @Module({
 	imports: [

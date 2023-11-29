@@ -5,9 +5,11 @@ import {
 	Injectable,
 	UnauthorizedException
 } from "@nestjs/common"
-import { AuthService } from "./AuthService"
-import { StoreApiRequest } from "../RequestReply"
 import { Reflector } from "@nestjs/core"
+
+import { StoreApiRequest } from "../RequestReply"
+
+import { AuthService } from "./AuthService"
 import { Role } from "./User"
 
 export const RequireRoles = Reflector.createDecorator<Role[]>()

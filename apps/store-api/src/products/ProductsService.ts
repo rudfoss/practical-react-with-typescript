@@ -1,4 +1,5 @@
 import { z } from "zod"
+
 import { NewProduct, Product, ProductCategory, UpdateProduct } from "./Product"
 
 export const ProductsService = Symbol("ProductsService")

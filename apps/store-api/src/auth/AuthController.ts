@@ -1,3 +1,5 @@
+import { createZodDto } from "@anatine/zod-nestjs"
+import { extendApi } from "@anatine/zod-openapi"
 import {
 	Body,
 	Controller,
@@ -12,7 +14,6 @@ import {
 	Req,
 	UseGuards
 } from "@nestjs/common"
-import { AuthService } from "./AuthService"
 import {
 	ApiBadRequestResponse,
 	ApiBearerAuth,
@@ -22,16 +23,17 @@ import {
 	ApiOperation,
 	ApiTags
 } from "@nestjs/swagger"
-import { bearerAuthName } from "./authConstants"
-import { AuthGuard, RequireRoles } from "./AuthGuard"
-import { StoreApiRequest } from "../RequestReply"
-import { createZodDto } from "@anatine/zod-nestjs"
-import { extendApi } from "@anatine/zod-openapi"
 import { z } from "zod"
-import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
-import { UserSession as UserSessionModel } from "./UserSession"
+
+import { StoreApiRequest } from "../RequestReply"
 import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
+import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
+
+import { AuthGuard, RequireRoles } from "./AuthGuard"
+import { AuthService } from "./AuthService"
 import { NewUser as NewUserModel, User as UserModel } from "./User"
+import { UserSession as UserSessionModel } from "./UserSession"
+import { bearerAuthName } from "./authConstants"
 
 class User extends createZodDto(extendApi(UserModel)) {}
 class NewUser extends createZodDto(extendApi(NewUserModel)) {}
@@ -55,8 +57,7 @@ class RefreshSessionQuery extends createZodDto(
 	)
 ) {}
 
-@Controller("auth")
-@ApiTags("Auth")
+@Controller("")
 @UseGuards(ZodGuard)
 @ApiBadRequestResponse({
 	description: BadRequestHttpProblem.zodSchema.description,
@@ -67,7 +68,8 @@ export class AuthController {
 		@Inject(AuthService) protected readonly authService: AuthService
 	) {}
 
-	@Get("session")
+	@Get("auth/session")
+	@ApiTags("Auth")
 	@ApiOperation({
 		summary: "Get the current users active session"
 	})
@@ -102,7 +104,8 @@ export class AuthController {
 		return sessionInfo.session
 	}
 
-	@Post("login")
+	@Post("auth/login")
+	@ApiTags("Auth")
 	@ApiOperation({
 		summary: "Log a user in"
 	})
@@ -117,7 +120,8 @@ export class AuthController {
 		return await this.authService.loginUser(username, password)
 	}
 
-	@Post("logout")
+	@Post("auth/logout")
+	@ApiTags("Auth")
 	@HttpCode(201)
 	@ApiOperation({
 		summary: "Log the user out"
@@ -135,6 +139,7 @@ export class AuthController {
 	}
 
 	@Get("users")
+	@ApiTags("Users")
 	@ApiOperation({
 		description: "Requires the admin role",
 		summary: "List all users"
@@ -151,6 +156,7 @@ export class AuthController {
 	}
 
 	@Post("users")
+	@ApiTags("Users")
 	@HttpCode(200)
 	@ApiOperation({
 		summary: "Create a new user"
@@ -168,6 +174,7 @@ export class AuthController {
 	}
 
 	@Delete("users/:userId")
+	@ApiTags("Users")
 	@ApiOperation({
 		summary: "Delete a user"
 	})

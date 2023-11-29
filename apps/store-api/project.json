@@ -98,6 +98,11 @@
 				"lintFilePatterns": [
 					"apps/store-api/**/*.ts"
 				]
+			},
+			"configurations": {
+				"fix": {
+					"fix": true
+				}
 			}
 		},
 		"test": {

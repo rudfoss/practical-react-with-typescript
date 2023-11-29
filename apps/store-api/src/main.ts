@@ -3,19 +3,21 @@
  * This is only a minimal backend to get started.
  */
 
+import path from "node:path"
+
 import { Logger } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
 import {
 	NestFastifyApplication,
 	FastifyAdapter
 } from "@nestjs/platform-fastify"
-
-import { AppModule } from "./app"
-import { setupOpenApi } from "./openApi"
-import { HttpExceptionFilter } from "./exceptions"
-import path from "node:path"
 import fs from "fs-extra"
+
 import { prepareFastifyRequest } from "./RequestReply"
+import { AppModule } from "./app"
+import { HttpExceptionFilter } from "./exceptions"
+import { setupOpenApi } from "./openApi"
+
 
 async function bootstrap(args: string[]) {
 	const [, , openApiArg = ""] = args

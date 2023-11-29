@@ -1,3 +1,5 @@
+import { createZodDto } from "@anatine/zod-nestjs"
+import { extendApi } from "@anatine/zod-openapi"
 import {
 	Body,
 	Controller,
@@ -19,23 +21,21 @@ import {
 	ApiOperation,
 	ApiTags
 } from "@nestjs/swagger"
-import { createZodDto } from "@anatine/zod-nestjs"
-import { extendApi } from "@anatine/zod-openapi"
+
+import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
+import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
+import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
+
+import {
+	Product as ProductModel,
+	NewProduct as NewProductModel,
+	UpdateProduct as UpdateProductModel
+} from "./Product"
 import {
 	GetProductsOptions as GetProductsOptionsModel,
 	GetProductsResult as GetProductsResultModel,
 	ProductsService
 } from "./ProductsService"
-import {
-	Product as ProductModel,
-	NewProduct as NewProductModel,
-	UpdateProduct as UpdateProductModel,
-	ProductCategory
-} from "./Product"
-import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
-import { ZodGuard, ZodGuardBody, ZodGuardQuery } from "../ZodGuard"
-import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
-import { z } from "zod"
 
 class GetProductsOptions extends createZodDto(
 	extendApi(GetProductsOptionsModel)

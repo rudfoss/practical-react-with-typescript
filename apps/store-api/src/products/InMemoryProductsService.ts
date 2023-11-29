@@ -1,10 +1,11 @@
+import { importNanoid } from "../esmLoader"
+
+import { Product, NewProduct, UpdateProduct } from "./Product"
 import {
 	GetProductsOptions,
 	GetProductsResult,
 	ProductsService
 } from "./ProductsService"
-import { Product, NewProduct, UpdateProduct } from "./Product"
-import { importNanoid } from "../esmLoader"
 import { initialProducts } from "./initialProducts"
 
 const createProductSorter =
@@ -64,7 +65,7 @@ export class InMemoryProductsService implements ProductsService {
 		const { query, category, count, offset, sortBy, sortDirection } =
 			GetProductsOptions.parse(options)
 
-		let productList = Array.from(this.inMemoryProductList.values()).filter(
+		const productList = Array.from(this.inMemoryProductList.values()).filter(
 			createProductsFilter(query, category)
 		)
 		const totalResults = productList.length

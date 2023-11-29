@@ -1,3 +1,4 @@
+import { ZodDtoStatic } from "@anatine/zod-nestjs"
 import {
 	CanActivate,
 	ExecutionContext,
@@ -6,9 +7,9 @@ import {
 } from "@nestjs/common"
 import { Reflector } from "@nestjs/core"
 import { ZodError, ZodSchema } from "zod"
+
 import { StoreApiRequest } from "./RequestReply"
 import { HttpProblemException } from "./exceptions"
-import { ZodDtoStatic } from "@anatine/zod-nestjs"
 
 export const ZodGuardQuery = Reflector.createDecorator<
 	ZodSchema | ZodDtoStatic

@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common"
-import { ProductsController } from "./ProductsController"
+
 import { InMemoryProductsService } from "./InMemoryProductsService"
+import { ProductsController } from "./ProductsController"
 import { ProductsService } from "./ProductsService"
 
 @Module({

@@ -1,6 +1,7 @@
-import type { FastifyRequest, FastifyReply } from "fastify"
-import { User, UserSession } from "./auth"
 import { NestFastifyApplication } from "@nestjs/platform-fastify"
+import type { FastifyRequest, FastifyReply } from "fastify"
+
+import { User, UserSession } from "./auth"
 
 export type StoreApiRequest = FastifyRequest & {
 	user?: Omit<User, "password">

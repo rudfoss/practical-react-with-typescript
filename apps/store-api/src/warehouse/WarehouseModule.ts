@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common"
-import { WarehouseService } from "./WarehouseService"
+
 import { InMemoryWarehouseService } from "./InMemoryWarehouseService"
 import { WarehouseController } from "./WarehouseController"
+import { WarehouseService } from "./WarehouseService"
 
 @Module({
 	providers: [

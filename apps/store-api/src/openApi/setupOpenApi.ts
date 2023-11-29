@@ -1,9 +1,10 @@
+import { patchNestjsSwagger } from "@anatine/zod-nestjs"
 import { INestApplication } from "@nestjs/common"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 
-import description from "./openApiDescription.md"
-import { patchNestjsSwagger } from "@anatine/zod-nestjs"
 import { bearerAuthName, bearerConfig } from "../auth"
+
+import description from "./openApiDescription.md"
 
 export const setupOpenApi = (app: INestApplication) => {
 	const config = new DocumentBuilder()

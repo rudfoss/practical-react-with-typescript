@@ -3,8 +3,9 @@ import {
 	InternalServerErrorException,
 	Logger
 } from "@nestjs/common"
-import { HttpProblem } from "./HttpProblem"
 import { ZodError } from "zod"
+
+import { HttpProblem } from "./HttpProblem"
 
 export class HttpProblemException {
 	public constructor(
