@@ -1,5 +1,6 @@
-import { ClickUntilForm } from "./ClickUntilForm"
+import { ListProductNames } from "./ListProductNames"
+import { productResults } from "./products"
 
 export const App = () => {
-	return <ClickUntilForm />
+	return <ListProductNames products={productResults.results} />
 }
