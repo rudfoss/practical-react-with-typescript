@@ -1,4 +1,4 @@
-import { ChangeEvent, useId } from "react"
+import { ChangeEvent, useId, memo } from "react"
 
 export interface NumericFieldProps {
 	label: string
@@ -24,40 +24,42 @@ export interface NumericFieldProps {
 	allowDecimals?: boolean
 }
 
-export const NumericField = ({
-	label,
-	value,
-	setValue,
-	min = 0,
-	max = 100,
-	allowDecimals = false
-}: NumericFieldProps) => {
-	const id = useId()
-	const shouldUseRangeType = Math.abs(max - min) <= 50 && !allowDecimals
+export const NumericField = memo(
+	({
+		label,
+		value,
+		setValue,
+		min = 0,
+		max = 100,
+		allowDecimals = false
+	}: NumericFieldProps) => {
+		const id = useId()
+		const shouldUseRangeType = Math.abs(max - min) <= 50 && !allowDecimals
 
-	const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-		const newValue = evt.target.valueAsNumber
-		if (isNaN(newValue)) {
-			setValue(0)
-			return
+		const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+			const newValue = evt.target.valueAsNumber
+			if (isNaN(newValue)) {
+				setValue(0)
+				return
+			}
+			if (newValue < min) return
+			if (newValue > max) return
+			setValue(allowDecimals ? newValue : Math.round(newValue))
 		}
-		if (newValue < min) return
-		if (newValue > max) return
-		setValue(allowDecimals ? newValue : Math.round(newValue))
-	}
 
-	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
-			<input
-				id={id}
-				type={shouldUseRangeType ? "range" : "number"}
-				min={min}
-				max={max}
-				value={value}
-				onChange={onInputChange}
-			/>
-			{shouldUseRangeType && value}
-		</div>
-	)
-}
+		return (
+			<div>
+				<label htmlFor={id}>{label}</label>
+				<input
+					id={id}
+					type={shouldUseRangeType ? "range" : "number"}
+					min={min}
+					max={max}
+					value={value}
+					onChange={onInputChange}
+				/>
+				{shouldUseRangeType && value}
+			</div>
+		)
+	}
+)
