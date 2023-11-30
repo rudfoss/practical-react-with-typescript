@@ -1,10 +1,7 @@
-import { ClickUntilForm } from "./ClickUntilForm"
-import { MainLayout } from "./MainLayout"
+import { RouterProvider } from "react-router-dom"
+
+import { router } from "./router"
 
 export const App = () => {
-	return (
-		<MainLayout nav={<p>Nav</p>} footer={<p>Footer</p>}>
-			<ClickUntilForm />
-		</MainLayout>
-	)
+	return <RouterProvider router={router} />
 }
