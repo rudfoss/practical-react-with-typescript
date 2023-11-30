@@ -1,16 +1,26 @@
 import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
-export const Label = styled.label`
+// interface StyleMeProps {
+// 	className?: string
+// }
+// const StyleMe = (props: StyleMeProps) => {
+// 	return <p className={props.className}>I'm styled</p>
+// }
+
+const Label = styled.label`
 	display: block;
 `
 interface InputProps {
 	inputWidthPercentage: number
 }
-export const Input = styled.input<InputProps>`
+const Input = styled.input<InputProps>`
 	display: block;
 	width: ${(props) => props.inputWidthPercentage}%;
 `
+// const MyStyleMe = styled(StyleMe)`
+// 	color: hotpink;
+// `
 
 interface TextFieldProps {
 	inputWidthPercentage?: number
@@ -38,6 +48,7 @@ export const TextField = ({
 	return (
 		<>
 			<Label htmlFor={id}>{label}</Label>
+			{/* <MyStyleMe /> */}
 			<Input
 				inputWidthPercentage={inputWidthPercentage}
 				id={id}
