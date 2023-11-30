@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { ListProductNames } from "./ListProductNames"
+import { ProductsTable } from "./ProductsTable"
 import { Product, productResults } from "./products"
 
 export const App = () => {
@@ -10,5 +10,5 @@ export const App = () => {
 		setProducts(products.filter((product) => product.id !== productToDelete.id))
 	}
 
-	return <ListProductNames products={products} onDelete={onDelete} />
+	return <ProductsTable products={products} onDelete={onDelete} />
 }
