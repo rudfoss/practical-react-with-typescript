@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, MouseEvent } from "react"
 
 import { Product } from "./products"
 
@@ -15,9 +15,13 @@ const getSortDirectionText = (sortDirection?: "asc" | "desc") => {
 
 export interface ListProductNamesProps {
 	products: Product[]
+	onDelete: (product: Product) => unknown
 }
 
-export const ListProductNames = ({ products }: ListProductNamesProps) => {
+export const ListProductNames = ({
+	products,
+	onDelete
+}: ListProductNamesProps) => {
 	const [selectedProduct, setSelectedProduct] = useState<{
 		product: Product
 		idx: number
@@ -38,6 +42,11 @@ export const ListProductNames = ({ products }: ListProductNamesProps) => {
 	const selectProduct = (product: Product, idx: number) => () => {
 		setSelectedProduct({ product, idx })
 	}
+	const deleteProduct =
+		(product: Product) => (evt: MouseEvent<HTMLButtonElement>) => {
+			evt.stopPropagation()
+			onDelete(product)
+		}
 	const toggleSortDirection = () => {
 		setSortDirection(sortDirection === "desc" ? "asc" : "desc")
 	}
@@ -63,6 +72,7 @@ export const ListProductNames = ({ products }: ListProductNamesProps) => {
 						style={{ cursor: "pointer" }}
 					>
 						{product.title}
+						<button onClick={deleteProduct(product)}>Delete</button>
 					</li>
 				))}
 			</ul>
