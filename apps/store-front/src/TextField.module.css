@@ -1,0 +1,7 @@
+.container label {
+	display: block;
+}
+.container input {
+	display: block;
+	width: 100%;
+}
