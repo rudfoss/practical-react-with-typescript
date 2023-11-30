@@ -8,22 +8,22 @@ import { ChangeEvent, useId } from "react"
 // 	return <p className={props.className}>I'm styled</p>
 // }
 
+const Container = styled.div`
+	padding: 4px;
+`
 const Label = styled.label`
 	display: block;
+	padding-bottom: 4px;
 `
-interface InputProps {
-	inputWidthPercentage: number
-}
-const Input = styled.input<InputProps>`
+const Input = styled.input`
 	display: block;
-	width: ${(props) => props.inputWidthPercentage}%;
+	width: 100%;
 `
 // const MyStyleMe = styled(StyleMe)`
 // 	color: hotpink;
 // `
 
 interface TextFieldProps {
-	inputWidthPercentage?: number
 	label: string
 	value: string
 	setValue: (newValue: string) => unknown
@@ -33,12 +33,7 @@ interface TextFieldProps {
 // 	label: string
 // }
 
-export const TextField = ({
-	label,
-	value,
-	setValue,
-	inputWidthPercentage = 100
-}: TextFieldProps) => {
+export const TextField = ({ label, value, setValue }: TextFieldProps) => {
 	const id = useId()
 
 	const onChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -46,17 +41,10 @@ export const TextField = ({
 	}
 
 	return (
-		<>
+		<Container>
 			<Label htmlFor={id}>{label}</Label>
 			{/* <MyStyleMe /> */}
-			<Input
-				inputWidthPercentage={inputWidthPercentage}
-				id={id}
-				type="text"
-				value={value}
-				onChange={onChangeHandler}
-			/>
-			<p>{value}</p>
-		</>
+			<Input id={id} type="text" value={value} onChange={onChangeHandler} />
+		</Container>
 	)
 }

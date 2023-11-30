@@ -1,4 +1,30 @@
+import styled from "@emotion/styled"
 import { ChangeEvent, useId, memo } from "react"
+
+const Container = styled.div`
+	padding: 4px;
+`
+const Label = styled.label`
+	display: block;
+	padding-bottom: 4px;
+`
+const InputContainer = styled.div`
+	display: flex;
+	align-items: center;
+`
+const Input = styled.input`
+	width: 100%;
+`
+interface ValueSpanProps {
+	digitCount?: number
+}
+const ValueSpan = styled.span<ValueSpanProps>`
+	padding: 4px 8px;
+	font-size: 1.15rem;
+	text-align: right;
+	font-family: monospace;
+	flex: 1 1 ${(props) => `${props.digitCount}em`};
+`
 
 export interface NumericFieldProps {
 	label: string
@@ -35,6 +61,7 @@ export const NumericField = memo(
 	}: NumericFieldProps) => {
 		const id = useId()
 		const shouldUseRangeType = Math.abs(max - min) <= 50 && !allowDecimals
+		const digitCount = max.toString().length
 
 		const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
 			const newValue = evt.target.valueAsNumber
@@ -48,18 +75,22 @@ export const NumericField = memo(
 		}
 
 		return (
-			<div>
-				<label htmlFor={id}>{label}</label>
-				<input
-					id={id}
-					type={shouldUseRangeType ? "range" : "number"}
-					min={min}
-					max={max}
-					value={value}
-					onChange={onInputChange}
-				/>
-				{shouldUseRangeType && value}
-			</div>
+			<Container>
+				<Label htmlFor={id}>{label}</Label>
+				<InputContainer>
+					<Input
+						id={id}
+						type={shouldUseRangeType ? "range" : "number"}
+						min={min}
+						max={max}
+						value={value}
+						onChange={onInputChange}
+					/>
+					{shouldUseRangeType && (
+						<ValueSpan digitCount={digitCount}>{value}</ValueSpan>
+					)}
+				</InputContainer>
+			</Container>
 		)
 	}
 )
