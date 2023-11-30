@@ -1,10 +1,10 @@
 import { ClickUntilForm } from "./ClickUntilForm"
-import { Emphasize } from "./Emphasize"
+import { MainLayout } from "./MainLayout"
 
 export const App = () => {
 	return (
-		<Emphasize>
+		<MainLayout nav={<p>Nav</p>} footer={<p>Footer</p>}>
 			<ClickUntilForm />
-		</Emphasize>
+		</MainLayout>
 	)
 }
