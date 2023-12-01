@@ -67,7 +67,7 @@ export class ProductsController {
 		type: GetProductsResult
 	})
 	@ZodGuardQuery(GetProductsOptions)
-	public async listAll(@Query() query: GetProductsOptions) {
+	public async getProducts(@Query() query: GetProductsOptions) {
 		return this.productsService.getProducts(query)
 	}
 

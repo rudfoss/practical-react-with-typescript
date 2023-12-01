@@ -14,7 +14,7 @@ export const LoadProducts = () => {
 		queryKey: ["products"],
 		queryFn: () => {
 			const client = new ProductsControllerClient("http://localhost:4210")
-			return client.listAll()
+			return client.getProducts()
 		}
 	})
 
