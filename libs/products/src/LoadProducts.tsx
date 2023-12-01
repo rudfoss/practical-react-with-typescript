@@ -11,7 +11,7 @@ export const LoadProducts = () => {
 		isError,
 		dataUpdatedAt
 	} = useQuery({
-		queryKey: ["products"],
+		queryKey: ["products", "list"],
 		queryFn: () => {
 			const client = new ProductsControllerClient("http://localhost:4210")
 			return client.getProducts()
