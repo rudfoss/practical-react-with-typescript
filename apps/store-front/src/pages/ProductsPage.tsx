@@ -1,7 +1,6 @@
 import { useState } from "react"
 
-import { ProductsTable } from "../ProductsTable"
-import { Product, productResults } from "../products"
+import { ProductsTable, Product, productResults } from "@prwt/products"
 
 export const ProductsPage = () => {
 	const [products, setProducts] = useState(productResults.results)

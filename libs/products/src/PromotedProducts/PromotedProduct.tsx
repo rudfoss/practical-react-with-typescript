@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 
-import { getDummyPictureUrl } from "./getDummyPictureUrl"
-import { Product } from "./products"
+import { getDummyPictureUrl } from "../getDummyPictureUrl"
+import { Product } from "../products"
 
 const ListItem = styled.li`
 	flex: 0 0 0;

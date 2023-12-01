@@ -1,7 +1,8 @@
 import styled from "@emotion/styled"
 
+import { Product } from "../products"
+
 import { PromotedProduct } from "./PromotedProduct"
-import { Product } from "./products"
 
 const Container = styled.ul`
 	padding: 0;
