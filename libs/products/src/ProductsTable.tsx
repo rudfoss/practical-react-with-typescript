@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 
+import { useAuthService } from "@prwt/auth"
+
 import { Product } from "./products"
 
 type SortBy = "title" | "price" | "category" | "rating"
@@ -23,6 +25,7 @@ export interface ProductsTableProps {
 }
 
 export const ProductsTable = ({ products, onDelete }: ProductsTableProps) => {
+	const { isAuthenticated } = useAuthService()
 	const [sortBy, setSortBy] = useState<SortBy>()
 	const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
 
@@ -95,7 +98,12 @@ export const ProductsTable = ({ products, onDelete }: ProductsTableProps) => {
 						<td>{product.category}</td>
 						<td>{product.rating}</td>
 						<td>
-							<button onClick={deleteProduct(product)}>Delete</button>
+							<button
+								onClick={deleteProduct(product)}
+								disabled={!isAuthenticated}
+							>
+								Delete
+							</button>
 						</td>
 					</tr>
 				))}

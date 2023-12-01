@@ -1,6 +1,7 @@
 import { lazy } from "react"
 import { createBrowserRouter } from "react-router-dom"
 
+import { Bootstrap } from "./Bootstrap"
 import { MainLayout } from "./MainLayout"
 import { HomePage } from "./pages/HomePage"
 
@@ -19,7 +20,11 @@ const ProductDetailsPage = lazy(async () => {
 
 export const router = createBrowserRouter([
 	{
-		element: <MainLayout />,
+		element: (
+			<Bootstrap>
+				<MainLayout />
+			</Bootstrap>
+		),
 		children: [
 			{
 				index: true,

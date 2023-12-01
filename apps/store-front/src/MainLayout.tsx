@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { ReactNode, Suspense } from "react"
 import { Outlet } from "react-router-dom"
 
+import { LoginFooter } from "./LoginFooter"
 import { Nav as DefaultNav } from "./Nav"
 
 const Wrapper = styled.div`
@@ -29,7 +30,7 @@ export interface MainLayoutProps {
 
 export const MainLayout = ({
 	nav = <DefaultNav />,
-	footer = <p>Footer</p>,
+	footer = <LoginFooter />,
 	children = <Outlet />
 }: MainLayoutProps) => {
 	return (
