@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 
 import { Product } from "@prwt/generated/store-api"
 
+import { LoadInventory } from "./LoadInventory"
 import { getDummyPictureUrl } from "./getDummyPictureUrl"
 
 const IdContainer = styled.div`
@@ -36,6 +37,10 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 				<dt>Rating</dt>
 				<dd>
 					{rating} ({nrOfRatings})
+				</dd>
+				<dt>Inventory</dt>
+				<dd>
+					<LoadInventory productId={product.id} />
 				</dd>
 			</dl>
 		</div>
