@@ -12,6 +12,7 @@ export const Nav = () => {
 	return (
 		<>
 			<StyledLink to="/">Home</StyledLink>
+			<StyledLink to="/fields">Fields</StyledLink>
 			<StyledLink to="/products">Products</StyledLink>
 		</>
 	)

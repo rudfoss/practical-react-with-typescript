@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import { ChangeEvent, useId, memo } from "react"
 
+import { useFieldsService } from "./FieldsService"
+
 const Container = styled.div`
 	padding: 4px;
 `
@@ -60,6 +62,7 @@ export const NumericField = memo(
 		allowDecimals = false
 	}: NumericFieldProps) => {
 		const id = useId()
+		const { isDisabled } = useFieldsService()
 		const shouldUseRangeType = Math.abs(max - min) <= 50 && !allowDecimals
 		const digitCount = max.toString().length
 
@@ -80,6 +83,7 @@ export const NumericField = memo(
 				<InputContainer>
 					<Input
 						id={id}
+						disabled={isDisabled}
 						type={shouldUseRangeType ? "range" : "number"}
 						min={min}
 						max={max}

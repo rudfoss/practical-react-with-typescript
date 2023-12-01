@@ -1,6 +1,8 @@
 import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
+import { useFieldsService } from "../FieldsService"
+
 // interface StyleMeProps {
 // 	className?: string
 // }
@@ -35,6 +37,7 @@ interface TextFieldProps {
 
 export const TextField = ({ label, value, setValue }: TextFieldProps) => {
 	const id = useId()
+	const { isDisabled } = useFieldsService()
 
 	const onChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
 		setValue(evt.target.value)
@@ -44,7 +47,13 @@ export const TextField = ({ label, value, setValue }: TextFieldProps) => {
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
 			{/* <MyStyleMe /> */}
-			<Input id={id} type="text" value={value} onChange={onChangeHandler} />
+			<Input
+				disabled={isDisabled}
+				id={id}
+				type="text"
+				value={value}
+				onChange={onChangeHandler}
+			/>
 		</Container>
 	)
 }

@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom"
 
 import { Bootstrap } from "./Bootstrap"
 import { MainLayout } from "./MainLayout"
+import { FieldsPage } from "./pages/FieldsPage"
 import { HomePage } from "./pages/HomePage"
 
 const ProductsPage = lazy(async () => {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
 			{
 				index: true,
 				element: <HomePage />
+			},
+			{
+				path: "fields",
+				element: <FieldsPage />
 			},
 			{
 				path: "products",
