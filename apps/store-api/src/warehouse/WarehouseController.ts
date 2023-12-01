@@ -5,7 +5,6 @@ import {
 	Controller,
 	Get,
 	Inject,
-	NotFoundException,
 	Param,
 	Put,
 	UseGuards
@@ -13,7 +12,6 @@ import {
 import {
 	ApiBadRequestResponse,
 	ApiBearerAuth,
-	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
 	ApiTags
@@ -23,7 +21,7 @@ import { z } from "zod"
 import { ZodGuard, ZodGuardBody } from "../ZodGuard"
 import { bearerAuthName } from "../auth"
 import { AuthGuard, RequireRoles } from "../auth"
-import { BadRequestHttpProblem, HttpProblemResponse } from "../exceptions"
+import { BadRequestHttpProblem } from "../exceptions"
 
 import {
 	InventoryResult as InventoryResultModel,
