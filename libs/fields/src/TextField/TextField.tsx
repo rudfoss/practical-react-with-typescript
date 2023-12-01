@@ -28,6 +28,7 @@ const Input = styled.input`
 interface TextFieldProps {
 	label: string
 	value: string
+	isPassword?: boolean
 	setValue: (newValue: string) => unknown
 }
 
@@ -35,7 +36,12 @@ interface TextFieldProps {
 // 	label: string
 // }
 
-export const TextField = ({ label, value, setValue }: TextFieldProps) => {
+export const TextField = ({
+	label,
+	value,
+	setValue,
+	isPassword = false
+}: TextFieldProps) => {
 	const id = useId()
 	const { isDisabled } = useFieldsService()
 
@@ -50,7 +56,7 @@ export const TextField = ({ label, value, setValue }: TextFieldProps) => {
 			<Input
 				disabled={isDisabled}
 				id={id}
-				type="text"
+				type={isPassword ? "password" : "text"}
 				value={value}
 				onChange={onChangeHandler}
 			/>

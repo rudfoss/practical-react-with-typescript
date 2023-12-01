@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query"
 import {
 	createContext,
 	useCallback,
@@ -6,13 +7,11 @@ import {
 	useState
 } from "react"
 
+import { UserSession } from "@prwt/generated/store-api"
+
 export interface AuthServiceContextProps {
 	isAuthenticated: boolean
-	username: string
-	role: string
-
-	login: () => unknown
-	logout: () => unknown
+	userSession?: UserSession
 }
 
 const AuthServiceContext = createContext<AuthServiceContextProps | undefined>(
@@ -31,24 +30,17 @@ export interface ProvideAuthServiceProps {
 }
 
 export const ProvideAuthService = ({ children }: ProvideAuthServiceProps) => {
-	const [isAuthenticated, setIsAuthenticated] = useState(false)
-	const [username, setUsername] = useState("")
-	const [role, setRole] = useState("")
-
-	const login = useCallback(() => {
-		setIsAuthenticated(true)
-		setUsername("User")
-		setRole("admin")
-	}, [])
-	const logout = useCallback(() => {
-		setIsAuthenticated(false)
-		setUsername("")
-		setRole("")
-	}, [])
+	const { data: sessionData } = useQuery({
+		queryKey: ["userSession"],
+		queryFn: (): UserSession => undefined as unknown as UserSession
+	})
 
 	const value = useMemo((): AuthServiceContextProps => {
-		return { isAuthenticated, username, role, login, logout }
-	}, [isAuthenticated, role, username, login, logout])
+		return {
+			isAuthenticated: !!sessionData,
+			userSession: sessionData
+		}
+	}, [sessionData])
 
 	return (
 		<AuthServiceContext.Provider value={value}>

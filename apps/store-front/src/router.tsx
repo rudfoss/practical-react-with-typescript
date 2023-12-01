@@ -5,6 +5,7 @@ import { Bootstrap } from "./Bootstrap"
 import { MainLayout } from "./MainLayout"
 import { FieldsPage } from "./pages/FieldsPage"
 import { HomePage } from "./pages/HomePage"
+import { LoginPage } from "./pages/LoginPage"
 
 const ProductsPage = lazy(async () => {
 	const productsPageImport = await import("./pages/ProductsPage")
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
 			{
 				path: "fields",
 				element: <FieldsPage />
+			},
+			{
+				path: "login",
+				element: <LoginPage />
 			},
 			{
 				path: "products",
