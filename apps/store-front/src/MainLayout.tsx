@@ -1,5 +1,8 @@
 import styled from "@emotion/styled"
 import { ReactNode } from "react"
+import { Outlet } from "react-router-dom"
+
+import { Nav as DefaultNav } from "./Nav"
 
 const Wrapper = styled.div`
 	min-height: 100vh;
@@ -19,12 +22,16 @@ const Main = styled.main`
 `
 
 export interface MainLayoutProps {
-	nav: ReactNode
-	footer: ReactNode
-	children: ReactNode
+	nav?: ReactNode
+	footer?: ReactNode
+	children?: ReactNode
 }
 
-export const MainLayout = ({ nav, footer, children }: MainLayoutProps) => {
+export const MainLayout = ({
+	nav = <DefaultNav />,
+	footer = <p>Footer</p>,
+	children = <Outlet />
+}: MainLayoutProps) => {
 	return (
 		<Wrapper>
 			<Container>
