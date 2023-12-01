@@ -1,13 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
 
-import { ProductsTable } from "./ProductsTable"
-import { ProductResults } from "./products"
+import { ProductsControllerClient } from "@prwt/generated/store-api"
 
-const fetchProducts = async () => {
-	const response = await fetch("http://localhost:4210/products")
-	const products = await response.json()
-	return products as ProductResults
-}
+import { ProductsTable } from "./ProductsTable"
 
 export const LoadProducts = () => {
 	const {
@@ -17,7 +12,10 @@ export const LoadProducts = () => {
 		dataUpdatedAt
 	} = useQuery({
 		queryKey: ["products"],
-		queryFn: fetchProducts
+		queryFn: () => {
+			const client = new ProductsControllerClient("http://localhost:4210")
+			return client.listAll()
+		}
 	})
 
 	if (isFetching) {
