@@ -27,6 +27,9 @@ export const User = z
 	.strict()
 export type User = z.infer<typeof User>
 
+export const ClientUser = User.omit({ password: true })
+export type ClientUser = z.infer<typeof ClientUser>
+
 export const NewUser = User.omit({ id: true })
 	.strict()
 	.describe("The new user to create.")

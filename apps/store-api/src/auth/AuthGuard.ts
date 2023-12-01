@@ -30,9 +30,9 @@ export class AuthGuard implements CanActivate {
 		const [, sessionToken] = request.headers.authorization?.split(" ") ?? []
 		if (!sessionToken) return false
 
-		const { session, user } =
-			this.authService.getUserSession(sessionToken) ?? {}
-		if (!session || !user) return false
+		const userSession = this.authService.getUserSession(sessionToken)
+		if (!userSession) return false
+		const { user } = userSession
 
 		if (roles && user.role !== "admin") {
 			if (!roles.includes(user.role))
@@ -41,8 +41,7 @@ export class AuthGuard implements CanActivate {
 				)
 		}
 
-		request.user = user
-		request.session = session
+		request.userSession = userSession
 
 		return true
 	}

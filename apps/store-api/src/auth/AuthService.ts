@@ -7,8 +7,8 @@ import {
 
 import { importNanoid } from "../esmLoader"
 
-import { NewUser, UpdateUser, User } from "./User"
-import { UserSession } from "./UserSession"
+import { ClientUser, NewUser, UpdateUser, User } from "./User"
+import { Session, UserSession } from "./UserSession"
 import { builtInUsers } from "./builtInUsers"
 
 export const SESSION_EXPIRES_MS = 1000 * 60 * 30 // 30 mins
@@ -18,7 +18,13 @@ export class AuthService {
 	protected readonly usersById = new Map<string, User>(
 		builtInUsers.map((user) => [user.id, user])
 	)
-	protected readonly userSessionsByToken = new Map<string, UserSession>()
+	protected readonly sessionsByToken = new Map<string, Session>()
+
+	public getClientUser(user: User): ClientUser {
+		const clientUser = { ...user } as ClientUser & { password?: string }
+		delete clientUser["password"]
+		return clientUser
+	}
 
 	public getUsers() {
 		return Array.from(this.usersById.values())
@@ -72,7 +78,7 @@ export class AuthService {
 			return false
 		}
 
-		const sessions = Array.from(this.userSessionsByToken.values()).filter(
+		const sessions = Array.from(this.sessionsByToken.values()).filter(
 			(session) => session.userId === userId
 		)
 		for (const session of sessions) {
@@ -87,25 +93,31 @@ export class AuthService {
 	 * @param username
 	 * @param password
 	 */
-	public async loginUser(username: string, password: string) {
+	public async loginUser(
+		username: string,
+		password: string
+	): Promise<UserSession> {
 		const user = this.getUserByUsername(username)
 		if (!user) throw new NotFoundException()
 		if (user.password !== password) throw new NotFoundException()
 
 		const { nanoid } = await importNanoid()
-		const session = UserSession.parse({
-			token: nanoid(64),
-			userId: user.id,
-			createdAt: new Date().getTime(),
-			expiresAt: new Date().getTime() + SESSION_EXPIRES_MS
+		const userSession = UserSession.parse({
+			session: {
+				token: nanoid(64),
+				userId: user.id,
+				createdAt: new Date().getTime(),
+				expiresAt: new Date().getTime() + SESSION_EXPIRES_MS
+			},
+			user: this.getClientUser(user)
 		} as UserSession)
 
-		this.userSessionsByToken.set(session.token, session)
-		return session
+		this.sessionsByToken.set(userSession.session.token, userSession.session)
+		return userSession
 	}
 
 	public logoutUser(token: string) {
-		this.userSessionsByToken.delete(token)
+		this.sessionsByToken.delete(token)
 		return true
 	}
 
@@ -114,8 +126,8 @@ export class AuthService {
 	 * @param token
 	 * @returns
 	 */
-	public getUserSession(token: string) {
-		const session = this.userSessionsByToken.get(token)
+	public getUserSession(token: string): UserSession | undefined {
+		const session = this.sessionsByToken.get(token)
 		if (!session) return undefined
 		const user = this.getUserById(session.userId)
 		if (!user) {
@@ -128,16 +140,17 @@ export class AuthService {
 			return undefined
 		}
 
-		return {
-			user,
+		return UserSession.parse({
+			user: this.getClientUser(user),
 			session
-		}
+		})
 	}
 
 	public async refreshUserSession(token: string) {
 		const currentSession = this.getUserSession(token)
 		if (!currentSession) return undefined
-		const { user } = currentSession
+		const user = this.getUserById(currentSession.user.id)
+		if (!user) return undefined
 		return await this.loginUser(user.username, user.password)
 	}
 }

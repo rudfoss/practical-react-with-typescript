@@ -1,5 +1,3 @@
-# Store API
-
 A simple API simulating a very basic store. Data stored in memory and reset on restart.
 
 ## Authorization

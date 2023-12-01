@@ -1,8 +1,14 @@
 import { createZodDto } from "@anatine/zod-nestjs"
 import { extendApi } from "@anatine/zod-openapi"
-import { Controller, Get, Res } from "@nestjs/common"
+import {
+	Controller,
+	Get,
+	InternalServerErrorException,
+	Res
+} from "@nestjs/common"
 import {
 	ApiExcludeEndpoint,
+	ApiInternalServerErrorResponse,
 	ApiOkResponse,
 	ApiOperation,
 	ApiTags
@@ -10,6 +16,7 @@ import {
 import { formatISODuration, intervalToDuration } from "date-fns"
 
 import { StoreApiReply } from "../RequestReply"
+import { HttpProblemResponse } from "../exceptions"
 
 import { HealthData as HealthDataModel } from "./HealthData"
 
@@ -43,6 +50,19 @@ export class AppController {
 				intervalToDuration({ start: this._bootTime, end: new Date() })
 			)
 		}
+	}
+
+	@Get("internalError")
+	@ApiOperation({
+		summary: "Return a 500 error for testing",
+		description: "This endpoint immediately returns a 500 error for testing"
+	})
+	@ApiInternalServerErrorResponse({
+		description: "An internal error formatted as a problem",
+		type: HttpProblemResponse
+	})
+	public internalError() {
+		throw new InternalServerErrorException("Testing error.")
 	}
 
 	@Get("____")

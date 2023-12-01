@@ -87,25 +87,28 @@ export class AuthController {
 	public async getSession(
 		@Req() request: StoreApiRequest,
 		@Query() query?: RefreshSessionQuery
-	) {
+	): Promise<UserSession> {
 		const sessionInfo = this.authService.getUserSession(
-			request.session?.token ?? ""
+			request.userSession?.session?.token ?? ""
 		)
 		if (!sessionInfo) {
 			throw new NotFoundException()
 		}
 
 		if (query?.refresh) {
-			return await this.authService.refreshUserSession(
+			const result = await this.authService.refreshUserSession(
 				sessionInfo.session.token
 			)
+			if (!result) throw new NotFoundException()
+			return result
 		}
 
-		return sessionInfo.session
+		return sessionInfo
 	}
 
 	@Post("auth/login")
 	@ApiTags("Auth")
+	@HttpCode(200)
 	@ApiOperation({
 		summary: "Log a user in"
 	})
@@ -116,7 +119,9 @@ export class AuthController {
 		type: HttpProblemResponse
 	})
 	@ZodGuardBody(LoginRequest)
-	public async login(@Body() { username, password }: LoginRequest) {
+	public async login(
+		@Body() { username, password }: LoginRequest
+	): Promise<UserSessionModel> {
 		return await this.authService.loginUser(username, password)
 	}
 
@@ -133,8 +138,8 @@ export class AuthController {
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	public async logout(@Req() request: StoreApiRequest) {
-		if (request.session) {
-			this.authService.logoutUser(request.session.token)
+		if (request.userSession) {
+			this.authService.logoutUser(request.userSession.session.token)
 		}
 	}
 
