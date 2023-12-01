@@ -1685,31 +1685,13 @@ export interface IInventoryResult {
     [key: string]: any;
 }
 
-export enum Refresh {
-    True = "true",
-    False = "false",
-}
+export type Refresh = "true" | "false";
 
-export enum Category {
-    Electronics = "electronics",
-    Clothing = "clothing",
-    Home_decor = "home decor",
-    Beauty = "beauty",
-    Sports = "sports",
-}
+export type Category = "electronics" | "clothing" | "home decor" | "beauty" | "sports";
 
-export enum SortBy {
-    Id = "id",
-    Title = "title",
-    Price = "price",
-    Rating = "rating",
-    NrOfRatings = "nrOfRatings",
-}
+export type SortBy = "id" | "title" | "price" | "rating" | "nrOfRatings";
 
-export enum SortDirection {
-    Asc = "asc",
-    Desc = "desc",
-}
+export type SortDirection = "asc" | "desc";
 
 export class Session implements ISession {
     /** The id of the user */
@@ -1835,17 +1817,9 @@ export interface IUser2 {
     username: string;
 }
 
-export enum UserRole {
-    Admin = "admin",
-    ProductAdmin = "productAdmin",
-    WarehouseAdmin = "warehouseAdmin",
-}
+export type UserRole = "admin" | "productAdmin" | "warehouseAdmin";
 
-export enum NewUserRole {
-    Admin = "admin",
-    ProductAdmin = "productAdmin",
-    WarehouseAdmin = "warehouseAdmin",
-}
+export type NewUserRole = "admin" | "productAdmin" | "warehouseAdmin";
 
 export class Results implements IResults {
     /** The unique ID for the product (format not guaranteed) */
@@ -1932,43 +1906,15 @@ export interface IResults {
     [key: string]: any;
 }
 
-export enum ProductCategory {
-    Electronics = "electronics",
-    Clothing = "clothing",
-    Home_decor = "home decor",
-    Beauty = "beauty",
-    Sports = "sports",
-}
+export type ProductCategory = "electronics" | "clothing" | "home decor" | "beauty" | "sports";
 
-export enum NewProductCategory {
-    Electronics = "electronics",
-    Clothing = "clothing",
-    Home_decor = "home decor",
-    Beauty = "beauty",
-    Sports = "sports",
-}
+export type NewProductCategory = "electronics" | "clothing" | "home decor" | "beauty" | "sports";
 
-export enum UpdateProductCategory {
-    Electronics = "electronics",
-    Clothing = "clothing",
-    Home_decor = "home decor",
-    Beauty = "beauty",
-    Sports = "sports",
-}
+export type UpdateProductCategory = "electronics" | "clothing" | "home decor" | "beauty" | "sports";
 
-export enum User2Role {
-    Admin = "admin",
-    ProductAdmin = "productAdmin",
-    WarehouseAdmin = "warehouseAdmin",
-}
+export type User2Role = "admin" | "productAdmin" | "warehouseAdmin";
 
-export enum ResultsCategory {
-    Electronics = "electronics",
-    Clothing = "clothing",
-    Home_decor = "home decor",
-    Beauty = "beauty",
-    Sports = "sports",
-}
+export type ResultsCategory = "electronics" | "clothing" | "home decor" | "beauty" | "sports";
 
 export class ApiException extends Error {
     override message: string;
