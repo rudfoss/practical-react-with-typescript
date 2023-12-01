@@ -18,7 +18,7 @@ const getSortIcon = (
 
 export interface ProductsTableProps {
 	products: Product[]
-	onDelete: (product: Product) => unknown
+	onDelete?: (product: Product) => unknown
 }
 
 export const ProductsTable = ({ products, onDelete }: ProductsTableProps) => {
@@ -53,7 +53,7 @@ export const ProductsTable = ({ products, onDelete }: ProductsTableProps) => {
 	}, [products, sortBy, sortDirection])
 
 	const deleteProduct = (product: Product) => () => {
-		onDelete(product)
+		onDelete?.(product)
 	}
 
 	const changeSortBy = (newSortBy: SortBy) => () => {
