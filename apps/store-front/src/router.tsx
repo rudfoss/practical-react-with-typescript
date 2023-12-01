@@ -4,6 +4,7 @@ import { MainLayout } from "./MainLayout"
 import { Nav } from "./Nav"
 import { HomePage } from "./pages/HomePage"
 import { ProductDetailsPage } from "./pages/ProductDetailsPage"
+import { ProductsPage } from "./pages/ProductsPage"
 
 export const router = createBrowserRouter([
 	{
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
-						element: <h1>Hello from products</h1>
+						element: <ProductsPage />
 					},
 					{
 						path: ":productId",

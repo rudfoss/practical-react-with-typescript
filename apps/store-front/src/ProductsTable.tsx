@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import { Link } from "react-router-dom"
 
 import { Product } from "./products"
 
@@ -87,7 +88,9 @@ export const ProductsTable = ({ products, onDelete }: ProductsTableProps) => {
 			<tbody>
 				{sortedProducts.map((product) => (
 					<tr key={product.id}>
-						<td>{product.title}</td>
+						<td>
+							<Link to={`/products/${product.id}`}>{product.title}</Link>
+						</td>
 						<td>{product.price}</td>
 						<td>{product.category}</td>
 						<td>{product.rating}</td>
