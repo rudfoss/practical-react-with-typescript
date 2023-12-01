@@ -1,9 +1,21 @@
+import { lazy } from "react"
 import { createBrowserRouter } from "react-router-dom"
 
 import { MainLayout } from "./MainLayout"
 import { HomePage } from "./pages/HomePage"
-import { ProductDetailsPage } from "./pages/ProductDetailsPage"
-import { ProductsPage } from "./pages/ProductsPage"
+
+const ProductsPage = lazy(async () => {
+	const productsPageImport = await import("./pages/ProductsPage")
+	return {
+		default: productsPageImport.ProductsPage
+	}
+})
+const ProductDetailsPage = lazy(async () => {
+	const productDetailsPageImport = await import("./pages/ProductDetailsPage")
+	return {
+		default: productDetailsPageImport.ProductDetailsPage
+	}
+})
 
 export const router = createBrowserRouter([
 	{

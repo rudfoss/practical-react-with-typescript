@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { ReactNode } from "react"
+import { ReactNode, Suspense } from "react"
 import { Outlet } from "react-router-dom"
 
 import { Nav as DefaultNav } from "./Nav"
@@ -36,7 +36,9 @@ export const MainLayout = ({
 		<Wrapper>
 			<Container>
 				<Nav>{nav}</Nav>
-				<Main>{children}</Main>
+				<Main>
+					<Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
+				</Main>
 			</Container>
 			<footer>{footer}</footer>
 		</Wrapper>
