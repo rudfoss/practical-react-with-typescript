@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 
-import { Product } from "../products"
+import { Product } from "@prwt/generated/store-api"
 
 import { PromotedProduct } from "./PromotedProduct"
 

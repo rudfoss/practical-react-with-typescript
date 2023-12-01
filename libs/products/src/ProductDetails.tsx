@@ -1,7 +1,8 @@
 import styled from "@emotion/styled"
 
+import { Product } from "@prwt/generated/store-api"
+
 import { getDummyPictureUrl } from "./getDummyPictureUrl"
-import { Product } from "./products"
 
 const IdContainer = styled.div`
 	color: #ccc;
