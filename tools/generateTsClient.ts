@@ -8,7 +8,7 @@ const nswagParameters = [
 	"/NullValue:Undefined",
 	"/Template:Fetch",
 	"/TypeStyle:Class",
-	"/EnumStyle:Enum",
+	"/EnumStyle:StringLiteral",
 	"/GenerateClientClasses:True",
 	"/GenerateClientInterfaces:True",
 	"/GenerateOptionalParameters:True",
