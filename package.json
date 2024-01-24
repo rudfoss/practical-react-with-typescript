@@ -1,13 +1,15 @@
 {
-  "name": "@react-workshop/source",
-  "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {},
-  "private": true,
-  "dependencies": {},
-  "devDependencies": {
-    "@nx/js": "17.2.8",
-    "@nx/workspace": "17.2.8",
-    "nx": "17.2.8"
-  }
+	"name": "@react-workshop/source",
+	"version": "0.0.0",
+	"license": "MIT",
+	"scripts": {},
+	"private": true,
+	"sideEffects": false,
+	"type": "module",
+	"dependencies": {},
+	"devDependencies": {
+		"@nx/js": "17.2.8",
+		"@nx/workspace": "17.2.8",
+		"nx": "17.2.8"
+	}
 }
