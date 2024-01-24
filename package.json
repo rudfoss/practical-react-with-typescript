@@ -2,13 +2,16 @@
 	"name": "@react-workshop/source",
 	"version": "0.0.0",
 	"license": "MIT",
-	"scripts": {},
+	"scripts": {
+		"verify": "git -v && node -v && pnpm -v",
+		"init": "pnpm run verify && pnpm i"
+	},
 	"private": true,
 	"sideEffects": false,
 	"type": "module",
-	"dependencies": {},
 	"devDependencies": {
 		"@nx/js": "17.2.8",
+		"@nx/react": "^17.2.8",
 		"@nx/workspace": "17.2.8",
 		"nx": "17.2.8"
 	}

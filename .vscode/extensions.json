@@ -1,14 +1,15 @@
 {
-  "recommendations": [
-
-    "nrwl.angular-console",
-    "esbenp.prettier-vscode",
-		"editorconfig.editorconfig",
+	"recommendations": [
 		"kevinkyang.auto-comment-blocks",
-		"vscode-icons-team.vscode-icons",
+		"editorconfig.editorconfig",
 		"dbaeumer.vscode-eslint",
 		"firsttris.vscode-jest-runner",
+		"nrwl.angular-console",
 		"adrianwilczynski.toggle-hidden",
-		"ms-playwright.playwright"
-  ]
+		"ms-playwright.playwright",
+		"esbenp.prettier-vscode",
+		"vscode-icons-team.vscode-icons",
+		"eliostruyf.vscode-typescript-exportallmodules",
+		"styled-components.vscode-styled-components"
+	]
 }

@@ -1,14 +1,27 @@
 {
-  "editor.rulers": [100],
-  "editor.wordWrapColumn": 100,
-  "editor.formatOnSave": true,
-  "editor.tabSize": 2,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "task.quickOpen.history": 0,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  "npm.packageManager": "pnpm",
-  "workbench.iconTheme": "vscode-icons",
-  "debug.javascript.autoAttachFilter": "onlyWithFlag"
+	"editor.rulers": [100],
+	"editor.wordWrapColumn": 100,
+	"editor.formatOnSave": true,
+	"editor.tabSize": 2,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"task.quickOpen.history": 0,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"npm.packageManager": "pnpm",
+	"workbench.iconTheme": "vscode-icons",
+	"debug.javascript.autoAttachFilter": "onlyWithFlag",
+
+	"files.exclude": {
+		"**/.*": false,
+		"**/package.json": false,
+		"**/node_modules": false,
+		"pnpm-lock.yaml": false,
+		"nx.json": false,
+		"**/project.json": false,
+		"**/tsconfig*.json": false,
+		"**/vite.config.*": false,
+		"**/jest.config.*": false,
+		"jest.preset.*": false
+	}
 }
