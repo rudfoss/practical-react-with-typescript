@@ -27,9 +27,9 @@ Before you begin there are a few things you need to install on your machine. The
 
 ### Recommended
 
-The course will be using Visual Studio Code with some extensions and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with NX](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE is not strictly required, but it makes working with nx commands much easier.
+The course will be using [Visual Studio Code](https://code.visualstudio.com) with some extensions and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with NX](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE is not strictly required, but it makes working with nx commands much easier.
 
-You can install Visual Studio Code from [their home page](<(https://code.visualstudio.com)>) or using `winget` if you are on Windows:
+You can install Visual Studio Code from [their home page](https://code.visualstudio.com) or using `winget` if you are on Windows:
 
 ```ps1
 winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"'
@@ -53,7 +53,7 @@ This command verifies that the required prerequisites are installed correctly an
 
 ## VSCode
 
-This repository has a few things pre-configured for VSCode which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the promt you can open the `Extensions` panel and search for `@recommended`.
+This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the promt you can open the `Extensions` panel and search for `@recommended`.
 
 ### VSCode Extensions
 
