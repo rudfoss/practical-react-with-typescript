@@ -1,8 +1,10 @@
 import { Controller, Get, Res } from "@nestjs/common"
-import { ApiExcludeEndpoint, ApiOperation, ApiTags } from "@nestjs/swagger"
+import { ApiExcludeEndpoint, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { formatISODuration, intervalToDuration } from "date-fns"
 
 import { StoreApiReply } from "../RequestReply"
+
+import { HealthRespose } from "./HealthResponse"
 
 @Controller()
 @ApiTags("App")
@@ -20,6 +22,7 @@ export class AppController {
 		summary: "Get health information about the API",
 		description: "Provides some health information about the API."
 	})
+	@ApiOkResponse({ type: HealthRespose })
 	public async getHealth() {
 		return {
 			ok: true,

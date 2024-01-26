@@ -18,6 +18,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
+		"strictPropertyInitialization": false,
 		"baseUrl": ".",
 		"paths": {}
 	},
