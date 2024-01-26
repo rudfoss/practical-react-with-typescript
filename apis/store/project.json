@@ -4,7 +4,7 @@
 	"sourceRoot": "apis/store/src",
 	"projectType": "application",
 	"targets": {
-		"build": {
+		"buildCode": {
 			"executor": "@nx/webpack:webpack",
 			"outputs": [
 				"{options.outputPath}"
@@ -23,6 +23,23 @@
 			"configurations": {
 				"development": {},
 				"production": {}
+			}
+		},
+		"build": {
+			"executor": "nx:run-commands",
+			"dependsOn": [
+				"buildCode",
+				"openApi"
+			],
+			"outputs": [
+				"{workspaceRoot}/dist/apis/store"
+			],
+			"options": {
+				"parallel": false,
+				"cwd": "dist/apis/store",
+				"commands": [
+					"npm i"
+				]
 			}
 		},
 		"serve": {
@@ -55,6 +72,22 @@
 			],
 			"options": {
 				"jestConfig": "apis/store/jest.config.ts"
+			}
+		},
+		"openApi": {
+			"executor": "nx:run-commands",
+			"dependsOn": [
+				"buildCode"
+			],
+			"outputs": [
+				"{workspaceRoot}/dist/apis/store/store-api-openapi.json"
+			],
+			"options": {
+				"parallel": false,
+				"cwd": "dist/apis/store",
+				"commands": [
+					"node ./main.js openApi"
+				]
 			}
 		}
 	},
