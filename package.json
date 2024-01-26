@@ -11,6 +11,7 @@
 	"type": "module",
 	"devDependencies": {
 		"@nx/js": "17.2.8",
+		"@nx/nest": "^17.2.8",
 		"@nx/react": "^17.2.8",
 		"@nx/workspace": "17.2.8",
 		"nx": "17.2.8"

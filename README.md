@@ -19,11 +19,13 @@ Before you begin there are a few things you need to install on your machine. The
 
 ### Required
 
-| What                                 | Why                                                               | How                                                                                    | Verify    |
+| What                                 | Why                                                               | How                                                                                    | Verify\*  |
 | ------------------------------------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------- |
 | [Git](https://git-scm.com/downloads) | Version Control for source code                                   | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`                  | `git -v`  |
 | [NodeJs LTS](https://nodejs.org/en)  | Runtime for Nx (monorepo) and front-end projects                  | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node`        | `node -v` |
 | [pnpm](https://pnpm.io/installation) | Faster and more efficient package manager for Node (replaces npm) | Windows`iwr https://get.pnpm.io/install.ps1 -useb \| iex`<br/>Mac: `brew install pnpm` | `pnpm -v` |
+
+\*Run this command in a terminal to verify that the installation was successful.
 
 ### Recommended
 
@@ -40,13 +42,15 @@ winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetask
 Once you have installed all prerequisites you can clone the repository to your machine using git:
 
 ```bash
-git clone https://github.com/rudfoss/practical-react-with-typescript.git react-workshop # Clones the repository into the folder 'react-workshop' (feel free to change the name if you want)
+# Clones the repository into the folder 'react-workshop' (feel free to change the name if you want)
+git clone https://github.com/rudfoss/practical-react-with-typescript.git react-workshop
 ```
 
 Open a terminal at the root folder of the repository and run the `init` command:
 
 ```bash
-pnpm run init ## Some scripts can be run using pnpm [script name], but init is already a pnpm command so we need to add 'run' before the script name
+ # Some scripts can be run using pnpm [script name], but init is already a pnpm command so we need to add 'run' before the script name
+pnpm run init
 ```
 
 This command verifies that the required prerequisites are installed correctly and will fail if they cannot be found. If that happens you need to ensure the prerequisites are correctly installed. It then installs the project dependencies for the repository using `pnpm`. To see exactly what the command does open the `package.json` file and find the `script` named `init`.
