@@ -1,13 +1,24 @@
+const path = require("node:path")
+
 const { composePlugins, withNx } = require("@nx/webpack")
 
 // Nx plugins for webpack.
 module.exports = composePlugins(
 	withNx({
-		target: "node"
+		target: "node",
+		sourceMap: true
 	}),
-	(config) => {
-		// Update the webpack config as needed here.
-		// e.g. `config.plugins.push(new MyPlugin())`
+	(config, ctx) => {
+		config.module.rules.push({
+			test: /\.md$/,
+			type: "asset/source"
+		})
+
+		config.output.devtoolModuleFilenameTemplate = function (info) {
+			const rel = path.relative(ctx.context.root, info.absoluteResourcePath)
+			return `webpack:///./${rel}`
+		}
+
 		return config
 	}
 )

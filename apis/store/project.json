@@ -33,7 +33,9 @@
 			},
 			"configurations": {
 				"development": {
-					"buildTarget": "store:build:development"
+					"buildTarget": "store:build:development",
+					"inspect": true,
+					"port": 9229
 				},
 				"production": {
 					"buildTarget": "store:build:production"
