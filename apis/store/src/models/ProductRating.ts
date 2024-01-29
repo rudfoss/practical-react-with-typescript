@@ -16,6 +16,14 @@ export class ProductRating {
 	})
 	@IsString()
 	@Length(21, 128)
+	userId: string
+
+	@ApiProperty({
+		minLength: 21,
+		maxLength: 128
+	})
+	@IsString()
+	@Length(21, 128)
 	productId: string
 
 	@ApiProperty()

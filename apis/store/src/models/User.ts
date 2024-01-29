@@ -26,3 +26,9 @@ export class User {
 	@Length(1, 256)
 	name: string
 }
+
+export class UserWithPassword extends User {
+	@IsString()
+	@Length(1, 128)
+	password: string
+}

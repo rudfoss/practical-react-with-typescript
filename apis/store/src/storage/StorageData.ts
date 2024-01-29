@@ -1,7 +1,7 @@
-import { Product, ProductCategory, ProductRating, User } from "../models"
+import { Product, ProductCategory, ProductRating, UserWithPassword } from "../models"
 
 export interface StorageData {
-	users: User[]
+	users: UserWithPassword[]
 	products: Product[]
 	productCategories: ProductCategory[]
 	productRatings: ProductRating[]

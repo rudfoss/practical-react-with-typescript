@@ -2,7 +2,7 @@ import type { Low } from "lowdb/lib"
 
 import { esmLoader } from "@react-workshop/utils"
 
-import { Product, ProductCategory, ProductRating, User } from "../models"
+import { Product, ProductCategory, ProductRating, UserWithPassword } from "../models"
 
 import { StorageData } from "./StorageData"
 import { StorageService } from "./StorageService"
@@ -28,7 +28,7 @@ export class JSONFileStorageService implements StorageService {
 	async getProductRatings(): Promise<ProductRating[]> {
 		return this.db.data.productRatings
 	}
-	async getUsers(): Promise<User[]> {
+	async getUsers(): Promise<UserWithPassword[]> {
 		return this.db.data.users
 	}
 
