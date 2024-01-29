@@ -30,6 +30,14 @@
 					"codeCoverage": true
 				}
 			}
+		},
+		"@nx/vite:test": {
+			"cache": true,
+			"inputs": ["default", "^production"]
+		},
+		"e2e": {
+			"cache": true,
+			"inputs": ["default", "^production"]
 		}
 	},
 	"namedInputs": {
@@ -49,10 +57,18 @@
 	"generators": {
 		"@nx/react": {
 			"application": {
+				"style": "@emotion/styled",
+				"linter": "eslint",
+				"bundler": "vite",
 				"babel": true
 			},
 			"library": {
+				"style": "@emotion/styled",
+				"linter": "eslint",
 				"unitTestRunner": "jest"
+			},
+			"component": {
+				"style": "@emotion/styled"
 			}
 		}
 	}

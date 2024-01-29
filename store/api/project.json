@@ -1,7 +1,7 @@
 {
-	"name": "store",
+	"name": "store-api",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "apis/store/src",
+	"sourceRoot": "store/api/src",
 	"projectType": "application",
 	"targets": {
 		"buildCode": {
@@ -13,12 +13,12 @@
 			"options": {
 				"target": "node",
 				"compiler": "tsc",
-				"outputPath": "dist/apis/store",
-				"main": "apis/store/src/main.ts",
-				"tsConfig": "apis/store/tsconfig.app.json",
+				"outputPath": "dist/store/api",
+				"main": "store/api/src/main.ts",
+				"tsConfig": "store/api/tsconfig.app.json",
 				"generatePackageJson": true,
 				"assets": [],
-				"webpackConfig": "apis/store/webpack.config.js"
+				"webpackConfig": "store/api/webpack.config.js"
 			},
 			"configurations": {
 				"development": {},
@@ -32,11 +32,11 @@
 				"openApi"
 			],
 			"outputs": [
-				"{workspaceRoot}/dist/apis/store"
+				"{workspaceRoot}/dist/store/api"
 			],
 			"options": {
 				"parallel": false,
-				"cwd": "dist/apis/store",
+				"cwd": "dist/store/api",
 				"commands": [
 					"npm i"
 				]
@@ -46,16 +46,16 @@
 			"executor": "@nx/js:node",
 			"defaultConfiguration": "development",
 			"options": {
-				"buildTarget": "store:buildCode"
+				"buildTarget": "store-api:buildCode"
 			},
 			"configurations": {
 				"development": {
-					"buildTarget": "store:buildCode:development",
+					"buildTarget": "store-api:buildCode:development",
 					"inspect": true,
 					"port": 9229
 				},
 				"production": {
-					"buildTarget": "store:buildCode:production"
+					"buildTarget": "store-api:buildCode:production"
 				}
 			}
 		},
@@ -71,7 +71,7 @@
 				"{workspaceRoot}/coverage/{projectRoot}"
 			],
 			"options": {
-				"jestConfig": "apis/store/jest.config.ts"
+				"jestConfig": "store/api/jest.config.ts"
 			}
 		},
 		"openApi": {
@@ -80,16 +80,18 @@
 				"buildCode"
 			],
 			"outputs": [
-				"{workspaceRoot}/dist/apis/store/store-api-openapi.json"
+				"{workspaceRoot}/dist/store/api/store-api-openapi.json"
 			],
 			"options": {
 				"parallel": false,
-				"cwd": "dist/apis/store",
+				"cwd": "dist/store/api",
 				"commands": [
 					"node ./main.js openApi"
 				]
 			}
 		}
 	},
-	"tags": []
+	"tags": [
+		"api"
+	]
 }

@@ -3,9 +3,9 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"script": "start:store",
+			"script": "start:store-api",
 			"problemMatcher": [],
-			"label": "start:store"
+			"label": "start:store-api"
 		}
 	]
 }
