@@ -20,7 +20,9 @@
 		"noFallthroughCasesInSwitch": true,
 		"strictPropertyInitialization": false,
 		"baseUrl": ".",
-		"paths": {}
+		"paths": {
+			"@react-workshop/utils": ["libs/utils/src/index.ts"]
+		}
 	},
 	"exclude": ["node_modules", "tmp"]
 }

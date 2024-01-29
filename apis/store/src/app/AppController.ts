@@ -2,6 +2,8 @@ import { Controller, Get, Res } from "@nestjs/common"
 import { ApiExcludeEndpoint, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { formatISODuration, intervalToDuration } from "date-fns"
 
+import { merge } from "@react-workshop/utils"
+
 import { StoreApiReply } from "../RequestReply"
 
 import { HealthRespose } from "./HealthResponse"
@@ -24,11 +26,11 @@ export class AppController {
 	})
 	@ApiOkResponse({ type: HealthRespose })
 	public async getHealth() {
-		return {
+		return merge(new HealthRespose(), {
 			ok: true,
 			bootTime: this._bootTime.toISOString(),
 			upTime: formatISODuration(intervalToDuration({ start: this._bootTime, end: new Date() }))
-		}
+		})
 	}
 
 	@Get("____")
