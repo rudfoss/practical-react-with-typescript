@@ -9,7 +9,6 @@
 	},
 	"private": true,
 	"sideEffects": false,
-	"type": "module",
 	"devDependencies": {
 		"@nestjs/schematics": "^10.0.1",
 		"@nestjs/testing": "^10.0.2",
