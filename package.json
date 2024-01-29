@@ -4,6 +4,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start:store-api": "nx serve store-api",
+		"start:store-app": "nx serve store-app",
 		"verify": "git -v && node -v && pnpm -v",
 		"init": "pnpm run verify && pnpm i"
 	},

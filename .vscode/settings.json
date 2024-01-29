@@ -23,6 +23,7 @@
 		"**/vite.config.*": false,
 		"**/jest.config.*": false,
 		"**/webpack.config.*": false,
-		"jest.preset.*": false
+		"jest.preset.*": false,
+		"**/playwright.config.ts": false
 	}
 }

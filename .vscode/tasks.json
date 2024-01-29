@@ -6,6 +6,17 @@
 			"script": "start:store-api",
 			"problemMatcher": [],
 			"label": "start:store-api"
+		},
+		{
+			"type": "npm",
+			"script": "start:store-app",
+			"problemMatcher": [],
+			"label": "start:store-app"
+		},
+		{
+			"label": "start",
+			"problemMatcher": [],
+			"dependsOn": ["start:store-api", "start:store-app"]
 		}
 	]
 }
