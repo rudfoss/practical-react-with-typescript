@@ -14,6 +14,7 @@
 
 	"files.exclude": {
 		"**/.*": false,
+		"dist": false,
 		"**/package.json": false,
 		"**/node_modules": false,
 		"pnpm-lock.yaml": false,
@@ -23,7 +24,8 @@
 		"**/vite.config.*": false,
 		"**/jest.config.*": false,
 		"**/webpack.config.*": false,
-		"jest.preset.*": false,
-		"**/playwright.config.ts": false
+		"**/jest.preset.*": false,
+		"**/playwright.config.ts": false,
+		"**/index.html": false
 	}
 }

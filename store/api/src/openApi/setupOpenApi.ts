@@ -1,6 +1,8 @@
 import { INestApplication } from "@nestjs/common"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 
+import { bearerAuthName, bearerConfig } from "../auth"
+
 import description from "./openApiDescription.md"
 
 export const setupOpenApi = (app: INestApplication) => {
@@ -14,7 +16,7 @@ export const setupOpenApi = (app: INestApplication) => {
 			"https://github.com/rudfoss/practical-react-with-typescript",
 			"thomas.rudfoss@bouvet.no"
 		)
-		// .addBearerAuth(bearerConfig, bearerAuthName)
+		.addBearerAuth(bearerConfig, bearerAuthName)
 		.build()
 
 	return {

@@ -1,6 +1,6 @@
 import path from "node:path"
 
-import { Logger } from "@nestjs/common"
+import { Logger, ValidationPipe } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
 import { NestFastifyApplication, FastifyAdapter } from "@nestjs/platform-fastify"
 import fs from "fs-extra"
@@ -15,6 +15,7 @@ async function bootstrap(args: string[]) {
 
 	prepareFastifyRequest(app)
 	app.enableCors()
+	app.useGlobalPipes(new ValidationPipe())
 
 	const { SwaggerModule, doc } = setupOpenApi(app)
 	SwaggerModule.setup("/docs", app, doc)

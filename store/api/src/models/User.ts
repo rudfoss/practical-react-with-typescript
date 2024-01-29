@@ -1,6 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsString, Length } from "class-validator"
 
+import { UserRole } from "./UserRole"
+
 export class User {
 	@ApiProperty({
 		minLength: 21,
@@ -24,7 +26,10 @@ export class User {
 	})
 	@IsString()
 	@Length(1, 256)
-	name: string
+	displayName: string
+
+	@ApiProperty({ enum: UserRole })
+	role: UserRole
 }
 
 export class UserWithPassword extends User {

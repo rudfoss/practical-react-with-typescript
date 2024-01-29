@@ -79,4 +79,4 @@ Below is a list of all recommended extensions and what they do:
 
 ### Hidden files
 
-If you are using VSCode you might see that there are quite a few files in the repository that are not visible. This is because there is a setting in this repository that hides rarely used files. Inside the `.vscode` folder you'll find `settings.json`. In there is a setting called `files.exclude` which contains several file patterns that should be hidden. If you installed
+If you are using VSCode you might notice that there are quite a few files in the repository that are not visible inside the editor. This is because there is a setting in this repository that hides rarely used files. Inside the `.vscode` folder you'll find `settings.json`. In there is a setting called `files.exclude` which contains several file patterns that should be hidden. If you installed the `Peek Hidden Files` extension you can toggle these files by right-clicking in the explorer panel and selecting "Toggle Excluded Files" or by using the commmand pallette `Ctrl+Shift+P` -> `Toggle Excluded Files`.

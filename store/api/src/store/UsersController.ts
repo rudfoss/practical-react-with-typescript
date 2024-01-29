@@ -1,10 +1,11 @@
-import { Controller, Get, Inject } from "@nestjs/common"
-import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import { Controller, Get, Inject, Param } from "@nestjs/common"
+import { ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 
+import { HttpNotFoundException } from "../httpExceptions"
 import { User } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
-@Controller("/users")
+@Controller("users")
 @ApiTags("Users")
 export class UsersController {
 	public constructor(@Inject(StorageServiceKey) protected storageService: StorageService) {}
@@ -18,5 +19,14 @@ export class UsersController {
 		const usersWithPw = await this.storageService.getUsers()
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		return usersWithPw.map(({ password, ...user }) => user)
+	}
+
+	@Get(":userId")
+	@ApiOkResponse({ type: User })
+	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	public async getUser(@Param("id") userId: string) {
+		const user = (await this.storageService.getUsers()).find(({ id }) => id === userId)
+		if (!user) throw new HttpNotFoundException(`No user found with the id ${userId}`)
+		return user
 	}
 }
