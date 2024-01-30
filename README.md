@@ -25,7 +25,7 @@ Before you begin there are a few things you need to install on your machine. The
 | [NodeJs LTS](https://nodejs.org/en)  | Runtime for Nx (monorepo) and front-end projects                  | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node`        | `node -v` |
 | [pnpm](https://pnpm.io/installation) | Faster and more efficient package manager for Node (replaces npm) | Windows`iwr https://get.pnpm.io/install.ps1 -useb \| iex`<br/>Mac: `brew install pnpm` | `pnpm -v` |
 
-\*Run this command in a terminal to verify that the installation was successful.
+\*Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
 
 ### Recommended
 
