@@ -3,20 +3,20 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"script": "start:store-api",
+			"script": "start:userdb-api",
 			"problemMatcher": [],
-			"label": "start:store-api"
+			"label": "start:userdb-api"
 		},
 		{
 			"type": "npm",
-			"script": "start:store-app",
+			"script": "start:userdb-app",
 			"problemMatcher": [],
-			"label": "start:store-app"
+			"label": "start:userdb-app"
 		},
 		{
 			"label": "start",
 			"problemMatcher": [],
-			"dependsOn": ["start:store-api", "start:store-app"]
+			"dependsOn": ["start:userdb-api", "start:userdb-app"]
 		}
 	]
 }

@@ -3,8 +3,8 @@
 	"version": "0.0.0",
 	"license": "MIT",
 	"scripts": {
-		"start:store-api": "nx serve store-api",
-		"start:store-app": "nx serve store-app",
+		"start:userdb-api": "nx serve userdb-api",
+		"start:userdb-app": "nx serve userdb-app",
 		"verify": "git -v && node -v && pnpm -v",
 		"init": "pnpm run verify && pnpm i"
 	},
