@@ -2,10 +2,10 @@ import type { Low } from "lowdb/lib"
 
 import { esmLoader } from "@react-workshop/utils"
 
-import { UserSession, UserWithPassword } from "../models"
+import { Group, UserSession, UserWithPassword } from "../models"
 
 import { StorageData } from "./StorageData"
-import { StorageService } from "./StorageService"
+import { Setter, StorageService } from "./StorageService"
 import { defaultDbData } from "./defaultDbData"
 
 const importLowdb = () => esmLoader<typeof import("lowdb/node")>("lowdb/node")
@@ -24,31 +24,43 @@ export class JSONFileStorageService implements StorageService {
 	}
 	protected async set<TDBItem extends keyof StorageData>(
 		key: TDBItem,
-		value: StorageData[TDBItem]
+		valueSetter: Setter<StorageData[TDBItem]>
 	) {
-		await this.db.update((data) => {
-			data[key] = value
+		await this.db.update(async (data) => {
+			data[key] = await valueSetter(data[key])
 		})
 	}
 
 	public async getUsers() {
 		return this.get("users")
 	}
-	public async setUsers(usersWithPassword: UserWithPassword[]) {
-		await this.set("users", usersWithPassword)
+	public async setUsers(usersSetter: Setter<UserWithPassword[]>) {
+		await this.set("users", usersSetter)
+	}
+
+	public async getGroups(): Promise<Group[]> {
+		return this.get("groups")
+	}
+	public async setGroups(groupsSetter: Setter<Group[]>) {
+		return this.set("groups", groupsSetter)
 	}
 
 	public async getUserSessions(): Promise<UserSession[]> {
 		return this.get("userSessions")
 	}
-	public async setUserSessions(userSessions: UserSession[]) {
-		return this.set("userSessions", userSessions)
+	public async setUserSessions(userSessionsSetter: Setter<UserSession[]>) {
+		return this.set("userSessions", userSessionsSetter)
 	}
 
-	protected async flushInactiveSessions() {
+	public async flushInactiveSessions() {
 		const now = new Date().getTime()
+		await this.set("userSessions", (sessions) =>
+			sessions.filter((session) => session.expiresAt > now)
+		)
+	}
+	public async flushAllSessions() {
 		await this.db.update((data) => {
-			data.userSessions = data.userSessions.filter((session) => session.expiresAt > now)
+			data.userSessions = []
 		})
 	}
 

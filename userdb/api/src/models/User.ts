@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsString, Length } from "class-validator"
+import { IsOptional, IsString, Length } from "class-validator"
 
 export class User {
 	@ApiProperty({
@@ -24,14 +24,17 @@ export class User {
 	})
 	@IsString()
 	@Length(1, 256)
-	displayName: string
+	@IsOptional()
+	displayName?: string
 
 	@ApiProperty({
-		isArray: true
+		isArray: true,
+		description: "A list of all group ids in which this user is a member."
 	})
 	@IsString({ each: true })
+	@IsOptional()
 	@Length(21, 128, { each: true })
-	roleIds: string[]
+	groupIds?: string[]
 }
 
 export class UserWithPassword extends User {

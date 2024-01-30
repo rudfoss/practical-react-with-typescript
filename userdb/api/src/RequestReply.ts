@@ -1,11 +1,12 @@
 import { NestFastifyApplication } from "@nestjs/platform-fastify"
 import type { FastifyRequest, FastifyReply } from "fastify"
 
-import { User, UserSession } from "./models"
+import { User, UserDbRole, UserSession } from "./models"
 
 interface UserDbApiRequestAuthFields {
 	userSession?: UserSession
 	user?: User
+	roles?: UserDbRole[]
 }
 
 export type UserDbApiRequest = FastifyRequest & UserDbApiRequestAuthFields

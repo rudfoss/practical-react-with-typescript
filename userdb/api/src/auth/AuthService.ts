@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common"
 
 import { esmLoader, merge } from "@react-workshop/utils"
 
-import { UserSession } from "../models"
+import { User, UserDbRole, UserSession } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
 import { LoginRequest } from "./LoginRequest"
@@ -10,6 +10,12 @@ import { LoginRequest } from "./LoginRequest"
 const importNanoid = () => esmLoader<typeof import("nanoid")>("nanoid")
 
 const SESSOIN_LIFETIME_MS = 1000 * 60 * 30 // 30 minutes in ms
+
+export interface SessionUserRoles {
+	session?: UserSession
+	user?: User
+	roles?: UserDbRole[]
+}
 
 @Injectable()
 export class AuthService {
@@ -23,6 +29,11 @@ export class AuthService {
 		const users = await this.storageService.getUsers()
 		return users.find((user) => user.id === userId)
 	}
+	public async getUserGroups(user: User) {
+		return (await this.storageService.getGroups()).filter((group) =>
+			user.groupIds?.includes(group.id)
+		)
+	}
 
 	public async login({ username, password }: LoginRequest) {
 		const user = await this.getUser(username, password)
@@ -35,18 +46,22 @@ export class AuthService {
 		const session = allSessions.find((session) => session.token === sessionToken)
 		return await this.isSessionActive(session)
 	}
-	public async getSessionAndUser(sessionToken: string) {
-		const userSession = await this.getSession(sessionToken)
-		if (!userSession) return { userSession: undefined, user: undefined }
-		const userWithPassword = await this.getUserById(userSession.userId)
-		if (!userWithPassword) return { userSession, user: undefined }
+	public async getSessionUserAndRoles(sessionToken: string) {
+		const result: SessionUserRoles = {}
+		result.session = await this.getSession(sessionToken)
+		if (!result.session) return result
+
+		const userWithPassword = await this.getUserById(result.session.userId)
+		if (!userWithPassword) return result
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { password, ...user } = userWithPassword
 
-		return {
-			userSession,
-			user
-		}
+		result.user = user
+
+		const groups = await this.getUserGroups(user)
+		result.roles = groups.flatMap((group) => group.roles)
+
+		return result
 	}
 	public async createNewSession(userId: string, basedOnSesssion?: UserSession) {
 		const now = new Date().getTime()
@@ -59,18 +74,17 @@ export class AuthService {
 			expiresAt: now + SESSOIN_LIFETIME_MS
 		})
 
-		const nextSesssions = (await this.storageService.getUserSessions()).filter(
-			(session) => session.token !== newSession.token
-		)
-		nextSesssions.push(newSession)
-		await this.storageService.setUserSessions(nextSesssions)
+		await this.storageService.setUserSessions((oldSessions) => {
+			const nextSesssions = oldSessions.filter((session) => session.token !== newSession.token)
+			nextSesssions.push(newSession)
+			return nextSesssions
+		})
 
 		return newSession
 	}
 	public async logout(sessionToken: string) {
-		const sessions = await this.storageService.getUserSessions()
-		await this.storageService.setUserSessions(
-			sessions.filter((session) => session.token !== sessionToken)
+		await this.storageService.setUserSessions((oldSessions) =>
+			oldSessions.filter((session) => session.token !== sessionToken)
 		)
 	}
 

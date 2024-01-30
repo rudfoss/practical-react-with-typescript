@@ -4,11 +4,12 @@ import { StorageModule } from "../storage"
 
 import { AuthController } from "./AuthController"
 import { AuthService } from "./AuthService"
+import { AuthUserController } from "./AuthUserController"
 
 @Module({
 	imports: [StorageModule],
 	providers: [AuthService],
-	controllers: [AuthController],
+	controllers: [AuthController, AuthUserController],
 	exports: [AuthService]
 })
 export class AuthModule {}

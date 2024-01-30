@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Param, Req, UseGuards } from "@nestjs/common"
+import { Controller, Get, Inject, Param, UseGuards } from "@nestjs/common"
 import {
 	ApiBearerAuth,
 	ApiNotFoundResponse,
@@ -7,35 +7,23 @@ import {
 	ApiTags
 } from "@nestjs/swagger"
 
-import { UserDbApiRequestAuthenticated } from "../RequestReply"
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { HttpNotFoundException } from "../httpExceptions"
-import { User, UserRole } from "../models"
+import { User, UserDbRole } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
-@Controller("")
+@Controller("users")
 @ApiTags("Users")
 export class UsersController {
 	public constructor(@Inject(StorageServiceKey) protected storageService: StorageService) {}
 
-	@Get("user")
-	@ApiOperation({
-		summary: "Get user information about the currently logged in user"
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiOkResponse({ type: User })
-	public async GetSelf(@Req() request: UserDbApiRequestAuthenticated) {
-		return request.user
-	}
-
-	@Get("users")
+	@Get()
 	@ApiOperation({
 		summary: "Get all users"
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@RequireRoles([UserRole.UserReporter])
+	@RequireRoles([UserDbRole.User, UserDbRole.UserAdmin])
 	@ApiOkResponse({ type: User, isArray: true })
 	public async getUsers() {
 		const usersWithPassword = await this.storageService.getUsers()
@@ -43,14 +31,14 @@ export class UsersController {
 		return usersWithPassword.map(({ password, ...user }) => user)
 	}
 
-	@Get("users/:userId")
+	@Get(":userId")
 	@ApiOperation({
 		summary: "Get information about a specific user"
 	})
 	@ApiOkResponse({ type: User })
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@RequireRoles([UserRole.UserReporter])
+	@RequireRoles([UserDbRole.User, UserDbRole.UserAdmin])
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
 	public async getUser(@Param("userId") userId: string) {
 		const allUsers = await this.storageService.getUsers()

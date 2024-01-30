@@ -5,7 +5,6 @@ import {
 	Inject,
 	NotFoundException,
 	Post,
-	Query,
 	Req,
 	UseGuards
 } from "@nestjs/common"
@@ -15,11 +14,9 @@ import {
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
-	ApiProperty,
 	ApiTags,
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
-import { IsEnum, IsOptional } from "class-validator"
 
 import { UserDbApiRequestAuthenticated } from "../RequestReply"
 import {
@@ -27,20 +24,13 @@ import {
 	HttpNotFoundException,
 	HttpUnauthorizedException
 } from "../httpExceptions"
-import { UserRole, UserSession } from "../models"
+import { UserDbRole, UserSession } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
 import { AuthGuard, RequireRoles } from "./AuthGuard"
 import { AuthService } from "./AuthService"
 import { LoginRequest } from "./LoginRequest"
 import { bearerAuthName } from "./authConstants"
-
-class RefreshSessionQuery {
-	@ApiProperty({ required: false, enum: ["true", "false"] })
-	@IsEnum(["true", "false"], { message: `Value must be either "true" or "false" if set.` })
-	@IsOptional()
-	refresh?: string
-}
 
 @Controller("auth")
 @ApiTags("Auth")
@@ -62,27 +52,6 @@ export class AuthController {
 		return userSession
 	}
 
-	@Get("session")
-	@ApiOperation({
-		summary: "Get the current users active session",
-		description: "Return the session for the current user and optionally renew it."
-	})
-	@ApiOkResponse({ type: UserSession })
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async getSession(
-		@Query() { refresh = "false" }: RefreshSessionQuery,
-		@Req() request: UserDbApiRequestAuthenticated
-	) {
-		const doRefresh = refresh === "true"
-		if (doRefresh) {
-			return await this.authService.createNewSession(request.user!.id, request.userSession!)
-		}
-		return request.userSession
-	}
-
 	@Get("sessions")
 	@ApiOperation({
 		summary: "Get all currently active sessions",
@@ -93,7 +62,7 @@ Role required: **Admin**`
 	@ApiOkResponse({ type: UserSession })
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@RequireRoles([UserRole.Admin])
+	@RequireRoles([UserDbRole.Admin])
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getActiveSession() {

@@ -1,7 +1,7 @@
-import { Role, UserSession, UserWithPassword } from "../models"
+import { Group, UserSession, UserWithPassword } from "../models"
 
 export interface StorageData {
 	users: UserWithPassword[]
 	userSessions: UserSession[]
-	roles: Role[]
+	groups: Group[]
 }

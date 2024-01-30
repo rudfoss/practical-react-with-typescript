@@ -4,7 +4,8 @@ import { IsString, Length } from "class-validator"
 export class LoginRequest {
 	@ApiProperty({
 		minLength: 1,
-		maxLength: 128
+		maxLength: 128,
+		example: "admin"
 	})
 	@IsString()
 	@Length(1, 128)
@@ -12,7 +13,8 @@ export class LoginRequest {
 
 	@ApiProperty({
 		minLength: 1,
-		maxLength: 128
+		maxLength: 128,
+		example: "admin"
 	})
 	@IsString()
 	@Length(1, 128)

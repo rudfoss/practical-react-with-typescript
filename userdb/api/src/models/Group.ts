@@ -1,7 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsBoolean, IsOptional, IsString, Length, MaxLength } from "class-validator"
+import { IsBoolean, IsEnum, IsOptional, IsString, Length, MaxLength } from "class-validator"
 
-export class Role {
+import { UserDbRole } from "./UserDbRole"
+
+export class Group {
 	@ApiProperty({
 		minLength: 21,
 		maxLength: 128
@@ -28,8 +30,14 @@ export class Role {
 	description?: string
 
 	@ApiProperty({
-		description: "Is true if the role is built-in and cannot be removed"
+		description: "System-defined groups cannot be removed."
 	})
 	@IsBoolean()
-	isSystemRole: boolean
+	isSystemDefined: boolean
+
+	@ApiProperty({
+		isArray: true
+	})
+	@IsEnum(UserDbRole, { each: true })
+	roles: UserDbRole[]
 }
