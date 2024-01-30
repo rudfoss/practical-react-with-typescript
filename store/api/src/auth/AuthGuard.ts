@@ -8,11 +8,15 @@ import {
 import { Reflector } from "@nestjs/core"
 
 import { StoreApiRequest } from "../RequestReply"
+import { UserRole } from "../models"
 
 import { AuthService } from "./AuthService"
 
-export const RequireRoles = Reflector.createDecorator<Role[]>()
+export const RequireRoles = Reflector.createDecorator<UserRole[]>()
 
+/**
+ * Prevents unauthenticated users from accessing an endpoint or controller. Applying this guard only guarantees that the user is authenticated. Use the `RequireRoles` decorator to limit by roles.
+ */
 @Injectable()
 export class AuthGuard implements CanActivate {
 	public constructor(
@@ -21,7 +25,7 @@ export class AuthGuard implements CanActivate {
 	) {}
 
 	public async canActivate(context: ExecutionContext): Promise<boolean> {
-		const roles = this.reflector.getAllAndOverride(RequireRoles, [
+		const requiredRoles = this.reflector.getAllAndOverride(RequireRoles, [
 			context.getHandler(),
 			context.getClass()
 		])
@@ -29,16 +33,20 @@ export class AuthGuard implements CanActivate {
 		const [, sessionToken] = request.headers.authorization?.split(" ") ?? []
 		if (!sessionToken) return false
 
-		const userSession = this.authService.getUserSession(sessionToken)
-		if (!userSession) return false
-		const { user } = userSession
+		const { userSession, user } = await this.authService.getUserSessionAndUser(sessionToken)
+		if (!userSession || !user) return false
 
-		if (roles && user.role !== "admin") {
-			if (!roles.includes(user.role))
-				throw new UnauthorizedException(`User does not have role: ${JSON.stringify(roles)}`)
+		if (requiredRoles && !user.roles.includes(UserRole.Admin)) {
+			if (!user.roles.some((userRole) => requiredRoles.includes(userRole)))
+				throw new UnauthorizedException(
+					`User id "${user.id}" does not have role any of the required roles ${JSON.stringify(
+						requiredRoles
+					)}`
+				)
 		}
 
 		request.userSession = userSession
+		request.user = user
 
 		return true
 	}

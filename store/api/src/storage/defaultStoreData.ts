@@ -9,9 +9,10 @@ export const defaultStoreData: StorageData = {
 			displayName: "The Admin",
 			username: "admin",
 			password: "admin",
-			role: UserRole.Admin
+			roles: [UserRole.Admin]
 		}
 	],
+	userSessions: [],
 	products: [],
 	productCategories: [],
 	productRatings: []

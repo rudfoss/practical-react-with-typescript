@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsRFC3339, Length } from "class-validator"
+import { IsRFC3339, IsString, Length } from "class-validator"
 
 export class HealthRespose {
 	@ApiProperty()
@@ -23,4 +23,8 @@ export class HealthRespose {
 	})
 	@Length(15, 64)
 	upTime: string
+
+	@ApiProperty()
+	@IsString()
+	dbFilePath: string
 }

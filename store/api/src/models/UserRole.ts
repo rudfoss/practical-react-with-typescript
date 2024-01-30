@@ -1,5 +1,5 @@
 export enum UserRole {
-	Admin = "admin",
-	StoreManager = "storeManager",
-	Customer = "customer"
+	Admin = "Admin",
+	StoreManager = "StoreManager",
+	Customer = "Customer"
 }

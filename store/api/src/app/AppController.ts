@@ -1,10 +1,11 @@
-import { Controller, Get, Res } from "@nestjs/common"
+import { Controller, Get, Inject, Res } from "@nestjs/common"
 import { ApiExcludeEndpoint, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { formatISODuration, intervalToDuration } from "date-fns"
 
 import { merge } from "@react-workshop/utils"
 
 import { StoreApiReply } from "../RequestReply"
+import { JSONFileStorageServiceOptions, StorageServiceOptionsKey } from "../storage"
 
 import { HealthRespose } from "./HealthResponse"
 
@@ -12,6 +13,10 @@ import { HealthRespose } from "./HealthResponse"
 @ApiTags("App")
 export class AppController {
 	private _bootTime = new Date()
+
+	public constructor(
+		@Inject(StorageServiceOptionsKey) private storageServiceOptions: JSONFileStorageServiceOptions
+	) {}
 
 	@Get()
 	@ApiExcludeEndpoint()
@@ -29,7 +34,8 @@ export class AppController {
 		return merge(new HealthRespose(), {
 			ok: true,
 			bootTime: this._bootTime.toISOString(),
-			upTime: formatISODuration(intervalToDuration({ start: this._bootTime, end: new Date() }))
+			upTime: formatISODuration(intervalToDuration({ start: this._bootTime, end: new Date() })),
+			dbFilePath: this.storageServiceOptions.fileName
 		})
 	}
 
