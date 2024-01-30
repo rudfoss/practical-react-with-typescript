@@ -6,6 +6,7 @@ import {
 	NotFoundException,
 	Post,
 	Query,
+	Req,
 	UseGuards
 } from "@nestjs/common"
 import {
@@ -18,14 +19,16 @@ import {
 	ApiTags,
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
-import { IsBoolean, IsOptional } from "class-validator"
+import { IsEnum, IsOptional } from "class-validator"
 
+import { StoreApiRequestAuthenticated } from "../RequestReply"
 import {
 	HttpForbiddenException,
 	HttpNotFoundException,
 	HttpUnauthorizedException
 } from "../httpExceptions"
 import { UserRole, UserSession } from "../models"
+import { StorageService, StorageServiceKey } from "../storage"
 
 import { AuthGuard, RequireRoles } from "./AuthGuard"
 import { AuthService } from "./AuthService"
@@ -33,16 +36,19 @@ import { LoginRequest } from "./LoginRequest"
 import { bearerAuthName } from "./authConstants"
 
 class RefreshSessionQuery {
-	@ApiProperty({ required: false })
-	@IsBoolean()
+	@ApiProperty({ required: false, enum: ["true", "false"] })
+	@IsEnum(["true", "false"], { message: `Value must be either "true" or "false" if set.` })
 	@IsOptional()
-	refresh?: boolean
+	refresh?: string
 }
 
 @Controller("auth")
 @ApiTags("Auth")
 export class AuthController {
-	public constructor(@Inject(AuthService) protected authService: AuthService) {}
+	public constructor(
+		@Inject(AuthService) protected authService: AuthService,
+		@Inject(StorageServiceKey) protected storageService: StorageService
+	) {}
 
 	@Post("login")
 	@ApiOperation({
@@ -66,8 +72,15 @@ export class AuthController {
 	@UseGuards(AuthGuard)
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async getSession(@Query() query: RefreshSessionQuery) {
-		return { query }
+	public async getSession(
+		@Query() { refresh = "false" }: RefreshSessionQuery,
+		@Req() request: StoreApiRequestAuthenticated
+	) {
+		const doRefresh = refresh === "true"
+		if (doRefresh) {
+			return await this.authService.createNewSession(request.user!.id, request.userSession!)
+		}
+		return request.userSession
 	}
 
 	@Get("sessions")
@@ -84,12 +97,19 @@ Role required: **Admin**`
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getActiveSession() {
-		return this.authService.getUserSessions()
+		return this.storageService.getUserSessions()
 	}
 
 	@Get("logout")
 	@ApiOperation({
 		summary: "Log out the current user"
 	})
-	public async logout() {}
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiOkResponse({ type: "ok" })
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	public async logout(@Req() request: StoreApiRequestAuthenticated) {
+		await this.authService.logout(request.userSession.token)
+		return "ok"
+	}
 }

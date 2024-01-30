@@ -27,4 +27,14 @@ describe("fromData", () => {
 			foo: false
 		})
 	})
+
+	it("preserves inheritance", () => {
+		class MockExtended extends MockClass {
+			foobar: string
+		}
+
+		const result = merge(new MockExtended(), { foobar: "yey" })
+		expect(result).toBeInstanceOf(MockClass)
+		expect(result).toBeInstanceOf(MockExtended)
+	})
 })

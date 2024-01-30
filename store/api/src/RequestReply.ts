@@ -3,10 +3,13 @@ import type { FastifyRequest, FastifyReply } from "fastify"
 
 import { User, UserSession } from "./models"
 
-export type StoreApiRequest = FastifyRequest & {
+interface StoreApiRequestAuthFields {
 	userSession?: UserSession
 	user?: User
 }
+
+export type StoreApiRequest = FastifyRequest & StoreApiRequestAuthFields
+export type StoreApiRequestAuthenticated = FastifyRequest & Required<StoreApiRequestAuthFields>
 
 export type StoreApiReply = FastifyReply
 

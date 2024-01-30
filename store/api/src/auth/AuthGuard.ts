@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
 		const [, sessionToken] = request.headers.authorization?.split(" ") ?? []
 		if (!sessionToken) return false
 
-		const { userSession, user } = await this.authService.getUserSessionAndUser(sessionToken)
+		const { userSession, user } = await this.authService.getSessionAndUser(sessionToken)
 		if (!userSession || !user) return false
 
 		if (requiredRoles && !user.roles.includes(UserRole.Admin)) {

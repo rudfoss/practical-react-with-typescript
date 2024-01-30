@@ -5,11 +5,17 @@ export const StorageServiceKey = Symbol("StorageServiceKey")
 
 export interface StorageService {
 	getProducts(): Promise<Product[]>
+	setProducts(products: Product[]): Promise<void>
+
 	getProductCategories(): Promise<ProductCategory[]>
+	setProductCategories(productCategories: ProductCategory[]): Promise<void>
+
 	getProductRatings(): Promise<ProductRating[]>
+	setProductRatings(productRatings: ProductRating[]): Promise<void>
 
 	getUsers(): Promise<UserWithPassword[]>
+	setUsers(users: UserWithPassword[]): Promise<void>
+
 	getUserSessions(): Promise<UserSession[]>
-	dropUserSession(sessionToken: string): Promise<void>
-	createUserSession(userId: string, sessionLifetimeMs: number): Promise<UserSession>
+	setUserSessions(userSessions: UserSession[]): Promise<void>
 }
