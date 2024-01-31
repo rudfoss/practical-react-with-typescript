@@ -52,16 +52,9 @@ export class JSONFileStorageService implements StorageService {
 		return this.set("userSessions", userSessionsSetter)
 	}
 
-	public async flushInactiveSessions() {
-		const now = new Date().getTime()
-		await this.set("userSessions", (sessions) =>
-			sessions.filter((session) => session.expiresAt > now)
-		)
-	}
-	public async flushAllSessions() {
-		await this.db.update((data) => {
-			data.userSessions = []
-		})
+	protected async flushInactiveSessions() {
+		const now = Date.now()
+		await this.setUserSessions((sessions) => sessions.filter((session) => session.expiresAt > now))
 	}
 
 	protected async init() {

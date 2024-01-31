@@ -14,7 +14,4 @@ export interface StorageService {
 
 	getUserSessions(): Promise<UserSession[]>
 	setUserSessions(userSessionsSetter: Setter<UserSession[]>): Promise<void>
-
-	flushInactiveSessions(): Promise<void>
-	flushAllSessions(): Promise<void>
 }

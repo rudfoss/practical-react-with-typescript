@@ -9,7 +9,7 @@ import { StorageServiceKey, StorageServiceOptionsKey } from "./StorageService"
 	providers: [
 		{
 			provide: StorageServiceOptionsKey,
-			useValue: { fileName: path.resolve(__dirname, "jsonDb.json") }
+			useValue: { fileName: path.resolve(process.cwd(), "jsonDb.json") }
 		},
 		{
 			provide: StorageServiceKey,

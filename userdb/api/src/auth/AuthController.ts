@@ -18,6 +18,8 @@ import {
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
+import { merge } from "@react-workshop/utils"
+
 import { UserDbApiRequestAuthenticated } from "../RequestReply"
 import {
 	HttpForbiddenException,
@@ -29,6 +31,7 @@ import { StorageService, StorageServiceKey } from "../storage"
 
 import { AuthGuard } from "./AuthGuard"
 import { AuthService } from "./AuthService"
+import { LogEveryoneOutResponse } from "./LogEveryoneOutResponse"
 import { LoginRequest } from "./LoginRequest"
 import { RequireRoles } from "./RequireRolesDecorator"
 import { bearerAuthName } from "./authConstants"
@@ -54,16 +57,14 @@ export class AuthController {
 	}
 
 	@Get("sessions")
+	@RequireRoles([UserDbRole.Admin])
 	@ApiOperation({
 		summary: "Get all currently active sessions",
-		description: `Return a list of all active session including their tokens (for debugging). Requires admin role.
-
-Role required: **Admin**`
+		description: `Return a list of all active session including their tokens (for debugging). Requires admin role.`
 	})
 	@ApiOkResponse({ type: UserSession })
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@RequireRoles([UserDbRole.Admin])
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getActiveSession() {
@@ -81,5 +82,31 @@ Role required: **Admin**`
 	public async logout(@Req() request: UserDbApiRequestAuthenticated) {
 		await this.authService.logout(request.userSession.token)
 		return "ok"
+	}
+
+	@Get("log-everyone-out")
+	@RequireRoles([UserDbRole.Admin])
+	@ApiOperation({
+		summary: "Log out every currently logged in user except the current one."
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiOkResponse({ type: LogEveryoneOutResponse })
+	public async logEveryoneOut(@Req() { userSession }: UserDbApiRequestAuthenticated) {
+		const removedSessions: UserSession[] = []
+		await this.storageService.setUserSessions((sessions) => {
+			const validSessions: UserSession[] = []
+			for (const session of sessions) {
+				if (session.token !== userSession.token) {
+					removedSessions.push(session)
+					continue
+				}
+				validSessions.push(session)
+			}
+			return validSessions
+		})
+		return merge(new LogEveryoneOutResponse(), {
+			removedSessions
+		})
 	}
 }

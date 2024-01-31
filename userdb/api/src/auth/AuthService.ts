@@ -64,7 +64,7 @@ export class AuthService {
 		return result
 	}
 	public async createNewSession(userId: string, basedOnSesssion?: UserSession) {
-		const now = new Date().getTime()
+		const now = Date.now()
 		const { nanoid } = await importNanoid()
 		const newSession = merge(new UserSession(), {
 			createdAt: now,
@@ -90,7 +90,7 @@ export class AuthService {
 
 	protected async isSessionActive(session?: UserSession) {
 		if (!session) return undefined
-		const now = new Date().getTime()
+		const now = Date.now()
 		if (session.expiresAt <= now) {
 			await this.logout(session.token)
 			return undefined

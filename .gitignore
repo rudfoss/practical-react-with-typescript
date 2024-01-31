@@ -32,3 +32,6 @@ testem.log
 Thumbs.db
 
 .nx
+
+# The databse created by the backend api
+jsonDb.json
