@@ -1,21 +1,31 @@
-import { Controller, Get, Inject, Param, UseGuards } from "@nestjs/common"
+import { Controller, Delete, Get, Inject, Param, Post, Put, UseGuards } from "@nestjs/common"
 import {
 	ApiBearerAuth,
+	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
-	ApiTags
+	ApiTags,
+	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
-import { HttpNotFoundException } from "../httpExceptions"
+import { AuthService } from "../auth/AuthService"
+import {
+	HttpForbiddenException,
+	HttpNotFoundException,
+	HttpUnauthorizedException
+} from "../httpExceptions"
 import { User, UserDbRole } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
 @Controller("users")
 @ApiTags("Users")
 export class UsersController {
-	public constructor(@Inject(StorageServiceKey) protected storageService: StorageService) {}
+	public constructor(
+		@Inject(AuthService) protected authService: AuthService,
+		@Inject(StorageServiceKey) protected storageService: StorageService
+	) {}
 
 	@Get()
 	@ApiOperation({
@@ -40,10 +50,45 @@ export class UsersController {
 	@UseGuards(AuthGuard)
 	@RequireRoles([UserDbRole.User, UserDbRole.UserAdmin])
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getUser(@Param("userId") userId: string) {
 		const allUsers = await this.storageService.getUsers()
 		const user = allUsers.find(({ id }) => id === userId)
 		if (!user) throw new HttpNotFoundException(`No user found with the id ${userId}`)
 		return user
 	}
+
+	@Post()
+	@RequireRoles([UserDbRole.UserAdmin])
+	@ApiOperation({
+		summary: "Create a new user in the system"
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
+	public async createUser() {}
+
+	@Put()
+	@RequireRoles([UserDbRole.UserAdmin])
+	@ApiOperation({
+		summary: "Update an existing user."
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
+	public async updateUser() {}
+
+	@Delete()
+	@RequireRoles([UserDbRole.UserAdmin])
+	@ApiOperation({
+		summary: "Delete the specified user."
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
+	public async deletUser() {}
 }

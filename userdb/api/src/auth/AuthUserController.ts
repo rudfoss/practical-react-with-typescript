@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Query, Req, UseGuards } from "@nestjs/common"
+import { Controller, Get, Inject, Put, Query, Req, UseGuards } from "@nestjs/common"
 import {
 	ApiBearerAuth,
 	ApiForbiddenResponse,
@@ -10,11 +10,12 @@ import {
 
 import { UserDbApiRequestAuthenticated } from "../RequestReply"
 import { HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
-import { Group, User, UserSession } from "../models"
+import { Group, User, UserDbRole, UserSession } from "../models"
 
 import { AuthGuard } from "./AuthGuard"
 import { AuthService } from "./AuthService"
 import { RefreshSessionQuery } from "./RefreshSessionQuery"
+import { RequireRoles } from "./RequireRolesDecorator"
 import { bearerAuthName } from "./authConstants"
 
 @Controller("auth")
@@ -50,9 +51,24 @@ export class AuthUserController {
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	@ApiOkResponse({ type: User })
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getCurrentUser(@Req() request: UserDbApiRequestAuthenticated) {
 		return request.user
 	}
+
+	@Put("user")
+	@RequireRoles([UserDbRole.UserAdmin, UserDbRole.User])
+	@ApiOperation({
+		description:
+			"Update the currently logged in users properties. Guests are not allowed to change their user objects directly.",
+		summary: "Change properties of the currently logged in user"
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
+	public async updateCurrentUser() {}
 
 	@Get("groups")
 	@ApiOperation({
@@ -61,6 +77,8 @@ export class AuthUserController {
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	@ApiOkResponse({ type: Group, isArray: true })
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getCurrentUserGroups(@Req() request: UserDbApiRequestAuthenticated) {
 		return await this.authService.getUserGroups(request.user)
 	}
