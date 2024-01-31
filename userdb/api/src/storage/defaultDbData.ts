@@ -3,6 +3,7 @@ import { UserDbRole } from "../models"
 import { StorageData } from "./StorageData"
 
 export const ADMINISTRATOR_GROUP_ID = "5dd0a91a-d493-4fa1-b447-f90121f00bb0"
+export const GUEST_GROUP_ID = "74614400-354b-4cee-889f-ec6aa8c36550"
 
 export const defaultDbData: StorageData = {
 	users: [
@@ -12,6 +13,13 @@ export const defaultDbData: StorageData = {
 			username: "admin",
 			password: "admin",
 			groupIds: [ADMINISTRATOR_GROUP_ID]
+		},
+		{
+			id: "67dc12eb-81dc-4a4a-9fe0-12cee1d11674",
+			displayName: "Guest",
+			username: "guest",
+			password: "guest",
+			groupIds: [GUEST_GROUP_ID]
 		}
 	],
 	groups: [
@@ -21,6 +29,12 @@ export const defaultDbData: StorageData = {
 			description: "The administrator role has full access.",
 			roles: [UserDbRole.Admin],
 			isSystemDefined: true
+		},
+		{
+			id: GUEST_GROUP_ID,
+			displayName: "Guests",
+			description: "Guest users have access to only their own information.",
+			roles: [UserDbRole.Guest]
 		}
 	],
 	userSessions: []

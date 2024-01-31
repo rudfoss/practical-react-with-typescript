@@ -11,11 +11,7 @@ import { UserDbApiRequest } from "../RequestReply"
 import { UserDbRole } from "../models"
 
 import { AuthService } from "./AuthService"
-
-/**
- * Ensure that user has at least one of the specified roles.
- */
-export const RequireRoles = Reflector.createDecorator<UserDbRole[]>()
+import { RequireRolesDecorator } from "./RequireRolesDecorator"
 
 /**
  * Prevents unauthenticated users from accessing an endpoint or controller. Applying this guard only guarantees that the user is authenticated. Use the `RequireRoles` decorator to limit by roles.
@@ -28,7 +24,7 @@ export class AuthGuard implements CanActivate {
 	) {}
 
 	public async canActivate(context: ExecutionContext): Promise<boolean> {
-		const requiredRoles = this.reflector.getAllAndOverride(RequireRoles, [
+		const requiredRoles = this.reflector.getAllAndOverride(RequireRolesDecorator, [
 			context.getHandler(),
 			context.getClass()
 		])

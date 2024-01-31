@@ -27,9 +27,10 @@ import {
 import { UserDbRole, UserSession } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
-import { AuthGuard, RequireRoles } from "./AuthGuard"
+import { AuthGuard } from "./AuthGuard"
 import { AuthService } from "./AuthService"
 import { LoginRequest } from "./LoginRequest"
+import { RequireRoles } from "./RequireRolesDecorator"
 import { bearerAuthName } from "./authConstants"
 
 @Controller("auth")

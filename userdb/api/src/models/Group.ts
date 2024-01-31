@@ -33,9 +33,11 @@ export class Group {
 		description: "System-defined groups cannot be removed."
 	})
 	@IsBoolean()
-	isSystemDefined: boolean
+	@IsOptional()
+	isSystemDefined?: boolean
 
 	@ApiProperty({
+		enum: UserDbRole,
 		isArray: true
 	})
 	@IsEnum(UserDbRole, { each: true })

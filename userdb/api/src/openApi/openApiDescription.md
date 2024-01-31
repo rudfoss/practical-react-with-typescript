@@ -13,8 +13,9 @@ The service starts with a single admin user:
 
 ### Roles
 
-Each user can be assigned a role. The "admin" role grants access to all endpoints regardless of the role required. There are currently 3 roles in the system:
+Each user can be assigned a role. The "admin" role grants access to all endpoints regardless of the role required. There are currently 4 roles in the system:
 
 - Admin: This role grants access to all endpoints and actions.
-- User Reporter: Allows listing the users in the system with their respective roles, but cannot change them.
-- User: A single user can view themselves.
+- UserAdmin: Allows managing users and group memberships for non-admin users, but cannot create or change groups themselves.
+- User: A single user can view themselves, all users and all groups in the system, but cannot change anything except their own information.
+- Guest: A single user can view themselves and their own memberships and direct groups, but cannot see other users or their memeberships.
