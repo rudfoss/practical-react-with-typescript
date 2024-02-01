@@ -1,7 +1,19 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsInt, IsString, Length } from "class-validator"
+import { IsInt, IsString, Length, ValidatorOptions } from "class-validator"
+
+import { ObjectFields, ValidationError } from "@react-workshop/utils"
 
 export class UserSession {
+	public constructor(
+		initialData?: Partial<ObjectFields<UserSession>>,
+		validatorOptions?: ValidatorOptions
+	) {
+		if (initialData) {
+			Object.assign(this, initialData)
+			ValidationError.validateOrThrow(this, validatorOptions)
+		}
+	}
+
 	@ApiProperty()
 	@IsString()
 	@Length(1, 128)

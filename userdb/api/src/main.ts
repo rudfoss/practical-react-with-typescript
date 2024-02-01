@@ -9,21 +9,21 @@ import { prepareFastifyRequest } from "./RequestReply"
 import { AppModule } from "./app"
 import { setupOpenApi } from "./openApi"
 
-async function bootstrap(args: string[]) {
-	const [, , openApiArg = ""] = args
+async function bootstrap(arguments_: string[]) {
+	const [openApiArgument = ""] = arguments_.slice(2)
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
 
 	prepareFastifyRequest(app)
 	app.enableCors()
-	app.useGlobalPipes(new ValidationPipe())
+	app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: false }))
 
 	const { SwaggerModule, doc } = setupOpenApi(app)
 	SwaggerModule.setup("/docs", app, doc)
-	if (openApiArg.toLocaleLowerCase() === "openapi") {
+	if (openApiArgument.toLocaleLowerCase() === "openapi") {
 		const openApiPath = path.join(__dirname, "userdb-api-openapi.json")
 		Logger.log(`App run with arg 'openApi'. Outputting openApi doc to "${openApiPath}" and exiting`)
 		await fs.writeFile(openApiPath, JSON.stringify(doc))
-		process.exit(0)
+		return
 	}
 
 	const port = process.env.PORT || 4210
@@ -31,4 +31,8 @@ async function bootstrap(args: string[]) {
 	Logger.log(`🚀 Application is running on: http://localhost:${port}`)
 }
 
-bootstrap(process.argv)
+// This is the recommended method by the nest template
+// eslint-disable-next-line unicorn/prefer-top-level-await
+bootstrap(process.argv).catch((error) => {
+	throw error
+})

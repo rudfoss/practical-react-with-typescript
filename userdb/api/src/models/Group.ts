@@ -1,9 +1,29 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsBoolean, IsEnum, IsOptional, IsString, Length, MaxLength } from "class-validator"
+import {
+	IsBoolean,
+	IsEnum,
+	IsOptional,
+	IsString,
+	Length,
+	MaxLength,
+	ValidatorOptions
+} from "class-validator"
 
-import { UserDbRole } from "./UserDbRole"
+import { ObjectFields, ValidationError } from "@react-workshop/utils"
+
+import { UserDatabaseRole } from "./UserDatabaseRole"
 
 export class Group {
+	public constructor(
+		initialData?: Partial<ObjectFields<Group>>,
+		validatorOptions?: ValidatorOptions
+	) {
+		if (initialData) {
+			Object.assign(this, initialData)
+			ValidationError.validateOrThrow(this, validatorOptions)
+		}
+	}
+
 	@ApiProperty({
 		minLength: 21,
 		maxLength: 128
@@ -37,9 +57,9 @@ export class Group {
 	isSystemDefined?: boolean
 
 	@ApiProperty({
-		enum: UserDbRole,
+		enum: UserDatabaseRole,
 		isArray: true
 	})
-	@IsEnum(UserDbRole, { each: true })
-	roles: UserDbRole[]
+	@IsEnum(UserDatabaseRole, { each: true })
+	roles: UserDatabaseRole[]
 }

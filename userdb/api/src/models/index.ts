@@ -1,4 +1,5 @@
 export * from "./Group"
 export * from "./User"
-export * from "./UserDbRole"
+export * from "./UserDatabaseRole"
+export * from "./UserInformation"
 export * from "./UserSession"

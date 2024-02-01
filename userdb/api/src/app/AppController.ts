@@ -2,10 +2,13 @@ import { Controller, Get, Inject, Res } from "@nestjs/common"
 import { ApiExcludeEndpoint, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { formatISODuration, intervalToDuration } from "date-fns"
 
-import { merge } from "@react-workshop/utils"
-
-import { UserDbApiReply } from "../RequestReply"
-import { JSONFileStorageServiceOptions, StorageServiceOptionsKey } from "../storage"
+import { UserDatabaseApiReply } from "../RequestReply"
+import {
+	FileStorageServiceOptions,
+	StorageService,
+	StorageServiceKey,
+	StorageServiceOptionsKey
+} from "../storage"
 
 import { HealthRespose } from "./HealthResponse"
 
@@ -15,12 +18,13 @@ export class AppController {
 	private _bootTime = new Date()
 
 	public constructor(
-		@Inject(StorageServiceOptionsKey) private storageServiceOptions: JSONFileStorageServiceOptions
+		@Inject(StorageServiceOptionsKey) private storageServiceOptions: FileStorageServiceOptions,
+		@Inject(StorageServiceKey) private storageService: StorageService
 	) {}
 
 	@Get()
 	@ApiExcludeEndpoint()
-	public redirectToDocs(@Res() reply: UserDbApiReply) {
+	public redirectToDocs(@Res() reply: UserDatabaseApiReply) {
 		reply.status(302).redirect("/docs")
 	}
 
@@ -31,11 +35,13 @@ export class AppController {
 	})
 	@ApiOkResponse({ type: HealthRespose })
 	public async getHealth() {
-		return merge(new HealthRespose(), {
+		const userSessions = await this.storageService.getUserSessions()
+		return new HealthRespose({
 			ok: true,
 			bootTime: this._bootTime.toISOString(),
 			upTime: formatISODuration(intervalToDuration({ start: this._bootTime, end: new Date() })),
-			dbFilePath: this.storageServiceOptions.fileName
+			dbFilePath: this.storageServiceOptions.fileName,
+			sessionCount: userSessions.length
 		})
 	}
 

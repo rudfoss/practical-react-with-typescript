@@ -1,7 +1,19 @@
-import { ApiProperty } from "@nestjs/swagger"
-import { IsOptional, IsString, Length } from "class-validator"
+import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger"
+import { IsOptional, IsString, IsUrl, Length, ValidatorOptions } from "class-validator"
+
+import { ObjectFields, ValidationError } from "@react-workshop/utils"
 
 export class User {
+	public constructor(
+		initialData?: Partial<ObjectFields<User>>,
+		validatorOptions?: ValidatorOptions
+	) {
+		if (initialData) {
+			Object.assign(this, initialData)
+			ValidationError.validateOrThrow(this, validatorOptions)
+		}
+	}
+
 	@ApiProperty({
 		minLength: 21,
 		maxLength: 128
@@ -28,6 +40,14 @@ export class User {
 	displayName?: string
 
 	@ApiProperty({
+		description:
+			"Optionally specify a url for a picture of this user. Pictures are not hosted on this API"
+	})
+	@IsUrl()
+	@IsOptional()
+	pictureUrl?: string
+
+	@ApiProperty({
 		isArray: true,
 		description: "A list of all group ids in which this user is a member."
 	})
@@ -39,10 +59,20 @@ export class User {
 
 export class UserWithPassword extends User {
 	@ApiProperty({
-		minLength: 1,
+		minLength: 5,
 		maxLength: 128
 	})
 	@IsString()
-	@Length(1, 128)
+	@Length(5, 128)
 	password: string
 }
+
+/**
+ * A new user object is automatically assigned an id by the system.
+ */
+export class NewUser extends OmitType(UserWithPassword, ["id"] as const) {}
+
+/**
+ * A patch user allows updating properties of a User object, the ID must be provided separately.
+ */
+export class PatchUser extends PartialType(OmitType(UserWithPassword, ["id"] as const)) {}

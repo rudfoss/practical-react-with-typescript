@@ -1,4 +1,4 @@
-export enum UserDbRole {
+export enum UserDatabaseRole {
 	Admin = "Admin", // Allows full access to the system.
 	UserAdmin = "UserAdmin", // Allows management of users that are not administrators.
 	User = "User", // Grants read-access to users and groups.

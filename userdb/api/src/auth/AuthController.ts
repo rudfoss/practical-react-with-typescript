@@ -18,15 +18,13 @@ import {
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
-import { merge } from "@react-workshop/utils"
-
-import { UserDbApiRequestAuthenticated } from "../RequestReply"
+import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
 import {
 	HttpForbiddenException,
 	HttpNotFoundException,
 	HttpUnauthorizedException
 } from "../httpExceptions"
-import { UserDbRole, UserSession } from "../models"
+import { UserDatabaseRole, UserSession } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
 import { AuthGuard } from "./AuthGuard"
@@ -57,7 +55,7 @@ export class AuthController {
 	}
 
 	@Get("sessions")
-	@RequireRoles([UserDbRole.Admin])
+	@RequireRoles([UserDatabaseRole.Admin])
 	@ApiOperation({
 		summary: "Get all currently active sessions",
 		description: `Return a list of all active session including their tokens (for debugging). Requires admin role.`
@@ -79,20 +77,20 @@ export class AuthController {
 	@UseGuards(AuthGuard)
 	@ApiOkResponse({ type: "ok" })
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	public async logout(@Req() request: UserDbApiRequestAuthenticated) {
+	public async logout(@Req() request: UserDatabaseApiRequestAuthenticated) {
 		await this.authService.logout(request.userSession.token)
 		return "ok"
 	}
 
 	@Get("log-everyone-out")
-	@RequireRoles([UserDbRole.Admin])
+	@RequireRoles([UserDatabaseRole.Admin])
 	@ApiOperation({
 		summary: "Log out every currently logged in user except the current one."
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	@ApiOkResponse({ type: LogEveryoneOutResponse })
-	public async logEveryoneOut(@Req() { userSession }: UserDbApiRequestAuthenticated) {
+	public async logEveryoneOut(@Req() { userSession }: UserDatabaseApiRequestAuthenticated) {
 		const removedSessions: UserSession[] = []
 		await this.storageService.setUserSessions((sessions) => {
 			const validSessions: UserSession[] = []
@@ -105,8 +103,6 @@ export class AuthController {
 			}
 			return validSessions
 		})
-		return merge(new LogEveryoneOutResponse(), {
-			removedSessions
-		})
+		return new LogEveryoneOutResponse({ removedSessions })
 	}
 }

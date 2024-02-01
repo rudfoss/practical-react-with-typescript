@@ -1,4 +1,15 @@
-import { Controller, Delete, Get, Inject, Param, Post, Put, UseGuards } from "@nestjs/common"
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Inject,
+	Param,
+	Patch,
+	Post,
+	Req,
+	UseGuards
+} from "@nestjs/common"
 import {
 	ApiBearerAuth,
 	ApiForbiddenResponse,
@@ -9,6 +20,7 @@ import {
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
+import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { AuthService } from "../auth/AuthService"
 import {
@@ -16,7 +28,7 @@ import {
 	HttpNotFoundException,
 	HttpUnauthorizedException
 } from "../httpExceptions"
-import { User, UserDbRole } from "../models"
+import { NewUser, PatchUser, User, UserDatabaseRole } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
 @Controller("users")
@@ -33,7 +45,7 @@ export class UsersController {
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@RequireRoles([UserDbRole.User, UserDbRole.UserAdmin])
+	@RequireRoles([UserDatabaseRole.User, UserDatabaseRole.UserAdmin])
 	@ApiOkResponse({ type: User, isArray: true })
 	public async getUsers() {
 		const usersWithPassword = await this.storageService.getUsers()
@@ -48,7 +60,7 @@ export class UsersController {
 	@ApiOkResponse({ type: User })
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@RequireRoles([UserDbRole.User, UserDbRole.UserAdmin])
+	@RequireRoles([UserDatabaseRole.User, UserDatabaseRole.UserAdmin])
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
@@ -59,30 +71,40 @@ export class UsersController {
 		return user
 	}
 
-	@Post()
-	@RequireRoles([UserDbRole.UserAdmin])
+	@Patch(":userId")
 	@ApiOperation({
-		summary: "Create a new user in the system"
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async createUser() {}
-
-	@Put()
-	@RequireRoles([UserDbRole.UserAdmin])
-	@ApiOperation({
+		description:
+			"Updates an existing user. Users and guests can only update themselves and cannot change their group memberships.",
 		summary: "Update an existing user."
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
+	@ApiNotFoundResponse({ type: HttpNotFoundException })
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async updateUser() {}
+	public async updateUser(
+		@Param("userId") userId: string,
+		@Body() user: PatchUser,
+		@Req() request: UserDatabaseApiRequestAuthenticated
+	) {
+		if (
+			request.userInformation.roles.includes(UserDatabaseRole.Admin) ||
+			request.userInformation.roles.includes(UserDatabaseRole.UserAdmin)
+		) {
+			return this.authService.patchUser(user, userId)
+		}
 
-	@Delete()
-	@RequireRoles([UserDbRole.UserAdmin])
+		if (userId !== request.userInformation.user.id) {
+			throw new HttpUnauthorizedException(
+				`You do not have sufficient permissions to perform a patch on user ${userId}`
+			)
+		}
+
+		return this.authService.patchUser(user, userId)
+	}
+
+	@Delete(":userId")
+	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
 		summary: "Delete the specified user."
 	})
@@ -90,5 +112,20 @@ export class UsersController {
 	@UseGuards(AuthGuard)
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async deletUser() {}
+	public async deleteUser(@Param("userId") userId: string) {
+		return await this.authService.deleteUser(userId)
+	}
+
+	@Post()
+	@RequireRoles([UserDatabaseRole.UserAdmin])
+	@ApiOperation({
+		summary: "Create a new user."
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
+	public async createUser(@Body() newUser: NewUser) {
+		return await this.authService.createUser(newUser)
+	}
 }

@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nx", "import"],
+	"plugins": ["@nx", "import", "unicorn"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -35,8 +35,14 @@
 		},
 		{
 			"files": ["*.ts", "*.tsx"],
-			"extends": ["plugin:@nx/typescript"],
-			"rules": {}
+			"extends": ["plugin:@nx/typescript", "plugin:unicorn/recommended"],
+			"rules": {
+				"unicorn/prevent-abbreviations": [
+					"error",
+					{ "allowList": { "props": true, "Props": true, "ref": true } }
+				],
+				"unicorn/filename-case": ["error", { "cases": { "camelCase": true, "pascalCase": true } }]
+			}
 		},
 		{
 			"files": ["*.js", "*.jsx"],

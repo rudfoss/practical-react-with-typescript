@@ -2,7 +2,7 @@ import path from "node:path"
 
 import { Module } from "@nestjs/common"
 
-import { JSONFileStorageService, JSONFileStorageServiceOptions } from "./JSONFileStorageService"
+import { FileStorageService, FileStorageServiceOptions } from "./FileStorageService"
 import { StorageServiceKey, StorageServiceOptionsKey } from "./StorageService"
 
 @Module({
@@ -14,8 +14,8 @@ import { StorageServiceKey, StorageServiceOptionsKey } from "./StorageService"
 		{
 			provide: StorageServiceKey,
 			inject: [StorageServiceOptionsKey],
-			useFactory: async (options: JSONFileStorageServiceOptions) =>
-				JSONFileStorageService.createInstance(options)
+			useFactory: async (options: FileStorageServiceOptions) =>
+				FileStorageService.createInstance(options)
 		}
 	],
 	exports: [StorageServiceOptionsKey, StorageServiceKey]

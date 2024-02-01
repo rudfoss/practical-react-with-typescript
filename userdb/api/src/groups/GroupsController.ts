@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Inject, Param, Post, Put, Req, UseGuards } from "@nestjs/common"
+import { Controller, Delete, Get, Inject, Param, Patch, Post, Req, UseGuards } from "@nestjs/common"
 import {
 	ApiBearerAuth,
 	ApiForbiddenResponse,
@@ -8,11 +8,11 @@ import {
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
-import { UserDbApiRequestAuthenticated } from "../RequestReply"
+import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { AuthService } from "../auth/AuthService"
 import { HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
-import { Group, UserDbRole } from "../models"
+import { Group, UserDatabaseRole } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
 @Controller("groups")
@@ -26,7 +26,7 @@ export class GroupsController {
 	) {}
 
 	@Get()
-	@RequireRoles([UserDbRole.UserAdmin, UserDbRole.User])
+	@RequireRoles([UserDatabaseRole.UserAdmin, UserDatabaseRole.User])
 	@ApiOperation({
 		summary: "List all groups."
 	})
@@ -46,39 +46,40 @@ export class GroupsController {
 	@UseGuards(AuthGuard)
 	public async getGroup(
 		@Param("groupId") groupId: string,
-		@Req() request: UserDbApiRequestAuthenticated
+		@Req() request: UserDatabaseApiRequestAuthenticated
 	) {
-		if (request.roles.includes(UserDbRole.Guest)) {
-			const groupIds = request.user.groupIds ?? []
-			if (!groupIds.includes(groupId)) return undefined
+		if (request.userInformation.roles.includes(UserDatabaseRole.Guest)) {
+			const groupIds = request.userInformation.user.groupIds ?? []
+			if (!groupIds.includes(groupId)) return
 		}
-		return (await this.storageService.getGroups()).find((group) => group.id === groupId)
+		const allGroups = await this.storageService.getGroups()
+		return allGroups.find((group) => group.id === groupId)
 	}
 
+	@Patch(":groupId")
+	@RequireRoles([UserDatabaseRole.UserAdmin])
+	@ApiOperation({
+		summary: "Update properties of an existing group."
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	public async updateGroup(@Param("groupId") groupId: string) {}
+
+	@Delete(":groupId")
+	@RequireRoles([UserDatabaseRole.UserAdmin])
+	@ApiOperation({
+		summary: "Delete a group."
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	public async deleteGroup(@Param("groupId") groupId: string) {}
+
 	@Post()
-	@RequireRoles([UserDbRole.UserAdmin])
+	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
 		summary: "Create a new group."
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	public async createGroup() {}
-
-	@Put()
-	@RequireRoles([UserDbRole.UserAdmin])
-	@ApiOperation({
-		summary: "Update an existing group."
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	public async updateGroup() {}
-
-	@Delete()
-	@RequireRoles([UserDbRole.UserAdmin])
-	@ApiOperation({
-		summary: "Delete a group."
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	public async deleteGroup() {}
 }

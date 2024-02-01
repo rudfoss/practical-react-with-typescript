@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Put, Query, Req, UseGuards } from "@nestjs/common"
+import { Controller, Get, Inject, Query, Req, UseGuards } from "@nestjs/common"
 import {
 	ApiBearerAuth,
 	ApiForbiddenResponse,
@@ -8,14 +8,13 @@ import {
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
-import { UserDbApiRequestAuthenticated } from "../RequestReply"
+import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
 import { HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
-import { Group, User, UserDbRole, UserSession } from "../models"
+import { UserInformation, UserSession } from "../models"
 
 import { AuthGuard } from "./AuthGuard"
 import { AuthService } from "./AuthService"
 import { RefreshSessionQuery } from "./RefreshSessionQuery"
-import { RequireRoles } from "./RequireRolesDecorator"
 import { bearerAuthName } from "./authConstants"
 
 @Controller("auth")
@@ -35,11 +34,11 @@ export class AuthUserController {
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getSession(
 		@Query() { refresh = "false" }: RefreshSessionQuery,
-		@Req() request: UserDbApiRequestAuthenticated
+		@Req() request: UserDatabaseApiRequestAuthenticated
 	) {
 		const doRefresh = refresh === "true"
 		if (doRefresh) {
-			return await this.authService.createNewSession(request.user!.id, request.userSession!)
+			return await this.authService.createSession(request.userSession.userId, request.userSession)
 		}
 		return request.userSession
 	}
@@ -50,36 +49,10 @@ export class AuthUserController {
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@ApiOkResponse({ type: User })
+	@ApiOkResponse({ type: UserInformation })
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async getCurrentUser(@Req() request: UserDbApiRequestAuthenticated) {
-		return request.user
-	}
-
-	@Put("user")
-	@RequireRoles([UserDbRole.UserAdmin, UserDbRole.User])
-	@ApiOperation({
-		description:
-			"Update the currently logged in users properties. Guests are not allowed to change their user objects directly.",
-		summary: "Change properties of the currently logged in user"
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async updateCurrentUser() {}
-
-	@Get("groups")
-	@ApiOperation({
-		summary: "Get all groups the current user is a member of"
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiOkResponse({ type: Group, isArray: true })
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async getCurrentUserGroups(@Req() request: UserDbApiRequestAuthenticated) {
-		return await this.authService.getUserGroups(request.user)
+	public async getCurrentUser(@Req() request: UserDatabaseApiRequestAuthenticated) {
+		return request.userInformation
 	}
 }

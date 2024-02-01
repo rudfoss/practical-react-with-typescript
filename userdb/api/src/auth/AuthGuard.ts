@@ -7,8 +7,8 @@ import {
 } from "@nestjs/common"
 import { Reflector } from "@nestjs/core"
 
-import { UserDbApiRequest } from "../RequestReply"
-import { UserDbRole } from "../models"
+import { UserDatabaseApiRequest as UserDatabaseApiRequest } from "../RequestReply"
+import { UserDatabaseRole } from "../models"
 
 import { AuthService } from "./AuthService"
 import { RequireRolesDecorator } from "./RequireRolesDecorator"
@@ -28,29 +28,31 @@ export class AuthGuard implements CanActivate {
 			context.getHandler(),
 			context.getClass()
 		])
-		const request = context.switchToHttp().getRequest<UserDbApiRequest>()
+		const request = context.switchToHttp().getRequest<UserDatabaseApiRequest>()
 		const [, sessionToken] = request.headers.authorization?.split(" ") ?? []
 		if (!sessionToken) return false
 
-		const {
-			session,
-			user,
-			roles = []
-		} = await this.authService.getSessionUserAndRoles(sessionToken)
-		if (!session || !user) return false
+		const session = await this.authService.getSession(sessionToken)
+		if (!session) return false
 
-		if (requiredRoles && !roles.includes(UserDbRole.Admin)) {
-			if (!roles.some((userRole) => requiredRoles.includes(userRole)))
-				throw new UnauthorizedException(
-					`User id "${user.id}" does not have role any of the required roles ${JSON.stringify(
-						requiredRoles
-					)}`
-				)
-		}
+		const userInformation = await this.authService.getUserInformation(session.userId)
+		if (!userInformation) return false
+
+		const { user, roles } = userInformation
+
+		if (
+			requiredRoles &&
+			!roles.includes(UserDatabaseRole.Admin) &&
+			!roles.some((userRole) => requiredRoles.includes(userRole))
+		)
+			throw new UnauthorizedException(
+				`User id "${user.id}" does not have role any of the required roles ${JSON.stringify(
+					requiredRoles
+				)}`
+			)
 
 		request.userSession = session
-		request.user = user
-		request.roles = roles
+		request.userInformation = userInformation
 
 		return true
 	}

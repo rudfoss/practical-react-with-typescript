@@ -1,7 +1,19 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsRFC3339, IsString, Length } from "class-validator"
+import { IsInt, IsRFC3339, IsString, Length, ValidatorOptions } from "class-validator"
+
+import { ObjectFields, ValidationError } from "@react-workshop/utils"
 
 export class HealthRespose {
+	public constructor(
+		initialData?: Partial<ObjectFields<HealthRespose>>,
+		validatorOptions?: ValidatorOptions
+	) {
+		if (initialData) {
+			Object.assign(this, initialData)
+			ValidationError.validateOrThrow(this, validatorOptions)
+		}
+	}
+
 	@ApiProperty()
 	ok: boolean
 
@@ -27,4 +39,8 @@ export class HealthRespose {
 	@ApiProperty()
 	@IsString()
 	dbFilePath: string
+
+	@ApiProperty()
+	@IsInt()
+	sessionCount: number
 }
