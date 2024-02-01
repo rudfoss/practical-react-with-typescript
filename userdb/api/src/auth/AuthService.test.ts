@@ -1,4 +1,12 @@
-import { Group, PatchUser, User, UserDatabaseRole, UserSession, UserWithPassword } from "../models"
+import {
+	Group,
+	PatchGroup,
+	PatchUser,
+	User,
+	UserDatabaseRole,
+	UserSession,
+	UserWithPassword
+} from "../models"
 import { Setter, StorageService } from "../storage"
 import { StorageData } from "../storage/StorageData"
 
@@ -120,6 +128,14 @@ describe("AuthService", () => {
 	})
 
 	describe("users", () => {
+		it("returns all users without passwords", async () => {
+			const { authService, store } = createServiceMocks()
+			const storedUsersWithoutPasswords = store.users.map(
+				(user) => new User(user, { whitelist: true })
+			)
+			const users = await authService.getUsers()
+			expect(users).toEqual(storedUsersWithoutPasswords)
+		})
 		it("returns users by username", async () => {
 			const { authService } = createServiceMocks()
 			const userWithPassword = await authService.getUserWithPasswordByUsername("admin")
@@ -172,53 +188,6 @@ describe("AuthService", () => {
 			expect(userInformation!.roles.includes(UserDatabaseRole.Admin)).toBe(true)
 		})
 	})
-
-	describe("session", () => {
-		it("creates a session when user is logged in", async () => {
-			const { authService } = createServiceMocks()
-			const session = await authService.login({ username: "admin", password: "admin" })
-
-			expect(session).toBeDefined()
-		})
-		it("can retrieve a created session", async () => {
-			const { authService } = createServiceMocks()
-			const loginSession = await authService.login({ username: "admin", password: "admin" })
-			const retrievedSession = await authService.getSession(loginSession!.token)
-			expect(loginSession).toEqual(retrievedSession)
-		})
-		it("can refresh an existing session keeping the originial createdAt", async () => {
-			const { authService } = createServiceMocks()
-			const loginSession = await authService.login({ username: "admin", password: "admin" })
-			setGlobalTime(Date.now() + 3600)
-
-			const refreshedSession = await authService.createSession(loginSession!.userId, loginSession!)
-
-			expect(refreshedSession!).toEqual({
-				...loginSession!,
-				expiresAt: loginSession!.expiresAt + 3600
-			})
-		})
-		it("can logout sessions", async () => {
-			const { authService } = createServiceMocks()
-			const session = await authService.login({ username: "admin", password: "admin" })
-
-			const activeSession = await authService.getSession(session!.token)
-			expect(activeSession).toBeDefined()
-
-			await authService.logout(session!.token)
-			const loggedOutSession = await authService.getSession(session!.token)
-			expect(loggedOutSession).toBeUndefined()
-		})
-		it("does not return expired sessions", async () => {
-			const { authService } = createServiceMocks()
-			const session = await authService.login({ username: "admin", password: "admin" })
-
-			setGlobalTime(session!.expiresAt + 1)
-			const expiredSession = await authService.getSession(session!.token)
-			expect(expiredSession).toBeUndefined()
-		})
-	})
-
 	describe("mutate users", () => {
 		it("can create new users", async () => {
 			const { authService, store } = createServiceMocks()
@@ -291,6 +260,100 @@ describe("AuthService", () => {
 			const deletedUser = await authService.deleteUser("8d1af37b-6c08-4872-ba1f-63b43169745e")
 			expect(deletedUser).not.toBeDefined()
 			expect(usersBeforeDelete).toEqual(store.users)
+		})
+	})
+
+	describe("groups", () => {
+		it("returns groups", async () => {
+			const { authService, store } = createServiceMocks()
+			const groups = await authService.getGroups()
+			expect(groups).toEqual(store.groups)
+		})
+		it("can create new groups", async () => {
+			const { authService, store } = createServiceMocks()
+			const groupsBeforeCreate = [...store.groups]
+
+			const newGroup = await authService.createGroup({
+				displayName: "Some other guests",
+				roles: [UserDatabaseRole.Guest]
+			})
+
+			expect(newGroup).toBeInstanceOf(Group)
+			expect(store.groups.length).toBe(groupsBeforeCreate.length + 1)
+			const groupsAfterCreate = await authService.getGroups()
+			expect(groupsAfterCreate).toEqual(store.groups)
+		})
+		it("can patch a group", async () => {
+			const { authService, store } = createServiceMocks()
+			const groupsBeforePatch = [...store.groups]
+			const groupBeforePatch = await authService.getGroupById(GUEST_GROUP_ID)
+
+			const patchGroup: PatchGroup = {
+				description: "Changed the description have we?"
+			}
+			const patchedGroup = await authService.patchGroup(patchGroup, GUEST_GROUP_ID)
+			const groupAfterPatch = await authService.getGroupById(GUEST_GROUP_ID)
+
+			expect(groupAfterPatch).toEqual({
+				...groupBeforePatch,
+				...patchGroup
+			})
+			expect(patchedGroup).toEqual(groupAfterPatch)
+			expect(groupsBeforePatch.length).toBe(store.groups.length)
+		})
+		it("can delete a group", async () => {
+			const { authService, store } = createServiceMocks()
+			const groupsBeforeDelete = [...store.groups]
+
+			const deletedGroup = await authService.deleteGroup(GUEST_GROUP_ID)
+			expect(deletedGroup).toBeInstanceOf(Group)
+			expect(store.groups.length).toBe(groupsBeforeDelete.length - 1)
+		})
+	})
+
+	describe("session", () => {
+		it("creates a session when user is logged in", async () => {
+			const { authService } = createServiceMocks()
+			const session = await authService.login({ username: "admin", password: "admin" })
+
+			expect(session).toBeDefined()
+		})
+		it("can retrieve a created session", async () => {
+			const { authService } = createServiceMocks()
+			const loginSession = await authService.login({ username: "admin", password: "admin" })
+			const retrievedSession = await authService.getSession(loginSession!.token)
+			expect(loginSession).toEqual(retrievedSession)
+		})
+		it("can refresh an existing session keeping the originial createdAt", async () => {
+			const { authService } = createServiceMocks()
+			const loginSession = await authService.login({ username: "admin", password: "admin" })
+			setGlobalTime(Date.now() + 3600)
+
+			const refreshedSession = await authService.createSession(loginSession!.userId, loginSession!)
+
+			expect(refreshedSession!).toEqual({
+				...loginSession!,
+				expiresAt: loginSession!.expiresAt + 3600
+			})
+		})
+		it("can logout sessions", async () => {
+			const { authService } = createServiceMocks()
+			const session = await authService.login({ username: "admin", password: "admin" })
+
+			const activeSession = await authService.getSession(session!.token)
+			expect(activeSession).toBeDefined()
+
+			await authService.logout(session!.token)
+			const loggedOutSession = await authService.getSession(session!.token)
+			expect(loggedOutSession).toBeUndefined()
+		})
+		it("does not return expired sessions", async () => {
+			const { authService } = createServiceMocks()
+			const session = await authService.login({ username: "admin", password: "admin" })
+
+			setGlobalTime(session!.expiresAt + 1)
+			const expiredSession = await authService.getSession(session!.token)
+			expect(expiredSession).toBeUndefined()
 		})
 	})
 })

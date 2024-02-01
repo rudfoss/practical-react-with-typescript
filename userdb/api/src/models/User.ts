@@ -75,4 +75,4 @@ export class NewUser extends OmitType(UserWithPassword, ["id"] as const) {}
 /**
  * A patch user allows updating properties of a User object, the ID must be provided separately.
  */
-export class PatchUser extends PartialType(OmitType(UserWithPassword, ["id"] as const)) {}
+export class PatchUser extends PartialType(NewUser) {}

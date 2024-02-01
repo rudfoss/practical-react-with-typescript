@@ -29,28 +29,24 @@ import {
 	HttpUnauthorizedException
 } from "../httpExceptions"
 import { NewUser, PatchUser, User, UserDatabaseRole } from "../models"
-import { StorageService, StorageServiceKey } from "../storage"
 
 @Controller("users")
 @ApiTags("Users")
+@ApiBearerAuth(bearerAuthName)
+@UseGuards(AuthGuard)
+@ApiForbiddenResponse({ type: HttpForbiddenException })
+@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 export class UsersController {
-	public constructor(
-		@Inject(AuthService) protected authService: AuthService,
-		@Inject(StorageServiceKey) protected storageService: StorageService
-	) {}
+	public constructor(@Inject(AuthService) protected authService: AuthService) {}
 
 	@Get()
 	@ApiOperation({
 		summary: "Get all users"
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
 	@RequireRoles([UserDatabaseRole.User, UserDatabaseRole.UserAdmin])
 	@ApiOkResponse({ type: User, isArray: true })
 	public async getUsers() {
-		const usersWithPassword = await this.storageService.getUsers()
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		return usersWithPassword.map(({ password, ...user }) => user)
+		return await this.authService.getUsers()
 	}
 
 	@Get(":userId")
@@ -58,14 +54,10 @@ export class UsersController {
 		summary: "Get information about a specific user"
 	})
 	@ApiOkResponse({ type: User })
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
 	@RequireRoles([UserDatabaseRole.User, UserDatabaseRole.UserAdmin])
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getUser(@Param("userId") userId: string) {
-		const allUsers = await this.storageService.getUsers()
+		const allUsers = await this.authService.getUsers()
 		const user = allUsers.find(({ id }) => id === userId)
 		if (!user) throw new HttpNotFoundException(`No user found with the id ${userId}`)
 		return user
@@ -77,11 +69,7 @@ export class UsersController {
 			"Updates an existing user. Users and guests can only update themselves and cannot change their group memberships.",
 		summary: "Update an existing user."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
 	@ApiNotFoundResponse({ type: HttpNotFoundException })
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async updateUser(
 		@Param("userId") userId: string,
 		@Body() user: PatchUser,
@@ -108,10 +96,6 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Delete the specified user."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async deleteUser(@Param("userId") userId: string) {
 		return await this.authService.deleteUser(userId)
 	}
@@ -121,10 +105,6 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Create a new user."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async createUser(@Body() newUser: NewUser) {
 		return await this.authService.createUser(newUser)
 	}

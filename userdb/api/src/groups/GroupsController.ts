@@ -1,7 +1,19 @@
-import { Controller, Delete, Get, Inject, Param, Patch, Post, Req, UseGuards } from "@nestjs/common"
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Inject,
+	Param,
+	Patch,
+	Post,
+	Req,
+	UseGuards
+} from "@nestjs/common"
 import {
 	ApiBearerAuth,
 	ApiForbiddenResponse,
+	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
 	ApiTags,
@@ -11,30 +23,30 @@ import {
 import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { AuthService } from "../auth/AuthService"
-import { HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
-import { Group, UserDatabaseRole } from "../models"
-import { StorageService, StorageServiceKey } from "../storage"
+import {
+	HttpForbiddenException,
+	HttpNotFoundException,
+	HttpUnauthorizedException
+} from "../httpExceptions"
+import { Group, NewGroup, PatchGroup, UserDatabaseRole } from "../models"
 
 @Controller("groups")
 @ApiTags("Groups")
+@UseGuards(AuthGuard)
+@ApiBearerAuth(bearerAuthName)
 @ApiForbiddenResponse({ type: HttpForbiddenException })
 @ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 export class GroupsController {
-	public constructor(
-		@Inject(AuthService) protected authService: AuthService,
-		@Inject(StorageServiceKey) protected storageService: StorageService
-	) {}
+	public constructor(@Inject(AuthService) protected authService: AuthService) {}
 
 	@Get()
 	@RequireRoles([UserDatabaseRole.UserAdmin, UserDatabaseRole.User])
 	@ApiOperation({
 		summary: "List all groups."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
 	@ApiOkResponse({ type: Group, isArray: true })
 	public async getGroups() {
-		return await this.storageService.getGroups()
+		return await this.authService.getGroups()
 	}
 
 	@Get(":groupId")
@@ -42,17 +54,14 @@ export class GroupsController {
 		description: "Guests are only allowed to get information about groups they are a member of.",
 		summary: "Get information about a specific group."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
 	public async getGroup(
 		@Param("groupId") groupId: string,
 		@Req() request: UserDatabaseApiRequestAuthenticated
 	) {
 		if (request.userInformation.roles.includes(UserDatabaseRole.Guest)) {
-			const groupIds = request.userInformation.user.groupIds ?? []
-			if (!groupIds.includes(groupId)) return
+			return request.userInformation.groups.find((group) => group.id === groupId)
 		}
-		const allGroups = await this.storageService.getGroups()
+		const allGroups = await this.authService.getGroups()
 		return allGroups.find((group) => group.id === groupId)
 	}
 
@@ -61,25 +70,27 @@ export class GroupsController {
 	@ApiOperation({
 		summary: "Update properties of an existing group."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	public async updateGroup(@Param("groupId") groupId: string) {}
+	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	public async updateGroup(@Param("groupId") groupId: string, @Body() patchGroup: PatchGroup) {
+		return this.authService.patchGroup(patchGroup, groupId)
+	}
 
 	@Delete(":groupId")
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
 		summary: "Delete a group."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	public async deleteGroup(@Param("groupId") groupId: string) {}
+	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	public async deleteGroup(@Param("groupId") groupId: string) {
+		return this.authService.deleteGroup(groupId)
+	}
 
 	@Post()
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
 		summary: "Create a new group."
 	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	public async createGroup() {}
+	public async createGroup(@Body() newGroup: NewGroup) {
+		return this.authService.createGroup(newGroup)
+	}
 }

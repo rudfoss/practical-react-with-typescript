@@ -2,7 +2,9 @@ import { Inject, Injectable } from "@nestjs/common"
 
 import {
 	Group,
+	NewGroup,
 	NewUser,
+	PatchGroup,
 	PatchUser,
 	User,
 	UserDatabaseRole,
@@ -77,41 +79,15 @@ export class AuthService {
 		})
 	}
 
-	public async login({ username, password }: LoginRequest) {
-		const user = await this.getUser(username, password)
-		if (!user) return
-
-		return this.createSession(user.id)
+	public async getUsersWithPassword() {
+		return this.storageService.getUsers()
 	}
-	public async getSession(sessionToken: string) {
-		const allSessions = await this.storageService.getUserSessions()
-		const session = allSessions.find((session) => session.token === sessionToken)
-		return await this.isSessionActive(session)
-	}
-	public async createSession(userId: string, basedOnSesssion?: UserSession) {
-		const now = Date.now()
-		const newSession = new UserSession({
-			createdAt: now,
-			token: this.uidGenerator(),
-			userId,
-			...basedOnSesssion,
-			expiresAt: now + SESSOIN_LIFETIME_MS
-		})
-
-		await this.storageService.setUserSessions((oldSessions) => {
-			const nextSesssions = oldSessions.filter((session) => session.token !== newSession.token)
-			nextSesssions.push(newSession)
-			return nextSesssions
-		})
-
-		return newSession
-	}
-	public async logout(sessionToken: string) {
-		await this.storageService.setUserSessions((oldSessions) =>
-			oldSessions.filter((session) => session.token !== sessionToken)
+	public async getUsers() {
+		const usersWithPassword = await this.getUsersWithPassword()
+		return usersWithPassword.map(
+			(userWithPassword) => new User(userWithPassword, { whitelist: true })
 		)
 	}
-
 	public async createUser(newUser: NewUser) {
 		const userWithPassword = new UserWithPassword(
 			{
@@ -152,6 +128,93 @@ export class AuthService {
 			existingUsers.filter((user) => user.id !== userId)
 		)
 		return existingUser
+	}
+
+	public async login({ username, password }: LoginRequest) {
+		const user = await this.getUser(username, password)
+		if (!user) return
+
+		return this.createSession(user.id)
+	}
+	public async getSession(sessionToken: string) {
+		const allSessions = await this.storageService.getUserSessions()
+		const session = allSessions.find((session) => session.token === sessionToken)
+		return await this.isSessionActive(session)
+	}
+	public async createSession(userId: string, basedOnSesssion?: UserSession) {
+		const now = Date.now()
+		const newSession = new UserSession({
+			createdAt: now,
+			token: this.uidGenerator(),
+			userId,
+			...basedOnSesssion,
+			expiresAt: now + SESSOIN_LIFETIME_MS
+		})
+
+		await this.storageService.setUserSessions((oldSessions) => {
+			const nextSesssions = oldSessions.filter((session) => session.token !== newSession.token)
+			nextSesssions.push(newSession)
+			return nextSesssions
+		})
+
+		return newSession
+	}
+	public async logout(sessionToken: string) {
+		await this.storageService.setUserSessions((oldSessions) =>
+			oldSessions.filter((session) => session.token !== sessionToken)
+		)
+	}
+
+	public async getGroups() {
+		return this.storageService.getGroups()
+	}
+	public async getGroupById(groupId: string) {
+		const groups = await this.getGroups()
+		return groups.find((group) => group.id === groupId)
+	}
+	public async createGroup(newGroup: NewGroup) {
+		const fullNewGroup = new Group(
+			{
+				...newGroup,
+				id: this.uidGenerator()
+			},
+			{ forbidNonWhitelisted: true }
+		)
+
+		await this.storageService.setGroups((existingGroups) => {
+			existingGroups.push(fullNewGroup)
+			return existingGroups
+		})
+
+		return fullNewGroup
+	}
+	public async patchGroup(patchGroup: PatchGroup, groupId: string) {
+		const existingGroup = await this.getGroupById(groupId)
+		if (!groupId) return
+
+		const patchedGroup = new Group(
+			{
+				...existingGroup,
+				...patchGroup
+			},
+			{ forbidNonWhitelisted: true }
+		)
+
+		await this.storageService.setGroups((oldGroups) => {
+			const nextGroups = oldGroups.filter((group) => group.id !== groupId)
+			nextGroups.push(patchedGroup)
+			return nextGroups
+		})
+
+		return patchedGroup
+	}
+	public async deleteGroup(groupId: string) {
+		const deletedGroup = await this.getGroupById(groupId)
+		if (!deletedGroup) return
+
+		await this.storageService.setGroups((groups) => groups.filter((group) => group.id !== groupId))
+
+		return deletedGroup
 	}
 
 	protected async isSessionActive(session?: UserSession) {

@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger"
+import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger"
 import {
 	IsBoolean,
 	IsEnum,
@@ -63,3 +63,10 @@ export class Group {
 	@IsEnum(UserDatabaseRole, { each: true })
 	roles: UserDatabaseRole[]
 }
+
+/**
+ * New groups are given a generated id.
+ */
+export class NewGroup extends OmitType(Group, ["id"] as const) {}
+
+export class PatchGroup extends PartialType(NewGroup) {}
