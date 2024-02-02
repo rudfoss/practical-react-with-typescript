@@ -48,7 +48,6 @@ export class User {
 	pictureUrl?: string
 
 	@ApiProperty({
-		isArray: true,
 		description: "A list of all group ids in which this user is a member."
 	})
 	@IsString({ each: true })

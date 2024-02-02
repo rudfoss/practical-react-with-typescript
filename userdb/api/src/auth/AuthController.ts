@@ -75,11 +75,10 @@ export class AuthController {
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
-	@ApiOkResponse({ type: "ok" })
+	@ApiOkResponse()
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	public async logout(@Req() request: UserDatabaseApiRequestAuthenticated) {
 		await this.authService.logout(request.userSession.token)
-		return "ok"
 	}
 
 	@Get("log-everyone-out")

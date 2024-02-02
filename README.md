@@ -5,13 +5,14 @@
 Here you will find the starting project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
 
 - [Practical React with TypeScript](#practical-react-with-typescript)
-  - [Prerequisites](#prerequisites)
-    - [Required](#required)
-    - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
-  - [VSCode](#vscode)
-    - [VSCode Extensions](#vscode-extensions)
-    - [Hidden files](#hidden-files)
+	- [Prerequisites](#prerequisites)
+		- [Required](#required)
+		- [Recommended](#recommended)
+	- [Setting up your environment](#setting-up-your-environment)
+	- [VSCode](#vscode)
+		- [VSCode Extensions](#vscode-extensions)
+		- [Hidden files](#hidden-files)
+		- [Generating API clients](#generating-api-clients)
 
 ## Prerequisites
 
@@ -80,3 +81,7 @@ Below is a list of all recommended extensions and what they do:
 ### Hidden files
 
 If you are using VSCode you might notice that there are quite a few files in the repository that are not visible inside the editor. This is because there is a setting in this repository that hides rarely used files. Inside the `.vscode` folder you'll find `settings.json`. In there is a setting called `files.exclude` which contains several file patterns that should be hidden. If you installed the `Peek Hidden Files` extension you can toggle these files by right-clicking in the explorer panel and selecting "Toggle Excluded Files" or by using the commmand pallette `Ctrl+Shift+P` -> `Toggle Excluded Files`.
+
+### Generating API clients
+
+The `userdb-api-client` project serves as the target for auto-generated TypeScript clients for the api. The project is set up with the target `genCode` to run the generator and produce a TypeScript file for that client in the library `src` folder. Because this generation uses the npm package version of [nswag](https://github.com/RicoSuter/NSwag) which requires the Dotnet Core 6, 7 or 8 SDK to be installed. Because of this we will not be auto-generating clients as part of the course, but if you want to try it yourself you can install the [Dotnet Core SDK](https://dotnet.microsoft.com/en-us/download) and run the `genCode` target for the project.
