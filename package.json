@@ -8,7 +8,13 @@
 		"verify": "git -v && node -v && pnpm -v",
 		"init": "pnpm run verify && pnpm i",
 		"update:nx": "nx migrate latest",
-		"update:packages": "pnpm dlx npm-check-updates --interactive --format group"
+		"update:packages": "pnpm dlx npm-check-updates --interactive --format group",
+		"lint": "nx run-many --target=lint --verbose=true",
+		"lint:fix": "nx run-many --target=lint --configuration=fix --verbose=true",
+		"test": "nx run-many --target=test --verbose=true",
+		"build:code": "nx run-many --target=buildCode --configuration=production --verbose=true",
+		"build": "nx run-many --target=build --configuration=production --verbose=true",
+		"build:ci": "pnpm run lint && pnpm run test && pnpm run build"
 	},
 	"private": true,
 	"sideEffects": false,

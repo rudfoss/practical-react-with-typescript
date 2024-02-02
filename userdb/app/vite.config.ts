@@ -1,7 +1,12 @@
 /// <reference types='vitest' />
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin"
 import react from "@vitejs/plugin-react-swc"
 import { defineConfig } from "vite"
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
 	root: __dirname,
