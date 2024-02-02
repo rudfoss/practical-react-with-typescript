@@ -42,7 +42,7 @@ export class GroupsController {
 	@Get()
 	@RequireRoles([UserDatabaseRole.UserAdmin, UserDatabaseRole.User])
 	@ApiOperation({
-		summary: "List all groups."
+		summary: "List all groups"
 	})
 	@ApiOkResponse({ type: Group, isArray: true })
 	public async getGroups() {
@@ -68,7 +68,7 @@ export class GroupsController {
 	@Patch(":groupId")
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
-		summary: "Update properties of an existing group."
+		summary: "Update properties of an existing group"
 	})
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
 	public async updateGroup(@Param("groupId") groupId: string, @Body() patchGroup: PatchGroup) {
@@ -78,7 +78,7 @@ export class GroupsController {
 	@Delete(":groupId")
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
-		summary: "Delete a group."
+		summary: "Delete a group"
 	})
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
 	public async deleteGroup(@Param("groupId") groupId: string) {
@@ -88,7 +88,7 @@ export class GroupsController {
 	@Post()
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
-		summary: "Create a new group."
+		summary: "Create a new group"
 	})
 	public async createGroup(@Body() newGroup: NewGroup) {
 		return this.authService.createGroup(newGroup)

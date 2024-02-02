@@ -44,7 +44,7 @@ export class AuthController {
 
 	@Post("login")
 	@ApiOperation({
-		summary: "Log a user in and get an active session."
+		summary: "Log a user in and get an active session"
 	})
 	@ApiOkResponse({ type: UserSession })
 	@ApiNotFoundResponse({ type: HttpNotFoundException })
@@ -84,7 +84,7 @@ export class AuthController {
 	@Get("log-everyone-out")
 	@RequireRoles([UserDatabaseRole.Admin])
 	@ApiOperation({
-		summary: "Log out every currently logged in user except the current one."
+		summary: "Log out every currently logged in user except the current one"
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)

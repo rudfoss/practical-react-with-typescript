@@ -67,7 +67,7 @@ export class UsersController {
 	@ApiOperation({
 		description:
 			"Updates an existing user. Users and guests can only update themselves and cannot change their group memberships.",
-		summary: "Update an existing user."
+		summary: "Update an existing user"
 	})
 	@ApiNotFoundResponse({ type: HttpNotFoundException })
 	public async updateUser(
@@ -94,7 +94,7 @@ export class UsersController {
 	@Delete(":userId")
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
-		summary: "Delete the specified user."
+		summary: "Delete the specified user"
 	})
 	public async deleteUser(@Param("userId") userId: string) {
 		return await this.authService.deleteUser(userId)
@@ -103,7 +103,7 @@ export class UsersController {
 	@Post()
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
-		summary: "Create a new user."
+		summary: "Create a new user"
 	})
 	public async createUser(@Body() newUser: NewUser) {
 		return await this.authService.createUser(newUser)
