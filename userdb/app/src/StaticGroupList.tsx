@@ -15,11 +15,11 @@ export const StaticGroupList = () => {
 		setGroups(movedGroups)
 	}
 
-	const onDelete = (group: StaticGroup) => () => {
+	const onDelete = (group: StaticGroup) => {
 		setGroups(groups.filter((existingGroup) => existingGroup !== group))
 	}
 
-	const naiveOnDelete = (group: StaticGroup) => () => {
+	const naiveOnDelete = (group: StaticGroup) => {
 		const groupId = groups.indexOf(group)
 		groups.splice(groupId, 1)
 		setGroups(groups)
@@ -39,8 +39,8 @@ export const StaticGroupList = () => {
 					<StaticGroupListItem
 						key={group.id}
 						group={group}
-						onMove={onMove(group)}
-						onDelete={onDelete(group)}
+						onMove={() => onMove(group)}
+						onDelete={() => onDelete(group)}
 						canMoveUp={index > 0}
 						canMoveDown={index < array.length - 1}
 						canDelete={!group.isSystemDefined}
