@@ -2,8 +2,9 @@ import { useState } from "react"
 
 import { arrayMove } from "@react-workshop/utils"
 
+import { StaticGroup, staticGroups } from "../staticGroups"
+
 import { StaticGroupListItem } from "./StaticGroupListItem"
-import { StaticGroup, staticGroups } from "./staticGroups"
 
 export const StaticGroupList = () => {
 	const [groups, setGroups] = useState(staticGroups)

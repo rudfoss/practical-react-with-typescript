@@ -1,10 +1,8 @@
 import { useState } from "react"
 
 import { ChoiceField, ChoiceFieldChoice } from "@react-workshop/fields"
-
-import { StaticGroupList } from "./StaticGroupList"
-import { StaticUsersList } from "./StaticUsersList"
-import { StaticUser, staticUsers } from "./staticUsers"
+import { StaticGroupList } from "@react-workshop/userdb-libs-groups"
+import { StaticUser, StaticUsersList, staticUsers } from "@react-workshop/userdb-libs-users"
 
 const staticUserChoices = staticUsers.map(
 	(user): ChoiceFieldChoice<StaticUser> => ({

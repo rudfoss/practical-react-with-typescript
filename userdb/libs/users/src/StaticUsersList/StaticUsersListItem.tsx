@@ -1,4 +1,4 @@
-import { StaticUser } from "./staticUsers"
+import { StaticUser } from "../staticUsers"
 
 export interface StaticUsersListItemProps {
 	user: StaticUser

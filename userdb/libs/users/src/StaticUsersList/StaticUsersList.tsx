@@ -1,7 +1,8 @@
 import { useState } from "react"
 
+import { StaticUser, staticUsers } from "../staticUsers"
+
 import { StaticUsersListItem } from "./StaticUsersListItem"
-import { StaticUser, staticUsers } from "./staticUsers"
 
 export const StaticUsersList = () => {
 	const [users, setUsers] = useState(staticUsers)
