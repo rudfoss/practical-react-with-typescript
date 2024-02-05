@@ -1,5 +1,4 @@
-import { fileURLToPath } from "node:url"
-
+/* eslint-disable unicorn/prefer-module */
 import { workspaceRoot } from "@nx/devkit"
 import { nxE2EPreset } from "@nx/playwright/preset"
 import { defineConfig } from "@playwright/test"
@@ -17,7 +16,7 @@ const baseURL = process.env["BASE_URL"] || "http://localhost:4200"
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-	...nxE2EPreset(fileURLToPath(import.meta.url), { testDir: "./src" }),
+	...nxE2EPreset(__filename, { testDir: "./src" }),
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		baseURL,
