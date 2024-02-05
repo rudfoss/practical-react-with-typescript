@@ -1,13 +1,13 @@
 import { ChangeEvent, useId } from "react"
 
-import { ChoiceFieldBaseProps, ChoiceFieldChoice } from "./ChoiceFieldChoice"
+import { ChoiceFieldBaseProps } from "./ChoiceFieldBaseProps"
 
-export const SelectChoiceField = <TChoice extends ChoiceFieldChoice>({
+export const SelectChoiceField = <TData,>({
 	value,
 	onChange,
 	options,
 	label
-}: ChoiceFieldBaseProps<TChoice>) => {
+}: ChoiceFieldBaseProps<TData>) => {
 	const id = useId()
 
 	const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {

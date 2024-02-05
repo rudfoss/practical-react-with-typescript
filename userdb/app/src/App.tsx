@@ -1,35 +1,29 @@
 import { useState } from "react"
 
-import { ChoiceField } from "./ChoiceField"
-import { ChoiceFieldChoice } from "./ChoiceFieldChoice"
+import { ChoiceField, ChoiceFieldChoice } from "@react-workshop/fields"
+
 import { StaticGroupList } from "./StaticGroupList"
 import { StaticUsersList } from "./StaticUsersList"
+import { StaticUser, staticUsers } from "./staticUsers"
 
-const choices: ChoiceFieldChoice[] = [
-	{
-		label: "foo",
-		value: "foo"
-	},
-	{
-		label: "bar",
-		value: "bar"
-	},
-	{
-		label: "baz",
-		value: "baz"
-	}
-]
+const staticUserChoices = staticUsers.map(
+	(user): ChoiceFieldChoice<StaticUser> => ({
+		data: user,
+		label: user.displayName,
+		value: user.id
+	})
+)
 
 export const App = () => {
-	const [choiceValue, setChoiceValue] = useState<ChoiceFieldChoice>()
+	const [choiceValue, setChoiceValue] = useState<ChoiceFieldChoice<StaticUser>>()
 
 	return (
 		<>
 			<StaticGroupList />
 			<StaticUsersList />
 			<ChoiceField
-				label="Choice"
-				options={choices}
+				label="Pick a user"
+				options={staticUserChoices}
 				value={choiceValue}
 				onChange={setChoiceValue}
 				variant="select"

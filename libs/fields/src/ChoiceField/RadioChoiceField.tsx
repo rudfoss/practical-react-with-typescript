@@ -1,13 +1,13 @@
 import { useId } from "react"
 
-import { ChoiceFieldBaseProps, ChoiceFieldChoice } from "./ChoiceFieldChoice"
+import { ChoiceFieldBaseProps } from "./ChoiceFieldBaseProps"
 
-export const RadioChoiceField = <TChoice extends ChoiceFieldChoice>({
+export const RadioChoiceField = <TData,>({
 	value,
 	onChange,
 	options,
 	label
-}: ChoiceFieldBaseProps<TChoice>) => {
+}: ChoiceFieldBaseProps<TData>) => {
 	const id = useId()
 
 	return (

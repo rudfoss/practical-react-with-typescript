@@ -1,19 +1,18 @@
-import { ChoiceFieldBaseProps, ChoiceFieldChoice } from "./ChoiceFieldChoice"
+import { ChoiceFieldBaseProps } from "./ChoiceFieldBaseProps"
 import { RadioChoiceField } from "./RadioChoiceField"
 import { SelectChoiceField } from "./SelectChoiceField"
 
-export interface ChoiceFieldProps<TChoice extends ChoiceFieldChoice>
-	extends ChoiceFieldBaseProps<TChoice> {
+export interface ChoiceFieldProps<TData> extends ChoiceFieldBaseProps<TData> {
 	/**
 	 * Specify whether the choice selector should be rendered as radio buttons or as a drop down.
 	 */
 	variant?: "radio" | "select"
 }
 
-export const ChoiceField = <TChoice extends ChoiceFieldChoice>({
+export const ChoiceField = <TData,>({
 	variant = "radio",
 	...baseProps
-}: ChoiceFieldProps<TChoice>) => {
+}: ChoiceFieldProps<TData>) => {
 	return variant === "radio" ? (
 		<RadioChoiceField {...baseProps} />
 	) : (

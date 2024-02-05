@@ -21,8 +21,9 @@
 		"strictPropertyInitialization": false,
 		"baseUrl": ".",
 		"paths": {
-			"@react-workshop/utils": ["libs/utils/src/index.ts"],
-			"@react-workshop/userdb-api-client": ["userdb/api-client/src/index.ts"]
+			"@react-workshop/fields": ["libs/fields/src/index.ts"],
+			"@react-workshop/userdb-api-client": ["userdb/api-client/src/index.ts"],
+			"@react-workshop/utils": ["libs/utils/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
