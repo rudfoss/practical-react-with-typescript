@@ -1,0 +1,20 @@
+{
+	"name": "userdb-libs-auth",
+	"$schema": "../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "userdb/libs/auth/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"lint": {
+			"executor": "@nx/eslint:lint",
+			"outputs": ["{options.outputFile}"]
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "userdb/libs/auth/jest.config.ts"
+			}
+		}
+	}
+}
