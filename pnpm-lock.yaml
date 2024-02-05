@@ -53,6 +53,9 @@ dependencies:
   lowdb:
     specifier: ^7.0.1
     version: 7.0.1
+  modern-normalize:
+    specifier: ^2.0.0
+    version: 2.0.0
   nanoid:
     specifier: ^5.0.5
     version: 5.0.5
@@ -9694,6 +9697,11 @@ packages:
     resolution: {integrity: sha512-A/0v5Z59y63US00cRSLiloEIw3t5G+MiKz4BhX21FI+YBJXBOGW0ohFxTxO08dsOYlzxo87T7vGfZKYp2bcAWA==}
     dependencies:
       obliterator: 2.0.4
+    dev: false
+
+  /modern-normalize@2.0.0:
+    resolution: {integrity: sha512-CxBoEVKh5U4DH3XuNbc5ONLF6dQBc8dSc7pdZ1957FGbIO5JBqGqqchhET9dTexri8/pk9xBL6+5ceOtCIp1QA==}
+    engines: {node: '>=6'}
     dev: false
 
   /mrmime@2.0.0:

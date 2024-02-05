@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 
+import { Header } from "@react-workshop/ui"
+
 export const HomePage = () => {
 	return (
 		<>
-			<h1>Hello world</h1>
+			<Header>Hello world</Header>
 			<Link to="users">Users</Link>
 		</>
 	)
