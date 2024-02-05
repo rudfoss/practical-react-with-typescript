@@ -12,6 +12,7 @@ import {
 } from "@nestjs/common"
 import {
 	ApiBearerAuth,
+	ApiConflictResponse,
 	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -24,6 +25,7 @@ import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthentica
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { AuthService } from "../auth/AuthService"
 import {
+	HttpConflictException,
 	HttpForbiddenException,
 	HttpNotFoundException,
 	HttpUnauthorizedException
@@ -81,6 +83,10 @@ export class GroupsController {
 		summary: "Delete a group"
 	})
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	@ApiConflictResponse({
+		description: "The group is protected and cannot be deleted (see error for details)",
+		type: HttpConflictException
+	})
 	public async deleteGroup(@Param("groupId") groupId: string) {
 		return this.authService.deleteGroup(groupId)
 	}

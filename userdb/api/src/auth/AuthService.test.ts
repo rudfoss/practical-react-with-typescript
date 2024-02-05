@@ -247,7 +247,7 @@ describe("AuthService", () => {
 			const { authService, store } = createServiceMocks()
 			const usersBeforeDelete = [...store.users]
 
-			const deletedUser = await authService.deleteUser(ADMIN_USER_ID)
+			const deletedUser = await authService.deleteUser(GUEST_USER_ID)
 			expect(deletedUser).toBeInstanceOf(User)
 
 			expect(store.users.length).toBe(usersBeforeDelete.length - 1)
@@ -260,6 +260,23 @@ describe("AuthService", () => {
 			const deletedUser = await authService.deleteUser("8d1af37b-6c08-4872-ba1f-63b43169745e")
 			expect(deletedUser).not.toBeDefined()
 			expect(usersBeforeDelete).toEqual(store.users)
+		})
+		it("cannot delete the last administrator", async () => {
+			const { authService } = createServiceMocks()
+			const newAdmin = await authService.createUser({
+				username: "admin2",
+				password: "admin2",
+				groupIds: [ADMIN_GROUP_ID]
+			})
+			const adminUsers = await authService.getUsersByRole(UserDatabaseRole.Admin)
+			expect(adminUsers.length).toBe(2)
+
+			const deletedUser = await authService.deleteUser(newAdmin.id)
+			expect(deletedUser).toEqual(newAdmin)
+
+			await expect(async () => {
+				await authService.deleteUser(ADMIN_USER_ID)
+			}).rejects.toThrow()
 		})
 	})
 
@@ -308,6 +325,12 @@ describe("AuthService", () => {
 			const deletedGroup = await authService.deleteGroup(GUEST_GROUP_ID)
 			expect(deletedGroup).toBeInstanceOf(Group)
 			expect(store.groups.length).toBe(groupsBeforeDelete.length - 1)
+		})
+		it("cannot delete system groups", async () => {
+			const { authService } = createServiceMocks()
+			await expect(async () => {
+				await authService.deleteGroup(ADMIN_GROUP_ID)
+			}).rejects.toThrow()
 		})
 	})
 

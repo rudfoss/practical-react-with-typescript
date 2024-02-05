@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common"
 
+import { HttpConflictException } from "../httpExceptions"
 import {
 	Group,
 	NewGroup,
@@ -78,6 +79,12 @@ export class AuthService {
 			roles: [...roles]
 		})
 	}
+	public async getUsersByRole(role: UserDatabaseRole) {
+		const groupsWithRole = await this.getGroupsByRole(role)
+		const groupIdsWithRole = new Set(groupsWithRole.map((group) => group.id))
+		const users = await this.getUsers()
+		return users.filter((user) => user.groupIds?.some((groupId) => groupIdsWithRole.has(groupId)))
+	}
 
 	public async getUsersWithPassword() {
 		return this.storageService.getUsers()
@@ -122,12 +129,22 @@ export class AuthService {
 		return new User(patchedUser, { whitelist: true })
 	}
 	public async deleteUser(userId: string) {
-		const existingUser = await this.getUserById(userId)
-		if (!existingUser) return
+		const userInformation = await this.getUserInformation(userId)
+		if (!userInformation) return
+		const { roles, user } = userInformation
+		if (roles.includes(UserDatabaseRole.Admin)) {
+			const usersWithAdminRole = await this.getUsersByRole(UserDatabaseRole.Admin)
+			if (usersWithAdminRole.length <= 1) {
+				throw new HttpConflictException(
+					`User ${userId} is the last administrator and cannot be deleted.`
+				)
+			}
+		}
+
 		await this.storageService.setUsers((existingUsers) =>
 			existingUsers.filter((user) => user.id !== userId)
 		)
-		return existingUser
+		return user
 	}
 
 	public async login({ username, password }: LoginRequest) {
@@ -172,6 +189,10 @@ export class AuthService {
 		const groups = await this.getGroups()
 		return groups.find((group) => group.id === groupId)
 	}
+	public async getGroupsByRole(role: UserDatabaseRole) {
+		const allGroups = await this.getGroups()
+		return allGroups.filter((group) => group.roles.includes(role))
+	}
 	public async createGroup(newGroup: NewGroup) {
 		const fullNewGroup = new Group(
 			{
@@ -211,6 +232,8 @@ export class AuthService {
 	public async deleteGroup(groupId: string) {
 		const deletedGroup = await this.getGroupById(groupId)
 		if (!deletedGroup) return
+		if (deletedGroup.isSystemDefined)
+			throw new HttpConflictException(`Group ${groupId} is a system group and cannot be deleted.`)
 
 		await this.storageService.setGroups((groups) => groups.filter((group) => group.id !== groupId))
 

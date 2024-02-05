@@ -12,6 +12,7 @@ import {
 } from "@nestjs/common"
 import {
 	ApiBearerAuth,
+	ApiConflictResponse,
 	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -24,6 +25,7 @@ import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthentica
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { AuthService } from "../auth/AuthService"
 import {
+	HttpConflictException,
 	HttpForbiddenException,
 	HttpNotFoundException,
 	HttpUnauthorizedException
@@ -95,6 +97,11 @@ export class UsersController {
 	@RequireRoles([UserDatabaseRole.UserAdmin])
 	@ApiOperation({
 		summary: "Delete the specified user"
+	})
+	@ApiNotFoundResponse({ type: HttpNotFoundException, description: "The user does not exist" })
+	@ApiConflictResponse({
+		type: HttpConflictException,
+		description: "The user is protected and cannot be deleted (see error for details)"
 	})
 	public async deleteUser(@Param("userId") userId: string) {
 		return await this.authService.deleteUser(userId)
