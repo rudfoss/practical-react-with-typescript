@@ -67,7 +67,7 @@ export class AppControllerClient implements IAppControllerClient {
 export interface IAuthControllerClient {
 
     /**
-     * Log a user in and get an active session.
+     * Log a user in and get an active session
      */
     login(body: LoginRequest): Promise<UserSession>;
 
@@ -82,7 +82,7 @@ export interface IAuthControllerClient {
     logout(): Promise<void>;
 
     /**
-     * Log out every currently logged in user except the current one.
+     * Log out every currently logged in user except the current one
      */
     logEveryoneOut(): Promise<LogEveryoneOutResponse>;
 }
@@ -98,7 +98,7 @@ export class AuthControllerClient implements IAuthControllerClient {
     }
 
     /**
-     * Log a user in and get an active session.
+     * Log a user in and get an active session
      */
     login(body: LoginRequest): Promise<UserSession> {
         let url_ = this.baseUrl + "/auth/login";
@@ -237,7 +237,7 @@ export class AuthControllerClient implements IAuthControllerClient {
     }
 
     /**
-     * Log out every currently logged in user except the current one.
+     * Log out every currently logged in user except the current one
      */
     logEveryoneOut(): Promise<LogEveryoneOutResponse> {
         let url_ = this.baseUrl + "/auth/log-everyone-out";
@@ -414,7 +414,7 @@ export interface IUsersControllerClient {
     getUsers(): Promise<User[]>;
 
     /**
-     * Create a new user.
+     * Create a new user
      */
     createUser(body: NewUser): Promise<void>;
 
@@ -424,12 +424,12 @@ export interface IUsersControllerClient {
     getUser(userId: string): Promise<User>;
 
     /**
-     * Update an existing user.
+     * Update an existing user
      */
     updateUser(userId: string, body: PatchUser): Promise<void>;
 
     /**
-     * Delete the specified user.
+     * Delete the specified user
      */
     deleteUser(userId: string): Promise<void>;
 }
@@ -503,7 +503,7 @@ export class UsersControllerClient implements IUsersControllerClient {
     }
 
     /**
-     * Create a new user.
+     * Create a new user
      */
     createUser(body: NewUser): Promise<void> {
         let url_ = this.baseUrl + "/users";
@@ -615,7 +615,7 @@ export class UsersControllerClient implements IUsersControllerClient {
     }
 
     /**
-     * Update an existing user.
+     * Update an existing user
      */
     updateUser(userId: string, body: PatchUser): Promise<void> {
         let url_ = this.baseUrl + "/users/{userId}";
@@ -672,7 +672,7 @@ export class UsersControllerClient implements IUsersControllerClient {
     }
 
     /**
-     * Delete the specified user.
+     * Delete the specified user
      */
     deleteUser(userId: string): Promise<void> {
         let url_ = this.baseUrl + "/users/{userId}";
@@ -695,11 +695,7 @@ export class UsersControllerClient implements IUsersControllerClient {
     protected processDeleteUser(response: Response): Promise<void> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
-            return response.text().then((_responseText) => {
-            return;
-            });
-        } else if (status === 401) {
+        if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
             let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
@@ -713,6 +709,20 @@ export class UsersControllerClient implements IUsersControllerClient {
             result403 = HttpForbiddenException.fromJS(resultData403);
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
+        } else if (status === 404) {
+            return response.text().then((_responseText) => {
+            let result404: any = null;
+            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result404 = HttpNotFoundException.fromJS(resultData404);
+            return throwException("The user does not exist", status, _responseText, _headers, result404);
+            });
+        } else if (status === 409) {
+            return response.text().then((_responseText) => {
+            let result409: any = null;
+            let resultData409 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result409 = HttpConflictException.fromJS(resultData409);
+            return throwException("The user is protected and cannot be deleted (see error for details)", status, _responseText, _headers, result409);
+            });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -725,12 +735,12 @@ export class UsersControllerClient implements IUsersControllerClient {
 export interface IGroupsControllerClient {
 
     /**
-     * List all groups.
+     * List all groups
      */
     getGroups(): Promise<Group[]>;
 
     /**
-     * Create a new group.
+     * Create a new group
      */
     createGroup(body: NewGroup): Promise<void>;
 
@@ -740,12 +750,12 @@ export interface IGroupsControllerClient {
     getGroup(groupId: string): Promise<void>;
 
     /**
-     * Update properties of an existing group.
+     * Update properties of an existing group
      */
     updateGroup(groupId: string, body: PatchGroup): Promise<void>;
 
     /**
-     * Delete a group.
+     * Delete a group
      */
     deleteGroup(groupId: string): Promise<void>;
 }
@@ -761,7 +771,7 @@ export class GroupsControllerClient implements IGroupsControllerClient {
     }
 
     /**
-     * List all groups.
+     * List all groups
      */
     getGroups(): Promise<Group[]> {
         let url_ = this.baseUrl + "/groups";
@@ -819,7 +829,7 @@ export class GroupsControllerClient implements IGroupsControllerClient {
     }
 
     /**
-     * Create a new group.
+     * Create a new group
      */
     createGroup(body: NewGroup): Promise<void> {
         let url_ = this.baseUrl + "/groups";
@@ -920,7 +930,7 @@ export class GroupsControllerClient implements IGroupsControllerClient {
     }
 
     /**
-     * Update properties of an existing group.
+     * Update properties of an existing group
      */
     updateGroup(groupId: string, body: PatchGroup): Promise<void> {
         let url_ = this.baseUrl + "/groups/{groupId}";
@@ -966,7 +976,7 @@ export class GroupsControllerClient implements IGroupsControllerClient {
             let result404: any = null;
             let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result404 = HttpNotFoundException.fromJS(resultData404);
-            return throwException("No user found", status, _responseText, _headers, result404);
+            return throwException("Group not found", status, _responseText, _headers, result404);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
@@ -977,7 +987,7 @@ export class GroupsControllerClient implements IGroupsControllerClient {
     }
 
     /**
-     * Delete a group.
+     * Delete a group
      */
     deleteGroup(groupId: string): Promise<void> {
         let url_ = this.baseUrl + "/groups/{groupId}";
@@ -1020,6 +1030,13 @@ export class GroupsControllerClient implements IGroupsControllerClient {
             let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result404 = HttpNotFoundException.fromJS(resultData404);
             return throwException("No user found", status, _responseText, _headers, result404);
+            });
+        } else if (status === 409) {
+            return response.text().then((_responseText) => {
+            let result409: any = null;
+            let resultData409 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result409 = HttpConflictException.fromJS(resultData409);
+            return throwException("The group is protected and cannot be deleted (see error for details)", status, _responseText, _headers, result409);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
@@ -1744,6 +1761,62 @@ export interface IPatchUser {
     /** A list of all group ids in which this user is a member. */
     groupIds?: string[];
     password?: string;
+
+    [key: string]: any;
+}
+
+export class HttpConflictException implements IHttpConflictException {
+    message!: string;
+    error!: string;
+    statusCode!: number;
+
+    [key: string]: any;
+
+    constructor(data?: IHttpConflictException) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            for (var property in _data) {
+                if (_data.hasOwnProperty(property))
+                    this[property] = _data[property];
+            }
+            this.message = _data["message"];
+            this.error = _data["error"];
+            this.statusCode = _data["statusCode"];
+        }
+    }
+
+    static fromJS(data: any): HttpConflictException {
+        data = typeof data === 'object' ? data : {};
+        let result = new HttpConflictException();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+        data["message"] = this.message;
+        data["error"] = this.error;
+        data["statusCode"] = this.statusCode;
+        return data;
+    }
+}
+
+export interface IHttpConflictException {
+    message: string;
+    error: string;
+    statusCode: number;
 
     [key: string]: any;
 }
