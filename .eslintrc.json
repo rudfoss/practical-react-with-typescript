@@ -37,6 +37,8 @@
 			"files": ["*.ts", "*.tsx"],
 			"extends": ["plugin:@nx/typescript", "plugin:unicorn/recommended"],
 			"rules": {
+				"@typescript-eslint/no-unused-vars": ["warn"],
+				"jsx-a11y/accessible-emoji": ["off"],
 				"unicorn/prevent-abbreviations": [
 					"error",
 					{ "allowList": { "props": true, "Props": true, "ref": true } }
