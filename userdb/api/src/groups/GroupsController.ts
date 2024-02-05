@@ -72,7 +72,7 @@ export class GroupsController {
 	@ApiOperation({
 		summary: "Update properties of an existing group"
 	})
-	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	@ApiNotFoundResponse({ description: "Group not found", type: HttpNotFoundException })
 	public async updateGroup(@Param("groupId") groupId: string, @Body() patchGroup: PatchGroup) {
 		return this.authService.patchGroup(patchGroup, groupId)
 	}
