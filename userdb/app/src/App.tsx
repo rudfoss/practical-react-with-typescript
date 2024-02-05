@@ -1,5 +1,11 @@
 import { StaticGroupList } from "./StaticGroupList"
+import { StaticUsersList } from "./StaticUsersList"
 
 export const App = () => {
-	return <StaticGroupList />
+	return (
+		<>
+			<StaticGroupList />
+			<StaticUsersList />
+		</>
+	)
 }
