@@ -37,6 +37,7 @@ export const StaticGroupList = () => {
 			<tbody>
 				{groups.map((group, index, array) => (
 					<StaticGroupListItem
+						key={group.id}
 						group={group}
 						onMove={onMove(group)}
 						onDelete={onDelete(group)}
