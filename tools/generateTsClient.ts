@@ -8,7 +8,7 @@ const nswagParameters = [
 	"/NullValue:Undefined",
 	"/Template:Fetch",
 	"/TypeStyle:Class",
-	"/EnumStyle:Enum",
+	"/EnumStyle:StringLiteral",
 	"/GenerateClientClasses:True",
 	"/GenerateClientInterfaces:True",
 	"/GenerateOptionalParameters:True",
@@ -27,17 +27,14 @@ const invariant = (condition: unknown, message: string) => {
 const execAsync = promisify(exec)
 
 const start = async (args: string[]) => {
-	const [, , name, openApiPath, outputPath] = args
+	const [name, openApiPath, outputPath] = args.slice(2)
 	invariant(name, "Missing required parameter [name]")
 	invariant(openApiPath, "Missing required parameter [openApiPath]")
 	invariant(outputPath, "Missing required parameter [outputPath]")
 
 	const fullOpenApiPath = path.resolve(openApiPath)
 
-	invariant(
-		fs.existsSync(fullOpenApiPath),
-		`fromPath "${fullOpenApiPath}" does not exist.`
-	)
+	invariant(fs.existsSync(fullOpenApiPath), `fromPath "${fullOpenApiPath}" does not exist.`)
 
 	const fullOutputPath = path.resolve(outputPath, `${name}.ts`)
 	console.log(`Generating "${fullOutputPath}" from "${fullOpenApiPath}"`)

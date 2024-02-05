@@ -3,30 +3,20 @@
 	"affected": {
 		"defaultBase": "main"
 	},
-	"workspaceLayout": {
-		"appsDir": "apps",
-		"libsDir": "libs"
-	},
 	"targetDefaults": {
-		"buildCode": {
-			"cache": true
-		},
-		"genCode": {
-			"cache": true
-		},
-		"openApi": {
-			"cache": true
-		},
 		"build": {
 			"cache": true,
 			"dependsOn": ["^build"],
 			"inputs": ["production", "^production"]
 		},
 		"lint": {
-			"cache": true
-		},
-		"e2e": {
-			"cache": true
+			"cache": true,
+			"inputs": [
+				"default",
+				"{workspaceRoot}/.eslintrc.json",
+				"{workspaceRoot}/.eslintignore",
+				"{workspaceRoot}/eslint.config.js"
+			]
 		},
 		"@nx/jest:jest": {
 			"cache": true,
@@ -44,6 +34,10 @@
 		"@nx/vite:test": {
 			"cache": true,
 			"inputs": ["default", "^production"]
+		},
+		"e2e": {
+			"cache": true,
+			"inputs": ["default", "^production"]
 		}
 	},
 	"namedInputs": {
@@ -54,7 +48,9 @@
 			"!{projectRoot}/tsconfig.spec.json",
 			"!{projectRoot}/jest.config.[jt]s",
 			"!{projectRoot}/src/test-setup.[jt]s",
-			"!{projectRoot}/test-setup.[jt]s"
+			"!{projectRoot}/test-setup.[jt]s",
+			"!{projectRoot}/.eslintrc.json",
+			"!{projectRoot}/eslint.config.js"
 		],
 		"sharedGlobals": []
 	},
@@ -66,13 +62,13 @@
 				"bundler": "vite",
 				"babel": true
 			},
-			"component": {
-				"style": "@emotion/styled"
-			},
 			"library": {
 				"style": "@emotion/styled",
 				"linter": "eslint",
 				"unitTestRunner": "jest"
+			},
+			"component": {
+				"style": "@emotion/styled"
 			}
 		}
 	}

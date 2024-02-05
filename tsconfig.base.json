@@ -13,16 +13,16 @@
 		"lib": ["es2020", "dom"],
 		"strict": true,
 		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
 		"downlevelIteration": true,
 		"esModuleInterop": true,
-		"skipDefaultLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
+		"strictPropertyInitialization": false,
 		"baseUrl": ".",
 		"paths": {
-			"@prwt/fields": ["libs/fields/src/index.ts"],
-			"@prwt/generated/store-api": ["libs/generated/store-api/index.ts"],
-			"@prwt/layouts": ["libs/layouts/src/index.ts"]
+			"@react-workshop/utils": ["libs/utils/src/index.ts"],
+			"@react-workshop/userdb-api-client": ["userdb/api-client/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

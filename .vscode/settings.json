@@ -1,32 +1,33 @@
 {
-	"files.eol": "\n",
-	"editor.rulers": [120],
-	"editor.wordWrapColumn": 120,
+	"editor.rulers": [100],
+	"editor.wordWrapColumn": 100,
 	"editor.formatOnSave": true,
 	"editor.tabSize": 2,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
-	},
-	"workbench.iconTheme": "vscode-icons",
-	"typescript.tsdk": "node_modules\\typescript\\lib",
-	"editor.wordWrap": "wordWrapColumn",
 	"task.quickOpen.history": 0,
-	"debug.console.collapseIdenticalLines": false,
-	"files.exclude": {
-		// ".editorconfig": true,
-		// ".env": true,
-		// ".eslintignore": true,
-		// ".eslintrc.json": true,
-		// ".gitattributes": true,
-		// ".gitignore": true,
-		// ".prettierignore": true,
-		// ".prettierrc": true,
-		// "package-lock.json": true,
-		// "nx.json": true,
-		// "jest.config.ts": true,
-		// "jest.preset.js": true,
-		// "tsconfig.base.json": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
 	},
-	"debug.javascript.autoAttachFilter": "onlyWithFlag"
+	"npm.packageManager": "pnpm",
+	"workbench.iconTheme": "vscode-icons",
+	"debug.javascript.autoAttachFilter": "onlyWithFlag",
+
+	"files.exclude": {
+		"**/.*": true,
+		"dist": true,
+		"**/package.json": true,
+		"**/node_modules": true,
+		"pnpm-lock.yaml": true,
+		"nx.json": true,
+		"**/project.json": true,
+		"**/tsconfig*.json": true,
+		"**/vite.config.*": true,
+		"**/jest.config.*": true,
+		"**/webpack.config.*": true,
+		"**/jest.preset.*": true,
+		"**/playwright.config.ts": true,
+		"**/index.html": true,
+		"jsonDb.json": true,
+		"global.json": true
+	}
 }

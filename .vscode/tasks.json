@@ -3,28 +3,20 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"script": "start:store-api",
+			"script": "start:userdb-api",
 			"problemMatcher": [],
-			"label": "start:store-api"
+			"label": "start:userdb-api"
 		},
 		{
 			"type": "npm",
-			"script": "start:store-api:debug",
+			"script": "start:userdb-app",
 			"problemMatcher": [],
-			"label": "start:store-api:debug"
+			"label": "start:userdb-app"
 		},
 		{
-			"type": "npm",
-			"script": "start:store-front",
-			"problemMatcher": [],
-			"label": "start:store-front"
-		},
-		{
-			"type": "npm",
-			"script": "start",
-			"problemMatcher": [],
 			"label": "start",
-			"dependsOn": ["start:store-api", "start:store-front"]
+			"problemMatcher": [],
+			"dependsOn": ["start:userdb-api", "start:userdb-app"]
 		}
 	]
 }

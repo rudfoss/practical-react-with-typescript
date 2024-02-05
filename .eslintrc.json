@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nx", "import"],
+	"plugins": ["@nx", "import", "unicorn"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -9,7 +9,6 @@
 				"@nx/enforce-module-boundaries": [
 					"error",
 					{
-						"banTransitiveDependencies": true,
 						"enforceBuildableLibDependency": true,
 						"allow": [],
 						"depConstraints": [
@@ -23,14 +22,9 @@
 				"import/order": [
 					"warn",
 					{
-						"groups": [
-							"builtin",
-							"external",
-							"parent",
-							["sibling", "index", "internal"]
-						],
+						"groups": ["builtin", "external", "parent", ["sibling", "index", "internal"]],
 						"pathGroups": [
-							{ "pattern": "@prwt/**", "group": "parent", "position": "before" }
+							{ "pattern": "@react-workshop/**", "group": "parent", "position": "before" }
 						],
 						"pathGroupsExcludedImportTypes": [],
 						"alphabetize": { "order": "asc", "caseInsensitive": false },
@@ -41,14 +35,25 @@
 		},
 		{
 			"files": ["*.ts", "*.tsx"],
-			"extends": ["plugin:@nx/typescript"],
+			"extends": ["plugin:@nx/typescript", "plugin:unicorn/recommended"],
 			"rules": {
-				"@typescript-eslint/no-unused-vars": "warn"
+				"unicorn/prevent-abbreviations": [
+					"error",
+					{ "allowList": { "props": true, "Props": true, "ref": true } }
+				],
+				"unicorn/filename-case": ["error", { "cases": { "camelCase": true, "pascalCase": true } }]
 			}
 		},
 		{
 			"files": ["*.js", "*.jsx"],
 			"extends": ["plugin:@nx/javascript"],
+			"rules": {}
+		},
+		{
+			"files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+			"env": {
+				"jest": true
+			},
 			"rules": {}
 		}
 	]
