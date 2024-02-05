@@ -29,11 +29,11 @@ export class HealthRespose {
 
 	@ApiProperty({
 		maxLength: 64,
-		minLength: 15,
+		minLength: 14,
 		pattern: "P\\d+Y\\d+M\\d+DY\\d+H\\d+M\\d+S",
 		example: "P0Y0M0DT0H0M12S"
 	})
-	@Length(15, 64)
+	@Length(14, 64)
 	upTime: string
 
 	@ApiProperty()
@@ -43,4 +43,12 @@ export class HealthRespose {
 	@ApiProperty()
 	@IsInt()
 	sessionCount: number
+
+	@ApiProperty()
+	@IsInt()
+	userCount: number
+
+	@ApiProperty()
+	@IsInt()
+	groupsCount: number
 }

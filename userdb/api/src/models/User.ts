@@ -58,11 +58,11 @@ export class User {
 
 export class UserWithPassword extends User {
 	@ApiProperty({
-		minLength: 5,
+		minLength: 4,
 		maxLength: 128
 	})
 	@IsString()
-	@Length(5, 128)
+	@Length(4, 128)
 	password: string
 }
 

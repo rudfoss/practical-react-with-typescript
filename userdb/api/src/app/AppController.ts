@@ -36,12 +36,17 @@ export class AppController {
 	@ApiOkResponse({ type: HealthRespose })
 	public async getHealth() {
 		const userSessions = await this.storageService.getUserSessions()
+		const users = await this.storageService.getUsers()
+		const groups = await this.storageService.getGroups()
+
 		return new HealthRespose({
 			ok: true,
 			bootTime: this._bootTime.toISOString(),
 			upTime: formatISODuration(intervalToDuration({ start: this._bootTime, end: new Date() })),
 			dbFilePath: this.storageServiceOptions.fileName,
-			sessionCount: userSessions.length
+			sessionCount: userSessions.length,
+			userCount: users.length,
+			groupsCount: groups.length
 		})
 	}
 
