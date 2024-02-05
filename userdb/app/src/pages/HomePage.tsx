@@ -7,6 +7,7 @@ export const HomePage = () => {
 		<>
 			<Header>Hello world</Header>
 			<Link to="users">Users</Link>
+			<Link to="fields">Fields</Link>
 		</>
 	)
 }

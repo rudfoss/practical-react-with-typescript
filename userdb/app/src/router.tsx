@@ -1,5 +1,6 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom"
 
+import { FieldsPage } from "./pages/FieldsPage"
 import { HomePage } from "./pages/HomePage"
 import { UsersPage } from "./pages/UsersPage"
 
@@ -11,6 +12,10 @@ const appRoutes: RouteObject[] = [
 	{
 		path: "users",
 		element: <UsersPage />
+	},
+	{
+		path: "fields",
+		element: <FieldsPage />
 	}
 ]
 

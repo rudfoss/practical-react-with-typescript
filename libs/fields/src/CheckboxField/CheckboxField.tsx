@@ -1,4 +1,17 @@
+import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
+
+import { FieldContainer } from "../FieldStyles"
+
+const FlexFieldContainer = styled(FieldContainer)`
+	display: flex;
+	align-items: center;
+`
+const Label = styled.label`
+	display: block;
+	padding-left: 4px;
+	min-height: 1.2rem;
+`
 
 export interface CheckboxFieldProps {
 	value: boolean
@@ -17,9 +30,9 @@ export const CheckboxField = ({ value, onChange, label, disabled }: CheckboxFiel
 	}
 
 	return (
-		<div>
+		<FlexFieldContainer>
 			<input id={id} type="checkbox" checked={value} onChange={onInputChange} disabled={disabled} />
-			<label htmlFor={id}>{label}</label>
-		</div>
+			<Label htmlFor={id}>{label}</Label>
+		</FlexFieldContainer>
 	)
 }

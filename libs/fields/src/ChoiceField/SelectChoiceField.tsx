@@ -1,5 +1,7 @@
 import { ChangeEvent, useId } from "react"
 
+import { Label } from "../FieldStyles"
+
 import { ChoiceFieldBaseProps } from "./ChoiceFieldBaseProps"
 
 export const SelectChoiceField = <TData,>({
@@ -16,15 +18,16 @@ export const SelectChoiceField = <TData,>({
 	}
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
+		<>
+			<Label htmlFor={id}>{label}</Label>
 			<select value={value?.value ?? ""} onChange={handleChange}>
+				<option value=""></option>
 				{options.map((option) => (
 					<option value={option.value} key={option.value}>
 						{option.label}
 					</option>
 				))}
 			</select>
-		</div>
+		</>
 	)
 }

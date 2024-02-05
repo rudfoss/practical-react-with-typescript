@@ -1,3 +1,5 @@
+import { FieldContainer } from "../FieldStyles"
+
 import { ChoiceFieldBaseProps } from "./ChoiceFieldBaseProps"
 import { RadioChoiceField } from "./RadioChoiceField"
 import { SelectChoiceField } from "./SelectChoiceField"
@@ -13,9 +15,8 @@ export const ChoiceField = <TData,>({
 	variant = "radio",
 	...baseProps
 }: ChoiceFieldProps<TData>) => {
-	return variant === "radio" ? (
-		<RadioChoiceField {...baseProps} />
-	) : (
-		<SelectChoiceField {...baseProps} />
-	)
+	const fieldVariant =
+		variant === "radio" ? <RadioChoiceField {...baseProps} /> : <SelectChoiceField {...baseProps} />
+
+	return <FieldContainer>{fieldVariant}</FieldContainer>
 }

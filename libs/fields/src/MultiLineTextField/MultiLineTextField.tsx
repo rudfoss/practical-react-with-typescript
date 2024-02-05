@@ -1,4 +1,13 @@
+import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
+
+import { FieldContainer, Label } from "../FieldStyles"
+
+const Textarea = styled.textarea`
+	resize: vertical;
+	display: block;
+	width: 100%;
+`
 
 export interface MultiLineTextFieldProps {
 	value: string
@@ -22,9 +31,9 @@ export const MultiLineTextField = ({
 	}
 
 	return (
-		<div>
-			<label htmlFor={id} />
-			<textarea id={id} value={value} maxLength={maxLength} onChange={onTextareaChange} />
-		</div>
+		<FieldContainer>
+			<Label htmlFor={id}>{label}</Label>
+			<Textarea id={id} value={value} maxLength={maxLength} onChange={onTextareaChange} />
+		</FieldContainer>
 	)
 }
