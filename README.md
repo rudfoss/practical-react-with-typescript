@@ -8,7 +8,7 @@ Here you will find the starting project for the course. Once we begin you will a
   - [Prerequisites](#prerequisites)
     - [Required](#required)
     - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
+    - [Setting up your environment](#setting-up-your-environment)
   - [VSCode](#vscode)
     - [VSCode Extensions](#vscode-extensions)
     - [Hidden files](#hidden-files)
@@ -38,7 +38,7 @@ You can install Visual Studio Code from [their home page](https://code.visualstu
 winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"'
 ```
 
-## Setting up your environment
+### Setting up your environment
 
 Once you have installed all prerequisites you can clone the repository to your machine using git:
 
