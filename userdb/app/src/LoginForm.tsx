@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react"
 
-import { TextField } from "./TextField"
+import { TextField } from "@react-workshop/fields"
 
 export interface LoginFormProps {
 	onLogin: (username: string, password: string) => unknown
