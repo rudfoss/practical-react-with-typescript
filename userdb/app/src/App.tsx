@@ -1,5 +1,5 @@
-import { LoginForm } from "@react-workshop/userdb-libs-auth"
+import { Header } from "@react-workshop/ui"
 
 export const App = () => {
-	return <LoginForm onLogin={() => console.log("")} />
+	return <Header>Hello world</Header>
 }
