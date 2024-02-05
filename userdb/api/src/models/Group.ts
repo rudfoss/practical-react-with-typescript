@@ -57,6 +57,7 @@ export class Group {
 	isSystemDefined?: boolean
 
 	@ApiProperty({
+		name: "UserDatabaseRole",
 		enum: UserDatabaseRole,
 		isArray: true
 	})

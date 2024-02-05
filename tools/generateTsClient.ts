@@ -5,16 +5,20 @@ import { exec } from "child_process"
 import { promisify } from "node:util"
 
 const nswagParameters = [
+	"/TypeScriptVersion:4,3",
+	"/NewLineBehavior:LF",
 	"/NullValue:Undefined",
 	"/Template:Fetch",
-	"/TypeStyle:Class",
-	"/EnumStyle:StringLiteral",
+	"/ExportTypes:True",
 	"/GenerateClientClasses:True",
-	"/GenerateClientInterfaces:True",
-	"/GenerateOptionalParameters:True",
+	"/GenerateClientInterfaces:False",
+	"/GenerateOptionalParameters:False",
+	"/GenerateDtoTypes:True",
+	"/TypeStyle:Interface",
 	"/DateTimeType:String",
-	"/TypeScriptVersion:4,3",
-	"/NewLineBehavior:LF"
+	"/EnumStyle:StringLiteral",
+	"/GenerateDefaultValues:True",
+	"/MarkOptionalProperties:True"
 ] as const
 
 const invariant = (condition: unknown, message: string) => {

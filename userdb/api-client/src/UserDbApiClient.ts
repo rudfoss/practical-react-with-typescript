@@ -8,15 +8,7 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
-export interface IAppControllerClient {
-
-    /**
-     * Get health information about the API
-     */
-    getHealth(): Promise<HealthRespose>;
-}
-
-export class AppControllerClient implements IAppControllerClient {
+export class AppControllerClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -51,8 +43,7 @@ export class AppControllerClient implements IAppControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = HealthRespose.fromJS(resultData200);
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HealthRespose;
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -64,30 +55,7 @@ export class AppControllerClient implements IAppControllerClient {
     }
 }
 
-export interface IAuthControllerClient {
-
-    /**
-     * Log a user in and get an active session
-     */
-    login(body: LoginRequest): Promise<UserSession>;
-
-    /**
-     * Get all currently active sessions
-     */
-    getActiveSession(): Promise<UserSession>;
-
-    /**
-     * Log out the current user
-     */
-    logout(): Promise<void>;
-
-    /**
-     * Log out every currently logged in user except the current one
-     */
-    logEveryoneOut(): Promise<LogEveryoneOutResponse>;
-}
-
-export class AuthControllerClient implements IAuthControllerClient {
+export class AuthControllerClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -126,15 +94,13 @@ export class AuthControllerClient implements IAuthControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = UserSession.fromJS(resultData200);
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
             return result200;
             });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = HttpNotFoundException.fromJS(resultData404);
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result404);
             });
         } else if (status !== 200 && status !== 204) {
@@ -170,22 +136,19 @@ export class AuthControllerClient implements IAuthControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = UserSession.fromJS(resultData200);
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
             return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -224,8 +187,7 @@ export class AuthControllerClient implements IAuthControllerClient {
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -261,8 +223,7 @@ export class AuthControllerClient implements IAuthControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = LogEveryoneOutResponse.fromJS(resultData200);
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as LogEveryoneOutResponse;
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -274,21 +235,7 @@ export class AuthControllerClient implements IAuthControllerClient {
     }
 }
 
-export interface IAuthUserControllerClient {
-
-    /**
-     * Get the current users active session
-     * @param refresh (optional) If 'true' the session expire time will be renewed if it is valid.
-     */
-    getSession(refresh?: Refresh | undefined): Promise<UserSession>;
-
-    /**
-     * Get user information about the currently logged in user
-     */
-    getCurrentUser(): Promise<UserInformation>;
-}
-
-export class AuthUserControllerClient implements IAuthUserControllerClient {
+export class AuthUserControllerClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -302,7 +249,7 @@ export class AuthUserControllerClient implements IAuthUserControllerClient {
      * Get the current users active session
      * @param refresh (optional) If 'true' the session expire time will be renewed if it is valid.
      */
-    getSession(refresh?: Refresh | undefined): Promise<UserSession> {
+    getSession(refresh: Refresh | undefined): Promise<UserSession> {
         let url_ = this.baseUrl + "/auth/session?";
         if (refresh === null)
             throw new Error("The parameter 'refresh' cannot be null.");
@@ -328,22 +275,19 @@ export class AuthUserControllerClient implements IAuthUserControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = UserSession.fromJS(resultData200);
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
             return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -379,22 +323,19 @@ export class AuthUserControllerClient implements IAuthUserControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = UserInformation.fromJS(resultData200);
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserInformation;
             return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -406,35 +347,7 @@ export class AuthUserControllerClient implements IAuthUserControllerClient {
     }
 }
 
-export interface IUsersControllerClient {
-
-    /**
-     * Get all users
-     */
-    getUsers(): Promise<User[]>;
-
-    /**
-     * Create a new user
-     */
-    createUser(body: NewUser): Promise<void>;
-
-    /**
-     * Get information about a specific user
-     */
-    getUser(userId: string): Promise<User>;
-
-    /**
-     * Update an existing user
-     */
-    updateUser(userId: string, body: PatchUser): Promise<void>;
-
-    /**
-     * Delete the specified user
-     */
-    deleteUser(userId: string): Promise<void>;
-}
-
-export class UsersControllerClient implements IUsersControllerClient {
+export class UsersControllerClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -469,29 +382,19 @@ export class UsersControllerClient implements IUsersControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(User.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as User[];
             return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -534,15 +437,13 @@ export class UsersControllerClient implements IUsersControllerClient {
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -581,29 +482,25 @@ export class UsersControllerClient implements IUsersControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = User.fromJS(resultData200);
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as User;
             return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = HttpNotFoundException.fromJS(resultData404);
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
             return throwException("No user found", status, _responseText, _headers, result404);
             });
         } else if (status !== 200 && status !== 204) {
@@ -645,22 +542,19 @@ export class UsersControllerClient implements IUsersControllerClient {
         if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = HttpNotFoundException.fromJS(resultData404);
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result404);
             });
         } else if (status !== 200 && status !== 204) {
@@ -698,29 +592,25 @@ export class UsersControllerClient implements IUsersControllerClient {
         if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = HttpNotFoundException.fromJS(resultData404);
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
             return throwException("The user does not exist", status, _responseText, _headers, result404);
             });
         } else if (status === 409) {
             return response.text().then((_responseText) => {
             let result409: any = null;
-            let resultData409 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result409 = HttpConflictException.fromJS(resultData409);
+            result409 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpConflictException;
             return throwException("The user is protected and cannot be deleted (see error for details)", status, _responseText, _headers, result409);
             });
         } else if (status !== 200 && status !== 204) {
@@ -732,35 +622,7 @@ export class UsersControllerClient implements IUsersControllerClient {
     }
 }
 
-export interface IGroupsControllerClient {
-
-    /**
-     * List all groups
-     */
-    getGroups(): Promise<Group[]>;
-
-    /**
-     * Create a new group
-     */
-    createGroup(body: NewGroup): Promise<void>;
-
-    /**
-     * Get information about a specific group.
-     */
-    getGroup(groupId: string): Promise<void>;
-
-    /**
-     * Update properties of an existing group
-     */
-    updateGroup(groupId: string, body: PatchGroup): Promise<void>;
-
-    /**
-     * Delete a group
-     */
-    deleteGroup(groupId: string): Promise<void>;
-}
-
-export class GroupsControllerClient implements IGroupsControllerClient {
+export class GroupsControllerClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -795,29 +657,19 @@ export class GroupsControllerClient implements IGroupsControllerClient {
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(Group.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Group[];
             return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -860,15 +712,13 @@ export class GroupsControllerClient implements IGroupsControllerClient {
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -910,15 +760,13 @@ export class GroupsControllerClient implements IGroupsControllerClient {
         } else if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status !== 200 && status !== 204) {
@@ -960,22 +808,19 @@ export class GroupsControllerClient implements IGroupsControllerClient {
         if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = HttpNotFoundException.fromJS(resultData404);
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
             return throwException("Group not found", status, _responseText, _headers, result404);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1013,29 +858,25 @@ export class GroupsControllerClient implements IGroupsControllerClient {
         if (status === 401) {
             return response.text().then((_responseText) => {
             let result401: any = null;
-            let resultData401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result401 = HttpUnauthorizedException.fromJS(resultData401);
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status === 403) {
             return response.text().then((_responseText) => {
             let result403: any = null;
-            let resultData403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result403 = HttpForbiddenException.fromJS(resultData403);
+            result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
         } else if (status === 404) {
             return response.text().then((_responseText) => {
             let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = HttpNotFoundException.fromJS(resultData404);
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
             return throwException("No user found", status, _responseText, _headers, result404);
             });
         } else if (status === 409) {
             return response.text().then((_responseText) => {
             let result409: any = null;
-            let resultData409 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result409 = HttpConflictException.fromJS(resultData409);
+            result409 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpConflictException;
             return throwException("The group is protected and cannot be deleted (see error for details)", status, _responseText, _headers, result409);
             });
         } else if (status !== 200 && status !== 204) {
@@ -1047,176 +888,26 @@ export class GroupsControllerClient implements IGroupsControllerClient {
     }
 }
 
-export class HealthRespose implements IHealthRespose {
-    ok!: boolean;
-    bootTime!: string;
-    upTime!: string;
-    dbFilePath!: string;
-    sessionCount!: number;
-
-    [key: string]: any;
-
-    constructor(data?: IHealthRespose) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.ok = _data["ok"];
-            this.bootTime = _data["bootTime"];
-            this.upTime = _data["upTime"];
-            this.dbFilePath = _data["dbFilePath"];
-            this.sessionCount = _data["sessionCount"];
-        }
-    }
-
-    static fromJS(data: any): HealthRespose {
-        data = typeof data === 'object' ? data : {};
-        let result = new HealthRespose();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["ok"] = this.ok;
-        data["bootTime"] = this.bootTime;
-        data["upTime"] = this.upTime;
-        data["dbFilePath"] = this.dbFilePath;
-        data["sessionCount"] = this.sessionCount;
-        return data;
-    }
-}
-
-export interface IHealthRespose {
+export interface HealthRespose {
     ok: boolean;
     bootTime: string;
     upTime: string;
     dbFilePath: string;
     sessionCount: number;
+    userCount: number;
+    groupsCount: number;
 
     [key: string]: any;
 }
 
-export class LoginRequest implements ILoginRequest {
-    username!: string;
-    password!: string;
-
-    [key: string]: any;
-
-    constructor(data?: ILoginRequest) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.username = _data["username"];
-            this.password = _data["password"];
-        }
-    }
-
-    static fromJS(data: any): LoginRequest {
-        data = typeof data === 'object' ? data : {};
-        let result = new LoginRequest();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["username"] = this.username;
-        data["password"] = this.password;
-        return data;
-    }
-}
-
-export interface ILoginRequest {
+export interface LoginRequest {
     username: string;
     password: string;
 
     [key: string]: any;
 }
 
-export class UserSession implements IUserSession {
-    token!: string;
-    userId!: string;
-    /** The timestamp when the session was created (in milliseconds) */
-    createdAt!: number;
-    /** The timestamp when the session will expire (in milliseconds) */
-    expiresAt!: number;
-
-    [key: string]: any;
-
-    constructor(data?: IUserSession) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.token = _data["token"];
-            this.userId = _data["userId"];
-            this.createdAt = _data["createdAt"];
-            this.expiresAt = _data["expiresAt"];
-        }
-    }
-
-    static fromJS(data: any): UserSession {
-        data = typeof data === 'object' ? data : {};
-        let result = new UserSession();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["token"] = this.token;
-        data["userId"] = this.userId;
-        data["createdAt"] = this.createdAt;
-        data["expiresAt"] = this.expiresAt;
-        return data;
-    }
-}
-
-export interface IUserSession {
+export interface UserSession {
     token: string;
     userId: string;
     /** The timestamp when the session was created (in milliseconds) */
@@ -1227,55 +918,7 @@ export interface IUserSession {
     [key: string]: any;
 }
 
-export class HttpNotFoundException implements IHttpNotFoundException {
-    message!: string;
-    error!: string;
-    statusCode!: number;
-
-    [key: string]: any;
-
-    constructor(data?: IHttpNotFoundException) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.message = _data["message"];
-            this.error = _data["error"];
-            this.statusCode = _data["statusCode"];
-        }
-    }
-
-    static fromJS(data: any): HttpNotFoundException {
-        data = typeof data === 'object' ? data : {};
-        let result = new HttpNotFoundException();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["message"] = this.message;
-        data["error"] = this.error;
-        data["statusCode"] = this.statusCode;
-        return data;
-    }
-}
-
-export interface IHttpNotFoundException {
+export interface HttpNotFoundException {
     message: string;
     error: string;
     statusCode: number;
@@ -1283,55 +926,7 @@ export interface IHttpNotFoundException {
     [key: string]: any;
 }
 
-export class HttpUnauthorizedException implements IHttpUnauthorizedException {
-    message!: string;
-    error!: string;
-    statusCode!: number;
-
-    [key: string]: any;
-
-    constructor(data?: IHttpUnauthorizedException) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.message = _data["message"];
-            this.error = _data["error"];
-            this.statusCode = _data["statusCode"];
-        }
-    }
-
-    static fromJS(data: any): HttpUnauthorizedException {
-        data = typeof data === 'object' ? data : {};
-        let result = new HttpUnauthorizedException();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["message"] = this.message;
-        data["error"] = this.error;
-        data["statusCode"] = this.statusCode;
-        return data;
-    }
-}
-
-export interface IHttpUnauthorizedException {
+export interface HttpUnauthorizedException {
     message: string;
     error: string;
     statusCode: number;
@@ -1339,55 +934,7 @@ export interface IHttpUnauthorizedException {
     [key: string]: any;
 }
 
-export class HttpForbiddenException implements IHttpForbiddenException {
-    message!: string;
-    error!: string;
-    statusCode!: number;
-
-    [key: string]: any;
-
-    constructor(data?: IHttpForbiddenException) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.message = _data["message"];
-            this.error = _data["error"];
-            this.statusCode = _data["statusCode"];
-        }
-    }
-
-    static fromJS(data: any): HttpForbiddenException {
-        data = typeof data === 'object' ? data : {};
-        let result = new HttpForbiddenException();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["message"] = this.message;
-        data["error"] = this.error;
-        data["statusCode"] = this.statusCode;
-        return data;
-    }
-}
-
-export interface IHttpForbiddenException {
+export interface HttpForbiddenException {
     message: string;
     error: string;
     statusCode: number;
@@ -1395,135 +942,14 @@ export interface IHttpForbiddenException {
     [key: string]: any;
 }
 
-export class LogEveryoneOutResponse implements ILogEveryoneOutResponse {
-    /** Each session that was logged out */
-    removedSessions!: UserSession[];
-
-    [key: string]: any;
-
-    constructor(data?: ILogEveryoneOutResponse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.removedSessions = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            if (Array.isArray(_data["removedSessions"])) {
-                this.removedSessions = [] as any;
-                for (let item of _data["removedSessions"])
-                    this.removedSessions!.push(UserSession.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): LogEveryoneOutResponse {
-        data = typeof data === 'object' ? data : {};
-        let result = new LogEveryoneOutResponse();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        if (Array.isArray(this.removedSessions)) {
-            data["removedSessions"] = [];
-            for (let item of this.removedSessions)
-                data["removedSessions"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface ILogEveryoneOutResponse {
+export interface LogEveryoneOutResponse {
     /** Each session that was logged out */
     removedSessions: UserSession[];
 
     [key: string]: any;
 }
 
-export class User implements IUser {
-    id!: string;
-    username!: string;
-    displayName!: string;
-    /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
-    pictureUrl!: string;
-    /** A list of all group ids in which this user is a member. */
-    groupIds!: string[];
-
-    [key: string]: any;
-
-    constructor(data?: IUser) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.groupIds = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.id = _data["id"];
-            this.username = _data["username"];
-            this.displayName = _data["displayName"];
-            this.pictureUrl = _data["pictureUrl"];
-            if (Array.isArray(_data["groupIds"])) {
-                this.groupIds = [] as any;
-                for (let item of _data["groupIds"])
-                    this.groupIds!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): User {
-        data = typeof data === 'object' ? data : {};
-        let result = new User();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["id"] = this.id;
-        data["username"] = this.username;
-        data["displayName"] = this.displayName;
-        data["pictureUrl"] = this.pictureUrl;
-        if (Array.isArray(this.groupIds)) {
-            data["groupIds"] = [];
-            for (let item of this.groupIds)
-                data["groupIds"].push(item);
-        }
-        return data;
-    }
-}
-
-export interface IUser {
+export interface User {
     id: string;
     username: string;
     displayName: string;
@@ -1535,225 +961,26 @@ export interface IUser {
     [key: string]: any;
 }
 
-export class Group implements IGroup {
-    id!: string;
-    displayName!: string;
-    description?: string;
-    /** System-defined groups cannot be removed. */
-    isSystemDefined!: boolean;
-    roles!: Roles[];
-
-    [key: string]: any;
-
-    constructor(data?: IGroup) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.roles = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.id = _data["id"];
-            this.displayName = _data["displayName"];
-            this.description = _data["description"];
-            this.isSystemDefined = _data["isSystemDefined"];
-            if (Array.isArray(_data["roles"])) {
-                this.roles = [] as any;
-                for (let item of _data["roles"])
-                    this.roles!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): Group {
-        data = typeof data === 'object' ? data : {};
-        let result = new Group();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["id"] = this.id;
-        data["displayName"] = this.displayName;
-        data["description"] = this.description;
-        data["isSystemDefined"] = this.isSystemDefined;
-        if (Array.isArray(this.roles)) {
-            data["roles"] = [];
-            for (let item of this.roles)
-                data["roles"].push(item);
-        }
-        return data;
-    }
-}
-
-export interface IGroup {
+export interface Group {
     id: string;
     displayName: string;
     description?: string;
     /** System-defined groups cannot be removed. */
     isSystemDefined: boolean;
-    roles: Roles[];
+    UserDatabaseRole: UserDatabaseRole[];
 
     [key: string]: any;
 }
 
-export class UserInformation implements IUserInformation {
-    user!: User;
-    roles!: roles[];
-    groups!: Group[];
-
-    [key: string]: any;
-
-    constructor(data?: IUserInformation) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.user = new User();
-            this.roles = [];
-            this.groups = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.user = _data["user"] ? User.fromJS(_data["user"]) : new User();
-            if (Array.isArray(_data["roles"])) {
-                this.roles = [] as any;
-                for (let item of _data["roles"])
-                    this.roles!.push(item);
-            }
-            if (Array.isArray(_data["groups"])) {
-                this.groups = [] as any;
-                for (let item of _data["groups"])
-                    this.groups!.push(Group.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): UserInformation {
-        data = typeof data === 'object' ? data : {};
-        let result = new UserInformation();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["user"] = this.user ? this.user.toJSON() : <any>undefined;
-        if (Array.isArray(this.roles)) {
-            data["roles"] = [];
-            for (let item of this.roles)
-                data["roles"].push(item);
-        }
-        if (Array.isArray(this.groups)) {
-            data["groups"] = [];
-            for (let item of this.groups)
-                data["groups"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IUserInformation {
+export interface UserInformation {
     user: User;
-    roles: roles[];
+    roles: Roles[];
     groups: Group[];
 
     [key: string]: any;
 }
 
-export class PatchUser implements IPatchUser {
-    username?: string;
-    displayName?: string;
-    /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
-    pictureUrl?: string;
-    /** A list of all group ids in which this user is a member. */
-    groupIds?: string[];
-    password?: string;
-
-    [key: string]: any;
-
-    constructor(data?: IPatchUser) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.username = _data["username"];
-            this.displayName = _data["displayName"];
-            this.pictureUrl = _data["pictureUrl"];
-            if (Array.isArray(_data["groupIds"])) {
-                this.groupIds = [] as any;
-                for (let item of _data["groupIds"])
-                    this.groupIds!.push(item);
-            }
-            this.password = _data["password"];
-        }
-    }
-
-    static fromJS(data: any): PatchUser {
-        data = typeof data === 'object' ? data : {};
-        let result = new PatchUser();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["username"] = this.username;
-        data["displayName"] = this.displayName;
-        data["pictureUrl"] = this.pictureUrl;
-        if (Array.isArray(this.groupIds)) {
-            data["groupIds"] = [];
-            for (let item of this.groupIds)
-                data["groupIds"].push(item);
-        }
-        data["password"] = this.password;
-        return data;
-    }
-}
-
-export interface IPatchUser {
+export interface PatchUser {
     username?: string;
     displayName?: string;
     /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
@@ -1765,55 +992,7 @@ export interface IPatchUser {
     [key: string]: any;
 }
 
-export class HttpConflictException implements IHttpConflictException {
-    message!: string;
-    error!: string;
-    statusCode!: number;
-
-    [key: string]: any;
-
-    constructor(data?: IHttpConflictException) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.message = _data["message"];
-            this.error = _data["error"];
-            this.statusCode = _data["statusCode"];
-        }
-    }
-
-    static fromJS(data: any): HttpConflictException {
-        data = typeof data === 'object' ? data : {};
-        let result = new HttpConflictException();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["message"] = this.message;
-        data["error"] = this.error;
-        data["statusCode"] = this.statusCode;
-        return data;
-    }
-}
-
-export interface IHttpConflictException {
+export interface HttpConflictException {
     message: string;
     error: string;
     statusCode: number;
@@ -1821,74 +1000,7 @@ export interface IHttpConflictException {
     [key: string]: any;
 }
 
-export class NewUser implements INewUser {
-    username!: string;
-    displayName!: string;
-    /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
-    pictureUrl!: string;
-    /** A list of all group ids in which this user is a member. */
-    groupIds!: string[];
-    password!: string;
-
-    [key: string]: any;
-
-    constructor(data?: INewUser) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.groupIds = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.username = _data["username"];
-            this.displayName = _data["displayName"];
-            this.pictureUrl = _data["pictureUrl"];
-            if (Array.isArray(_data["groupIds"])) {
-                this.groupIds = [] as any;
-                for (let item of _data["groupIds"])
-                    this.groupIds!.push(item);
-            }
-            this.password = _data["password"];
-        }
-    }
-
-    static fromJS(data: any): NewUser {
-        data = typeof data === 'object' ? data : {};
-        let result = new NewUser();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["username"] = this.username;
-        data["displayName"] = this.displayName;
-        data["pictureUrl"] = this.pictureUrl;
-        if (Array.isArray(this.groupIds)) {
-            data["groupIds"] = [];
-            for (let item of this.groupIds)
-                data["groupIds"].push(item);
-        }
-        data["password"] = this.password;
-        return data;
-    }
-}
-
-export interface INewUser {
+export interface NewUser {
     username: string;
     displayName: string;
     /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
@@ -1900,158 +1012,35 @@ export interface INewUser {
     [key: string]: any;
 }
 
-export class PatchGroup implements IPatchGroup {
+export interface PatchGroup {
     displayName?: string;
     description?: string;
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
-    roles?: roles2[];
-
-    [key: string]: any;
-
-    constructor(data?: IPatchGroup) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.displayName = _data["displayName"];
-            this.description = _data["description"];
-            this.isSystemDefined = _data["isSystemDefined"];
-            if (Array.isArray(_data["roles"])) {
-                this.roles = [] as any;
-                for (let item of _data["roles"])
-                    this.roles!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): PatchGroup {
-        data = typeof data === 'object' ? data : {};
-        let result = new PatchGroup();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["displayName"] = this.displayName;
-        data["description"] = this.description;
-        data["isSystemDefined"] = this.isSystemDefined;
-        if (Array.isArray(this.roles)) {
-            data["roles"] = [];
-            for (let item of this.roles)
-                data["roles"].push(item);
-        }
-        return data;
-    }
-}
-
-export interface IPatchGroup {
-    displayName?: string;
-    description?: string;
-    /** System-defined groups cannot be removed. */
-    isSystemDefined?: boolean;
-    roles?: roles2[];
+    UserDatabaseRole?: userDatabaseRole[];
 
     [key: string]: any;
 }
 
-export class NewGroup implements INewGroup {
-    displayName!: string;
-    description?: string;
-    /** System-defined groups cannot be removed. */
-    isSystemDefined!: boolean;
-    roles!: roles3[];
-
-    [key: string]: any;
-
-    constructor(data?: INewGroup) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.roles = [];
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.displayName = _data["displayName"];
-            this.description = _data["description"];
-            this.isSystemDefined = _data["isSystemDefined"];
-            if (Array.isArray(_data["roles"])) {
-                this.roles = [] as any;
-                for (let item of _data["roles"])
-                    this.roles!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): NewGroup {
-        data = typeof data === 'object' ? data : {};
-        let result = new NewGroup();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["displayName"] = this.displayName;
-        data["description"] = this.description;
-        data["isSystemDefined"] = this.isSystemDefined;
-        if (Array.isArray(this.roles)) {
-            data["roles"] = [];
-            for (let item of this.roles)
-                data["roles"].push(item);
-        }
-        return data;
-    }
-}
-
-export interface INewGroup {
+export interface NewGroup {
     displayName: string;
     description?: string;
     /** System-defined groups cannot be removed. */
     isSystemDefined: boolean;
-    roles: roles3[];
+    UserDatabaseRole: userDatabaseRole2[];
 
     [key: string]: any;
 }
 
 export type Refresh = "true" | "false";
 
+export type UserDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
+
 export type Roles = "Admin" | "UserAdmin" | "User" | "Guest";
 
-export type roles = "Admin" | "UserAdmin" | "User" | "Guest";
+export type userDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
 
-export type roles2 = "Admin" | "UserAdmin" | "User" | "Guest";
-
-export type roles3 = "Admin" | "UserAdmin" | "User" | "Guest";
+export type userDatabaseRole2 = "Admin" | "UserAdmin" | "User" | "Guest";
 
 export class ApiException extends Error {
     override message: string;
