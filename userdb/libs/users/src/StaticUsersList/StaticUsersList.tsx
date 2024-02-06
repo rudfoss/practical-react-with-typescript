@@ -4,7 +4,14 @@ import { StaticUser, staticUsers } from "../staticUsers"
 
 import { StaticUsersListItem } from "./StaticUsersListItem"
 
-export const StaticUsersList = () => {
+export interface StaticUsersListProps {
+	/**
+	 * If specified this user id will be highlighted if it exists.
+	 */
+	highlightUserId?: string
+}
+
+export const StaticUsersList = ({ highlightUserId }: StaticUsersListProps) => {
 	const [users, setUsers] = useState(staticUsers)
 
 	const onDelete = (user: StaticUser) => {
@@ -26,6 +33,7 @@ export const StaticUsersList = () => {
 					<StaticUsersListItem
 						key={user.id}
 						user={user}
+						isHighlighted={highlightUserId === user.id}
 						onDelete={() => onDelete(user)}
 						canDelete={users.length > 1}
 					/>

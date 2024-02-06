@@ -1,17 +1,37 @@
+import styled from "@emotion/styled"
+import { Link } from "react-router-dom"
+
 import { StaticUser } from "../staticUsers"
 
 export interface StaticUsersListItemProps {
 	user: StaticUser
+	isHighlighted?: boolean
 
 	canDelete?: boolean
 
 	onDelete: () => unknown
 }
 
-export const StaticUsersListItem = ({ user, canDelete, onDelete }: StaticUsersListItemProps) => {
+type HighlightableRowProps = Pick<StaticUsersListItemProps, "isHighlighted">
+const HighlightableRow = styled.tr<HighlightableRowProps>`
+	td {
+		border: 0px solid hotpink;
+		padding: ${({ isHighlighted }) => (isHighlighted ? "0px" : "1px")};
+		border-width: ${({ isHighlighted }) => (isHighlighted ? "1px" : "0px")};
+	}
+`
+
+export const StaticUsersListItem = ({
+	user,
+	isHighlighted,
+	canDelete,
+	onDelete
+}: StaticUsersListItemProps) => {
 	return (
-		<tr>
-			<td>{user.id}</td>
+		<HighlightableRow isHighlighted={isHighlighted}>
+			<td>
+				<Link to={`?userId=${user.id}`}>{user.id}</Link>
+			</td>
 			<td>{user.username}</td>
 			<td>{user.displayName}</td>
 			<td>
@@ -19,6 +39,6 @@ export const StaticUsersListItem = ({ user, canDelete, onDelete }: StaticUsersLi
 					❌
 				</button>
 			</td>
-		</tr>
+		</HighlightableRow>
 	)
 }
