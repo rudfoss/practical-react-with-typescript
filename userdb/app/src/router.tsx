@@ -1,6 +1,7 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom"
 
 import { FieldsPage } from "./pages/FieldsPage"
+import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { UsersPage } from "./pages/UsersPage"
 
@@ -23,6 +24,15 @@ const appRoutes: RouteObject[] = [
 		]
 	},
 	{
+		path: "groups",
+		children: [
+			{
+				element: <GroupsPage />,
+				index: true
+			}
+		]
+	},
+	{
 		path: "fields",
 		element: <FieldsPage />
 	}
@@ -30,7 +40,6 @@ const appRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
 	{
-		errorElement: <h1>An error occurred</h1>,
 		children: appRoutes
 	}
 ])
