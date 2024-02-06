@@ -1,13 +1,26 @@
-import { Link } from "react-router-dom"
+import styled from "@emotion/styled"
+import { NavLink } from "react-router-dom"
+
+const StyledNavLink = styled(NavLink)`
+	display: block;
+	margin-bottom: 8px;
+	text-decoration: none;
+	&.active {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+`
 
 export const MainMenu = () => {
 	return (
 		<nav>
-			<Link to="/">Home</Link>
-			<Link to="/users">Users</Link>
-			<Link to="/users/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">Single user</Link>
-			<Link to="/groups">Groups</Link>
-			<Link to="/fields">Fields</Link>
+			<StyledNavLink to="/">Home</StyledNavLink>
+			<StyledNavLink to="/users" end>
+				Users
+			</StyledNavLink>
+			<StyledNavLink to="/users/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">Single user</StyledNavLink>
+			<StyledNavLink to="/groups">Groups</StyledNavLink>
+			<StyledNavLink to="/fields">Fields</StyledNavLink>
 		</nav>
 	)
 }
