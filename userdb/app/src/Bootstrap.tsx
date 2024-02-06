@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 
+import { ProvideFieldsService } from "@react-workshop/fields"
 import { ProvideHeaderService } from "@react-workshop/ui"
 
 export interface BootstrapProps {
@@ -7,5 +8,9 @@ export interface BootstrapProps {
 }
 
 export const Bootstrap = ({ children }: BootstrapProps) => {
-	return <ProvideHeaderService>{children}</ProvideHeaderService>
+	return (
+		<ProvideFieldsService>
+			<ProvideHeaderService>{children}</ProvideHeaderService>
+		</ProvideFieldsService>
+	)
 }

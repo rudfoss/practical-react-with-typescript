@@ -1,6 +1,7 @@
 import { ChangeEvent, useId } from "react"
 
 import { Label } from "../FieldStyles"
+import { useFieldsServiceIsDisabled } from "../fieldsService"
 
 import { ChoiceFieldBaseProps } from "./ChoiceFieldBaseProps"
 
@@ -11,6 +12,7 @@ export const SelectChoiceField = <TData,>({
 	label
 }: ChoiceFieldBaseProps<TData>) => {
 	const id = useId()
+	const isDisabled = useFieldsServiceIsDisabled()
 
 	const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		const option = options.find((option) => option.value === event.currentTarget.value)
@@ -20,7 +22,7 @@ export const SelectChoiceField = <TData,>({
 	return (
 		<>
 			<Label htmlFor={id}>{label}</Label>
-			<select value={value?.value ?? ""} onChange={handleChange}>
+			<select value={value?.value ?? ""} onChange={handleChange} disabled={isDisabled}>
 				<option value=""></option>
 				{options.map((option) => (
 					<option value={option.value} key={option.value}>

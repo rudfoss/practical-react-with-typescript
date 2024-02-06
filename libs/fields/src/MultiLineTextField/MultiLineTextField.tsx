@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
 import { FieldContainer, Label } from "../FieldStyles"
+import { useFieldsServiceIsDisabled } from "../fieldsService"
 
 const Textarea = styled.textarea`
 	resize: vertical;
@@ -27,6 +28,7 @@ export const MultiLineTextField = ({
 	maxLength
 }: MultiLineTextFieldProps) => {
 	const id = useId()
+	const isDisabled = useFieldsServiceIsDisabled()
 
 	const onTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		onChange(event.currentTarget.value)
@@ -35,7 +37,13 @@ export const MultiLineTextField = ({
 	return (
 		<FieldContainer>
 			<Label htmlFor={id}>{label}</Label>
-			<Textarea id={id} value={value} maxLength={maxLength} onChange={onTextareaChange} />
+			<Textarea
+				id={id}
+				value={value}
+				maxLength={maxLength}
+				onChange={onTextareaChange}
+				disabled={isDisabled}
+			/>
 		</FieldContainer>
 	)
 }

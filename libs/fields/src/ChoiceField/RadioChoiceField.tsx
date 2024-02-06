@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { useId } from "react"
 
 import { LabelAfter } from "../FieldStyles"
+import { useFieldsServiceIsDisabled } from "../fieldsService"
 
 import { ChoiceFieldBaseProps } from "./ChoiceFieldBaseProps"
 
@@ -18,6 +19,7 @@ export const RadioChoiceField = <TData,>({
 	label
 }: ChoiceFieldBaseProps<TData>) => {
 	const id = useId()
+	const isDisabled = useFieldsServiceIsDisabled()
 
 	return (
 		<fieldset>
@@ -31,6 +33,7 @@ export const RadioChoiceField = <TData,>({
 						value={option.value}
 						checked={value === option}
 						onChange={() => onChange(option)}
+						disabled={isDisabled}
 					/>
 					<LabelAfter htmlFor={`${id}-${option.value}`}>{option.label}</LabelAfter>
 				</OptionContainer>
