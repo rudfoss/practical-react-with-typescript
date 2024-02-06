@@ -7,6 +7,7 @@ const Textarea = styled.textarea`
 	resize: vertical;
 	display: block;
 	width: 100%;
+	min-height: 3lh;
 `
 
 export interface MultiLineTextFieldProps {
