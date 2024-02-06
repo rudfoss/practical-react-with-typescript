@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nx", "import", "unicorn"],
+	"plugins": ["@nx", "import"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -35,7 +35,11 @@
 		},
 		{
 			"files": ["*.ts", "*.tsx"],
-			"extends": ["plugin:@nx/typescript", "plugin:unicorn/recommended"],
+			"extends": [
+				"plugin:@nx/typescript",
+				"plugin:unicorn/recommended",
+				"plugin:@tanstack/eslint-plugin-query/recommended"
+			],
 			"rules": {
 				"@typescript-eslint/no-unused-vars": ["warn"],
 				"jsx-a11y/accessible-emoji": ["off"],
