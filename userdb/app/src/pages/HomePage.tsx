@@ -1,5 +1,3 @@
-import { MainMenu } from "../MainMenu"
-
 export const HomePage = () => {
-	return <MainMenu />
+	return <p>Hello world</p>
 }
