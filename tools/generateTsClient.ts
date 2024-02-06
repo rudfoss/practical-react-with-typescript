@@ -8,11 +8,13 @@ const nswagParameters = [
 	"/TypeScriptVersion:4,3",
 	"/NewLineBehavior:LF",
 	"/NullValue:Undefined",
+	"/GenerateClientClasses:True",
 	"/Template:Fetch",
 	"/ExportTypes:True",
-	"/GenerateClientClasses:True",
-	"/GenerateClientInterfaces:False",
-	"/GenerateOptionalParameters:False",
+	"/ClientBaseClass:ClientBaseClass",
+	"/GenerateClientInterfaces:True",
+	"/GenerateOptionalParameters:True",
+	"/UseTransformOptionsMethod:True",
 	"/GenerateDtoTypes:True",
 	"/TypeStyle:Interface",
 	"/DateTimeType:String",
@@ -29,6 +31,31 @@ const invariant = (condition: unknown, message: string) => {
 }
 
 const execAsync = promisify(exec)
+
+const addBaseClassImport = async (generatedClientsFilePath: string) => {
+	const [param, className] = (
+		nswagParameters.find((param) => param.includes("ClientBaseClass")) ?? ""
+	).split(":")
+
+	if (!className) return
+
+	const clientClassFileFullPath = path.resolve(
+		path.dirname(generatedClientsFilePath),
+		`${className}.ts`
+	)
+	invariant(
+		fs.existsSync(clientClassFileFullPath),
+		`You must create an exported base class named "${className}" in "${clientClassFileFullPath}" in order to use the ClientBaseClass nswag-parameter`
+	)
+
+	const content = await fs.readFile(generatedClientsFilePath, { encoding: "utf-8" })
+	const contentWithImport =
+		`import { ${className} } from "./${className}"
+
+` + content
+
+	await fs.writeFile(generatedClientsFilePath, contentWithImport)
+}
 
 const start = async (args: string[]) => {
 	const [name, openApiPath, outputPath] = args.slice(2)
@@ -52,6 +79,7 @@ const start = async (args: string[]) => {
 	const generateCmd = `npx nswag ${nswagArgs}`
 	console.log({ generateCmd })
 	await execAsync(generateCmd)
+	await addBaseClassImport(fullOutputPath)
 	console.log("Done")
 }
 
