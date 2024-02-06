@@ -21,6 +21,8 @@ export const MainMenu = () => {
 			<StyledNavLink to="/users/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">Single user</StyledNavLink>
 			<StyledNavLink to="/groups">Groups</StyledNavLink>
 			<StyledNavLink to="/fields">Fields</StyledNavLink>
+			<StyledNavLink to="/unoptimized">Unoptimized</StyledNavLink>
+			<StyledNavLink to="/optimization">Optimization</StyledNavLink>
 		</>
 	)
 }

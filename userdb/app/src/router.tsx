@@ -7,6 +7,7 @@ import { MainMenu } from "./MainMenu"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
+import { OptimizationPage } from "./pages/OptimizationPage"
 import { UsersPage } from "./pages/UsersPage"
 
 const appRoutes: RouteObject[] = [
@@ -35,6 +36,10 @@ const appRoutes: RouteObject[] = [
 				index: true
 			}
 		]
+	},
+	{
+		path: "optimization",
+		element: <OptimizationPage />
 	},
 	{
 		path: "fields",
