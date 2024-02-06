@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom"
-
 import { StaticGroupList } from "@react-workshop/userdb-libs-groups"
+
+import { MainMenu } from "../MainMenu"
 
 export const GroupsPage = () => {
 	return (
 		<>
-			<Link to="/">Home</Link>
+			<MainMenu />
 			<StaticGroupList />
 		</>
 	)

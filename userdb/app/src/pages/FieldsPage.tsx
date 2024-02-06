@@ -9,6 +9,8 @@ import {
 } from "@react-workshop/fields"
 import { StaticUser, staticUsers } from "@react-workshop/userdb-libs-users"
 
+import { MainMenu } from "../MainMenu"
+
 const choiceOptions = staticUsers.map(
 	(user): ChoiceFieldChoice<StaticUser> => ({
 		data: user,
@@ -25,6 +27,7 @@ export const FieldsPage = () => {
 
 	return (
 		<>
+			<MainMenu />
 			<h2>Fields showcase</h2>
 			<TextField label="Text field" value={text} onChange={setText} />
 			<TextField type="password" label="Password field" value={text} onChange={setText} />
