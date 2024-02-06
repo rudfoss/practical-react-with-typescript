@@ -1,14 +1,14 @@
-import { Link, useSearchParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 import { StaticUsersList } from "@react-workshop/userdb-libs-users"
 
 export const UsersPage = () => {
-	const [searchParameters] = useSearchParams()
+	const { userId } = useParams<"userId">()
 
 	return (
 		<>
 			<Link to="/">Home</Link>
-			<StaticUsersList highlightUserId={searchParameters.get("userId") ?? undefined} />
+			<StaticUsersList highlightUserId={userId} />
 		</>
 	)
 }

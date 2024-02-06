@@ -1,5 +1,4 @@
 import styled from "@emotion/styled"
-import { Link } from "react-router-dom"
 
 import { StaticUser } from "../staticUsers"
 
@@ -29,9 +28,7 @@ export const StaticUsersListItem = ({
 }: StaticUsersListItemProps) => {
 	return (
 		<HighlightableRow isHighlighted={isHighlighted}>
-			<td>
-				<Link to={`?userId=${user.id}`}>{user.id}</Link>
-			</td>
+			<td>{user.id}</td>
 			<td>{user.username}</td>
 			<td>{user.displayName}</td>
 			<td>

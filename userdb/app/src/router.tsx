@@ -11,7 +11,16 @@ const appRoutes: RouteObject[] = [
 	},
 	{
 		path: "users",
-		element: <UsersPage />
+		children: [
+			{
+				element: <UsersPage />,
+				index: true
+			},
+			{
+				path: ":userId",
+				element: <UsersPage />
+			}
+		]
 	},
 	{
 		path: "fields",
