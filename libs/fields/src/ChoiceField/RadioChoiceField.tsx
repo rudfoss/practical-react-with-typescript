@@ -14,7 +14,7 @@ export const RadioChoiceField = <TData,>({
 		<fieldset>
 			<legend>{label}</legend>
 			{options.map((option) => (
-				<div id={option.value}>
+				<div id={option.value} key={option.value}>
 					<input
 						type="radio"
 						name={id}
