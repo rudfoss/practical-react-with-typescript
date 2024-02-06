@@ -13,7 +13,7 @@ const StyledNavLink = styled(NavLink)`
 
 export const MainMenu = () => {
 	return (
-		<nav>
+		<>
 			<StyledNavLink to="/">Home</StyledNavLink>
 			<StyledNavLink to="/users" end>
 				Users
@@ -21,6 +21,6 @@ export const MainMenu = () => {
 			<StyledNavLink to="/users/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">Single user</StyledNavLink>
 			<StyledNavLink to="/groups">Groups</StyledNavLink>
 			<StyledNavLink to="/fields">Fields</StyledNavLink>
-		</nav>
+		</>
 	)
 }
