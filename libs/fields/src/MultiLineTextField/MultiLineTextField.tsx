@@ -8,6 +8,7 @@ const Textarea = styled.textarea`
 	display: block;
 	width: 100%;
 	min-height: 3lh;
+	max-height: 30lh;
 `
 
 export interface MultiLineTextFieldProps {
