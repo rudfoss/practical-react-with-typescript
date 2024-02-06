@@ -7,6 +7,7 @@ import {
 	MultiLineTextField,
 	TextField
 } from "@react-workshop/fields"
+import { useHeading } from "@react-workshop/ui"
 import { StaticUser, staticUsers } from "@react-workshop/userdb-libs-users"
 
 const choiceOptions = staticUsers.map(
@@ -18,6 +19,7 @@ const choiceOptions = staticUsers.map(
 )
 
 export const FieldsPage = () => {
+	useHeading("Fields Showcase")
 	const [text, setText] = useState("")
 	const [multiLineText, setMultiLineText] = useState("")
 	const [choiceValue, setChoiceValue] = useState<ChoiceFieldChoice<StaticUser>>()

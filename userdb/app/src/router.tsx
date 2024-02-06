@@ -2,6 +2,7 @@ import { RouteObject, createBrowserRouter } from "react-router-dom"
 
 import { Header, MainLayout } from "@react-workshop/ui"
 
+import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupsPage } from "./pages/GroupsPage"
@@ -43,7 +44,11 @@ const appRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
 	{
-		element: <MainLayout header={<Header>User Database</Header>} menu={<MainMenu />} />,
+		element: (
+			<Bootstrap>
+				<MainLayout header={<Header />} menu={<MainMenu />} />
+			</Bootstrap>
+		),
 		children: appRoutes
 	}
 ])
