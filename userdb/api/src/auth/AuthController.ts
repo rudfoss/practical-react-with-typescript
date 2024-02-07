@@ -48,6 +48,18 @@ export class AuthController {
 		return userSession
 	}
 
+	@Get("logout")
+	@ApiOperation({
+		summary: "Log out the current user"
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiOkResponse()
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	public async logout(@Req() request: UserDatabaseApiRequestAuthenticated) {
+		await this.authService.logout(request.userSession.token)
+	}
+
 	@Get("sessions")
 	@RequireRoles([UserDatabaseRole.Admin])
 	@ApiOperation({
@@ -61,18 +73,6 @@ export class AuthController {
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async getActiveSession() {
 		return this.storageService.getUserSessions()
-	}
-
-	@Get("logout")
-	@ApiOperation({
-		summary: "Log out the current user"
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiOkResponse()
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	public async logout(@Req() request: UserDatabaseApiRequestAuthenticated) {
-		await this.authService.logout(request.userSession.token)
 	}
 
 	@Get("log-everyone-out")
