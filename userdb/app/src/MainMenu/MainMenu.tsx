@@ -22,6 +22,7 @@ export const MainMenu = () => {
 			<StyledNavLink to="/groups">Groups</StyledNavLink>
 			<StyledNavLink to="/fields">Fields</StyledNavLink>
 			<StyledNavLink to="/optimization">Optimization</StyledNavLink>
+			<StyledNavLink to="/status">API Status</StyledNavLink>
 		</>
 	)
 }

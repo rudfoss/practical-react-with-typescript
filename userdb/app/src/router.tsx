@@ -4,6 +4,7 @@ import { Header, MainLayout } from "@react-workshop/ui"
 
 import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
+import { ApiStatusPage } from "./pages/ApiStatusPage"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
@@ -40,6 +41,10 @@ const appRoutes: RouteObject[] = [
 	{
 		path: "optimization",
 		element: <OptimizationPage />
+	},
+	{
+		path: "status",
+		element: <ApiStatusPage />
 	},
 	{
 		path: "fields",
