@@ -126,7 +126,7 @@ export interface IAuthControllerClient {
     /**
      * Get all currently active sessions
      */
-    getActiveSession(): Promise<UserSession>;
+    getActiveSessions(): Promise<UserSession>;
 
     /**
      * Log out every currently logged in user except the current one
@@ -243,7 +243,7 @@ export class AuthControllerClient extends UserDbApiClientBaseClass implements IA
     /**
      * Get all currently active sessions
      */
-    getActiveSession(): Promise<UserSession> {
+    getActiveSessions(): Promise<UserSession> {
         let url_ = this.baseUrl + "/auth/sessions";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -257,11 +257,11 @@ export class AuthControllerClient extends UserDbApiClientBaseClass implements IA
         return this.transformOptions(options_).then(transformedOptions_ => {
             return this.http.fetch(url_, transformedOptions_);
         }).then((_response: Response) => {
-            return this.processGetActiveSession(_response);
+            return this.processGetActiveSessions(_response);
         });
     }
 
-    protected processGetActiveSession(response: Response): Promise<UserSession> {
+    protected processGetActiveSessions(response: Response): Promise<UserSession> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {

@@ -71,7 +71,7 @@ export class AuthController {
 	@UseGuards(AuthGuard)
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async getActiveSession() {
+	public async getActiveSessions() {
 		return this.storageService.getUserSessions()
 	}
 
