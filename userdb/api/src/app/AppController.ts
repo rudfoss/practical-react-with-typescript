@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Res } from "@nestjs/common"
 import { ApiExcludeEndpoint, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
-import { formatISODuration, intervalToDuration } from "date-fns"
+import { formatISODuration, intervalToDuration, formatRFC3339 } from "date-fns"
 
 import { UserDatabaseApiReply } from "../RequestReply"
 import { UserDatabaseRole } from "../models"
@@ -39,7 +39,7 @@ export class AppController {
 	public async getHealth() {
 		return new HealthRespose({
 			ok: true,
-			bootTime: this._bootTime.toISOString(),
+			bootTime: formatRFC3339(this._bootTime),
 			upTime: formatISODuration(intervalToDuration({ start: this._bootTime, end: new Date() })),
 			dbFilePath: this.storageServiceOptions.fileName
 		})
