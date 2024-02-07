@@ -173,11 +173,11 @@ export class AuthControllerClient extends UserDbApiClientBaseClass implements IA
     protected processLogin(response: Response): Promise<UserSession> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 200) {
+        if (status === 201) {
             return response.text().then((_responseText) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
-            return result200;
+            let result201: any = null;
+            result201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
+            return result201;
             });
         } else if (status === 400) {
             return response.text().then((_responseText) => {
@@ -470,7 +470,7 @@ export interface IUsersControllerClient {
     /**
      * Create a new user
      */
-    createUser(body: NewUser): Promise<void>;
+    createUser(body: NewUser): Promise<User>;
 
     /**
      * Get information about a specific user
@@ -552,7 +552,7 @@ export class UsersControllerClient extends UserDbApiClientBaseClass implements I
     /**
      * Create a new user
      */
-    createUser(body: NewUser): Promise<void> {
+    createUser(body: NewUser): Promise<User> {
         let url_ = this.baseUrl + "/users";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -563,6 +563,7 @@ export class UsersControllerClient extends UserDbApiClientBaseClass implements I
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
 
@@ -573,10 +574,16 @@ export class UsersControllerClient extends UserDbApiClientBaseClass implements I
         });
     }
 
-    protected processCreateUser(response: Response): Promise<void> {
+    protected processCreateUser(response: Response): Promise<User> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 400) {
+        if (status === 201) {
+            return response.text().then((_responseText) => {
+            let result201: any = null;
+            result201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as User;
+            return result201;
+            });
+        } else if (status === 400) {
             return response.text().then((_responseText) => {
             let result400: any = null;
             result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpBadRequestException;
@@ -599,7 +606,7 @@ export class UsersControllerClient extends UserDbApiClientBaseClass implements I
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<User>(null as any);
     }
 
     /**
@@ -804,7 +811,7 @@ export interface IGroupsControllerClient {
     /**
      * Create a new group
      */
-    createGroup(body: NewGroup): Promise<void>;
+    createGroup(body: NewGroup): Promise<Group>;
 
     /**
      * Get information about a specific group.
@@ -886,7 +893,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass implements 
     /**
      * Create a new group
      */
-    createGroup(body: NewGroup): Promise<void> {
+    createGroup(body: NewGroup): Promise<Group> {
         let url_ = this.baseUrl + "/groups";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -897,6 +904,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass implements 
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
 
@@ -907,10 +915,16 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass implements 
         });
     }
 
-    protected processCreateGroup(response: Response): Promise<void> {
+    protected processCreateGroup(response: Response): Promise<Group> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 400) {
+        if (status === 201) {
+            return response.text().then((_responseText) => {
+            let result201: any = null;
+            result201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Group;
+            return result201;
+            });
+        } else if (status === 400) {
             return response.text().then((_responseText) => {
             let result400: any = null;
             result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpBadRequestException;
@@ -933,7 +947,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass implements 
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<Group>(null as any);
     }
 
     /**

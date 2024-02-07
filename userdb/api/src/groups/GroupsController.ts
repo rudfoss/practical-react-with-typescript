@@ -14,6 +14,7 @@ import {
 	ApiBadRequestResponse,
 	ApiBearerAuth,
 	ApiConflictResponse,
+	ApiCreatedResponse,
 	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -101,6 +102,7 @@ export class GroupsController {
 		summary: "Create a new group"
 	})
 	@ApiBadRequestResponse({ type: HttpBadRequestException })
+	@ApiCreatedResponse({ type: Group })
 	public async createGroup(@Body() newGroup: NewGroup) {
 		return this.authService.createGroup(newGroup)
 	}

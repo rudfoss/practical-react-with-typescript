@@ -14,6 +14,7 @@ import {
 	ApiBadRequestResponse,
 	ApiBearerAuth,
 	ApiConflictResponse,
+	ApiCreatedResponse,
 	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -117,6 +118,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Create a new user"
 	})
+	@ApiCreatedResponse({ type: User })
 	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async createUser(@Body() newUser: NewUser) {
 		return await this.authService.createUser(newUser)

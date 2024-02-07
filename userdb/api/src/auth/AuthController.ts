@@ -2,6 +2,7 @@ import { Body, Controller, Get, Inject, Post, Req, UseGuards } from "@nestjs/com
 import {
 	ApiBadRequestResponse,
 	ApiBearerAuth,
+	ApiCreatedResponse,
 	ApiForbiddenResponse,
 	ApiOkResponse,
 	ApiOperation,
@@ -37,7 +38,7 @@ export class AuthController {
 	@ApiOperation({
 		summary: "Log a user in and get an active session"
 	})
-	@ApiOkResponse({ type: UserSession })
+	@ApiCreatedResponse({ type: UserSession })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async login(@Body() loginRequest: LoginRequest) {
