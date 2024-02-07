@@ -5,6 +5,7 @@ import { Header, MainLayout } from "@react-workshop/ui"
 import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
+import { BasicLoginPage } from "./pages/BasicLoginPage"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
@@ -15,6 +16,15 @@ const appRoutes: RouteObject[] = [
 	{
 		element: <HomePage />,
 		index: true
+	},
+	{
+		path: "basic-login",
+		children: [
+			{
+				element: <BasicLoginPage />,
+				index: true
+			}
+		]
 	},
 	{
 		path: "users",

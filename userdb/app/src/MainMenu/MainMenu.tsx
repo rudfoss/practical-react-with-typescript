@@ -15,6 +15,7 @@ export const MainMenu = () => {
 	return (
 		<>
 			<StyledNavLink to="/">Home</StyledNavLink>
+			<StyledNavLink to="/basic-login">Basic Login</StyledNavLink>
 			<StyledNavLink to="/users" end>
 				Users
 			</StyledNavLink>
