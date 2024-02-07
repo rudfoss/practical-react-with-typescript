@@ -4,25 +4,25 @@ import { useRef } from "react"
 import { AppControllerClient } from "@react-workshop/userdb-api-client"
 import { delay } from "@react-workshop/utils"
 
-import { DisplayStats } from "./DisplayStats"
+import { DisplayHealth } from "./DisplayHealth"
 
-export const ApiStats = () => {
+export const ApiHealth = () => {
 	const appClient = useRef(new AppControllerClient("//localhost:4210"))
-	const { data: stats, error } = useQuery({
-		queryKey: ["stats"],
-		queryFn: () => delay(appClient.current.getStats(), 1000),
+	const { data: health, error } = useQuery({
+		queryKey: ["health"],
+		queryFn: () => delay(appClient.current.getHealth(), 1000),
 		retry: 0,
 		staleTime: 10_000 // 10 seconds
 	})
 
-	if (stats) {
-		return <DisplayStats stats={stats} />
+	if (health) {
+		return <DisplayHealth health={health} />
 	}
 
 	if (error) {
 		return (
 			<>
-				<p>Failed to fetch stats from the server...</p>
+				<p>Failed to fetch health from the server...</p>
 				<pre>
 					<code>{error.message}</code>
 				</pre>
@@ -30,5 +30,5 @@ export const ApiStats = () => {
 		)
 	}
 
-	return <p>Loading stats...</p>
+	return <p>Loading health...</p>
 }
