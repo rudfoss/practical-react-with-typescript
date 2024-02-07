@@ -13,18 +13,18 @@ export class UserDbApiClientBaseClass {
 
 /**
  * Set or remove the bearer token authorization header on the global parent class.
- * @param sessionToken
+ * @param bearerToken
  * @returns
  */
-export const setBearerToken = (sessionToken?: string) => {
-	if (!sessionToken) {
+export const setBearerToken = (bearerToken?: string) => {
+	if (!bearerToken) {
 		UserDbApiClientBaseClass.globalOptionsTransformer = undefined
 		return
 	}
 
 	UserDbApiClientBaseClass.globalOptionsTransformer = async (options) => {
 		options.headers = new Headers(options.headers)
-		options.headers.set("Authorization", `Bearer ${sessionToken}`)
+		options.headers.set("Authorization", `Bearer ${bearerToken}`)
 		return options
 	}
 }
