@@ -5,7 +5,10 @@ export type OptionTransformer = (options: RequestInit) => Promise<RequestInit>
  */
 export class UserDbApiClientBaseClass {
 	public async transformOptions(options: RequestInit) {
-		return UserDbApiClientBaseClass.globalOptionsTransformer?.(options)
+		const transformedOptions = await await UserDbApiClientBaseClass.globalOptionsTransformer?.(
+			options
+		)
+		return transformedOptions ?? options
 	}
 
 	public static globalOptionsTransformer?: OptionTransformer

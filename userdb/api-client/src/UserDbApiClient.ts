@@ -179,11 +179,11 @@ export class AuthControllerClient extends UserDbApiClientBaseClass implements IA
             result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
             return result200;
             });
-        } else if (status === 404) {
+        } else if (status === 401) {
             return response.text().then((_responseText) => {
-            let result404: any = null;
-            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
-            return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            let result401: any = null;
+            result401 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpUnauthorizedException;
+            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
@@ -1111,14 +1111,6 @@ export interface UserSession {
     [key: string]: any;
 }
 
-export interface HttpNotFoundException {
-    message: string;
-    error: string;
-    statusCode: number;
-
-    [key: string]: any;
-}
-
 export interface HttpUnauthorizedException {
     message: string;
     error: string;
@@ -1169,6 +1161,14 @@ export interface UserInformation {
     user: User;
     roles: Roles[];
     groups: Group[];
+
+    [key: string]: any;
+}
+
+export interface HttpNotFoundException {
+    message: string;
+    error: string;
+    statusCode: number;
 
     [key: string]: any;
 }

@@ -1,17 +1,7 @@
-import {
-	Body,
-	Controller,
-	Get,
-	Inject,
-	NotFoundException,
-	Post,
-	Req,
-	UseGuards
-} from "@nestjs/common"
+import { Body, Controller, Get, Inject, Post, Req, UseGuards } from "@nestjs/common"
 import {
 	ApiBearerAuth,
 	ApiForbiddenResponse,
-	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
 	ApiTags,
@@ -19,11 +9,7 @@ import {
 } from "@nestjs/swagger"
 
 import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
-import {
-	HttpForbiddenException,
-	HttpNotFoundException,
-	HttpUnauthorizedException
-} from "../httpExceptions"
+import { HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
 import { UserDatabaseRole, UserSession } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
@@ -47,10 +33,11 @@ export class AuthController {
 		summary: "Log a user in and get an active session"
 	})
 	@ApiOkResponse({ type: UserSession })
-	@ApiNotFoundResponse({ type: HttpNotFoundException })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
 	public async login(@Body() loginRequest: LoginRequest) {
 		const userSession = await this.authService.login(loginRequest)
-		if (!userSession) throw new NotFoundException("Username and password combination incorrect.")
+		if (!userSession)
+			throw new HttpUnauthorizedException("Username and password combination incorrect.")
 		return userSession
 	}
 
