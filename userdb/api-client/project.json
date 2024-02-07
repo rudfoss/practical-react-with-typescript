@@ -15,7 +15,7 @@
 			"options": {
 				"parallel": false,
 				"commands": [
-					"cross-env TS_NODE_PROJECT=tools/tsconfig.tools.json node --loader ts-node/esm -r ts-node/register/transpile-only tools/generateTsClient.ts UserDbApiClient dist/userdb/api/userdb-api-openapi.json userdb/api-client/src"
+					"cross-env TS_NODE_PROJECT=tools/tsconfig.tools.json node --loader ts-node/esm -r ts-node/register/transpile-only tools/generateTsClient.ts UserDbApiClient dist/userdb/api/userdb-api-openapi.json userdb/api-client/src UserDbApiClientBaseClass"
 				]
 			}
 		}

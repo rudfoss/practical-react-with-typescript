@@ -1,2 +1,2 @@
 export * from "./UserDbApiClient"
-export * from "./ClientBaseClass"
+export * from "./UserDbApiClientBaseClass"
