@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useRef } from "react"
 
 import { AppControllerClient } from "@react-workshop/userdb-api-client"
-import { delay } from "@react-workshop/utils"
+// import { delay } from "@react-workshop/utils"
 
 import { DisplayHealth } from "./DisplayHealth"
 
@@ -10,7 +10,8 @@ export const ApiHealth = () => {
 	const appClient = useRef(new AppControllerClient("//localhost:4210"))
 	const { data: health, error } = useQuery({
 		queryKey: ["health"],
-		queryFn: () => delay(appClient.current.getHealth(), 1000),
+		queryFn: () => appClient.current.getHealth(),
+		// queryFn: () => delay(appClient.current.getHealth(), 1000),
 		retry: 0,
 		staleTime: 10_000 // 10 seconds
 	})

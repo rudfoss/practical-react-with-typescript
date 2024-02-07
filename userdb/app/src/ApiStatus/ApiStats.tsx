@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useRef } from "react"
 
 import { AppControllerClient } from "@react-workshop/userdb-api-client"
-import { delay } from "@react-workshop/utils"
+// import { delay } from "@react-workshop/utils"
 
 import { DisplayStats } from "./DisplayStats"
 
@@ -10,7 +10,8 @@ export const ApiStats = () => {
 	const appClient = useRef(new AppControllerClient("//localhost:4210"))
 	const { data: stats, error } = useQuery({
 		queryKey: ["stats"],
-		queryFn: () => delay(appClient.current.getStats(), 1000),
+		queryFn: () => appClient.current.getStats(),
+		// queryFn: () => delay(appClient.current.getStats(), 1000),
 		retry: 0,
 		staleTime: 10_000 // 10 seconds
 	})
