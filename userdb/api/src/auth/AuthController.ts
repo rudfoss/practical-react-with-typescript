@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Inject, Post, Req, UseGuards } from "@nestjs/common"
 import {
+	ApiBadRequestResponse,
 	ApiBearerAuth,
 	ApiForbiddenResponse,
 	ApiOkResponse,
@@ -9,7 +10,11 @@ import {
 } from "@nestjs/swagger"
 
 import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
-import { HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
+import {
+	HttpBadRequestException,
+	HttpForbiddenException,
+	HttpUnauthorizedException
+} from "../httpExceptions"
 import { UserDatabaseRole, UserSession } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
@@ -34,6 +39,7 @@ export class AuthController {
 	})
 	@ApiOkResponse({ type: UserSession })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async login(@Body() loginRequest: LoginRequest) {
 		const userSession = await this.authService.login(loginRequest)
 		if (!userSession)
