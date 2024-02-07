@@ -1,7 +1,11 @@
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { ReactNode } from "react"
 
 import { ProvideFieldsService } from "@react-workshop/fields"
 import { ProvideHeaderService } from "@react-workshop/ui"
+
+const queryClient = new QueryClient()
 
 export interface BootstrapProps {
 	children: ReactNode
@@ -9,8 +13,11 @@ export interface BootstrapProps {
 
 export const Bootstrap = ({ children }: BootstrapProps) => {
 	return (
-		<ProvideFieldsService>
-			<ProvideHeaderService>{children}</ProvideHeaderService>
-		</ProvideFieldsService>
+		<QueryClientProvider client={queryClient}>
+			<ProvideFieldsService>
+				<ProvideHeaderService>{children}</ProvideHeaderService>
+			</ProvideFieldsService>
+			<ReactQueryDevtools />
+		</QueryClientProvider>
 	)
 }
