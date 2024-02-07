@@ -3,6 +3,7 @@ import { ApiExcludeEndpoint, ApiOkResponse, ApiOperation, ApiTags } from "@nestj
 import { formatISODuration, intervalToDuration } from "date-fns"
 
 import { UserDatabaseApiReply } from "../RequestReply"
+import { UserDatabaseRole } from "../models"
 import {
 	FileStorageServiceOptions,
 	StorageService,
@@ -11,6 +12,7 @@ import {
 } from "../storage"
 
 import { HealthRespose } from "./HealthResponse"
+import { StatsResponse } from "./StatsResponse"
 
 @Controller()
 @ApiTags("App")
@@ -35,18 +37,49 @@ export class AppController {
 	})
 	@ApiOkResponse({ type: HealthRespose })
 	public async getHealth() {
-		const userSessions = await this.storageService.getUserSessions()
-		const users = await this.storageService.getUsers()
-		const groups = await this.storageService.getGroups()
-
 		return new HealthRespose({
 			ok: true,
 			bootTime: this._bootTime.toISOString(),
 			upTime: formatISODuration(intervalToDuration({ start: this._bootTime, end: new Date() })),
-			dbFilePath: this.storageServiceOptions.fileName,
-			sessionCount: userSessions.length,
+			dbFilePath: this.storageServiceOptions.fileName
+		})
+	}
+
+	@Get("stats")
+	@ApiOperation({
+		summary: "Returns some basic stats from the API"
+	})
+	@ApiOkResponse({ type: StatsResponse })
+	public async getStats() {
+		const userSessions = await this.storageService.getUserSessions()
+		const users = await this.storageService.getUsers()
+		const groups = await this.storageService.getGroups()
+
+		const adminGroupIds = new Set(
+			groups
+				.filter((group) => group.roles.includes(UserDatabaseRole.Admin))
+				.map((group) => group.id)
+		)
+		const guestGroupIds = new Set(
+			groups
+				.filter((group) => group.roles.includes(UserDatabaseRole.Guest))
+				.map((group) => group.id)
+		)
+
+		const adminUsers = users.filter((user) =>
+			user.groupIds?.some((groupId) => adminGroupIds.has(groupId))
+		)
+		const guestUsers = users.filter((user) =>
+			user.groupIds?.some((groupId) => guestGroupIds.has(groupId))
+		)
+
+		return new StatsResponse({
 			userCount: users.length,
-			groupsCount: groups.length
+			groupCount: groups.length,
+			sessionCount: userSessions.length,
+
+			adminCount: adminUsers.length,
+			guestCount: guestUsers.length
 		})
 	}
 

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsInt, IsRFC3339, IsString, Length, ValidatorOptions } from "class-validator"
+import { IsRFC3339, IsString, Length, ValidatorOptions } from "class-validator"
 
 import { ObjectFields, ValidationError } from "@react-workshop/utils"
 
@@ -39,16 +39,4 @@ export class HealthRespose {
 	@ApiProperty()
 	@IsString()
 	dbFilePath: string
-
-	@ApiProperty()
-	@IsInt()
-	sessionCount: number
-
-	@ApiProperty()
-	@IsInt()
-	userCount: number
-
-	@ApiProperty()
-	@IsInt()
-	groupsCount: number
 }
