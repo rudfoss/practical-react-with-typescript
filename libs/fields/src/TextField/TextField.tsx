@@ -17,9 +17,17 @@ export interface TextFieldProps {
 	maxLength?: number
 
 	label: string
+	disabled?: boolean
 }
 
-export const TextField = ({ value, onChange, label, type = "text", maxLength }: TextFieldProps) => {
+export const TextField = ({
+	value,
+	onChange,
+	disabled,
+	label,
+	type = "text",
+	maxLength
+}: TextFieldProps) => {
 	const id = useId()
 	const isDisabled = useFieldsServiceIsDisabled()
 
@@ -36,7 +44,7 @@ export const TextField = ({ value, onChange, label, type = "text", maxLength }: 
 				value={value}
 				onChange={onInputChange}
 				maxLength={maxLength}
-				disabled={isDisabled}
+				disabled={disabled ?? isDisabled}
 			/>
 		</FieldContainer>
 	)

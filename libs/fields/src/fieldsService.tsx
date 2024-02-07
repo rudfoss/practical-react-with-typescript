@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 export interface FieldsServiceContextProps {
 	isDisabled: boolean
@@ -19,15 +19,19 @@ export const useFieldsServiceIsDisabled = () => {
 }
 
 export interface ProvideFieldsServiceProps {
-	defaultIsDisabled?: boolean
+	isDisabled?: boolean
 	children: React.ReactNode
 }
 
 export const ProvideFieldsService = ({
-	defaultIsDisabled = false,
+	isDisabled: providedIsDisabled = false,
 	children
 }: ProvideFieldsServiceProps) => {
-	const [isDisabled, setIsDisabled] = useState(defaultIsDisabled)
+	const [isDisabled, setIsDisabled] = useState(providedIsDisabled)
+	useEffect(() => {
+		setIsDisabled(providedIsDisabled)
+	}, [providedIsDisabled])
+
 	const toggleOrSetIsDisabled = (nextIsDisabled?: boolean) => {
 		setIsDisabled(nextIsDisabled ?? !isDisabled)
 	}

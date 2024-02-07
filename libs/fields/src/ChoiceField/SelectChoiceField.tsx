@@ -9,7 +9,8 @@ export const SelectChoiceField = <TData,>({
 	value,
 	onChange,
 	options,
-	label
+	label,
+	disabled
 }: ChoiceFieldBaseProps<TData>) => {
 	const id = useId()
 	const isDisabled = useFieldsServiceIsDisabled()
@@ -22,7 +23,7 @@ export const SelectChoiceField = <TData,>({
 	return (
 		<>
 			<Label htmlFor={id}>{label}</Label>
-			<select value={value?.value ?? ""} onChange={handleChange} disabled={isDisabled}>
+			<select value={value?.value ?? ""} onChange={handleChange} disabled={disabled ?? isDisabled}>
 				<option value=""></option>
 				{options.map((option) => (
 					<option value={option.value} key={option.value}>

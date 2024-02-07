@@ -7,4 +7,5 @@ export interface ChoiceFieldBaseProps<TData> {
 	options: ChoiceFieldChoice<TData>[]
 
 	label: string
+	disabled?: boolean
 }

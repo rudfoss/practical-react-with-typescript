@@ -17,6 +17,7 @@ export interface MultiLineTextFieldProps {
 	onChange: (newValue: string) => unknown
 
 	label: string
+	disabled?: boolean
 
 	maxLength?: number
 }
@@ -24,6 +25,7 @@ export interface MultiLineTextFieldProps {
 export const MultiLineTextField = ({
 	value,
 	onChange,
+	disabled,
 	label,
 	maxLength
 }: MultiLineTextFieldProps) => {
@@ -42,7 +44,7 @@ export const MultiLineTextField = ({
 				value={value}
 				maxLength={maxLength}
 				onChange={onTextareaChange}
-				disabled={isDisabled}
+				disabled={disabled ?? isDisabled}
 			/>
 		</FieldContainer>
 	)
