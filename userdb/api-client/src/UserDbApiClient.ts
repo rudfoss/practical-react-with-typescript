@@ -1075,6 +1075,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass implements 
 
 export interface HealthRespose {
     ok: boolean;
+    /** RFC3339 timestamp for when the server first booted */
     bootTime: string;
     upTime: string;
     dbFilePath: string;
