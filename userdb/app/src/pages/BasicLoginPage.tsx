@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 import { useEffect, useRef } from "react"
 
+import { LoadingSpinner } from "@react-workshop/ui"
 import {
 	AuthControllerClient,
 	LoginRequest,
@@ -35,6 +36,7 @@ export const BasicLoginPage = () => {
 
 	return (
 		<>
+			{isWorking && <LoadingSpinner />}
 			{sessionData && (
 				<>
 					<h3>User is authenticated</h3>
