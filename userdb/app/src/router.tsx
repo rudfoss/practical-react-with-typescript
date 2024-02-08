@@ -5,6 +5,7 @@ import { Header, MainLayout } from "@react-workshop/ui"
 import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
+import { AuthServiceLoginPage } from "./pages/AuthServiceLoginPage"
 import { BasicLoginPage } from "./pages/BasicLoginPage"
 import { DataServiceLoginPage } from "./pages/DataServiceLoginPage"
 import { FieldsPage } from "./pages/FieldsPage"
@@ -18,20 +19,34 @@ const appRoutes: RouteObject[] = [
 		element: <HomePage />
 	},
 	{
-		path: "basic-login",
+		path: "login",
 		children: [
 			{
-				index: true,
-				element: <BasicLoginPage />
-			}
-		]
-	},
-	{
-		path: "data-service-login",
-		children: [
+				path: "basic",
+				children: [
+					{
+						index: true,
+						element: <BasicLoginPage />
+					}
+				]
+			},
 			{
-				index: true,
-				element: <DataServiceLoginPage />
+				path: "data-service",
+				children: [
+					{
+						index: true,
+						element: <DataServiceLoginPage />
+					}
+				]
+			},
+			{
+				path: "auth-service",
+				children: [
+					{
+						index: true,
+						element: <AuthServiceLoginPage />
+					}
+				]
 			}
 		]
 	},
