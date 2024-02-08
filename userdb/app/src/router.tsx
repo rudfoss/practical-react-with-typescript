@@ -6,23 +6,32 @@ import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
 import { BasicLoginPage } from "./pages/BasicLoginPage"
+import { DataServiceLoginPage } from "./pages/DataServiceLoginPage"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { OptimizationPage } from "./pages/OptimizationPage"
-import { UsersPage } from "./pages/UsersPage"
 
 const appRoutes: RouteObject[] = [
 	{
-		element: <HomePage />,
-		index: true
+		index: true,
+		element: <HomePage />
 	},
 	{
 		path: "basic-login",
 		children: [
 			{
-				element: <BasicLoginPage />,
-				index: true
+				index: true,
+				element: <BasicLoginPage />
+			}
+		]
+	},
+	{
+		path: "data-service-login",
+		children: [
+			{
+				index: true,
+				element: <DataServiceLoginPage />
 			}
 		]
 	},
@@ -30,12 +39,18 @@ const appRoutes: RouteObject[] = [
 		path: "users",
 		children: [
 			{
-				element: <UsersPage />,
-				index: true
+				index: true,
+				lazy: async () => {
+					const { UsersPage } = await import("./pages/UsersPage")
+					return { Component: UsersPage }
+				}
 			},
 			{
 				path: ":userId",
-				element: <UsersPage />
+				lazy: async () => {
+					const { UsersPage } = await import("./pages/UsersPage")
+					return { Component: UsersPage }
+				}
 			}
 		]
 	},
@@ -43,8 +58,8 @@ const appRoutes: RouteObject[] = [
 		path: "groups",
 		children: [
 			{
-				element: <GroupsPage />,
-				index: true
+				index: true,
+				element: <GroupsPage />
 			}
 		]
 	},
