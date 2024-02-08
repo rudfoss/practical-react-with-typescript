@@ -5,13 +5,11 @@ import { Header, MainLayout } from "@react-workshop/ui"
 import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
-import { AuthServiceLoginPage } from "./pages/AuthServiceLoginPage"
-import { BasicLoginPage } from "./pages/BasicLoginPage"
-import { DataServiceLoginPage } from "./pages/DataServiceLoginPage"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { OptimizationPage } from "./pages/OptimizationPage"
+import { AuthServiceLoginPage, BasicLoginPage, DataServiceLoginPage } from "./pages/login"
 
 const appRoutes: RouteObject[] = [
 	{
