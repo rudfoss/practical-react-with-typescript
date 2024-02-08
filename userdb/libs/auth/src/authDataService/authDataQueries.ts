@@ -14,17 +14,17 @@ export const createAuthDataQueries = (
 	authUserClient: IAuthUserControllerClient
 ) => {
 	const queries = {
-		user: () => ["user"],
+		currentUser: () => ["currentUser"],
 
 		session: () =>
 			queryOptions({
-				queryKey: [...queries.user(), "session"],
+				queryKey: [...queries.currentUser(), "session"],
 				queryFn: () => authUserClient.getSession(),
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),
 		userInformation: () =>
 			queryOptions({
-				queryKey: [...queries.user(), "information"],
+				queryKey: [...queries.currentUser(), "information"],
 				queryFn: () => authUserClient.getCurrentUser(),
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),

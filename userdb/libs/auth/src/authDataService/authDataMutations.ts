@@ -15,7 +15,7 @@ export const useLogin = () => {
 		mutationFn: (loginRequest: LoginRequest) => authClient.login(loginRequest),
 		onSuccess: async (data) => {
 			// First we need to invalidate all existing user data as it is no longer accurate.
-			await queryClient.invalidateQueries({ queryKey: queries.user() })
+			await queryClient.invalidateQueries({ queryKey: queries.currentUser() })
 			// Then we can set the user data for the session as it is what is returned by the login mutation.
 			queryClient.setQueryData(queries.session().queryKey, data)
 		},
@@ -33,7 +33,7 @@ export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 	return useMutation({
 		mutationFn: () => authClient.logout(),
 		onSuccess: async (data) => {
-			await queryClient.invalidateQueries({ queryKey: queries.user() })
+			await queryClient.invalidateQueries({ queryKey: queries.currentUser() })
 			setSessionToken()
 			onSuccess?.()
 		}
@@ -48,7 +48,7 @@ export const useLogEveryoneOut = () => {
 	return useMutation({
 		mutationFn: () => authClient.logEveryoneOut(),
 		onSuccess: async (data) => {
-			await queryClient.invalidateQueries({ queryKey: queries.user() })
+			await queryClient.invalidateQueries({ queryKey: queries.currentUser() })
 			setSessionToken()
 		}
 	})
