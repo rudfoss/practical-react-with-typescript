@@ -347,17 +347,18 @@ describe("AuthService", () => {
 			const retrievedSession = await authService.getSession(loginSession!.token)
 			expect(loginSession).toEqual(retrievedSession)
 		})
-		it("can refresh an existing session keeping the originial createdAt", async () => {
+		it("can refresh an existing session which invalidates the old one", async () => {
 			const { authService } = createServiceMocks()
-			const loginSession = await authService.login({ username: "admin", password: "admin" })
+			const loginSession = (await authService.login({ username: "admin", password: "admin" }))!
 			setGlobalTime(Date.now() + 3600)
 
 			const refreshedSession = await authService.createSession(loginSession!.userId, loginSession!)
 
-			expect(refreshedSession!).toEqual({
-				...loginSession!,
-				expiresAt: loginSession!.expiresAt + 3600
-			})
+			expect(refreshedSession.token).not.toEqual(loginSession.token)
+			expect(refreshedSession.createdAt).toEqual(loginSession.createdAt)
+
+			const oldSession = await authService.getSession(loginSession.token)
+			expect(oldSession).not.toBeDefined()
 		})
 		it("can logout sessions", async () => {
 			const { authService } = createServiceMocks()

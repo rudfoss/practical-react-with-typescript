@@ -162,14 +162,16 @@ export class AuthService {
 		const now = Date.now()
 		const newSession = new UserSession({
 			createdAt: now,
-			token: this.uidGenerator(),
-			userId,
 			...basedOnSesssion,
+			userId,
+			token: this.uidGenerator(),
 			expiresAt: now + SESSOIN_LIFETIME_MS
 		})
 
 		await this.storageService.setUserSessions((oldSessions) => {
-			const nextSesssions = oldSessions.filter((session) => session.token !== newSession.token)
+			const nextSesssions = oldSessions.filter(
+				(session) => session.token !== basedOnSesssion?.token
+			)
 			nextSesssions.push(newSession)
 			return nextSesssions
 		})

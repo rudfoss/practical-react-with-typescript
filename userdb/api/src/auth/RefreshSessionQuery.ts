@@ -5,7 +5,8 @@ export class RefreshSessionQuery {
 	@ApiProperty({
 		required: false,
 		enum: ["true", "false"],
-		description: "If 'true' the session expire time will be renewed if it is valid."
+		description:
+			"If 'true' the old session token will be removed and a new session object with a new token is returned. The createdAt timestamp of the old session is kept."
 	})
 	@IsEnum(["true", "false"], { message: `Value must be either "true" or "false" if set.` })
 	@IsOptional()
