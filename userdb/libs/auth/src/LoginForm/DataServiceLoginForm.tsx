@@ -1,13 +1,16 @@
+import { useQuery } from "@tanstack/react-query"
+
 import { useHeading } from "@react-workshop/ui"
 
 import { DebugSessionInfo } from "../DebugSessionInfo"
-import { useLogin, useLogout } from "../authDataService"
+import { useAuthDataService, useLogin, useLogout } from "../authDataService"
 
 import { LoginForm } from "./LoginForm"
 
 export interface DataServiceLoginFormProps {}
 
 export const DataServiceLoginForm = (props: DataServiceLoginFormProps) => {
+	const { queries } = useAuthDataService()
 	useHeading("Data service powered login")
 	const {
 		isSuccess: isLoggedIn,
@@ -17,13 +20,15 @@ export const DataServiceLoginForm = (props: DataServiceLoginFormProps) => {
 	} = useLogin()
 	const { mutate: logout, isPending: isLoggingOut } = useLogout(() => resetSessionData())
 
+	const { data: sessionData } = useQuery({ ...queries.session(), enabled: isLoggedIn })
+
 	const isWorking = isLoggingIn || isLoggingOut
 
 	return (
 		<>
-			{isLoggedIn && (
+			{sessionData && (
 				<>
-					<DebugSessionInfo />
+					<DebugSessionInfo sessionData={sessionData} />
 					<button onClick={() => logout()}>Logout</button>
 				</>
 			)}
