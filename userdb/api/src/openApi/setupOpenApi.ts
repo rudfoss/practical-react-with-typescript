@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 
 import { bearerAuthName, bearerConfig } from "../auth"
 
-import description from "./openApiDescription.md"
+import description from "./userdb-api-documentation.md"
 
 export const setupOpenApi = (app: INestApplication) => {
 	const config = new DocumentBuilder()

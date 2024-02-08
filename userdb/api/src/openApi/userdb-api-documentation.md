@@ -8,7 +8,7 @@ In order to call protected endpoints you need a valid session token. These token
 Authorization: Bearer [token]
 ```
 
-In the Swagger UI you can simply paste the session token in the Authorize dialog to test authorized requests.
+In the Swagger UI you can perform authenticated requests by using the `login` endpoint to get a token and then copying that token to the Authorize dialog.
 
 **Important**: Tokens expire after 30 minutes, but can be renewed using the `auth/session` endpoint.
 
