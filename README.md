@@ -30,7 +30,7 @@ Before you begin there are a few things you need to install on your machine. The
 
 ### Recommended
 
-The course will be using [Visual Studio Code](https://code.visualstudio.com) with some extensions and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with NX](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE is not strictly required, but it makes working with nx commands much easier.
+The course will be using [Visual Studio Code](https://code.visualstudio.com) with some extensions and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE is not strictly required, but it makes working with nx commands much easier.
 
 You can install Visual Studio Code from [their home page](https://code.visualstudio.com) or using `winget` if you are on Windows:
 

@@ -4,6 +4,7 @@ import { ReactNode } from "react"
 
 import { ProvideFieldsService } from "@react-workshop/fields"
 import { ProvideHeaderService } from "@react-workshop/ui"
+import { ProvideSessionTokenService } from "@react-workshop/userdb-libs-auth"
 
 const queryClient = new QueryClient()
 
@@ -14,10 +15,12 @@ export interface BootstrapProps {
 export const Bootstrap = ({ children }: BootstrapProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ProvideFieldsService>
-				<ProvideHeaderService>{children}</ProvideHeaderService>
-			</ProvideFieldsService>
-			<ReactQueryDevtools />
+			<ProvideSessionTokenService>
+				<ProvideFieldsService>
+					<ProvideHeaderService>{children}</ProvideHeaderService>
+				</ProvideFieldsService>
+				<ReactQueryDevtools />
+			</ProvideSessionTokenService>
 		</QueryClientProvider>
 	)
 }

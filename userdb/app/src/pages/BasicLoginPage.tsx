@@ -1,16 +1,17 @@
 import { useMutation } from "@tanstack/react-query"
 import { useEffect, useRef } from "react"
 
-import { LoadingSpinner } from "@react-workshop/ui"
+import { LoadingSpinner, useHeading } from "@react-workshop/ui"
 import {
 	AuthControllerClient,
 	LoginRequest,
 	setBearerToken
 } from "@react-workshop/userdb-api-client"
-import { LoginForm } from "@react-workshop/userdb-libs-auth"
+import { DebugSessionInfo, LoginForm } from "@react-workshop/userdb-libs-auth"
 import { delay } from "@react-workshop/utils"
 
 export const BasicLoginPage = () => {
+	useHeading("Basic login")
 	const authClient = useRef(new AuthControllerClient("//localhost:4210"))
 	const {
 		data: sessionData,
@@ -36,24 +37,9 @@ export const BasicLoginPage = () => {
 
 	return (
 		<>
-			{isWorking && <LoadingSpinner />}
 			{sessionData && (
 				<>
-					<h3>User is authenticated</h3>
-					<dl>
-						<dt>Created</dt>
-						<dd>{new Date(sessionData.createdAt).toLocaleString()}</dd>
-						<dt>Expires</dt>
-						<dd>{new Date(sessionData.expiresAt).toLocaleString()}</dd>
-						<dt>Id</dt>
-						<dd>
-							<code>{sessionData.userId}</code>
-						</dd>
-						<dt>Token</dt>
-						<dd>
-							<code>{sessionData.token}</code>
-						</dd>
-					</dl>
+					<DebugSessionInfo session={sessionData} />
 					<button onClick={() => logout()}>Logout</button>
 				</>
 			)}
@@ -61,6 +47,7 @@ export const BasicLoginPage = () => {
 				onLogin={(username, password) => login({ username, password })}
 				disabled={isWorking}
 			/>
+			{isWorking && <LoadingSpinner />}
 		</>
 	)
 }
