@@ -5,6 +5,7 @@ import { Header, MainLayout } from "@react-workshop/ui"
 import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
+import { ErrorPage } from "./pages/ErrorPage"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
@@ -95,6 +96,13 @@ export const router = createBrowserRouter([
 		element: (
 			<Bootstrap>
 				<MainLayout header={<Header />} menu={<MainMenu />} />
+			</Bootstrap>
+		),
+		errorElement: (
+			<Bootstrap>
+				<MainLayout header={<Header />} menu={<MainMenu />}>
+					<ErrorPage />
+				</MainLayout>
 			</Bootstrap>
 		),
 		children: appRoutes

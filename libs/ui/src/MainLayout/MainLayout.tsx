@@ -15,17 +15,16 @@ const Columns = styled.div`
 export interface MainLayoutProps {
 	header: ReactNode
 	menu: ReactNode
+	children?: ReactNode
 }
 
-export const MainLayout = ({ header, menu }: MainLayoutProps) => {
+export const MainLayout = ({ header, menu, children = <Outlet /> }: MainLayoutProps) => {
 	return (
 		<>
 			{header}
 			<Columns>
 				<nav>{menu}</nav>
-				<main>
-					<Outlet />
-				</main>
+				<main>{children}</main>
 			</Columns>
 		</>
 	)
