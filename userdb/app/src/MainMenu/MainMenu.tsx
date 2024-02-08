@@ -15,14 +15,17 @@ export const MainMenu = () => {
 	return (
 		<>
 			<StyledNavLink to="/">Home</StyledNavLink>
+			<hr />
 			<StyledNavLink to="/login/basic">Basic Login</StyledNavLink>
 			<StyledNavLink to="/login/data-service">Data Service Login</StyledNavLink>
 			<StyledNavLink to="/login/auth-service">Auth Service Login</StyledNavLink>
+			<hr />
 			<StyledNavLink to="/users" end>
 				Users
 			</StyledNavLink>
 			<StyledNavLink to="/users/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">Single user</StyledNavLink>
 			<StyledNavLink to="/groups">Groups</StyledNavLink>
+			<hr />
 			<StyledNavLink to="/fields">Fields</StyledNavLink>
 			<StyledNavLink to="/optimization">Optimization</StyledNavLink>
 			<StyledNavLink to="/status">API Status</StyledNavLink>
