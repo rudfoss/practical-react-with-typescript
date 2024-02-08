@@ -10,7 +10,7 @@
 	},
 	"npm.packageManager": "pnpm",
 	"workbench.iconTheme": "vscode-icons",
-	"debug.javascript.autoAttachFilter": "onlyWithFlag",
+	"debug.javascript.autoAttachFilter": "smart",
 
 	"files.exclude": {
 		"**/.*": true,
