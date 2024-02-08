@@ -1,6 +1,7 @@
-import { RouteObject, createBrowserRouter } from "react-router-dom"
+import { Navigate, Outlet, RouteObject, createBrowserRouter } from "react-router-dom"
 
 import { Header, MainLayout } from "@react-workshop/ui"
+import { RequireRoles } from "@react-workshop/userdb-libs-auth"
 
 import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
@@ -51,6 +52,11 @@ const appRoutes: RouteObject[] = [
 	},
 	{
 		path: "users",
+		element: (
+			<RequireRoles onMissingRoles={<Navigate to="/" />}>
+				<Outlet />
+			</RequireRoles>
+		),
 		children: [
 			{
 				index: true,
@@ -70,6 +76,11 @@ const appRoutes: RouteObject[] = [
 	},
 	{
 		path: "groups",
+		element: (
+			<RequireRoles onMissingRoles={<Navigate to="/" />}>
+				<Outlet />
+			</RequireRoles>
+		),
 		children: [
 			{
 				index: true,
@@ -79,11 +90,19 @@ const appRoutes: RouteObject[] = [
 	},
 	{
 		path: "optimization",
-		element: <OptimizationPage />
+		element: (
+			<RequireRoles roles={["Admin"]} onMissingRoles={<Navigate to="/" />}>
+				<OptimizationPage />
+			</RequireRoles>
+		)
 	},
 	{
 		path: "status",
-		element: <ApiStatusPage />
+		element: (
+			<RequireRoles roles={["Admin"]} onMissingRoles={<Navigate to="/" />}>
+				<ApiStatusPage />
+			</RequireRoles>
+		)
 	},
 	{
 		path: "fields",

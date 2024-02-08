@@ -1,13 +1,22 @@
+import styled from "@emotion/styled"
 import { FormEvent, useState } from "react"
 
 import { TextField } from "@react-workshop/fields"
 
+const ErrorContainer = styled.div`
+	border: 1px solid red;
+	background-color: #ffd8d8;
+	padding: 8px;
+	margin: 16px 8px;
+`
+
 export interface LoginFormProps {
 	disabled?: boolean
+	errorMessage?: string
 	onLogin: (username: string, password: string) => unknown
 }
 
-export const LoginForm = ({ disabled, onLogin }: LoginFormProps) => {
+export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) => {
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 
@@ -15,11 +24,6 @@ export const LoginForm = ({ disabled, onLogin }: LoginFormProps) => {
 		if (disabled) return
 		event.preventDefault()
 		onLogin(username, password)
-	}
-
-	const onReset = () => {
-		setUsername("")
-		setPassword("")
 	}
 
 	return (
@@ -32,7 +36,7 @@ export const LoginForm = ({ disabled, onLogin }: LoginFormProps) => {
 				onChange={setPassword}
 				disabled={disabled}
 			/>
-			<input type="reset" value="Clear" onClick={onReset} disabled={disabled} />
+			{errorMessage && <ErrorContainer>{errorMessage}</ErrorContainer>}
 			<input type="submit" value="Log in" disabled={disabled} />
 		</form>
 	)

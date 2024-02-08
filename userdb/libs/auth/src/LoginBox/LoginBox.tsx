@@ -15,7 +15,7 @@ const Container = styled.div`
  * Provides a login form in a box or login information if already authenticated.
  */
 export const LoginBox = () => {
-	const { login, logout, isWorking, user } = useAuthService()
+	const { login, logout, isWorking, user, loginFailedError } = useAuthService()
 
 	return (
 		<Container>
@@ -24,6 +24,7 @@ export const LoginBox = () => {
 					<LoginForm
 						onLogin={(username, password) => login({ username, password })}
 						disabled={isWorking}
+						errorMessage={loginFailedError?.message}
 					/>
 				)}
 				{user && (
