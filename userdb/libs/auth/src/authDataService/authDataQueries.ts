@@ -11,7 +11,8 @@ import { IAuthControllerClient, IAuthUserControllerClient } from "@react-worksho
  */
 export const createAuthDataQueries = (
 	authClient: IAuthControllerClient,
-	authUserClient: IAuthUserControllerClient
+	authUserClient: IAuthUserControllerClient,
+	isSessionTokenAvailable = false
 ) => {
 	const queries = {
 		currentUser: () => ["currentUser"],
@@ -20,12 +21,14 @@ export const createAuthDataQueries = (
 			queryOptions({
 				queryKey: [...queries.currentUser(), "session"],
 				queryFn: () => authUserClient.getSession(),
+				enabled: isSessionTokenAvailable,
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),
 		userInformation: () =>
 			queryOptions({
 				queryKey: [...queries.currentUser(), "information"],
 				queryFn: () => authUserClient.getCurrentUser(),
+				enabled: isSessionTokenAvailable,
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),
 
@@ -33,6 +36,7 @@ export const createAuthDataQueries = (
 			queryOptions({
 				queryKey: ["sessions"],
 				queryFn: () => authClient.getActiveSessions(),
+				enabled: isSessionTokenAvailable,
 				staleTime: 1000 * 60 * 5
 			})
 	} as const

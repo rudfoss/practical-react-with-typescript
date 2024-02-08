@@ -2,9 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { LoginRequest } from "@react-workshop/userdb-api-client"
 
-import { useSessionTokenService } from "../sessionTokenService"
-
 import { useAuthDataService } from "./authDataService"
+import { useSessionTokenService } from "./sessionTokenService"
 
 export const useLogin = () => {
 	const queryClient = useQueryClient()
@@ -25,6 +24,28 @@ export const useLogin = () => {
 	})
 }
 
+/**
+ * If called will renew the current session (if it is still valid) and update corresponding query and session token data.
+ * @returns
+ */
+export const useRefreshSession = () => {
+	const queryClient = useQueryClient()
+	const { authUserClient, queries } = useAuthDataService()
+	const { setSessionToken } = useSessionTokenService()
+
+	return useMutation({
+		mutationFn: () => authUserClient.getSession("true"),
+		onSuccess: async (newSessionData) => {
+			setSessionToken(newSessionData.token)
+			await queryClient.invalidateQueries({ queryKey: queries.currentUser() })
+			queryClient.setQueryData(queries.session().queryKey, newSessionData)
+		},
+		onSettled: (data) => {
+			setSessionToken(data?.token)
+		}
+	})
+}
+
 export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 	const queryClient = useQueryClient()
 	const { authClient, queries } = useAuthDataService()
@@ -32,8 +53,8 @@ export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 
 	return useMutation({
 		mutationFn: () => authClient.logout(),
-		onSuccess: async (data) => {
-			await queryClient.invalidateQueries({ queryKey: queries.currentUser() })
+		onSuccess: () => {
+			queryClient.removeQueries({ queryKey: queries.currentUser() })
 			setSessionToken()
 			onSuccess?.()
 		}

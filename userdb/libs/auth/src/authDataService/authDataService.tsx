@@ -8,6 +8,7 @@ import {
 } from "@react-workshop/userdb-api-client"
 
 import { AuthDataQueries, createAuthDataQueries } from "./authDataQueries"
+import { useSessionTokenService } from "./sessionTokenService"
 
 export interface AuthDataServiceContextProps {
 	authClient: IAuthControllerClient
@@ -33,11 +34,12 @@ export const ProvideAuthDataService = ({
 	baseUrl = "/",
 	children
 }: ProvideAuthDataServiceProps) => {
+	const { sessionToken } = useSessionTokenService()
 	const authClient = useMemo(() => new AuthControllerClient(baseUrl), [baseUrl])
 	const authUserClient = useMemo(() => new AuthUserControllerClient(baseUrl), [baseUrl])
 	const queries = useMemo(
-		() => createAuthDataQueries(authClient, authUserClient),
-		[authClient, authUserClient]
+		() => createAuthDataQueries(authClient, authUserClient, !!sessionToken),
+		[authClient, authUserClient, sessionToken]
 	)
 
 	const value = useMemo((): AuthDataServiceContextProps => {

@@ -1,18 +1,13 @@
-import { useQuery } from "@tanstack/react-query"
-
 import { UserSession } from "@react-workshop/userdb-api-client"
 
-import { useAuthDataService } from "./authDataService"
+import { useSessionTokenService } from "./authDataService"
 
 export interface DebugSessionInfoProps {
-	session?: UserSession
+	sessionData: UserSession
 }
 
-export const DebugSessionInfo = ({ session }: DebugSessionInfoProps) => {
-	const { queries } = useAuthDataService()
-	const { data: sessionFromQuery } = useQuery({ ...queries.session(), enabled: !session })
-
-	const sessionData = session ?? sessionFromQuery
+export const DebugSessionInfo = ({ sessionData }: DebugSessionInfoProps) => {
+	const { sessionToken } = useSessionTokenService()
 
 	if (sessionData) {
 		return (
@@ -30,6 +25,10 @@ export const DebugSessionInfo = ({ session }: DebugSessionInfoProps) => {
 					<dt>Token</dt>
 					<dd>
 						<code>{sessionData.token}</code>
+					</dd>
+					<dt>Token from session token service</dt>
+					<dd>
+						<code>{sessionToken}</code>
 					</dd>
 				</dl>
 			</>
