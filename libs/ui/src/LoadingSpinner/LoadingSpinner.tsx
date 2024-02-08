@@ -16,10 +16,10 @@ export interface LoadingSpinnerProps {
 	size?: number
 }
 
-export const LoadingSpinner = ({ size = 32 }: LoadingSpinnerProps) => {
+export const LoadingSpinner = ({ size = 64 }: LoadingSpinnerProps) => {
 	return (
 		<Container>
-			<img alt="Loading spinner" src={spinner} width={32} height={32} />
+			<img alt="Loading spinner" src={spinner} width={size} height={size} />
 		</Container>
 	)
 }
