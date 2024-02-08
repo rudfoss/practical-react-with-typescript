@@ -19,7 +19,7 @@ export interface CheckboxFieldProps {
 
 export const CheckboxField = ({ value, onChange, label, disabled }: CheckboxFieldProps) => {
 	const id = useId()
-	const isDisabled = useFieldsServiceIsDisabled()
+	const isGloballyDisabled = useFieldsServiceIsDisabled()
 
 	const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const checked = event.currentTarget.checked
@@ -33,7 +33,7 @@ export const CheckboxField = ({ value, onChange, label, disabled }: CheckboxFiel
 				type="checkbox"
 				checked={value}
 				onChange={onInputChange}
-				disabled={isDisabled ?? disabled}
+				disabled={disabled || isGloballyDisabled}
 			/>
 			<LabelAfter htmlFor={id}>{label}</LabelAfter>
 		</FlexFieldContainer>

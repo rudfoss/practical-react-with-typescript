@@ -29,7 +29,7 @@ export const TextField = ({
 	maxLength
 }: TextFieldProps) => {
 	const id = useId()
-	const isDisabled = useFieldsServiceIsDisabled()
+	const isGloballyDisabled = useFieldsServiceIsDisabled()
 
 	const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		onChange(event.currentTarget.value)
@@ -44,7 +44,7 @@ export const TextField = ({
 				value={value}
 				onChange={onInputChange}
 				maxLength={maxLength}
-				disabled={disabled ?? isDisabled}
+				disabled={isGloballyDisabled || disabled}
 			/>
 		</FieldContainer>
 	)

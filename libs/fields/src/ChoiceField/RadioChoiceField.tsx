@@ -20,7 +20,7 @@ export const RadioChoiceField = <TData,>({
 	disabled
 }: ChoiceFieldBaseProps<TData>) => {
 	const id = useId()
-	const isDisabled = useFieldsServiceIsDisabled()
+	const isGloballyDisabled = useFieldsServiceIsDisabled()
 
 	return (
 		<fieldset>
@@ -34,7 +34,7 @@ export const RadioChoiceField = <TData,>({
 						value={option.value}
 						checked={value === option}
 						onChange={() => onChange(option)}
-						disabled={disabled ?? isDisabled}
+						disabled={isGloballyDisabled || disabled}
 					/>
 					<LabelAfter htmlFor={`${id}-${option.value}`}>{option.label}</LabelAfter>
 				</OptionContainer>

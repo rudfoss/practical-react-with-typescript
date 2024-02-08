@@ -30,7 +30,7 @@ export const MultiLineTextField = ({
 	maxLength
 }: MultiLineTextFieldProps) => {
 	const id = useId()
-	const isDisabled = useFieldsServiceIsDisabled()
+	const isGloballyDisabled = useFieldsServiceIsDisabled()
 
 	const onTextareaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		onChange(event.currentTarget.value)
@@ -44,7 +44,7 @@ export const MultiLineTextField = ({
 				value={value}
 				maxLength={maxLength}
 				onChange={onTextareaChange}
-				disabled={disabled ?? isDisabled}
+				disabled={isGloballyDisabled || disabled}
 			/>
 		</FieldContainer>
 	)
