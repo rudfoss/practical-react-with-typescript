@@ -15,7 +15,7 @@ export const RouteErrorPage = ({ routeError }: RouteErrorPageProps) => {
 	if (routeError.status === 404) {
 		return (
 			<p>
-				Uh, hey {user?.displayName} 😓... It appears this page does not exist. You can{" "}
+				{user && `Uh, hey ${user.displayName} 😓... `}It appears this page does not exist. You can
 				<button type="button" onClick={() => nav(-1)}>
 					go back to the previous page
 				</button>{" "}
