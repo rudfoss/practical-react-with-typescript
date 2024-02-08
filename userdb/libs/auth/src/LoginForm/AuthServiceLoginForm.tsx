@@ -1,5 +1,5 @@
 import { DebugSessionInfo } from "../DebugSessionInfo"
-import { useAuthService } from "../authService"
+import { useAuthService } from "../authService/authService"
 
 import { LoginForm } from "./LoginForm"
 

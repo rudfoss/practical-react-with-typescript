@@ -9,7 +9,7 @@ import {
 	UserSession
 } from "@react-workshop/userdb-api-client"
 
-import { useAuthDataService, useLogin, useLogout, useRefreshSession } from "./authDataService"
+import { useAuthDataService, useLogin, useLogout, useRefreshSession } from "../authDataService"
 
 export interface AuthServiceContextProps {
 	login: (loginData: LoginRequest) => unknown
@@ -44,10 +44,10 @@ export const ProvideAuthService = ({ children }: ProvideAuthServiceProps) => {
 	const { mutate: logout, isPending: isLoggingOut } = useLogout()
 	const { mutate: refreshSession, isPending: isRefreshingSession } = useRefreshSession()
 
-	const isWorking = isLoggingIn || isLoggingOut || isRefreshingSession
-
 	const { data: session } = useQuery(queries.session())
 	const { data: userInformation } = useQuery(queries.userInformation())
+
+	const isWorking = isLoggingIn || isLoggingOut || isRefreshingSession
 
 	return (
 		<AuthServiceContext.Provider

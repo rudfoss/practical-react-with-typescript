@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 
 import { LoginForm } from "../LoginForm"
-import { useAuthService } from "../authService"
+import { useAuthService } from "../authService/authService"
 
 const Container = styled.div`
 	display: flex;
