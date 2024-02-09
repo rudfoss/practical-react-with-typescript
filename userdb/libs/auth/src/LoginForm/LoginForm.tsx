@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { FormEvent, useState } from "react"
 
-import { TextField } from "@react-workshop/fields"
+import { CheckboxField, TextField } from "@react-workshop/fields"
 
 const ErrorContainer = styled.div`
 	border: 1px solid red;
@@ -17,6 +17,7 @@ export interface LoginFormProps {
 }
 
 export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) => {
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 
@@ -30,13 +31,18 @@ export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) =
 		<form onSubmit={onSubmit}>
 			<TextField label="User name" value={username} onChange={setUsername} disabled={disabled} />
 			<TextField
-				type="password"
+				type={isPasswordVisible ? "text" : "password"}
 				label="Password"
 				value={password}
 				onChange={setPassword}
 				disabled={disabled}
 			/>
 			{errorMessage && <ErrorContainer>{errorMessage}</ErrorContainer>}
+			<CheckboxField
+				label="Show password"
+				value={isPasswordVisible}
+				onChange={setIsPasswordVisible}
+			/>
 			<input type="submit" value="Log in" disabled={disabled} />
 		</form>
 	)
