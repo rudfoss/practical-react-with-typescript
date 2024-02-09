@@ -21,8 +21,13 @@
 		"strictPropertyInitialization": false,
 		"baseUrl": ".",
 		"paths": {
-			"@react-workshop/utils": ["libs/utils/src/index.ts"],
-			"@react-workshop/userdb-api-client": ["userdb/api-client/src/index.ts"]
+			"@react-workshop/fields": ["libs/fields/src/index.ts"],
+			"@react-workshop/ui": ["libs/ui/src/index.ts"],
+			"@react-workshop/userdb-api-client": ["userdb/api-client/src/index.ts"],
+			"@react-workshop/userdb-libs-auth": ["userdb/libs/auth/src/index.ts"],
+			"@react-workshop/userdb-libs-groups": ["userdb/libs/groups/src/index.ts"],
+			"@react-workshop/userdb-libs-users": ["userdb/libs/users/src/index.ts"],
+			"@react-workshop/utils": ["libs/utils/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

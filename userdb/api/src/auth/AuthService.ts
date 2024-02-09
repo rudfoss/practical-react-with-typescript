@@ -1,5 +1,6 @@
-import { Inject, Injectable } from "@nestjs/common"
+import { Inject, Injectable, Optional } from "@nestjs/common"
 
+import { HttpConflictException } from "../httpExceptions"
 import {
 	Group,
 	NewGroup,
@@ -13,6 +14,7 @@ import {
 } from "../models"
 import { UserInformation } from "../models/UserInformation"
 import { StorageService, StorageServiceKey } from "../storage"
+import { GUEST_GROUP_ID } from "../storage/defaultStoreData"
 
 import { LoginRequest } from "./LoginRequest"
 import { UidGenerator, UidGeneratorKey } from "./UidGenerator"
@@ -33,7 +35,9 @@ export interface SessionUserRoles {
 export class AuthService {
 	public constructor(
 		@Inject(StorageServiceKey) protected storageService: StorageService,
-		@Inject(UidGeneratorKey) protected uidGenerator: UidGenerator
+		@Inject(UidGeneratorKey) protected uidGenerator: UidGenerator,
+		@Optional() protected defaultGroupId: string = GUEST_GROUP_ID,
+		@Optional() protected defaultRole: UserDatabaseRole = UserDatabaseRole.Guest
 	) {}
 
 	public async getUserWithPasswordByUsername(username: string) {
@@ -78,6 +82,12 @@ export class AuthService {
 			roles: [...roles]
 		})
 	}
+	public async getUsersByRole(role: UserDatabaseRole) {
+		const groupsWithRole = await this.getGroupsByRole(role)
+		const groupIdsWithRole = new Set(groupsWithRole.map((group) => group.id))
+		const users = await this.getUsers()
+		return users.filter((user) => user.groupIds?.some((groupId) => groupIdsWithRole.has(groupId)))
+	}
 
 	public async getUsersWithPassword() {
 		return this.storageService.getUsers()
@@ -91,6 +101,7 @@ export class AuthService {
 	public async createUser(newUser: NewUser) {
 		const userWithPassword = new UserWithPassword(
 			{
+				groupIds: [this.defaultGroupId],
 				...newUser,
 				id: this.uidGenerator()
 			},
@@ -122,12 +133,22 @@ export class AuthService {
 		return new User(patchedUser, { whitelist: true })
 	}
 	public async deleteUser(userId: string) {
-		const existingUser = await this.getUserById(userId)
-		if (!existingUser) return
+		const userInformation = await this.getUserInformation(userId)
+		if (!userInformation) return
+		const { roles, user } = userInformation
+		if (roles.includes(UserDatabaseRole.Admin)) {
+			const usersWithAdminRole = await this.getUsersByRole(UserDatabaseRole.Admin)
+			if (usersWithAdminRole.length <= 1) {
+				throw new HttpConflictException(
+					`User ${userId} is the last administrator and cannot be deleted.`
+				)
+			}
+		}
+
 		await this.storageService.setUsers((existingUsers) =>
 			existingUsers.filter((user) => user.id !== userId)
 		)
-		return existingUser
+		return user
 	}
 
 	public async login({ username, password }: LoginRequest) {
@@ -145,14 +166,16 @@ export class AuthService {
 		const now = Date.now()
 		const newSession = new UserSession({
 			createdAt: now,
-			token: this.uidGenerator(),
-			userId,
 			...basedOnSesssion,
+			userId,
+			token: this.uidGenerator(),
 			expiresAt: now + SESSOIN_LIFETIME_MS
 		})
 
 		await this.storageService.setUserSessions((oldSessions) => {
-			const nextSesssions = oldSessions.filter((session) => session.token !== newSession.token)
+			const nextSesssions = oldSessions.filter(
+				(session) => session.token !== basedOnSesssion?.token
+			)
 			nextSesssions.push(newSession)
 			return nextSesssions
 		})
@@ -172,9 +195,14 @@ export class AuthService {
 		const groups = await this.getGroups()
 		return groups.find((group) => group.id === groupId)
 	}
+	public async getGroupsByRole(role: UserDatabaseRole) {
+		const allGroups = await this.getGroups()
+		return allGroups.filter((group) => group.roles.includes(role))
+	}
 	public async createGroup(newGroup: NewGroup) {
 		const fullNewGroup = new Group(
 			{
+				roles: [this.defaultRole],
 				...newGroup,
 				id: this.uidGenerator()
 			},
@@ -211,6 +239,8 @@ export class AuthService {
 	public async deleteGroup(groupId: string) {
 		const deletedGroup = await this.getGroupById(groupId)
 		if (!deletedGroup) return
+		if (deletedGroup.isSystemDefined)
+			throw new HttpConflictException(`Group ${groupId} is a system group and cannot be deleted.`)
 
 		await this.storageService.setGroups((groups) => groups.filter((group) => group.id !== groupId))
 

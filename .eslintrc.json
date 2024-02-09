@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nx", "import", "unicorn"],
+	"plugins": ["@nx", "import"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -35,8 +35,14 @@
 		},
 		{
 			"files": ["*.ts", "*.tsx"],
-			"extends": ["plugin:@nx/typescript", "plugin:unicorn/recommended"],
+			"extends": [
+				"plugin:@nx/typescript",
+				"plugin:unicorn/recommended",
+				"plugin:@tanstack/eslint-plugin-query/recommended"
+			],
 			"rules": {
+				"@typescript-eslint/no-unused-vars": ["warn"],
+				"jsx-a11y/accessible-emoji": ["off"],
 				"unicorn/prevent-abbreviations": [
 					"error",
 					{ "allowList": { "props": true, "Props": true, "ref": true } }
@@ -50,11 +56,13 @@
 			"rules": {}
 		},
 		{
-			"files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+			"files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx", "*.test.ts", "*.test.tsx", "*.test.js", "*.test.jsx"],
 			"env": {
 				"jest": true
 			},
-			"rules": {}
+			"rules": {
+				"@typescript-eslint/no-non-null-assertion": ["off"]
+			}
 		}
 	]
 }

@@ -11,7 +11,10 @@ import {
 	UseGuards
 } from "@nestjs/common"
 import {
+	ApiBadRequestResponse,
 	ApiBearerAuth,
+	ApiConflictResponse,
+	ApiCreatedResponse,
 	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -24,6 +27,8 @@ import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthentica
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { AuthService } from "../auth/AuthService"
 import {
+	HttpBadRequestException,
+	HttpConflictException,
 	HttpForbiddenException,
 	HttpNotFoundException,
 	HttpUnauthorizedException
@@ -70,7 +75,8 @@ export class GroupsController {
 	@ApiOperation({
 		summary: "Update properties of an existing group"
 	})
-	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	@ApiNotFoundResponse({ description: "Group not found", type: HttpNotFoundException })
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async updateGroup(@Param("groupId") groupId: string, @Body() patchGroup: PatchGroup) {
 		return this.authService.patchGroup(patchGroup, groupId)
 	}
@@ -81,6 +87,11 @@ export class GroupsController {
 		summary: "Delete a group"
 	})
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	@ApiConflictResponse({
+		description: "The group is protected and cannot be deleted (see error for details)",
+		type: HttpConflictException
+	})
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async deleteGroup(@Param("groupId") groupId: string) {
 		return this.authService.deleteGroup(groupId)
 	}
@@ -90,6 +101,8 @@ export class GroupsController {
 	@ApiOperation({
 		summary: "Create a new group"
 	})
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
+	@ApiCreatedResponse({ type: Group })
 	public async createGroup(@Body() newGroup: NewGroup) {
 		return this.authService.createGroup(newGroup)
 	}

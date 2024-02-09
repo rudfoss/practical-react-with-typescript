@@ -2,35 +2,46 @@
 
 👋 Welcome to the repository for the workshop [Practical React with TypeScript](https://www.bouvet.no/kurs/kategorier/utvikling-for-web-og-mobil/workshop-praktisk-react-med-typescript)!
 
-Here you will find the starting project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
+**TLDR setup**:
+
+1. Install [required](#required) prerequisites
+2. Clone this repository
+3. Run `pnpm run init`
+4. In VSCode `Ctrl+P` -> `task ` -> `start`
+5. Open your browser to [http://localhost:4200](http://localhost:4200)
+
+<h2>Table of content</h2>
 
 - [Practical React with TypeScript](#practical-react-with-typescript)
   - [Prerequisites](#prerequisites)
     - [Required](#required)
     - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
+    - [Setting up your environment](#setting-up-your-environment)
+    - [Running the development environment](#running-the-development-environment)
   - [VSCode](#vscode)
     - [VSCode Extensions](#vscode-extensions)
     - [Hidden files](#hidden-files)
     - [Generating API clients](#generating-api-clients)
 
+Here you will find the starter-project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
+
 ## Prerequisites
 
-Before you begin there are a few things you need to install on your machine. The code and all required tools should work fine on Windows, Linux and Mac. Please install the following before you proceed with [setting up your environment](#setting-up-your-environment).
+In this course we will be working with an [integrated Nx](https://nx.dev/)-managed [monorepo](https://monorepo.tools/). This setup requires a few things to be installed on your machine in order to work. The code and project will work fine on Windows, Linux or Mac, but please install the following before you proceed with [setting up your environment](#setting-up-your-environment).
 
 ### Required
 
-| What                                 | Why                                                               | How                                                                                    | Verify\*  |
-| ------------------------------------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------- |
-| [Git](https://git-scm.com/downloads) | Version Control for source code                                   | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`                  | `git -v`  |
-| [NodeJs LTS](https://nodejs.org/en)  | Runtime for Nx (monorepo) and front-end projects                  | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node`        | `node -v` |
-| [pnpm](https://pnpm.io/installation) | Faster and more efficient package manager for Node (replaces npm) | Windows`iwr https://get.pnpm.io/install.ps1 -useb \| iex`<br/>Mac: `brew install pnpm` | `pnpm -v` |
+| What                                 | Why                                                                    | How                                                                                    | Verify👀  |
+| ------------------------------------ | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------- |
+| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`                  | `git -v`  |
+| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node`        | `node -v` |
+| [pnpm](https://pnpm.io/installation) | Faster and more efficient package manager for Node (replaces npm)      | Windows`iwr https://get.pnpm.io/install.ps1 -useb \| iex`<br/>Mac: `brew install pnpm` | `pnpm -v` |
 
-\*Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
+👀 Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
 
 ### Recommended
 
-The course will be using [Visual Studio Code](https://code.visualstudio.com) with some extensions and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with NX](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE is not strictly required, but it makes working with nx commands much easier.
+The course will be using [Visual Studio Code](https://code.visualstudio.com) with [some extensions](#vscode-extensions) and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
 You can install Visual Studio Code from [their home page](https://code.visualstudio.com) or using `winget` if you are on Windows:
 
@@ -38,7 +49,7 @@ You can install Visual Studio Code from [their home page](https://code.visualstu
 winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"'
 ```
 
-## Setting up your environment
+### Setting up your environment
 
 Once you have installed all prerequisites you can clone the repository to your machine using git:
 
@@ -47,7 +58,9 @@ Once you have installed all prerequisites you can clone the repository to your m
 git clone https://github.com/rudfoss/practical-react-with-typescript.git react-workshop
 ```
 
-Open a terminal at the root folder of the repository and run the `init` command:
+👀 We will be cloning the repository again at the start of the course as there may be change to the repository by that time. You can clone and test the project to verify that everything works.
+
+It might be tempting to open your IDE immediately and point it to the folder you just created, but I recommend that you first open a terminal at the root folder of the repository and run the `init` command:
 
 ```bash
  # Some scripts can be run using pnpm [script name], but init is already a pnpm command so we need to add 'run' before the script name
@@ -55,6 +68,38 @@ pnpm run init
 ```
 
 This command verifies that the required prerequisites are installed correctly and will fail if they cannot be found. If that happens you need to ensure the prerequisites are correctly installed. It then installs the project dependencies for the repository using `pnpm`. To see exactly what the command does open the `package.json` file and find the `script` named `init`.
+
+👀 Usually you can just write `pnpm [scriptName]` e.g.: `pnpm start`, but pnpm already has a command called `init` that sets up a new `package.json` file which means we have to add `run` in front of it. You can find all script names that can be run in the [`package.json`](./package.json) file under `scripts`
+
+👀 VSCode and other IDEs will try to detect what type of workspace that is currently open and might also automatically set up and configure a few things on their own. These configurations (such as the Nx extension) might depend on packages being installed in the workspace which is why it is usually a good idea to install these dependencies before you start your IDE so that they can be found.
+
+### Running the development environment
+
+👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `pnpm start` then open your browser to [http://localhost:4200](http://localhost:4200)
+
+Our react app will be bundled (built) with [vite](https://vitejs.dev/). Vite also has a development server that we can run while we code. It will hot-reload pieces of our app as we change it making for a very snappy and efficient development environment.
+
+There are several ways you can start this environment. Personally, I prefer to use the Tasks in VSCode as they start in their own tabs under the terminal panel which makes them easier to find and monitor, but you can also use Nx or preconfigured pnpm scripts directly from the terminal.
+
+Some ways to start the react app:
+
+- From a terminal, run: `pnpm start:userdb-app`
+- From a terminal, run: `pnpm exec nx server userdb-app`
+- From a terminal, run: `pnpm exec nx run userdb-app:serve`
+- (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start:userdb-app`
+- In VSCode use the shortcut `Ctrl+Shift+P`, write `nx run` and hit enter, select `userdb-app` -> `serve` -> Execute.
+- From the NX exteions select the `userdb-app` project and run the target `serve`
+
+To work with the server API you also need to start `userdb-api`. Simply replace `userdb-app` with `userdb-api` in any of the examples above. Since they are usually started together this project includes some ways to start everything neatly:
+
+- From a terminal, run `pnpm start`
+- From a terminal, run `pnpm exec nx run-many --target=serve`
+- (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start`
+- In VSCode use the shortcut `Ctrl+Shift+P`, write `nx run-many` and hit enter, select `serve` -> Execute.
+
+Once the react application is running you can open your browser to [http://localhost:4200](http://localhost:4200) to se the app live. Changes you make in code will be reflected on screen as soon as you save them.
+
+🎊 Happy coding!
 
 ## VSCode
 

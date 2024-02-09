@@ -1,12 +1,25 @@
 {
-	"React Component": {
-		"prefix": "react-component",
+	"React Arrow Component": {
+		"prefix": "react-component-arrow",
 		"body": [
 			"export interface ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props {",
 			"\t${0}",
 			"}",
 			"",
 			"export const ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/} = (props: ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props) => {",
+			"\treturn ()",
+			"}"
+		],
+		"description": "Log output to console"
+	},
+	"React Function Component": {
+		"prefix": "react-component-fn",
+		"body": [
+			"export interface ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props {",
+			"\t${0}",
+			"}",
+			"",
+			"export function ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}(props: ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props) {",
 			"\treturn ()",
 			"}"
 		],
@@ -25,9 +38,9 @@
 			"${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Context.displayName = \"${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Context\"",
 			"",
 			"export const use${TM_FILENAME_BASE/(.*)/${1:/capitalize}/} = () => {",
-			"\tconst ctx = useContext(${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Context)",
-			"\tif (!ctx) throw new Error(\"${TM_FILENAME_BASE/(.*)/${1:/capitalize}/} must be provided before use\")",
-			"\treturn ctx",
+			"\tconst context = useContext(${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Context)",
+			"\tif (!context) throw new Error(\"${TM_FILENAME_BASE/(.*)/${1:/capitalize}/} must be provided before use\")",
+			"\treturn context",
 			"}",
 			"",
 			"export interface Provide${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props {",

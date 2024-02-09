@@ -25,7 +25,8 @@ export class AuthUserController {
 	@Get("session")
 	@ApiOperation({
 		summary: "Get the current users active session",
-		description: "Return the session for the current user and optionally renew it."
+		description:
+			"Returns full session information for the current user if the session is not expired. Can also be used to refresh the session, though doing so will create a new session token and cause the old token to expire."
 	})
 	@ApiOkResponse({ type: UserSession })
 	@ApiBearerAuth(bearerAuthName)

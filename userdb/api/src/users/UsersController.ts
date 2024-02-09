@@ -11,7 +11,10 @@ import {
 	UseGuards
 } from "@nestjs/common"
 import {
+	ApiBadRequestResponse,
 	ApiBearerAuth,
+	ApiConflictResponse,
+	ApiCreatedResponse,
 	ApiForbiddenResponse,
 	ApiNotFoundResponse,
 	ApiOkResponse,
@@ -24,6 +27,8 @@ import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthentica
 import { AuthGuard, RequireRoles, bearerAuthName } from "../auth"
 import { AuthService } from "../auth/AuthService"
 import {
+	HttpBadRequestException,
+	HttpConflictException,
 	HttpForbiddenException,
 	HttpNotFoundException,
 	HttpUnauthorizedException
@@ -56,6 +61,7 @@ export class UsersController {
 	@ApiOkResponse({ type: User })
 	@RequireRoles([UserDatabaseRole.User, UserDatabaseRole.UserAdmin])
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async getUser(@Param("userId") userId: string) {
 		const allUsers = await this.authService.getUsers()
 		const user = allUsers.find(({ id }) => id === userId)
@@ -70,6 +76,7 @@ export class UsersController {
 		summary: "Update an existing user"
 	})
 	@ApiNotFoundResponse({ type: HttpNotFoundException })
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async updateUser(
 		@Param("userId") userId: string,
 		@Body() user: PatchUser,
@@ -96,6 +103,12 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Delete the specified user"
 	})
+	@ApiNotFoundResponse({ type: HttpNotFoundException, description: "The user does not exist" })
+	@ApiConflictResponse({
+		type: HttpConflictException,
+		description: "The user is protected and cannot be deleted (see error for details)"
+	})
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async deleteUser(@Param("userId") userId: string) {
 		return await this.authService.deleteUser(userId)
 	}
@@ -105,6 +118,8 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Create a new user"
 	})
+	@ApiCreatedResponse({ type: User })
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async createUser(@Body() newUser: NewUser) {
 		return await this.authService.createUser(newUser)
 	}

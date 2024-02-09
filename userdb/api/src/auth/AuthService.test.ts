@@ -98,10 +98,18 @@ const createServiceMocks = () => {
 	const uidGenerator = jest.fn(() => mockUidGenerator())
 
 	return {
+		defaultGroupId: GUEST_GROUP_ID,
+		defaultRole: UserDatabaseRole.Guest,
+
 		store,
 		storageService,
 		uidGenerator,
-		authService: new AuthService(storageService, uidGenerator)
+		authService: new AuthService(
+			storageService,
+			uidGenerator,
+			GUEST_GROUP_ID,
+			UserDatabaseRole.Guest
+		)
 	}
 }
 
@@ -189,8 +197,8 @@ describe("AuthService", () => {
 		})
 	})
 	describe("mutate users", () => {
-		it("can create new users", async () => {
-			const { authService, store } = createServiceMocks()
+		it("can create new users with default group memebership", async () => {
+			const { authService, store, defaultGroupId } = createServiceMocks()
 			const usersBeforeNew = [...store.users]
 
 			const newUser = await authService.createUser({
@@ -199,7 +207,21 @@ describe("AuthService", () => {
 				displayName: "Mock user"
 			})
 			expect(newUser).toBeInstanceOf(User)
+			expect(newUser.username).toBe("mockUser")
+			expect(newUser.displayName).toBe("Mock user")
+			expect(newUser.groupIds).toEqual([defaultGroupId])
 			expect(store.users.length).toBe(usersBeforeNew.length + 1)
+		})
+		it("can create new users with custom group memeberships", async () => {
+			const { authService } = createServiceMocks()
+
+			const newUser = await authService.createUser({
+				username: "mockUser",
+				password: "mockPassword",
+				displayName: "Mock user",
+				groupIds: [ADMIN_GROUP_ID]
+			})
+			expect(newUser.groupIds).toEqual([ADMIN_GROUP_ID])
 		})
 		it("always creates a new id", async () => {
 			const { authService } = createServiceMocks()
@@ -247,7 +269,7 @@ describe("AuthService", () => {
 			const { authService, store } = createServiceMocks()
 			const usersBeforeDelete = [...store.users]
 
-			const deletedUser = await authService.deleteUser(ADMIN_USER_ID)
+			const deletedUser = await authService.deleteUser(GUEST_USER_ID)
 			expect(deletedUser).toBeInstanceOf(User)
 
 			expect(store.users.length).toBe(usersBeforeDelete.length - 1)
@@ -261,6 +283,23 @@ describe("AuthService", () => {
 			expect(deletedUser).not.toBeDefined()
 			expect(usersBeforeDelete).toEqual(store.users)
 		})
+		it("cannot delete the last administrator", async () => {
+			const { authService } = createServiceMocks()
+			const newAdmin = await authService.createUser({
+				username: "admin2",
+				password: "admin2",
+				groupIds: [ADMIN_GROUP_ID]
+			})
+			const adminUsers = await authService.getUsersByRole(UserDatabaseRole.Admin)
+			expect(adminUsers.length).toBe(2)
+
+			const deletedUser = await authService.deleteUser(newAdmin.id)
+			expect(deletedUser).toEqual(newAdmin)
+
+			await expect(async () => {
+				await authService.deleteUser(ADMIN_USER_ID)
+			}).rejects.toThrow()
+		})
 	})
 
 	describe("groups", () => {
@@ -269,19 +308,29 @@ describe("AuthService", () => {
 			const groups = await authService.getGroups()
 			expect(groups).toEqual(store.groups)
 		})
-		it("can create new groups", async () => {
-			const { authService, store } = createServiceMocks()
+		it("can create new group with default role", async () => {
+			const { authService, store, defaultRole } = createServiceMocks()
 			const groupsBeforeCreate = [...store.groups]
 
 			const newGroup = await authService.createGroup({
-				displayName: "Some other guests",
-				roles: [UserDatabaseRole.Guest]
+				displayName: "Some other guests"
 			})
 
 			expect(newGroup).toBeInstanceOf(Group)
+			expect(newGroup.roles).toEqual([defaultRole])
 			expect(store.groups.length).toBe(groupsBeforeCreate.length + 1)
 			const groupsAfterCreate = await authService.getGroups()
 			expect(groupsAfterCreate).toEqual(store.groups)
+		})
+		it("can create new group with custom roles", async () => {
+			const { authService } = createServiceMocks()
+
+			const newGroup = await authService.createGroup({
+				displayName: "Some other guests",
+				roles: [UserDatabaseRole.Admin]
+			})
+
+			expect(newGroup.roles).toEqual([UserDatabaseRole.Admin])
 		})
 		it("can patch a group", async () => {
 			const { authService, store } = createServiceMocks()
@@ -309,6 +358,12 @@ describe("AuthService", () => {
 			expect(deletedGroup).toBeInstanceOf(Group)
 			expect(store.groups.length).toBe(groupsBeforeDelete.length - 1)
 		})
+		it("cannot delete system groups", async () => {
+			const { authService } = createServiceMocks()
+			await expect(async () => {
+				await authService.deleteGroup(ADMIN_GROUP_ID)
+			}).rejects.toThrow()
+		})
 	})
 
 	describe("session", () => {
@@ -324,17 +379,18 @@ describe("AuthService", () => {
 			const retrievedSession = await authService.getSession(loginSession!.token)
 			expect(loginSession).toEqual(retrievedSession)
 		})
-		it("can refresh an existing session keeping the originial createdAt", async () => {
+		it("can refresh an existing session which invalidates the old one", async () => {
 			const { authService } = createServiceMocks()
-			const loginSession = await authService.login({ username: "admin", password: "admin" })
+			const loginSession = (await authService.login({ username: "admin", password: "admin" }))!
 			setGlobalTime(Date.now() + 3600)
 
 			const refreshedSession = await authService.createSession(loginSession!.userId, loginSession!)
 
-			expect(refreshedSession!).toEqual({
-				...loginSession!,
-				expiresAt: loginSession!.expiresAt + 3600
-			})
+			expect(refreshedSession.token).not.toEqual(loginSession.token)
+			expect(refreshedSession.createdAt).toEqual(loginSession.createdAt)
+
+			const oldSession = await authService.getSession(loginSession.token)
+			expect(oldSession).not.toBeDefined()
 		})
 		it("can logout sessions", async () => {
 			const { authService } = createServiceMocks()

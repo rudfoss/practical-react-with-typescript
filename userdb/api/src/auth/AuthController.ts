@@ -1,17 +1,9 @@
+import { Body, Controller, Get, Inject, Post, Req, UseGuards } from "@nestjs/common"
 import {
-	Body,
-	Controller,
-	Get,
-	Inject,
-	NotFoundException,
-	Post,
-	Req,
-	UseGuards
-} from "@nestjs/common"
-import {
+	ApiBadRequestResponse,
 	ApiBearerAuth,
+	ApiCreatedResponse,
 	ApiForbiddenResponse,
-	ApiNotFoundResponse,
 	ApiOkResponse,
 	ApiOperation,
 	ApiTags,
@@ -20,8 +12,8 @@ import {
 
 import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
 import {
+	HttpBadRequestException,
 	HttpForbiddenException,
-	HttpNotFoundException,
 	HttpUnauthorizedException
 } from "../httpExceptions"
 import { UserDatabaseRole, UserSession } from "../models"
@@ -46,12 +38,26 @@ export class AuthController {
 	@ApiOperation({
 		summary: "Log a user in and get an active session"
 	})
-	@ApiOkResponse({ type: UserSession })
-	@ApiNotFoundResponse({ type: HttpNotFoundException })
+	@ApiCreatedResponse({ type: UserSession })
+	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
+	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async login(@Body() loginRequest: LoginRequest) {
 		const userSession = await this.authService.login(loginRequest)
-		if (!userSession) throw new NotFoundException("Username and password combination incorrect.")
+		if (!userSession)
+			throw new HttpUnauthorizedException("Username and password combination incorrect.")
 		return userSession
+	}
+
+	@Get("logout")
+	@ApiOperation({
+		summary: "Log out the current user"
+	})
+	@ApiBearerAuth(bearerAuthName)
+	@UseGuards(AuthGuard)
+	@ApiOkResponse()
+	@ApiForbiddenResponse({ type: HttpForbiddenException })
+	public async logout(@Req() request: UserDatabaseApiRequestAuthenticated) {
+		await this.authService.logout(request.userSession.token)
 	}
 
 	@Get("sessions")
@@ -65,20 +71,8 @@ export class AuthController {
 	@UseGuards(AuthGuard)
 	@ApiForbiddenResponse({ type: HttpForbiddenException })
 	@ApiUnauthorizedResponse({ type: HttpUnauthorizedException })
-	public async getActiveSession() {
+	public async getActiveSessions() {
 		return this.storageService.getUserSessions()
-	}
-
-	@Get("logout")
-	@ApiOperation({
-		summary: "Log out the current user"
-	})
-	@ApiBearerAuth(bearerAuthName)
-	@UseGuards(AuthGuard)
-	@ApiOkResponse()
-	@ApiForbiddenResponse({ type: HttpForbiddenException })
-	public async logout(@Req() request: UserDatabaseApiRequestAuthenticated) {
-		await this.authService.logout(request.userSession.token)
 	}
 
 	@Get("log-everyone-out")

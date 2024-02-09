@@ -4,12 +4,13 @@
 		"editorconfig.editorconfig",
 		"dbaeumer.vscode-eslint",
 		"firsttris.vscode-jest-runner",
+		"yzhang.markdown-all-in-one",
 		"nrwl.angular-console",
 		"adrianwilczynski.toggle-hidden",
 		"ms-playwright.playwright",
 		"esbenp.prettier-vscode",
-		"vscode-icons-team.vscode-icons",
 		"eliostruyf.vscode-typescript-exportallmodules",
+		"vscode-icons-team.vscode-icons",
 		"styled-components.vscode-styled-components"
 	]
 }

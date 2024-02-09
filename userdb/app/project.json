@@ -70,5 +70,8 @@
 			]
 		}
 	},
-	"tags": []
+	"tags": [
+		"usedb",
+		"react"
+	]
 }

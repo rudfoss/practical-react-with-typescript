@@ -28,6 +28,7 @@
 		"**/playwright.config.ts": true,
 		"**/index.html": true,
 		"jsonDb.json": true,
-		"global.json": true
+		"global.json": true,
+		"tools": true
 	}
 }
