@@ -21,6 +21,8 @@ export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) =
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 
+	const hasData = username.length > 0 && password.length > 0
+
 	const onSubmit = (event: FormEvent) => {
 		if (disabled) return
 		event.preventDefault()
@@ -43,7 +45,7 @@ export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) =
 				value={isPasswordVisible}
 				onChange={setIsPasswordVisible}
 			/>
-			<input type="submit" value="Log in" disabled={disabled} />
+			<input type="submit" value="Log in" disabled={!hasData || disabled} />
 		</form>
 	)
 }
