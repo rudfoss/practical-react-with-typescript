@@ -8,7 +8,7 @@
 2. Clone this repository
 3. Run `pnpm run init`
 4. In VSCode `Ctrl+P` -> `task ` -> `start`
-5. Open your browser to [http://localhost:4200](http://localhost:4200)
+5. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
 <h2>Table of content</h2>
 
@@ -75,7 +75,7 @@ This command verifies that the required prerequisites are installed correctly an
 
 ### Running the development environment
 
-👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `pnpm start` then open your browser to [http://localhost:4200](http://localhost:4200)
+👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `pnpm start` then open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
 Our react app will be bundled (built) with [vite](https://vitejs.dev/). Vite also has a development server that we can run while we code. It will hot-reload pieces of our app as we change it making for a very snappy and efficient development environment.
 
@@ -97,7 +97,7 @@ To work with the server API you also need to start `userdb-api`. Simply replace 
 - (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start`
 - In VSCode use the shortcut `Ctrl+Shift+P`, write `nx run-many` and hit enter, select `serve` -> Execute.
 
-Once the react application is running you can open your browser to [http://localhost:4200](http://localhost:4200) to se the app live. Changes you make in code will be reflected on screen as soon as you save them.
+Once the react application is running you can open your browser to [http://localhost:4200](http://localhost:4200) to se the app live. Changes you make in code will be reflected on screen as soon as you save them. If you also started the API you can browse to [http://localhost:4210](http://localhost:4210) as well to see the API documentation
 
 🎊 Happy coding!
 
