@@ -1,5 +1,12 @@
 import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger"
-import { IsOptional, IsString, IsUrl, Length, ValidatorOptions } from "class-validator"
+import {
+	ArrayMinSize,
+	IsOptional,
+	IsString,
+	IsUrl,
+	Length,
+	ValidatorOptions
+} from "class-validator"
 
 import { ObjectFields, ValidationError } from "@react-workshop/utils"
 
@@ -31,6 +38,7 @@ export class User {
 	username: string
 
 	@ApiProperty({
+		required: false,
 		minLength: 1,
 		maxLength: 256
 	})
@@ -40,6 +48,7 @@ export class User {
 	displayName?: string
 
 	@ApiProperty({
+		required: false,
 		description:
 			"Optionally specify a url for a picture of this user. Pictures are not hosted on this API"
 	})
@@ -48,12 +57,13 @@ export class User {
 	pictureUrl?: string
 
 	@ApiProperty({
-		description: "A list of all group ids in which this user is a member."
+		description: "A list of all group ids in which this user is a member.",
+		minLength: 1
 	})
 	@IsString({ each: true })
-	@IsOptional()
 	@Length(21, 128, { each: true })
-	groupIds?: string[]
+	@ArrayMinSize(1)
+	groupIds: [string, ...string[]]
 }
 
 export class UserWithPassword extends User {
@@ -69,7 +79,19 @@ export class UserWithPassword extends User {
 /**
  * A new user object is automatically assigned an id by the system.
  */
-export class NewUser extends OmitType(UserWithPassword, ["id"] as const) {}
+export class NewUser extends OmitType(UserWithPassword, ["id", "groupIds"] as const) {
+	@ApiProperty({
+		required: false,
+		description:
+			"A list of all group ids which this user should be a member of. If not provided the user will become a member of the guest group.",
+		minLength: 1
+	})
+	@IsOptional()
+	@IsString({ each: true })
+	@Length(21, 128, { each: true })
+	@ArrayMinSize(1)
+	groupIds?: [string, ...string[]]
+}
 
 /**
  * A patch user allows updating properties of a User object, the ID must be provided separately.

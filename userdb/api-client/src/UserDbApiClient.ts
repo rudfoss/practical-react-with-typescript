@@ -333,7 +333,7 @@ export interface IAuthUserControllerClient {
 
     /**
      * Get the current users active session
-     * @param refresh (optional) If 'true' the session expire time will be renewed if it is valid.
+     * @param refresh (optional) If 'true' the old session token will be removed and a new session object with a new token is returned. The createdAt timestamp of the old session is kept.
      */
     getSession(refresh?: Refresh | undefined): Promise<UserSession>;
 
@@ -356,7 +356,7 @@ export class AuthUserControllerClient extends UserDbApiClientBaseClass implement
 
     /**
      * Get the current users active session
-     * @param refresh (optional) If 'true' the session expire time will be renewed if it is valid.
+     * @param refresh (optional) If 'true' the old session token will be removed and a new session object with a new token is returned. The createdAt timestamp of the old session is kept.
      */
     getSession(refresh?: Refresh | undefined): Promise<UserSession> {
         let url_ = this.baseUrl + "/auth/session?";
@@ -1199,9 +1199,9 @@ export interface LogEveryoneOutResponse {
 export interface User {
     id: string;
     username: string;
-    displayName: string;
+    displayName?: string;
     /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
-    pictureUrl: string;
+    pictureUrl?: string;
     /** A list of all group ids in which this user is a member. */
     groupIds: string[];
 
@@ -1213,7 +1213,8 @@ export interface Group {
     displayName: string;
     description?: string;
     /** System-defined groups cannot be removed. */
-    isSystemDefined: boolean;
+    isSystemDefined?: boolean;
+    /** The roles assigned to users in this group. */
     UserDatabaseRole: UserDatabaseRole[];
 
     [key: string]: any;
@@ -1240,9 +1241,9 @@ export interface PatchUser {
     displayName?: string;
     /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
     pictureUrl?: string;
-    /** A list of all group ids in which this user is a member. */
-    groupIds?: string[];
     password?: string;
+    /** A list of all group ids which this user should be a member of. If not provided the user will become a member of the guest group. */
+    groupIds?: string[];
 
     [key: string]: any;
 }
@@ -1257,12 +1258,12 @@ export interface HttpConflictException {
 
 export interface NewUser {
     username: string;
-    displayName: string;
+    displayName?: string;
     /** Optionally specify a url for a picture of this user. Pictures are not hosted on this API */
-    pictureUrl: string;
-    /** A list of all group ids in which this user is a member. */
-    groupIds: string[];
+    pictureUrl?: string;
     password: string;
+    /** A list of all group ids which this user should be a member of. If not provided the user will become a member of the guest group. */
+    groupIds?: string[];
 
     [key: string]: any;
 }
@@ -1272,6 +1273,7 @@ export interface PatchGroup {
     description?: string;
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
+    /** The roles assigned to users in this group. If not specified the Guest role will be added. */
     UserDatabaseRole?: userDatabaseRole[];
 
     [key: string]: any;
@@ -1281,8 +1283,9 @@ export interface NewGroup {
     displayName: string;
     description?: string;
     /** System-defined groups cannot be removed. */
-    isSystemDefined: boolean;
-    UserDatabaseRole: userDatabaseRole2[];
+    isSystemDefined?: boolean;
+    /** The roles assigned to users in this group. If not specified the Guest role will be added. */
+    UserDatabaseRole?: userDatabaseRole2[];
 
     [key: string]: any;
 }

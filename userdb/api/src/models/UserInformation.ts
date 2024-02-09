@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsEnum, ValidateNested, ValidatorOptions } from "class-validator"
+import { ArrayMinSize, IsEnum, ValidateNested, ValidatorOptions } from "class-validator"
 
 import { ObjectFields, ValidationError } from "@react-workshop/utils"
 
@@ -24,15 +24,19 @@ export class UserInformation {
 
 	@ApiProperty({
 		enum: UserDatabaseRole,
+		minLength: 1,
 		isArray: true
 	})
+	@ArrayMinSize(1)
 	@IsEnum(UserDatabaseRole, { each: true })
 	roles: UserDatabaseRole[]
 
 	@ApiProperty({
 		type: Group,
+		minLength: 1,
 		isArray: true
 	})
+	@ArrayMinSize(1)
 	@ValidateNested()
 	groups: Group[]
 }

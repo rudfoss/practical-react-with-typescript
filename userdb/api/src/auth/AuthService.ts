@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common"
+import { Inject, Injectable, Optional } from "@nestjs/common"
 
 import { HttpConflictException } from "../httpExceptions"
 import {
@@ -14,6 +14,7 @@ import {
 } from "../models"
 import { UserInformation } from "../models/UserInformation"
 import { StorageService, StorageServiceKey } from "../storage"
+import { GUEST_GROUP_ID } from "../storage/defaultStoreData"
 
 import { LoginRequest } from "./LoginRequest"
 import { UidGenerator, UidGeneratorKey } from "./UidGenerator"
@@ -34,7 +35,9 @@ export interface SessionUserRoles {
 export class AuthService {
 	public constructor(
 		@Inject(StorageServiceKey) protected storageService: StorageService,
-		@Inject(UidGeneratorKey) protected uidGenerator: UidGenerator
+		@Inject(UidGeneratorKey) protected uidGenerator: UidGenerator,
+		@Optional() protected defaultGroupId: string = GUEST_GROUP_ID,
+		@Optional() protected defaultRole: UserDatabaseRole = UserDatabaseRole.Guest
 	) {}
 
 	public async getUserWithPasswordByUsername(username: string) {
@@ -98,6 +101,7 @@ export class AuthService {
 	public async createUser(newUser: NewUser) {
 		const userWithPassword = new UserWithPassword(
 			{
+				groupIds: [this.defaultGroupId],
 				...newUser,
 				id: this.uidGenerator()
 			},
@@ -198,6 +202,7 @@ export class AuthService {
 	public async createGroup(newGroup: NewGroup) {
 		const fullNewGroup = new Group(
 			{
+				roles: [this.defaultRole],
 				...newGroup,
 				id: this.uidGenerator()
 			},

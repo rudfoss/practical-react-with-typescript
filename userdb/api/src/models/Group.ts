@@ -1,5 +1,6 @@
 import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger"
 import {
+	ArrayMinSize,
 	IsBoolean,
 	IsEnum,
 	IsOptional,
@@ -50,6 +51,7 @@ export class Group {
 	description?: string
 
 	@ApiProperty({
+		required: false,
 		description: "System-defined groups cannot be removed."
 	})
 	@IsBoolean()
@@ -59,8 +61,11 @@ export class Group {
 	@ApiProperty({
 		name: "UserDatabaseRole",
 		enum: UserDatabaseRole,
+		description: "The roles assigned to users in this group.",
+		minLength: 1,
 		isArray: true
 	})
+	@ArrayMinSize(1)
 	@IsEnum(UserDatabaseRole, { each: true })
 	roles: UserDatabaseRole[]
 }
@@ -68,6 +73,20 @@ export class Group {
 /**
  * New groups are given a generated id.
  */
-export class NewGroup extends OmitType(Group, ["id"] as const) {}
+export class NewGroup extends OmitType(Group, ["id", "roles"] as const) {
+	@ApiProperty({
+		name: "UserDatabaseRole",
+		enum: UserDatabaseRole,
+		description:
+			"The roles assigned to users in this group. If not specified the Guest role will be added.",
+		minLength: 1,
+		required: false,
+		isArray: true
+	})
+	@IsOptional()
+	@ArrayMinSize(1)
+	@IsEnum(UserDatabaseRole, { each: true })
+	roles?: UserDatabaseRole[]
+}
 
 export class PatchGroup extends PartialType(NewGroup) {}
