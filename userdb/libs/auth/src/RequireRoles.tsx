@@ -22,8 +22,8 @@ export const RequireRoles = ({ onMissingRoles, roles, children }: RequireRolesPr
 	// userRoles must have at least one role to exist so we use that as a test for authentication
 	if (userRoles.length === 0) return onMissingRoles
 
-	// We are now authenticated, if no roles are specified for the check then just render the children.
-	if (!roles) return children
+	// We are now authenticated, if no roles are specified for the check then just render the children. Or if the user is an admin then they should see everything.
+	if (userRoles.includes("Admin") || !roles) return children
 
 	// User has at least one role and at least one role is required so now we check if the user has any of the required roles
 	if (userRoles?.some((userRole) => roles?.includes(userRole))) return children

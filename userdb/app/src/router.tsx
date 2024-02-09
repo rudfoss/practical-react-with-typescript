@@ -53,7 +53,7 @@ const appRoutes: RouteObject[] = [
 	{
 		path: "users",
 		element: (
-			<RequireRoles onMissingRoles={<Navigate to="/" />}>
+			<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
 				<Outlet />
 			</RequireRoles>
 		),
