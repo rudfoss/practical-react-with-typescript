@@ -1,5 +1,0 @@
-export * from "./staticUsers"
-export * from "./StaticUsersList"
-export * from "./UserDetails"
-export * from "./usersDataService"
-export * from "./UsersTable"
