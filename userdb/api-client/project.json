@@ -21,7 +21,9 @@
 		}
 	},
 	"tags": [
-		"api-client",
+		"userdb",
+		"react",
+		"browser",
 		"generated"
 	],
 	"implicitDependencies": [

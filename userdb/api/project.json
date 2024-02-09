@@ -92,6 +92,8 @@
 		}
 	},
 	"tags": [
-		"api"
+		"api",
+		"rest",
+		"userdb"
 	]
 }
