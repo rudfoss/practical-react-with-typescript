@@ -609,8 +609,9 @@ export class UsersControllerClient extends UserDbApiClientBaseClass {
 
     /**
      * Update an existing user
+     * @return The updated user.
      */
-    updateUser(userId: string, body: PatchUser, signal?: AbortSignal): Promise<void> {
+    updateUser(userId: string, body: PatchUser, signal?: AbortSignal): Promise<User> {
         let url_ = this.baseUrl + "/users/{userId}";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
@@ -625,6 +626,7 @@ export class UsersControllerClient extends UserDbApiClientBaseClass {
             signal,
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
 
@@ -635,10 +637,16 @@ export class UsersControllerClient extends UserDbApiClientBaseClass {
         });
     }
 
-    protected processUpdateUser(response: Response): Promise<void> {
+    protected processUpdateUser(response: Response): Promise<User> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 400) {
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as User;
+            return result200;
+            });
+        } else if (status === 400) {
             return response.text().then((_responseText) => {
             let result400: any = null;
             result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpBadRequestException;
@@ -667,13 +675,14 @@ export class UsersControllerClient extends UserDbApiClientBaseClass {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<User>(null as any);
     }
 
     /**
      * Delete the specified user
+     * @return The removed user.
      */
-    deleteUser(userId: string, signal?: AbortSignal): Promise<void> {
+    deleteUser(userId: string, signal?: AbortSignal): Promise<User> {
         let url_ = this.baseUrl + "/users/{userId}";
         if (userId === undefined || userId === null)
             throw new Error("The parameter 'userId' must be defined.");
@@ -684,6 +693,7 @@ export class UsersControllerClient extends UserDbApiClientBaseClass {
             method: "DELETE",
             signal,
             headers: {
+                "Accept": "application/json"
             }
         };
 
@@ -694,10 +704,16 @@ export class UsersControllerClient extends UserDbApiClientBaseClass {
         });
     }
 
-    protected processDeleteUser(response: Response): Promise<void> {
+    protected processDeleteUser(response: Response): Promise<User> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 400) {
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as User;
+            return result200;
+            });
+        } else if (status === 400) {
             return response.text().then((_responseText) => {
             let result400: any = null;
             result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpBadRequestException;
@@ -732,7 +748,7 @@ export class UsersControllerClient extends UserDbApiClientBaseClass {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<User>(null as any);
     }
 }
 
@@ -912,8 +928,9 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
 
     /**
      * Update properties of an existing group
+     * @return The updated group.
      */
-    updateGroup(groupId: string, body: PatchGroup, signal?: AbortSignal): Promise<void> {
+    updateGroup(groupId: string, body: PatchGroup, signal?: AbortSignal): Promise<Group> {
         let url_ = this.baseUrl + "/groups/{groupId}";
         if (groupId === undefined || groupId === null)
             throw new Error("The parameter 'groupId' must be defined.");
@@ -928,6 +945,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
             signal,
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         };
 
@@ -938,10 +956,16 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
         });
     }
 
-    protected processUpdateGroup(response: Response): Promise<void> {
+    protected processUpdateGroup(response: Response): Promise<Group> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 400) {
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Group;
+            return result200;
+            });
+        } else if (status === 400) {
             return response.text().then((_responseText) => {
             let result400: any = null;
             result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpBadRequestException;
@@ -970,13 +994,14 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<Group>(null as any);
     }
 
     /**
      * Delete a group
+     * @return The deleted group.
      */
-    deleteGroup(groupId: string, signal?: AbortSignal): Promise<void> {
+    deleteGroup(groupId: string, signal?: AbortSignal): Promise<Group> {
         let url_ = this.baseUrl + "/groups/{groupId}";
         if (groupId === undefined || groupId === null)
             throw new Error("The parameter 'groupId' must be defined.");
@@ -987,6 +1012,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
             method: "DELETE",
             signal,
             headers: {
+                "Accept": "application/json"
             }
         };
 
@@ -997,10 +1023,16 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
         });
     }
 
-    protected processDeleteGroup(response: Response): Promise<void> {
+    protected processDeleteGroup(response: Response): Promise<Group> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
-        if (status === 400) {
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Group;
+            return result200;
+            });
+        } else if (status === 400) {
             return response.text().then((_responseText) => {
             let result400: any = null;
             result400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpBadRequestException;
@@ -1035,7 +1067,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<Group>(null as any);
     }
 }
 

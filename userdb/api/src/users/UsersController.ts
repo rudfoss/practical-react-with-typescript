@@ -75,6 +75,7 @@ export class UsersController {
 			"Updates an existing user. Users and guests can only update themselves and cannot change their group memberships.",
 		summary: "Update an existing user"
 	})
+	@ApiOkResponse({ type: User, description: "The updated user." })
 	@ApiNotFoundResponse({ type: HttpNotFoundException })
 	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async updateUser(
@@ -103,6 +104,7 @@ export class UsersController {
 	@ApiOperation({
 		summary: "Delete the specified user"
 	})
+	@ApiOkResponse({ type: User, description: "The removed user." })
 	@ApiNotFoundResponse({ type: HttpNotFoundException, description: "The user does not exist" })
 	@ApiConflictResponse({
 		type: HttpConflictException,
