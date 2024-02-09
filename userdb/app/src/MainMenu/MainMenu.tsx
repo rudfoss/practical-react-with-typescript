@@ -35,10 +35,10 @@ export const MainMenu = () => {
 			</RequireRoles>
 			<RequireRoles roles={["Admin"]}>
 				<hr />
-				<StyledNavLink to="/optimization">Optimization</StyledNavLink>
 				<StyledNavLink to="/status">API Status</StyledNavLink>
 			</RequireRoles>
 			<hr />
+				<StyledNavLink to="/optimization">Optimization</StyledNavLink>
 			<StyledNavLink to="/non-existent-page">404</StyledNavLink>
 			<StyledNavLink to="/fields">Fields</StyledNavLink>
 		</>

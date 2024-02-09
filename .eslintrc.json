@@ -56,11 +56,13 @@
 			"rules": {}
 		},
 		{
-			"files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+			"files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx", "*.test.ts", "*.test.tsx", "*.test.js", "*.test.jsx"],
 			"env": {
 				"jest": true
 			},
-			"rules": {}
+			"rules": {
+				"@typescript-eslint/no-non-null-assertion": ["off"]
+			}
 		}
 	]
 }

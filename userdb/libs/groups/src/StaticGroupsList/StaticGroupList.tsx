@@ -20,6 +20,8 @@ export const StaticGroupList = () => {
 		setGroups(groups.filter((existingGroup) => existingGroup !== group))
 	}
 
+	// Kept for documentation purposes
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const naiveOnDelete = (group: StaticGroup) => {
 		const groupId = groups.indexOf(group)
 		groups.splice(groupId, 1)

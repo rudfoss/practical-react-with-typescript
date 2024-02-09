@@ -17,20 +17,20 @@ export const RequireRolesDecorator = Reflector.createDecorator<UserDatabaseRole[
 export const RequireRoles =
 	(
 		roles: UserDatabaseRole[],
-		{ noUpdateOpenApiDescription = false }: { noUpdateOpenApiDescription?: boolean } = {}
+		{ updateOpenApiDescription = true }: { updateOpenApiDescription?: boolean } = {}
 	): MethodDecorator =>
 	(target, propertyKey, descriptor) => {
-		if (!noUpdateOpenApiDescription) {
+		if (updateOpenApiDescription && descriptor.value) {
 			const existing: { description?: string } = Reflect.getMetadata(
 				DECORATORS.API_OPERATION,
-				descriptor.value!
+				descriptor.value
 			) ?? {
 				description: ""
 			}
 			existing.description = `${
 				existing.description ?? ""
 			}\n\nUser must have one of these roles: **${roles.join(", ")}**`
-			Reflect.defineMetadata(DECORATORS.API_OPERATION, existing, descriptor.value!)
+			Reflect.defineMetadata(DECORATORS.API_OPERATION, existing, descriptor.value)
 		}
 		RequireRolesDecorator(roles)(target, propertyKey, descriptor)
 	}

@@ -89,20 +89,16 @@ const appRoutes: RouteObject[] = [
 		]
 	},
 	{
-		path: "optimization",
-		element: (
-			<RequireRoles roles={["Admin"]} onMissingRoles={<Navigate to="/" />}>
-				<OptimizationPage />
-			</RequireRoles>
-		)
-	},
-	{
 		path: "status",
 		element: (
 			<RequireRoles roles={["Admin"]} onMissingRoles={<Navigate to="/" />}>
 				<ApiStatusPage />
 			</RequireRoles>
 		)
+	},
+	{
+		path: "optimization",
+		element: <OptimizationPage />
 	},
 	{
 		path: "fields",
