@@ -7,7 +7,7 @@
 1. Install [required](#required) prerequisites
 2. Clone this repository
 3. Run `pnpm run init`
-4. In VSCode `Ctrl+P` -> `task ` -> `start`
+4. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `pnpm start`
 5. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
 <h2>Table of content</h2>
