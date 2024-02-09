@@ -8,10 +8,12 @@ import { MainMenu } from "./MainMenu"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
 import { ErrorPage } from "./pages/ErrorPage"
 import { FieldsPage } from "./pages/FieldsPage"
-import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { OptimizationPage } from "./pages/OptimizationPage"
+import { StaticGroupsPage } from "./pages/StaticGroupsPage"
 import { AuthServiceLoginPage, BasicLoginPage, DataServiceLoginPage } from "./pages/login"
+import { UserDetailsPage } from "./pages/users/UserDetailsPage"
+import { UsersPage } from "./pages/users/UsersPage"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -53,24 +55,26 @@ const appRoutes: RouteObject[] = [
 	{
 		path: "users",
 		element: (
-			<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
+			<RequireRoles onMissingRoles={<Navigate to="/" />}>
 				<Outlet />
 			</RequireRoles>
 		),
 		children: [
 			{
 				index: true,
-				lazy: async () => {
-					const { UsersPage } = await import("./pages/UsersPage")
-					return { Component: UsersPage }
-				}
+				element: (
+					<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
+						<UsersPage />
+					</RequireRoles>
+				)
 			},
 			{
 				path: ":userId",
-				lazy: async () => {
-					const { UsersPage } = await import("./pages/UsersPage")
-					return { Component: UsersPage }
-				}
+				element: (
+					<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
+						<UserDetailsPage />
+					</RequireRoles>
+				)
 			}
 		]
 	},
@@ -84,7 +88,53 @@ const appRoutes: RouteObject[] = [
 		children: [
 			{
 				index: true,
-				element: <GroupsPage />
+				element: (
+					<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
+						<p>Groups list</p>
+					</RequireRoles>
+				)
+			},
+			{
+				path: ":userId",
+				element: <p>Group details page</p>
+			}
+		]
+	},
+	{
+		path: "users-static",
+		element: (
+			<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
+				<Outlet />
+			</RequireRoles>
+		),
+		children: [
+			{
+				index: true,
+				lazy: async () => {
+					const { StaticUsersPage } = await import("./pages/StaticUsersPage")
+					return { Component: StaticUsersPage }
+				}
+			},
+			{
+				path: ":userId",
+				lazy: async () => {
+					const { StaticUsersPage } = await import("./pages/StaticUsersPage")
+					return { Component: StaticUsersPage }
+				}
+			}
+		]
+	},
+	{
+		path: "groups-static",
+		element: (
+			<RequireRoles onMissingRoles={<Navigate to="/" />}>
+				<Outlet />
+			</RequireRoles>
+		),
+		children: [
+			{
+				index: true,
+				element: <StaticGroupsPage />
 			}
 		]
 	},

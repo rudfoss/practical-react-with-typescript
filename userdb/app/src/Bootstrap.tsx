@@ -9,6 +9,8 @@ import {
 	ProvideAuthService,
 	ProvideSessionTokenService
 } from "@react-workshop/userdb-libs-auth"
+import { ProvideGroupsDataService } from "@react-workshop/userdb-libs-groups"
+import { ProvideUsersDataService } from "@react-workshop/userdb-libs-users"
 
 const queryClient = new QueryClient()
 
@@ -16,16 +18,22 @@ export interface BootstrapProps {
 	children: ReactNode
 }
 
+const baseUrl = "//localhost:4210"
+
 export const Bootstrap = ({ children }: BootstrapProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ProvideSessionTokenService>
-				<ProvideAuthDataService baseUrl="//localhost:4210">
+				<ProvideAuthDataService baseUrl={baseUrl}>
 					<ProvideAuthService>
-						<ProvideFieldsService>
-							<ProvideHeaderService>{children}</ProvideHeaderService>
-						</ProvideFieldsService>
-						<ReactQueryDevtools />
+						<ProvideUsersDataService baseUrl={baseUrl}>
+							<ProvideGroupsDataService baseUrl={baseUrl}>
+								<ProvideFieldsService>
+									<ProvideHeaderService>{children}</ProvideHeaderService>
+								</ProvideFieldsService>
+								<ReactQueryDevtools />
+							</ProvideGroupsDataService>
+						</ProvideUsersDataService>
 					</ProvideAuthService>
 				</ProvideAuthDataService>
 			</ProvideSessionTokenService>

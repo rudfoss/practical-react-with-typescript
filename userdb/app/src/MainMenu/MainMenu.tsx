@@ -24,21 +24,25 @@ export const MainMenu = () => {
 			<RequireRoles>
 				<hr />
 				<RequireRoles roles={["User", "UserAdmin"]}>
-					<StyledNavLink to="/users" end>
-						Users
+					<StyledNavLink to="/users">Users</StyledNavLink>
+					<StyledNavLink to="/groups">Groups</StyledNavLink>
+					<hr />
+					<StyledNavLink to="/users-static" end>
+						Static Users
 					</StyledNavLink>
-					<StyledNavLink to="/users/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">
-						Single user
+					<StyledNavLink to="/users-static/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">
+						Single static user
 					</StyledNavLink>
+					<StyledNavLink to="/groups-static">Static groups</StyledNavLink>
 				</RequireRoles>
-				<StyledNavLink to="/groups">Groups</StyledNavLink>
 			</RequireRoles>
 			<RequireRoles roles={["Admin"]}>
 				<hr />
 				<StyledNavLink to="/status">API Status</StyledNavLink>
+				<StyledNavLink to="/sessions">User sessions</StyledNavLink>
 			</RequireRoles>
 			<hr />
-				<StyledNavLink to="/optimization">Optimization</StyledNavLink>
+			<StyledNavLink to="/optimization">Optimization</StyledNavLink>
 			<StyledNavLink to="/non-existent-page">404</StyledNavLink>
 			<StyledNavLink to="/fields">Fields</StyledNavLink>
 		</>

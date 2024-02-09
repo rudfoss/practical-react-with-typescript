@@ -19,7 +19,7 @@ export const useGroupsDataService = () => {
 }
 
 export interface ProvideGroupsDataServiceProps {
-	baseUrl: string
+	baseUrl?: string
 	children: ReactNode
 }
 
