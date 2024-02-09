@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { createContext, useContext } from "react"
+import { ReactNode, createContext, useContext } from "react"
 
 import {
 	Group,
@@ -37,7 +37,7 @@ export const useAuthService = () => {
 }
 
 export interface ProvideAuthServiceProps {
-	children: React.ReactNode
+	children: ReactNode
 }
 
 export const ProvideAuthService = ({ children }: ProvideAuthServiceProps) => {

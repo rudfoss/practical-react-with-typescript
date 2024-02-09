@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from "react"
+import { ReactNode, createContext, useContext, useMemo } from "react"
 
 import { AuthControllerClient, AuthUserControllerClient } from "@react-workshop/userdb-api-client"
 
@@ -22,7 +22,7 @@ export const useAuthDataService = () => {
 
 export interface ProvideAuthDataServiceProps {
 	baseUrl?: string
-	children: React.ReactNode
+	children: ReactNode
 }
 
 export const ProvideAuthDataService = ({

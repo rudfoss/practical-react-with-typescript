@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState } from "react"
+import { ReactNode, createContext, useCallback, useContext, useMemo, useState } from "react"
 
 import { setBearerToken } from "@react-workshop/userdb-api-client"
 
@@ -19,7 +19,7 @@ export const useSessionTokenService = () => {
 }
 
 export interface ProvideSessionTokenServiceProps {
-	children: React.ReactNode
+	children: ReactNode
 }
 
 /**

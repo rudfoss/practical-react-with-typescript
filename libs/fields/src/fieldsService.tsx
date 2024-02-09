@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { ReactNode, createContext, useContext, useEffect, useState } from "react"
 
 export interface FieldsServiceContextProps {
 	isDisabled: boolean
@@ -20,7 +20,7 @@ export const useFieldsServiceIsDisabled = () => {
 
 export interface ProvideFieldsServiceProps {
 	isDisabled?: boolean
-	children: React.ReactNode
+	children: ReactNode
 }
 
 export const ProvideFieldsService = ({

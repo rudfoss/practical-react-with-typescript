@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react"
+import { ReactNode, createContext, useContext, useMemo, useState } from "react"
 
 export interface HeaderServiceContextProps {
 	heading: string
@@ -16,7 +16,7 @@ export const useHeaderService = () => {
 
 export interface ProvideHeaderServiceProps {
 	initialHeading?: string
-	children: React.ReactNode
+	children: ReactNode
 }
 
 export const ProvideHeaderService = ({
