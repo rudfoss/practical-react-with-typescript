@@ -1,6 +1,9 @@
 import { queryOptions } from "@tanstack/react-query"
 
-import { IAuthControllerClient, IAuthUserControllerClient } from "@react-workshop/userdb-api-client"
+import type {
+	AuthControllerClient,
+	AuthUserControllerClient
+} from "@react-workshop/userdb-api-client"
 
 /**
  * Binds query options to their underlying clients to simplify their use.
@@ -10,8 +13,8 @@ import { IAuthControllerClient, IAuthUserControllerClient } from "@react-worksho
  * @returns
  */
 export const createAuthDataQueries = (
-	authClient: IAuthControllerClient,
-	authUserClient: IAuthUserControllerClient,
+	authClient: AuthControllerClient,
+	authUserClient: AuthUserControllerClient,
 	isSessionTokenAvailable = false
 ) => {
 	const queries = {
@@ -20,14 +23,14 @@ export const createAuthDataQueries = (
 		session: () =>
 			queryOptions({
 				queryKey: [...queries.currentUser(), "session"],
-				queryFn: () => authUserClient.getSession(),
+				queryFn: ({ signal }) => authUserClient.getSession(undefined, signal),
 				enabled: isSessionTokenAvailable,
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),
 		userInformation: () =>
 			queryOptions({
 				queryKey: [...queries.currentUser(), "information"],
-				queryFn: () => authUserClient.getCurrentUser(),
+				queryFn: ({ signal }) => authUserClient.getCurrentUser(signal),
 				enabled: isSessionTokenAvailable,
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),
@@ -35,7 +38,7 @@ export const createAuthDataQueries = (
 		sessions: () =>
 			queryOptions({
 				queryKey: ["sessions"],
-				queryFn: () => authClient.getActiveSessions(),
+				queryFn: ({ signal }) => authClient.getActiveSessions(signal),
 				enabled: isSessionTokenAvailable,
 				staleTime: 1000 * 60 * 5
 			})

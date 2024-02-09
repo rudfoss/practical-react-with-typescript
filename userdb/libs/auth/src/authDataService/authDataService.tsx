@@ -1,18 +1,13 @@
 import { createContext, useContext, useMemo } from "react"
 
-import {
-	AuthControllerClient,
-	AuthUserControllerClient,
-	IAuthControllerClient,
-	IAuthUserControllerClient
-} from "@react-workshop/userdb-api-client"
+import { AuthControllerClient, AuthUserControllerClient } from "@react-workshop/userdb-api-client"
 
 import { AuthDataQueries, createAuthDataQueries } from "./authDataQueries"
 import { useSessionTokenService } from "./sessionTokenService"
 
 export interface AuthDataServiceContextProps {
-	authClient: IAuthControllerClient
-	authUserClient: IAuthUserControllerClient
+	authClient: AuthControllerClient
+	authUserClient: AuthUserControllerClient
 	queries: AuthDataQueries
 }
 
