@@ -10,12 +10,9 @@ Authorization: Bearer [token]
 
 In the Swagger UI you can perform authenticated requests by using the `login` endpoint to get a token and then copying that token to the Authorize dialog.
 
-**Important**: Tokens expire after 30 minutes, but can be renewed using the `auth/session` endpoint.
+**Important**: Tokens expire after 30 minutes, but you can use the `auth/session` endpoint to get a new session token with another 30 minute expiration window as long as the current session is still active.
 
-The service starts with a single admin user:
-
-- Username: `admin`
-- Password: `admin`
+The service starts with an admin and a guest user with username and password `admin`/`admin` and `guest`/`guest` respectively.
 
 ## Authorization
 
