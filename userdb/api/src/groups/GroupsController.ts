@@ -75,6 +75,7 @@ export class GroupsController {
 	@ApiOperation({
 		summary: "Update properties of an existing group"
 	})
+	@ApiOkResponse({ type: Group, description: "The updated group." })
 	@ApiNotFoundResponse({ description: "Group not found", type: HttpNotFoundException })
 	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async updateGroup(@Param("groupId") groupId: string, @Body() patchGroup: PatchGroup) {
@@ -86,6 +87,7 @@ export class GroupsController {
 	@ApiOperation({
 		summary: "Delete a group"
 	})
+	@ApiOkResponse({ type: Group, description: "The deleted group." })
 	@ApiNotFoundResponse({ description: "No user found", type: HttpNotFoundException })
 	@ApiConflictResponse({
 		description: "The group is protected and cannot be deleted (see error for details)",
