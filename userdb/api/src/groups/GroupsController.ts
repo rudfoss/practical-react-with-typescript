@@ -59,6 +59,8 @@ export class GroupsController {
 		description: "Guests are only allowed to get information about groups they are a member of.",
 		summary: "Get information about a specific group."
 	})
+	@ApiOkResponse({ type: Group })
+	@ApiNotFoundResponse({ type: HttpNotFoundException })
 	public async getGroup(
 		@Param("groupId") groupId: string,
 		@Req() request: UserDatabaseApiRequestAuthenticated
