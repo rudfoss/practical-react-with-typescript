@@ -63,7 +63,7 @@ export class User {
 	@IsString({ each: true })
 	@Length(21, 128, { each: true })
 	@ArrayMinSize(1)
-	groupIds: [string, ...string[]]
+	groupIds: string[]
 }
 
 export class UserWithPassword extends User {
@@ -90,7 +90,7 @@ export class NewUser extends OmitType(UserWithPassword, ["id", "groupIds"] as co
 	@IsString({ each: true })
 	@Length(21, 128, { each: true })
 	@ArrayMinSize(1)
-	groupIds?: [string, ...string[]]
+	groupIds?: string[]
 }
 
 /**

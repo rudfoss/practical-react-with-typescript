@@ -211,7 +211,7 @@ export class AuthControllerClient extends UserDbApiClientBaseClass {
     /**
      * Get all currently active sessions
      */
-    getActiveSessions(signal?: AbortSignal): Promise<UserSession> {
+    getActiveSessions(signal?: AbortSignal): Promise<UserSession[]> {
         let url_ = this.baseUrl + "/auth/sessions";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -230,13 +230,13 @@ export class AuthControllerClient extends UserDbApiClientBaseClass {
         });
     }
 
-    protected processGetActiveSessions(response: Response): Promise<UserSession> {
+    protected processGetActiveSessions(response: Response): Promise<UserSession[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession[];
             return result200;
             });
         } else if (status === 401) {
@@ -256,7 +256,7 @@ export class AuthControllerClient extends UserDbApiClientBaseClass {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<UserSession>(null as any);
+        return Promise.resolve<UserSession[]>(null as any);
     }
 
     /**
@@ -878,7 +878,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
     /**
      * Get information about a specific group.
      */
-    getGroup(groupId: string, signal?: AbortSignal): Promise<void> {
+    getGroup(groupId: string, signal?: AbortSignal): Promise<Group> {
         let url_ = this.baseUrl + "/groups/{groupId}";
         if (groupId === undefined || groupId === null)
             throw new Error("The parameter 'groupId' must be defined.");
@@ -889,6 +889,7 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
             method: "GET",
             signal,
             headers: {
+                "Accept": "application/json"
             }
         };
 
@@ -899,12 +900,14 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
         });
     }
 
-    protected processGetGroup(response: Response): Promise<void> {
+    protected processGetGroup(response: Response): Promise<Group> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Group;
+            return result200;
             });
         } else if (status === 401) {
             return response.text().then((_responseText) => {
@@ -918,12 +921,18 @@ export class GroupsControllerClient extends UserDbApiClientBaseClass {
             result403 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpForbiddenException;
             return throwException("A server side error occurred.", status, _responseText, _headers, result403);
             });
+        } else if (status === 404) {
+            return response.text().then((_responseText) => {
+            let result404: any = null;
+            result404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as HttpNotFoundException;
+            return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<Group>(null as any);
     }
 
     /**
@@ -1159,14 +1168,14 @@ export interface Group {
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
     /** The roles assigned to users in this group. */
-    UserDatabaseRole: UserDatabaseRole[];
+    roles: Roles[];
 
     [key: string]: any;
 }
 
 export interface UserInformation {
     user: User;
-    roles: Roles[];
+    roles: roles[];
     groups: Group[];
 
     [key: string]: any;
@@ -1218,7 +1227,7 @@ export interface PatchGroup {
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
     /** The roles assigned to users in this group. If not specified the Guest role will be added. */
-    UserDatabaseRole?: userDatabaseRole[];
+    UserDatabaseRole?: UserDatabaseRole[];
 
     [key: string]: any;
 }
@@ -1229,20 +1238,20 @@ export interface NewGroup {
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
     /** The roles assigned to users in this group. If not specified the Guest role will be added. */
-    UserDatabaseRole?: userDatabaseRole2[];
+    UserDatabaseRole?: userDatabaseRole[];
 
     [key: string]: any;
 }
 
 export type Refresh = "true" | "false";
 
-export type UserDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
-
 export type Roles = "Admin" | "UserAdmin" | "User" | "Guest";
 
-export type userDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
+export type roles = "Admin" | "UserAdmin" | "User" | "Guest";
 
-export type userDatabaseRole2 = "Admin" | "UserAdmin" | "User" | "Guest";
+export type UserDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
+
+export type userDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
 
 export class ApiException extends Error {
     override message: string;

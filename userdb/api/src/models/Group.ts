@@ -59,7 +59,6 @@ export class Group {
 	isSystemDefined?: boolean
 
 	@ApiProperty({
-		name: "UserDatabaseRole",
 		enum: UserDatabaseRole,
 		description: "The roles assigned to users in this group.",
 		minLength: 1,

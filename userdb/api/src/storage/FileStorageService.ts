@@ -34,9 +34,8 @@ export class FileStorageService implements StorageService {
 		key: TDBItem,
 		valueSetter: Setter<StorageData[TDBItem]>
 	) {
-		await this.db.update(async (data) => {
-			data[key] = await valueSetter(data[key])
-		})
+		this.db.data[key] = await valueSetter(this.db.data[key])
+		await this.db.write()
 		return this.db.data[key]
 	}
 
