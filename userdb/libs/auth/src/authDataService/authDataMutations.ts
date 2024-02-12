@@ -63,13 +63,13 @@ export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 
 export const useLogEveryoneOut = () => {
 	const queryClient = useQueryClient()
-	const { authClient } = useAuthDataService()
+	const { authClient, queries } = useAuthDataService()
 	const { setSessionToken } = useSessionTokenService()
 
 	return useMutation({
 		mutationFn: () => authClient.logEveryoneOut(),
-		onSuccess: async () => {
-			queryClient.removeQueries({ queryKey: [] })
+		onSuccess: async (removedSessions) => {
+			await queryClient.invalidateQueries({ queryKey: queries.sessions().queryKey })
 			setSessionToken()
 		}
 	})

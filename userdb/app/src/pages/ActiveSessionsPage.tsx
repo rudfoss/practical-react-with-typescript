@@ -11,7 +11,7 @@ export const ActiveSessionsPage = () => {
 
 	return (
 		<>
-			<button onClick={() => logEveryoneOut()}>Delete all sessions</button>
+			<button onClick={() => logEveryoneOut()}>Log everyone else out</button>
 			<table>
 				<thead>
 					<tr>
