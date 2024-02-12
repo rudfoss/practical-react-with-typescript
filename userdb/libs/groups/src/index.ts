@@ -1,7 +1,0 @@
-export * from "./GroupDetails"
-export * from "./groupsDataService"
-export * from "./GroupsTable"
-export * from "./GroupTags"
-export * from "./RoleTags"
-export * from "./staticGroups"
-export * from "./StaticGroupsList"
