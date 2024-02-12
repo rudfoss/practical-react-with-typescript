@@ -124,6 +124,19 @@ export class AuthService {
 			{ forbidNonWhitelisted: true }
 		)
 
+		const [lastAdmin, ...otherAdmins] = await this.getUsersByRole(UserDatabaseRole.Admin)
+		if (otherAdmins.length === 0 && lastAdmin.id === userId) {
+			const patchedUserNewGroups = await Promise.all(
+				patchedUser.groupIds.map((groupId) => this.getGroupById(groupId))
+			)
+			const patcherUserNewRoles = new Set(patchedUserNewGroups.flatMap((group) => group?.roles))
+			if (!patcherUserNewRoles.has(UserDatabaseRole.Admin)) {
+				throw new HttpConflictException(
+					`User ${userId} is the last administrator. You cannot remove their admin group membership.`
+				)
+			}
+		}
+
 		await this.storageService.setUsers((existingUsers) => {
 			const nextUsers = existingUsers.filter((user) => user.id !== userId)
 			nextUsers.push(patchedUser)

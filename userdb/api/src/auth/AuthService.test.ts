@@ -252,6 +252,18 @@ describe("AuthService", () => {
 
 			expect(usersBeforePatch.length).toEqual(store.users.length)
 		})
+		it("cannot remove admin group membership from the last admin", async () => {
+			const { authService } = createServiceMocks()
+
+			expect(async () => {
+				await authService.patchUser(
+					{
+						groupIds: [GUEST_GROUP_ID]
+					},
+					ADMIN_USER_ID
+				)
+			}).rejects.toThrow()
+		})
 		it("changes nothing if trying to patch non-existent user", async () => {
 			const { authService, store } = createServiceMocks()
 			const usersBeforePatch = [...store.users]
