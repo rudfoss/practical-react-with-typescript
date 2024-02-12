@@ -15,15 +15,24 @@ const Tag = styled.div`
 export interface GroupTagProps {
 	groupId: string
 	groupResult: UseQueryResult<Group>
+	/**
+	 * If provided will show an ❌ next to each tag that can be clicked to remove the item.
+	 * @param groupId
+	 * @returns
+	 */
+	onRemove?: (groupId: string) => unknown
 }
 
-export const GroupTag = ({ groupId, groupResult }: GroupTagProps) => {
+export const GroupTag = ({ groupId, groupResult, onRemove }: GroupTagProps) => {
 	const { data: group, isError } = groupResult
+
+	const removeItem = onRemove ? <button onClick={() => onRemove(groupId)}>❌</button> : undefined
 
 	if (group) {
 		return (
 			<Tag>
 				<Link to={`/groups/${groupId}`}>{group.displayName}</Link>
+				{removeItem}
 			</Tag>
 		)
 	}
@@ -31,6 +40,7 @@ export const GroupTag = ({ groupId, groupResult }: GroupTagProps) => {
 		return (
 			<Tag>
 				<Link to={`/groups/${groupId}`}>💥 {groupId}</Link>
+				{removeItem}
 			</Tag>
 		)
 	}

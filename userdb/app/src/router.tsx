@@ -15,6 +15,7 @@ import { StaticGroupsPage } from "./pages/StaticGroupsPage"
 import { GroupDetailsPage } from "./pages/groups/GroupDetailsPage"
 import { GroupsPage } from "./pages/groups/GroupsPage"
 import { AuthServiceLoginPage, BasicLoginPage, DataServiceLoginPage } from "./pages/login"
+import { EditUserPage } from "./pages/users/EditUserPage"
 import { UserDetailsPage } from "./pages/users/UserDetailsPage"
 import { UsersPage } from "./pages/users/UsersPage"
 
@@ -69,7 +70,16 @@ const appRoutes: RouteObject[] = [
 			},
 			{
 				path: ":userId",
-				element: <UserDetailsPage />
+				children: [
+					{
+						index: true,
+						element: <UserDetailsPage />
+					},
+					{
+						path: "edit",
+						element: <EditUserPage />
+					}
+				]
 			}
 		]
 	},

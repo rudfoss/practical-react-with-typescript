@@ -1,4 +1,5 @@
 export * from "./Avatar"
+export * from "./CreateEditUser"
 export * from "./EditUserDetails"
 export * from "./staticUsers"
 export * from "./StaticUsersList"
