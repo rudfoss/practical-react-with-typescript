@@ -5,6 +5,7 @@ import { RequireRoles } from "@react-workshop/userdb-libs-auth"
 
 import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
+import { ActiveSessionsPage } from "./pages/ActiveSessionsPage"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
 import { ErrorPage } from "./pages/ErrorPage"
 import { FieldsPage } from "./pages/FieldsPage"
@@ -133,6 +134,14 @@ const appRoutes: RouteObject[] = [
 		element: (
 			<RequireRoles roles={["Admin"]} onMissingRoles={<Navigate to="/" />}>
 				<ApiStatusPage />
+			</RequireRoles>
+		)
+	},
+	{
+		path: "sessions",
+		element: (
+			<RequireRoles roles={["Admin"]} onMissingRoles={<Navigate to="/" />}>
+				<ActiveSessionsPage />
 			</RequireRoles>
 		)
 	},
