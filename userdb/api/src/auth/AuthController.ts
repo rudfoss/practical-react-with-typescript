@@ -66,7 +66,7 @@ export class AuthController {
 		summary: "Get all currently active sessions",
 		description: `Return a list of all active session including their tokens (for debugging). Requires admin role.`
 	})
-	@ApiOkResponse({ type: UserSession })
+	@ApiOkResponse({ type: UserSession, isArray: true })
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	@ApiForbiddenResponse({ type: HttpForbiddenException })

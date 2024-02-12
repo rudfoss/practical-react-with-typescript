@@ -211,7 +211,7 @@ export class AuthControllerClient extends UserDbApiClientBaseClass {
     /**
      * Get all currently active sessions
      */
-    getActiveSessions(signal?: AbortSignal): Promise<UserSession> {
+    getActiveSessions(signal?: AbortSignal): Promise<UserSession[]> {
         let url_ = this.baseUrl + "/auth/sessions";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -230,13 +230,13 @@ export class AuthControllerClient extends UserDbApiClientBaseClass {
         });
     }
 
-    protected processGetActiveSessions(response: Response): Promise<UserSession> {
+    protected processGetActiveSessions(response: Response): Promise<UserSession[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UserSession[];
             return result200;
             });
         } else if (status === 401) {
@@ -256,7 +256,7 @@ export class AuthControllerClient extends UserDbApiClientBaseClass {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<UserSession>(null as any);
+        return Promise.resolve<UserSession[]>(null as any);
     }
 
     /**
