@@ -19,18 +19,20 @@ export interface RoleTagsProps {
 	onlyDistinct?: boolean
 }
 
-export const RoleTags = ({ groupIds }: RoleTagsProps) => {
+export const RoleTags = ({ groupIds, onlyDistinct }: RoleTagsProps) => {
 	const { queries } = useGroupsDataService()
 	const groupResults = useQueries({
 		queries: groupIds.map((groupId) => queries.byId(groupId))
 	})
 
-	const distinctRoles = new Set(groupResults.map((result) => result.data?.displayName ?? ""))
-	distinctRoles.delete("")
+	const allRoles = groupResults
+		.flatMap((result) => result.data?.roles ?? [""])
+		.filter((role) => role !== "")
+	const roles = onlyDistinct ? [...new Set(allRoles)] : allRoles
 
 	return (
 		<Container>
-			{[...distinctRoles].map((roleName) => (
+			{roles.map((roleName) => (
 				<li key={roleName}>
 					<RoleTag roleName={roleName} />
 				</li>

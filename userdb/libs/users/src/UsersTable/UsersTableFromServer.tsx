@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 
+import { LoadingSpinner } from "@react-workshop/ui"
 import { User } from "@react-workshop/userdb-api-client"
 
 import { useDeleteUser, useUsersDataService } from "../usersDataService"
@@ -30,4 +31,6 @@ export const UsersTableFromServer = ({ createUserLink, canDelete }: UsersTableFr
 			/>
 		)
 	}
+
+	return <LoadingSpinner />
 }

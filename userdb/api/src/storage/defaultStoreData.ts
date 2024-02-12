@@ -3,6 +3,7 @@ import { UserDatabaseRole } from "../models"
 import { StorageData } from "./StorageData"
 
 export const ADMINISTRATOR_GROUP_ID = "5dd0a91a-d493-4fa1-b447-f90121f00bb0"
+export const USERSADMINS_GROUP_ID = "12b2f31a-a8e6-4e08-971c-a8594f16ab76"
 export const USERS_GROUP_ID = "716eabb3-5044-49f6-95c1-60efb5709143"
 export const GUEST_GROUP_ID = "74614400-354b-4cee-889f-ec6aa8c36550"
 
@@ -14,6 +15,13 @@ export const defaultStoreData: StorageData = {
 			username: "admin",
 			password: "admin",
 			groupIds: [ADMINISTRATOR_GROUP_ID]
+		},
+		{
+			id: "65c95de7-e917-4000-a57b-905527d46746",
+			displayName: "UserAdmin",
+			username: "user",
+			password: "user",
+			groupIds: [USERS_GROUP_ID, USERSADMINS_GROUP_ID]
 		},
 		{
 			id: "67dc12eb-81dc-4a4a-9fe0-12cee1d11674",
@@ -37,6 +45,12 @@ export const defaultStoreData: StorageData = {
 			description: "The administrator role has full access.",
 			roles: [UserDatabaseRole.Admin],
 			isSystemDefined: true
+		},
+		{
+			id: USERSADMINS_GROUP_ID,
+			displayName: "User administrators",
+			description: "Users that can manage other users.",
+			roles: [UserDatabaseRole.UserAdmin]
 		},
 		{
 			id: USERS_GROUP_ID,

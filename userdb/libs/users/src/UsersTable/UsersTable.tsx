@@ -26,7 +26,7 @@ export const UsersTable = ({ users, createUserLink, canDelete, onDelete }: Users
 						key={user.id}
 						user={user}
 						userLink={createUserLink?.(user)}
-						onDelete={onDelete ? () => onDelete(user) : undefined}
+						onDelete={() => onDelete?.(user)}
 						canDelete={canDelete}
 					/>
 				))}

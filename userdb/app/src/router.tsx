@@ -11,6 +11,8 @@ import { FieldsPage } from "./pages/FieldsPage"
 import { HomePage } from "./pages/HomePage"
 import { OptimizationPage } from "./pages/OptimizationPage"
 import { StaticGroupsPage } from "./pages/StaticGroupsPage"
+import { GroupDetailsPage } from "./pages/groups/GroupDetailsPage"
+import { GroupsPage } from "./pages/groups/GroupsPage"
 import { AuthServiceLoginPage, BasicLoginPage, DataServiceLoginPage } from "./pages/login"
 import { UserDetailsPage } from "./pages/users/UserDetailsPage"
 import { UsersPage } from "./pages/users/UsersPage"
@@ -62,19 +64,11 @@ const appRoutes: RouteObject[] = [
 		children: [
 			{
 				index: true,
-				element: (
-					<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
-						<UsersPage />
-					</RequireRoles>
-				)
+				element: <UsersPage />
 			},
 			{
 				path: ":userId",
-				element: (
-					<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
-						<UserDetailsPage />
-					</RequireRoles>
-				)
+				element: <UserDetailsPage />
 			}
 		]
 	},
@@ -88,15 +82,11 @@ const appRoutes: RouteObject[] = [
 		children: [
 			{
 				index: true,
-				element: (
-					<RequireRoles roles={["User", "UserAdmin"]} onMissingRoles={<Navigate to="/" />}>
-						<p>Groups list</p>
-					</RequireRoles>
-				)
+				element: <GroupsPage />
 			},
 			{
-				path: ":userId",
-				element: <p>Group details page</p>
+				path: ":groupId",
+				element: <GroupDetailsPage />
 			}
 		]
 	},
