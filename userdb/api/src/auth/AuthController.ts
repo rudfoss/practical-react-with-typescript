@@ -78,23 +78,16 @@ export class AuthController {
 	@Get("log-everyone-out")
 	@RequireRoles([UserDatabaseRole.Admin])
 	@ApiOperation({
-		summary: "Log out every currently logged in user except the current one"
+		summary: "Log out every currently logged in user except the user requesting it."
 	})
 	@ApiBearerAuth(bearerAuthName)
 	@UseGuards(AuthGuard)
 	@ApiOkResponse({ type: LogEveryoneOutResponse })
 	public async logEveryoneOut(@Req() { userSession }: UserDatabaseApiRequestAuthenticated) {
-		const removedSessions: UserSession[] = []
+		let removedSessions: UserSession[] = []
 		await this.storageService.setUserSessions((sessions) => {
-			const validSessions: UserSession[] = []
-			for (const session of sessions) {
-				if (session.token !== userSession.token) {
-					removedSessions.push(session)
-					continue
-				}
-				validSessions.push(session)
-			}
-			return validSessions
+			removedSessions = sessions.filter((session) => session.token !== userSession.token)
+			return [userSession]
 		})
 		return new LogEveryoneOutResponse({ removedSessions })
 	}
