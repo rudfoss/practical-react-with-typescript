@@ -28,7 +28,9 @@ const mockUidGenerator = (() => {
 
 const ADMIN_USER_ID = "83b91179-dd6a-4f95-8f58-a0abd85fddd2"
 const GUEST_USER_ID = "46e8045a-9b36-4dc5-aef1-2028771ad5d6"
+const USER_AND_GUEST_USER_ID = "38fcfb98-8297-4b00-a662-deab8fd9646c"
 const ADMIN_GROUP_ID = "f285a99c-f968-4fca-8fde-be71ce3441dc"
+const USER_GROUP_ID = "c8dbbb90-5e51-4bd3-a8a0-eb378478ada6"
 const GUEST_GROUP_ID = "0e8fb72a-8431-4434-b91e-8b2246292bb5"
 
 const createServiceMocks = () => {
@@ -47,6 +49,13 @@ const createServiceMocks = () => {
 				username: "guest",
 				password: "guest",
 				groupIds: [GUEST_GROUP_ID]
+			},
+			{
+				id: USER_AND_GUEST_USER_ID,
+				displayName: "UserGuest",
+				username: "userGuest",
+				password: "userGuest",
+				groupIds: [GUEST_GROUP_ID, USER_GROUP_ID]
 			}
 		],
 		groups: [
@@ -56,6 +65,12 @@ const createServiceMocks = () => {
 				description: "The administrator role has full access.",
 				roles: [UserDatabaseRole.Admin],
 				isSystemDefined: true
+			},
+			{
+				id: USER_GROUP_ID,
+				displayName: "Users",
+				description: "Users",
+				roles: [UserDatabaseRole.User]
 			},
 			{
 				id: GUEST_GROUP_ID,
@@ -320,6 +335,13 @@ describe("AuthService", () => {
 			const groups = await authService.getGroups()
 			expect(groups).toEqual(store.groups)
 		})
+		it("returns users that are members of a group", async () => {
+			const { authService } = createServiceMocks()
+
+			const guests = await authService.getUsersInGroups([GUEST_GROUP_ID])
+			expect(guests.length).toBeGreaterThanOrEqual(1)
+			expect(guests.find((guest) => guest.id === GUEST_USER_ID)).toBeTruthy()
+		})
 		it("can create new group with default role", async () => {
 			const { authService, store, defaultRole } = createServiceMocks()
 			const groupsBeforeCreate = [...store.groups]
@@ -362,13 +384,24 @@ describe("AuthService", () => {
 			expect(patchedGroup).toEqual(groupAfterPatch)
 			expect(groupsBeforePatch.length).toBe(store.groups.length)
 		})
-		it("can delete a group", async () => {
+		it("cannot delete a group where a user is a member of it and no other group", async () => {
+			const { authService } = createServiceMocks()
+
+			expect(async () => {
+				await authService.deleteGroup(GUEST_GROUP_ID)
+			}).rejects.toThrow()
+		})
+		it("can delete a group where users have multiple memberships", async () => {
 			const { authService, store } = createServiceMocks()
 			const groupsBeforeDelete = [...store.groups]
 
-			const deletedGroup = await authService.deleteGroup(GUEST_GROUP_ID)
+			const [existingMember] = await authService.getUsersInGroups([USER_GROUP_ID])
+			expect(existingMember).toBeTruthy()
+			const deletedGroup = await authService.deleteGroup(USER_GROUP_ID)
 			expect(deletedGroup).toBeInstanceOf(Group)
 			expect(store.groups.length).toBe(groupsBeforeDelete.length - 1)
+			const noLongerMember = await authService.getUserById(existingMember.id)
+			expect(noLongerMember?.groupIds).not.toContain(USER_GROUP_ID)
 		})
 		it("cannot delete system groups", async () => {
 			const { authService } = createServiceMocks()

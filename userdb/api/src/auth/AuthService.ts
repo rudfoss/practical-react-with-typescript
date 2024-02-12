@@ -88,6 +88,14 @@ export class AuthService {
 		const users = await this.getUsers()
 		return users.filter((user) => user.groupIds?.some((groupId) => groupIdsWithRole.has(groupId)))
 	}
+	public async getUsersInGroups(groupIds: string[]) {
+		const groupsToFind = new Set(groupIds)
+		const allUsers = await this.storageService.getUsers()
+		const members = allUsers.filter((user) =>
+			user.groupIds.some((groupId) => groupsToFind.has(groupId))
+		)
+		return members.map((member) => new User(member, { whitelist: true }))
+	}
 
 	public async getUsersWithPassword() {
 		return this.storageService.getUsers()
@@ -255,7 +263,22 @@ export class AuthService {
 		if (deletedGroup.isSystemDefined)
 			throw new HttpConflictException(`Group ${groupId} is a system group and cannot be deleted.`)
 
+		const oldMembers = await this.getUsersInGroups([groupId])
+		if (oldMembers.some((oldMember) => oldMember.groupIds.length === 1)) {
+			throw new HttpConflictException(
+				`One or more users are only members of the group ${groupId}. Add users to at least one more group before you delete this one.`
+			)
+		}
+
 		await this.storageService.setGroups((groups) => groups.filter((group) => group.id !== groupId))
+		for (const oldMember of oldMembers) {
+			await this.patchUser(
+				{
+					groupIds: oldMember.groupIds.filter((memberGroupId) => memberGroupId !== groupId)
+				},
+				oldMember.id
+			)
+		}
 
 		return deletedGroup
 	}
