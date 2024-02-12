@@ -24,8 +24,8 @@ export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) =
 	const hasData = username.length > 0 && password.length > 0
 
 	const onSubmit = (event: FormEvent) => {
-		if (disabled) return
 		event.preventDefault()
+		if (disabled) return
 		onLogin(username, password)
 	}
 
