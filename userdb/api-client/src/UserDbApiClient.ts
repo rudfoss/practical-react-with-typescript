@@ -1168,14 +1168,14 @@ export interface Group {
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
     /** The roles assigned to users in this group. */
-    UserDatabaseRole: UserDatabaseRole[];
+    roles: Roles[];
 
     [key: string]: any;
 }
 
 export interface UserInformation {
     user: User;
-    roles: Roles[];
+    roles: roles[];
     groups: Group[];
 
     [key: string]: any;
@@ -1227,7 +1227,7 @@ export interface PatchGroup {
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
     /** The roles assigned to users in this group. If not specified the Guest role will be added. */
-    UserDatabaseRole?: userDatabaseRole[];
+    UserDatabaseRole?: UserDatabaseRole[];
 
     [key: string]: any;
 }
@@ -1238,20 +1238,20 @@ export interface NewGroup {
     /** System-defined groups cannot be removed. */
     isSystemDefined?: boolean;
     /** The roles assigned to users in this group. If not specified the Guest role will be added. */
-    UserDatabaseRole?: userDatabaseRole2[];
+    UserDatabaseRole?: userDatabaseRole[];
 
     [key: string]: any;
 }
 
 export type Refresh = "true" | "false";
 
-export type UserDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
-
 export type Roles = "Admin" | "UserAdmin" | "User" | "Guest";
 
-export type userDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
+export type roles = "Admin" | "UserAdmin" | "User" | "Guest";
 
-export type userDatabaseRole2 = "Admin" | "UserAdmin" | "User" | "Guest";
+export type UserDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
+
+export type userDatabaseRole = "Admin" | "UserAdmin" | "User" | "Guest";
 
 export class ApiException extends Error {
     override message: string;
