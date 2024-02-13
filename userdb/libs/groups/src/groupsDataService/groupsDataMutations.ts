@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-import { NewGroup, PatchGroup } from "@react-workshop/userdb-api-clients"
+import { NewGroup, PatchGroup, useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 import { useGroupsDataService } from "./groupsDataService"
 
 export const useCreateGroup = () => {
 	const queryClient = useQueryClient()
-	const { groupsClient, queries } = useGroupsDataService()
+	const { groupsClient } = useApiClientsService()
+	const { queries } = useGroupsDataService()
 
 	return useMutation({
 		mutationFn: (newGroup: NewGroup) => groupsClient.createGroup(newGroup),
@@ -20,7 +21,8 @@ export const useCreateGroup = () => {
 
 export const useUpdateGroup = () => {
 	const queryClient = useQueryClient()
-	const { groupsClient, queries } = useGroupsDataService()
+	const { groupsClient } = useApiClientsService()
+	const { queries } = useGroupsDataService()
 
 	return useMutation({
 		mutationFn: ({ groupId, patchGroup }: { groupId: string; patchGroup: PatchGroup }) =>
@@ -38,7 +40,8 @@ export const useUpdateGroup = () => {
 
 export const useDeleteGroup = () => {
 	const queryClient = useQueryClient()
-	const { groupsClient, queries } = useGroupsDataService()
+	const { groupsClient } = useApiClientsService()
+	const { queries } = useGroupsDataService()
 
 	return useMutation({
 		mutationFn: (groupId: string) => groupsClient.deleteGroup(groupId),

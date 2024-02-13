@@ -21,10 +21,10 @@ export const Bootstrap = ({ children }: BootstrapProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ProvideApiClientsService baseUrl={baseUrl}>
-				<ProvideAuthDataService baseUrl={baseUrl}>
+				<ProvideAuthDataService>
 					<ProvideAuthService>
-						<ProvideUsersDataService baseUrl={baseUrl}>
-							<ProvideGroupsDataService baseUrl={baseUrl}>
+						<ProvideUsersDataService>
+							<ProvideGroupsDataService>
 								<ProvideFieldsService>
 									<ProvideHeaderService>{children}</ProvideHeaderService>
 								</ProvideFieldsService>

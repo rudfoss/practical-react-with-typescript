@@ -1,4 +1,5 @@
 import { useHeading } from "@react-workshop/ui"
+import { ProvideApiClientsService } from "@react-workshop/userdb-api-clients"
 import {
 	AuthServiceLoginForm,
 	ProvideAuthDataService,
@@ -8,10 +9,12 @@ import {
 export const AuthServiceLoginPage = () => {
 	useHeading("Auth service powered login")
 	return (
-		<ProvideAuthDataService baseUrl="//localhost:4210">
-			<ProvideAuthService>
-				<AuthServiceLoginForm />
-			</ProvideAuthService>
-		</ProvideAuthDataService>
+		<ProvideApiClientsService baseUrl="//localhost:4210">
+			<ProvideAuthDataService>
+				<ProvideAuthService>
+					<AuthServiceLoginForm />
+				</ProvideAuthService>
+			</ProvideAuthDataService>
+		</ProvideApiClientsService>
 	)
 }
