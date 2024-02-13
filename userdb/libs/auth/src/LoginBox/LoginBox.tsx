@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
 
+import { LoadingSpinner } from "@react-workshop/ui"
+
 import { LoginForm } from "../LoginForm"
 import { useAuthService } from "../authService/authService"
 
@@ -18,24 +20,27 @@ export const LoginBox = () => {
 	const { login, logout, isWorking, user, loginError } = useAuthService()
 
 	return (
-		<Container>
-			<div>
-				{!user && (
-					<LoginForm
-						onLogin={(username, password) => login({ username, password })}
-						disabled={isWorking}
-						errorMessage={loginError?.message}
-					/>
-				)}
-				{user && (
-					<div>
-						<p>Hello {user.displayName} 👋</p>
-						<button onClick={() => logout()} disabled={isWorking}>
-							Log out
-						</button>
-					</div>
-				)}
-			</div>
-		</Container>
+		<>
+			<Container>
+				<div>
+					{!user && (
+						<LoginForm
+							onLogin={(username, password) => login({ username, password })}
+							disabled={isWorking}
+							errorMessage={loginError?.message}
+						/>
+					)}
+					{user && (
+						<div>
+							<p>Hello {user.displayName} 👋</p>
+							<button onClick={() => logout()} disabled={isWorking}>
+								Log out
+							</button>
+						</div>
+					)}
+				</div>
+			</Container>
+			{isWorking && <LoadingSpinner />}
+		</>
 	)
 }
