@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom"
 const Columns = styled.div`
 	display: flex;
 	nav {
-		flex: 0 0 150px;
+		flex: 0 0 180px;
 		border-right: 1px solid #000;
 		padding-right: 8px;
 		margin-right: 8px;

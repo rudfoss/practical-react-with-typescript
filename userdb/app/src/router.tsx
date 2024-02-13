@@ -3,7 +3,6 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from "react-router
 import { Header, MainLayout } from "@react-workshop/ui"
 import { RequireRoles } from "@react-workshop/userdb-libs-auth"
 
-import { Bootstrap } from "./Bootstrap"
 import { MainMenu } from "./MainMenu"
 import { ActiveSessionsPage } from "./pages/ActiveSessionsPage"
 import { ApiStatusPage } from "./pages/ApiStatusPage"
@@ -167,18 +166,12 @@ const appRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
 	{
-		element: (
-			<Bootstrap>
-				<MainLayout header={<Header />} menu={<MainMenu />} />
-			</Bootstrap>
-		),
+		element: <MainLayout header={<Header />} menu={<MainMenu />} />,
 		errorElement: (
-			<Bootstrap>
-				<MainLayout header={<Header />} menu={<MainMenu />}>
-					<ErrorPage />
-				</MainLayout>
-			</Bootstrap>
+			<MainLayout header={<Header />} menu={<MainMenu />}>
+				<ErrorPage />
+			</MainLayout>
 		),
-		children: appRoutes
+		children: [...appRoutes]
 	}
 ])
