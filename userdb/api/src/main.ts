@@ -9,7 +9,7 @@ import { prepareFastifyRequest } from "./RequestReply"
 import { AppModule } from "./app"
 import { setupOpenApi } from "./openApi"
 
-async function bootstrap(arguments_: string[]) {
+const bootstrap = async (arguments_: string[]) => {
 	const [openApiArgument = ""] = arguments_.slice(2)
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
 

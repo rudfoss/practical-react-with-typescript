@@ -11,7 +11,7 @@ const H1 = styled.h1`
 	margin: 0;
 `
 
-export function Header() {
+export const Header = () => {
 	const { heading } = useHeaderService()
 
 	return (

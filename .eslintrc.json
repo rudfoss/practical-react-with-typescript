@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nx", "import"],
+	"plugins": ["@nx", "import", "prefer-arrow"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -41,6 +41,9 @@
 				"plugin:@tanstack/eslint-plugin-query/recommended"
 			],
 			"rules": {
+				"func-style": ["error", "expression"],
+				"prefer-arrow-callback": ["error"],
+				"prefer-arrow/prefer-arrow-functions": ["error"],
 				"@typescript-eslint/no-unused-vars": ["warn"],
 				"jsx-a11y/accessible-emoji": ["off"],
 				"unicorn/prevent-abbreviations": [
