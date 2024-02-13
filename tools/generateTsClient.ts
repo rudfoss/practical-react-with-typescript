@@ -1,8 +1,8 @@
-import chalk from "chalk"
 import path from "node:path"
 import fs from "fs-extra"
 import { exec } from "child_process"
 import { promisify } from "node:util"
+import { invariant } from "./utils"
 
 const nswagParameters = (clientBaseClassName?: string) => {
 	let parameters = [
@@ -27,13 +27,6 @@ const nswagParameters = (clientBaseClassName?: string) => {
 		parameters = [...parameters, `/ClientBaseClass:${clientBaseClassName}`]
 	}
 	return parameters
-}
-
-const invariant = (condition: unknown, message: string) => {
-	if (!condition) {
-		console.error(chalk.bold.red(message))
-		process.exit(1)
-	}
 }
 
 const execAsync = promisify(exec)

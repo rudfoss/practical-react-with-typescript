@@ -22,7 +22,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@react-workshop/ui": ["libs/ui/src/index.ts"],
-			"@react-workshop/userdb-api-client": ["userdb/api-client/src/index.ts"],
+			"@react-workshop/userdb-api-clients": ["userdb/api-clients/src/index.ts"],
 			"@react-workshop/utils": ["libs/utils/src/index.ts"]
 		}
 	},

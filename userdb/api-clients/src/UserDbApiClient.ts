@@ -260,7 +260,7 @@ export class AuthControllerClient extends UserDbApiClientBaseClass {
     }
 
     /**
-     * Log out every currently logged in user except the current one
+     * Log out every currently logged in user except the user requesting it.
      */
     logEveryoneOut(signal?: AbortSignal): Promise<LogEveryoneOutResponse> {
         let url_ = this.baseUrl + "/auth/log-everyone-out";
