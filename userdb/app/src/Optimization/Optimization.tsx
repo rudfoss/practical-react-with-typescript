@@ -39,7 +39,7 @@ export const Optimization = () => {
 				<input
 					type="range"
 					min={0}
-					max={46}
+					max={42}
 					value={fibonacciNumber}
 					onChange={(event) => setFibonacciNumber(event.currentTarget.valueAsNumber)}
 				/>
