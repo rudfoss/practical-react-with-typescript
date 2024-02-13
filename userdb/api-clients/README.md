@@ -1,7 +1,5 @@
-# userdb-api-clients
+# Userdb API Clients
 
-This library was generated with [Nx](https://nx.dev).
+This library holds the TypeScript API clients for the userdb-api as well as a couple of helper files for working with them.
 
-## Running unit tests
-
-Run `nx test userdb-api-clients` to execute the unit tests via [Jest](https://jestjs.io).
+The `apiClientsService` provides a clean way to use up-to-date clients within your react application and you should use it whenever possible.

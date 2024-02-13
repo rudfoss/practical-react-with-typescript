@@ -10,7 +10,7 @@ export const useCreateGroup = () => {
 	const { queries } = useGroupsDataService()
 
 	return useMutation({
-		mutationFn: (newGroup: NewGroup) => groupsClient.createGroup(newGroup),
+		mutationFn: (newGroup: NewGroup) => groupsClient.current.createGroup(newGroup),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({
 				queryKey: queries.all().queryKey
@@ -26,7 +26,7 @@ export const useUpdateGroup = () => {
 
 	return useMutation({
 		mutationFn: ({ groupId, patchGroup }: { groupId: string; patchGroup: PatchGroup }) =>
-			groupsClient.updateGroup(groupId, patchGroup),
+			groupsClient.current.updateGroup(groupId, patchGroup),
 		onSuccess: async (updatedGroup) => {
 			await queryClient.invalidateQueries({
 				queryKey: queries.all().queryKey
@@ -44,7 +44,7 @@ export const useDeleteGroup = () => {
 	const { queries } = useGroupsDataService()
 
 	return useMutation({
-		mutationFn: (groupId: string) => groupsClient.deleteGroup(groupId),
+		mutationFn: (groupId: string) => groupsClient.current.deleteGroup(groupId),
 		onSuccess: async (deletedGroup) => {
 			await queryClient.invalidateQueries({
 				queryKey: queries.all().queryKey

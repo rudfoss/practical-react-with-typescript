@@ -7,11 +7,14 @@ import { Avatar } from "@react-workshop/userdb-libs-users"
 export const ActiveSessionsPage = () => {
 	const { queries } = useAuthDataService()
 	const { mutate: logEveryoneOut } = useLogEveryoneOut()
-	const { data: sessions } = useQuery(queries.sessions())
+	const { data: sessions, dataUpdatedAt } = useQuery(queries.sessions())
 
 	return (
 		<>
 			<button onClick={() => logEveryoneOut()}>Log everyone else out</button>
+			<p>
+				Last fetched: <DateTime dateTime={dataUpdatedAt} />
+			</p>
 			<table>
 				<thead>
 					<tr>

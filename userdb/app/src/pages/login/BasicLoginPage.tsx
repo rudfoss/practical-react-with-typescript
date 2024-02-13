@@ -31,7 +31,8 @@ export const BasicLoginPage = () => {
 	})
 
 	useEffect(() => {
-		setSessionToken(sessionData?.token)
+		// Disable this since we later use proper services.
+		// setSessionToken(sessionData?.token)
 	}, [sessionData?.token, setSessionToken])
 
 	const isWorking = isLoggingIn || isLoggingOut

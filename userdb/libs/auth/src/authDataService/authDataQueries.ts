@@ -1,4 +1,5 @@
 import { queryOptions } from "@tanstack/react-query"
+import { MutableRefObject } from "react"
 
 import { AuthControllerClient, AuthUserControllerClient } from "@react-workshop/userdb-api-clients"
 
@@ -10,8 +11,8 @@ import { AuthControllerClient, AuthUserControllerClient } from "@react-workshop/
  * @returns
  */
 export const createAuthDataQueries = (
-	authClient: AuthControllerClient,
-	authUserClient: AuthUserControllerClient,
+	authClient: MutableRefObject<AuthControllerClient>,
+	authUserClient: MutableRefObject<AuthUserControllerClient>,
 	isEnabled = false
 ) => {
 	const queries = {
@@ -20,14 +21,14 @@ export const createAuthDataQueries = (
 		session: () =>
 			queryOptions({
 				queryKey: [...queries.currentUser(), "session"],
-				queryFn: ({ signal }) => authUserClient.getSession(undefined, signal),
+				queryFn: ({ signal }) => authUserClient.current.getSession(undefined, signal),
 				enabled: isEnabled,
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),
 		userInformation: () =>
 			queryOptions({
 				queryKey: [...queries.currentUser(), "information"],
-				queryFn: ({ signal }) => authUserClient.getCurrentUser(signal),
+				queryFn: ({ signal }) => authUserClient.current.getCurrentUser(signal),
 				enabled: isEnabled,
 				staleTime: 1000 * 60 * 5 // 5 minutes
 			}),
@@ -35,9 +36,10 @@ export const createAuthDataQueries = (
 		sessions: () =>
 			queryOptions({
 				queryKey: ["sessions"],
-				queryFn: ({ signal }) => authClient.getActiveSessions(signal),
+				queryFn: ({ signal }) => authClient.current.getActiveSessions(signal),
 				enabled: isEnabled,
-				staleTime: 1000 * 60 * 5
+				refetchInterval: 1000 * 10,
+				staleTime: 1000 * 10
 			})
 	} as const
 

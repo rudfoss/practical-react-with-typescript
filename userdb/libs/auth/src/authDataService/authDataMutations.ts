@@ -10,7 +10,7 @@ export const useLogin = () => {
 	const { setSessionToken, authClient } = useApiClientsService()
 
 	return useMutation({
-		mutationFn: (loginRequest: LoginRequest) => authClient.login(loginRequest),
+		mutationFn: (loginRequest: LoginRequest) => authClient.current.login(loginRequest),
 		onSuccess: async (data) => {
 			// First we need to invalidate all existing user data as it is no longer accurate.
 			await queryClient.invalidateQueries({ queryKey: queries.currentUser() })
@@ -33,7 +33,7 @@ export const useRefreshSession = () => {
 	const { setSessionToken, authUserClient } = useApiClientsService()
 
 	return useMutation({
-		mutationFn: () => authUserClient.getSession("true"),
+		mutationFn: () => authUserClient.current.getSession("true"),
 		onSuccess: async (newSessionData) => {
 			setSessionToken(newSessionData.token)
 			await queryClient.invalidateQueries({ queryKey: queries.currentUser() })
@@ -51,7 +51,11 @@ export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 	const { setSessionToken, authClient } = useApiClientsService()
 
 	return useMutation({
-		mutationFn: () => authClient.logout(),
+		mutationFn: () => authClient.current.logout(),
+		onError: () => {
+			queryClient.removeQueries({ queryKey: queries.currentUser() })
+			setSessionToken()
+		},
 		onSuccess: () => {
 			queryClient.removeQueries({ queryKey: queries.currentUser() })
 			setSessionToken()
@@ -63,13 +67,12 @@ export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 export const useLogEveryoneOut = () => {
 	const queryClient = useQueryClient()
 	const { queries } = useAuthDataService()
-	const { setSessionToken, authClient } = useApiClientsService()
+	const { authClient } = useApiClientsService()
 
 	return useMutation({
-		mutationFn: () => authClient.logEveryoneOut(),
+		mutationFn: () => authClient.current.logEveryoneOut(),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: queries.sessions().queryKey })
-			setSessionToken()
 		}
 	})
 }

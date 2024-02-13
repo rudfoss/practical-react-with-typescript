@@ -10,7 +10,7 @@ export const useCreateUser = () => {
 	const { queries } = useUsersDataService()
 
 	return useMutation({
-		mutationFn: (newUser: NewUser) => usersClient.createUser(newUser),
+		mutationFn: (newUser: NewUser) => usersClient.current.createUser(newUser),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({
 				queryKey: queries.all().queryKey
@@ -26,7 +26,7 @@ export const useUpdateUser = () => {
 
 	return useMutation({
 		mutationFn: ({ userId, patchUser }: { userId: string; patchUser: PatchUser }) =>
-			usersClient.updateUser(userId, patchUser),
+			usersClient.current.updateUser(userId, patchUser),
 		onSuccess: async (updatedUser) => {
 			await queryClient.invalidateQueries({
 				queryKey: queries.all().queryKey
@@ -44,7 +44,7 @@ export const useDeleteUser = () => {
 	const { queries } = useUsersDataService()
 
 	return useMutation({
-		mutationFn: (userId: string) => usersClient.deleteUser(userId),
+		mutationFn: (userId: string) => usersClient.current.deleteUser(userId),
 		onSuccess: async (deletedUser) => {
 			await queryClient.invalidateQueries({
 				queryKey: queries.all().queryKey
