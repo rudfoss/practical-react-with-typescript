@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nx", "import", "prefer-arrow"],
+	"plugins": ["@nx", "import", "prefer-arrow-functions"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -43,7 +43,7 @@
 			"rules": {
 				"func-style": ["error", "expression"],
 				"prefer-arrow-callback": ["error"],
-				"prefer-arrow/prefer-arrow-functions": ["error"],
+				"prefer-arrow-functions/prefer-arrow-functions": ["error"],
 				"@typescript-eslint/no-unused-vars": ["warn"],
 				"jsx-a11y/accessible-emoji": ["off"],
 				"unicorn/prevent-abbreviations": [
