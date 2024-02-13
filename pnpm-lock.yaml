@@ -214,6 +214,9 @@ devDependencies:
   eslint-plugin-playwright:
     specifier: ^0.22.2
     version: 0.22.2(eslint@8.56.0)
+  eslint-plugin-prefer-arrow:
+    specifier: ^1.2.3
+    version: 1.2.3(eslint@8.56.0)
   eslint-plugin-react:
     specifier: 7.33.2
     version: 7.33.2(eslint@8.56.0)
@@ -7031,6 +7034,14 @@ packages:
     dependencies:
       eslint: 8.56.0
       globals: 13.24.0
+    dev: true
+
+  /eslint-plugin-prefer-arrow@1.2.3(eslint@8.56.0):
+    resolution: {integrity: sha512-J9I5PKCOJretVuiZRGvPQxCbllxGAV/viI20JO3LYblAodofBxyMnZAJ+WGeClHgANnSJberTNoFWWjrWKBuXQ==}
+    peerDependencies:
+      eslint: '>=2.0.0'
+    dependencies:
+      eslint: 8.56.0
     dev: true
 
   /eslint-plugin-react-hooks@4.6.0(eslint@8.56.0):
