@@ -17,9 +17,9 @@ export interface AuthServiceContextProps {
 	refreshSession: () => unknown
 
 	isWorking: boolean
-	loginFailedError: Error | null
-	logoutFailedError: Error | null
-	refreshSessionFailedError: Error | null
+	loginError: Error | null
+	logoutError: Error | null
+	refreshSessionError: Error | null
 
 	session?: UserSession
 	user?: User
@@ -43,11 +43,11 @@ export interface ProvideAuthServiceProps {
 export const ProvideAuthService = ({ children }: ProvideAuthServiceProps) => {
 	const { queries } = useAuthDataService()
 
-	const { mutate: login, error: loginFailedError, isPending: isLoggingIn } = useLogin()
-	const { mutate: logout, error: logoutFailedError, isPending: isLoggingOut } = useLogout()
+	const { mutate: login, error: loginError, isPending: isLoggingIn } = useLogin()
+	const { mutate: logout, error: logoutError, isPending: isLoggingOut } = useLogout()
 	const {
 		mutate: refreshSession,
-		error: refreshSessionFailedError,
+		error: refreshSessionError,
 		isPending: isRefreshingSession
 	} = useRefreshSession()
 
@@ -64,9 +64,9 @@ export const ProvideAuthService = ({ children }: ProvideAuthServiceProps) => {
 				refreshSession,
 
 				isWorking,
-				loginFailedError,
-				logoutFailedError,
-				refreshSessionFailedError,
+				loginError,
+				logoutError,
+				refreshSessionError,
 
 				session,
 				user: userInformation?.user,
