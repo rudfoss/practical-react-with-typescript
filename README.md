@@ -59,28 +59,25 @@ Once you have installed all prerequisites you can clone the repository to your m
 git clone https://github.com/rudfoss/practical-react-with-typescript.git react-workshop
 ```
 
-👀 We will be cloning the repository again at the start of the course as there may be change to the repository by that time. You can clone and test the project to verify that everything works.
+👀 We will be cloning the repository again at the start of the course as it might have changed, but feel free to explore if you'd like.
 
-It might be tempting to open your IDE immediately and point it to the folder you just created, but I recommend that you first open a terminal at the root folder of the repository and run the `init` command:
+It might be tempting to open your IDE immediately and point it to the folder you just created, but I recommend that you first open a terminal at the root of the repository and run the `init` command. VSCode and other IDEs will try to detect what type of workspace that is currently open and might also automatically set up and configure a few things on their own. These configurations (such as the Nx extension) might depend on packages being installed in the workspace which is why it is usually a good idea to install these dependencies before you start your IDE so that they can be found.
 
 ```bash
- # Some scripts can be run using pnpm [script name], but init is already a pnpm command so we need to add 'run' before the script name
 pnpm run init
 ```
 
-This command verifies that the required prerequisites are installed correctly and will fail if they cannot be found. If that happens you need to ensure the prerequisites are correctly installed. It then installs the project dependencies for the repository using `pnpm`. To see exactly what the command does open the `package.json` file and find the `script` named `init`.
+👀 Usually you can just write `pnpm [scriptName]` e.g.: `pnpm start`, but pnpm already has a command called `init` that sets up a new `package.json` file which means we have to add `run` in front of it to avoid executing it instead. You can find all script names that can be run in the [`package.json`](./package.json) file under `scripts`
 
-👀 Usually you can just write `pnpm [scriptName]` e.g.: `pnpm start`, but pnpm already has a command called `init` that sets up a new `package.json` file which means we have to add `run` in front of it. You can find all script names that can be run in the [`package.json`](./package.json) file under `scripts`
-
-👀 VSCode and other IDEs will try to detect what type of workspace that is currently open and might also automatically set up and configure a few things on their own. These configurations (such as the Nx extension) might depend on packages being installed in the workspace which is why it is usually a good idea to install these dependencies before you start your IDE so that they can be found.
+This command verifies that the required prerequisites are installed correctly. To see exactly what the command does open the `package.json` file and find the `script` named `init`. If it doesn't work you might have installed the required prerequisites without adding them to the PATH-variable for your environment. If that is the case you can either reinstall them or add them manually, check the documentation for the respective tool. After verification it then installs the project dependencies using `pnpm install`. When it's done you can open your IDE in the root folder (for VSCode simply type `code .` and hit enter).
 
 ### Running the development environment
 
 👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `pnpm start` then open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
-Our react app will be bundled (built) with [vite](https://vitejs.dev/). Vite also has a development server that we can run while we code. It will hot-reload pieces of our app as we change it making for a very snappy and efficient development environment.
+The React app we will be building will be bundled (built) with [vite](https://vitejs.dev/). Vite also has a development server that we can run while we code. It will hot-reload pieces of our app as we change it making for a very snappy and efficient development environment.
 
-There are several ways you can start this environment. Personally, I prefer to use the Tasks in VSCode as they start in their own tabs under the terminal panel which makes them easier to find and monitor, but you can also use Nx or preconfigured pnpm scripts directly from the terminal.
+There are several ways you can start this environment. Personally, I prefer to use Tasks in VSCode as they start in their own tabs under the terminal panel which makes them easier to find and monitor. You can also use Nx or preconfigured pnpm scripts directly from the terminal.
 
 Some ways to start the react app:
 
@@ -91,12 +88,10 @@ Some ways to start the react app:
 - In VSCode use the shortcut `Ctrl+Shift+P`, write `nx run` and hit enter, select `userdb-app` -> `serve` -> Execute.
 - From the NX exteions select the `userdb-app` project and run the target `serve`
 
-To work with the server API you also need to start `userdb-api`. Simply replace `userdb-app` with `userdb-api` in any of the examples above. Since they are usually started together this project includes some ways to start everything neatly:
+To work with the server API you also need to start the project `userdb-api`. Simply replace `userdb-app` with `userdb-api` in any of the examples above. Since they are usually started together this project includes some ways to start everything neatly:
 
 - From a terminal, run `pnpm start`
-- From a terminal, run `pnpm exec nx run-many --target=serve`
 - (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start`
-- In VSCode use the shortcut `Ctrl+Shift+P`, write `nx run-many` and hit enter, select `serve` -> Execute.
 
 Once the react application is running you can open your browser to [http://localhost:4200](http://localhost:4200) to se the app live. Changes you make in code will be reflected on screen as soon as you save them. If you also started the API you can browse to [http://localhost:4210](http://localhost:4210) as well to see the API documentation
 
@@ -104,7 +99,7 @@ Once the react application is running you can open your browser to [http://local
 
 ## VSCode
 
-This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the promt you can open the `Extensions` panel and search for `@recommended`.
+This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There should also be a button next to the "recommended" section to install all of them at once.
 
 ### VSCode Extensions
 
