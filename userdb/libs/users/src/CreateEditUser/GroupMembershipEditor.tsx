@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useMemo, useState } from "react"
 
 import { ChoiceField, ChoiceFieldChoice } from "@react-workshop/fields"
-import { Group } from "@react-workshop/userdb-api-client"
+import { Group } from "@react-workshop/userdb-api-clients"
 import { GroupTags, useGroupsDataService } from "@react-workshop/userdb-libs-groups"
 
 export interface GroupMembershipEditorProps {

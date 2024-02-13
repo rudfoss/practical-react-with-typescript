@@ -1,13 +1,11 @@
-import { UserSession } from "@react-workshop/userdb-api-client"
-
-import { useSessionTokenService } from "./authDataService"
+import { UserSession, useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 export interface DebugSessionInfoProps {
 	sessionData: UserSession
 }
 
 export const DebugSessionInfo = ({ sessionData }: DebugSessionInfoProps) => {
-	const { sessionToken } = useSessionTokenService()
+	const { sessionToken } = useApiClientsService()
 
 	if (sessionData) {
 		return (

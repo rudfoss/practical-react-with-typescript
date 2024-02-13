@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-import { Group } from "@react-workshop/userdb-api-client"
+import { Group } from "@react-workshop/userdb-api-clients"
 
 export interface GroupsTableRowProps {
 	group: Group

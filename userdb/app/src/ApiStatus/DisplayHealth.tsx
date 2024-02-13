@@ -1,4 +1,4 @@
-import type { HealthRespose } from "@react-workshop/userdb-api-client"
+import type { HealthRespose } from "@react-workshop/userdb-api-clients"
 
 export interface DisplayHealthProps {
 	health: HealthRespose

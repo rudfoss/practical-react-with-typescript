@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react"
 import { OmitIndexSignature } from "type-fest"
 
 import { TextField } from "@react-workshop/fields"
-import { PatchUser, User } from "@react-workshop/userdb-api-client"
+import { PatchUser, User } from "@react-workshop/userdb-api-clients"
 
 import { GroupMembershipEditor } from "./GroupMembershipEditor"
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 
 import { LoadingSpinner } from "@react-workshop/ui"
-import { Group } from "@react-workshop/userdb-api-client"
+import { Group } from "@react-workshop/userdb-api-clients"
 
 import { useDeleteGroup, useGroupsDataService } from "../groupsDataService"
 

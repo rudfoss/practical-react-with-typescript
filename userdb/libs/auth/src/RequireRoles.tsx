@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-import { UserDatabaseRole } from "@react-workshop/userdb-api-client"
+import { UserDatabaseRole } from "@react-workshop/userdb-api-clients"
 
 import { useAuthService } from "./authService"
 

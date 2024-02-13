@@ -3,7 +3,7 @@ import { UseQueryResult } from "@tanstack/react-query"
 import { Link } from "react-router-dom"
 
 import { LoadingSpinner } from "@react-workshop/ui"
-import { Group } from "@react-workshop/userdb-api-client"
+import { Group } from "@react-workshop/userdb-api-clients"
 
 const Tag = styled.div`
 	display: inline-flex;

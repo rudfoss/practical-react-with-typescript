@@ -1,14 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-import { LoginRequest } from "@react-workshop/userdb-api-client"
+import { LoginRequest, useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 import { useAuthDataService } from "./authDataService"
-import { useSessionTokenService } from "./sessionTokenService"
 
 export const useLogin = () => {
 	const queryClient = useQueryClient()
-	const { authClient, queries } = useAuthDataService()
-	const { setSessionToken } = useSessionTokenService()
+	const { queries } = useAuthDataService()
+	const { setSessionToken, authClient } = useApiClientsService()
 
 	return useMutation({
 		mutationFn: (loginRequest: LoginRequest) => authClient.login(loginRequest),
@@ -30,8 +29,8 @@ export const useLogin = () => {
  */
 export const useRefreshSession = () => {
 	const queryClient = useQueryClient()
-	const { authUserClient, queries } = useAuthDataService()
-	const { setSessionToken } = useSessionTokenService()
+	const { queries } = useAuthDataService()
+	const { setSessionToken, authUserClient } = useApiClientsService()
 
 	return useMutation({
 		mutationFn: () => authUserClient.getSession("true"),
@@ -48,8 +47,8 @@ export const useRefreshSession = () => {
 
 export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 	const queryClient = useQueryClient()
-	const { authClient, queries } = useAuthDataService()
-	const { setSessionToken } = useSessionTokenService()
+	const { queries } = useAuthDataService()
+	const { setSessionToken, authClient } = useApiClientsService()
 
 	return useMutation({
 		mutationFn: () => authClient.logout(),
@@ -63,12 +62,12 @@ export const useLogout = (onSuccess?: () => unknown | Promise<unknown>) => {
 
 export const useLogEveryoneOut = () => {
 	const queryClient = useQueryClient()
-	const { authClient, queries } = useAuthDataService()
-	const { setSessionToken } = useSessionTokenService()
+	const { queries } = useAuthDataService()
+	const { setSessionToken, authClient } = useApiClientsService()
 
 	return useMutation({
 		mutationFn: () => authClient.logEveryoneOut(),
-		onSuccess: async (removedSessions) => {
+		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: queries.sessions().queryKey })
 			setSessionToken()
 		}

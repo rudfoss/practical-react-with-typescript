@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-import { NewGroup, PatchGroup } from "@react-workshop/userdb-api-client"
+import { NewGroup, PatchGroup } from "@react-workshop/userdb-api-clients"
 
 import { useGroupsDataService } from "./groupsDataService"
 

@@ -1,4 +1,4 @@
-import { Group } from "@react-workshop/userdb-api-client"
+import { Group } from "@react-workshop/userdb-api-clients"
 
 import { GroupsTableRow } from "./GroupsTableRow"
 

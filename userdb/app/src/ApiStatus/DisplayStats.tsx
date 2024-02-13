@@ -1,4 +1,4 @@
-import type { StatsResponse } from "@react-workshop/userdb-api-client"
+import type { StatsResponse } from "@react-workshop/userdb-api-clients"
 
 export interface DisplayStatsProps {
 	stats: StatsResponse

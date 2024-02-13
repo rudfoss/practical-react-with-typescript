@@ -1,4 +1,4 @@
-import { User } from "@react-workshop/userdb-api-client"
+import { User } from "@react-workshop/userdb-api-clients"
 
 import { UsersTableRow } from "./UsersTableRow"
 

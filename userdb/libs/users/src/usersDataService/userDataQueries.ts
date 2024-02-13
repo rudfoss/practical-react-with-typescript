@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query"
 
-import { UsersControllerClient } from "@react-workshop/userdb-api-client"
+import { UsersControllerClient } from "@react-workshop/userdb-api-clients"
 
 export const createUserDataQueries = (usersClient: UsersControllerClient) => {
 	const queries = {

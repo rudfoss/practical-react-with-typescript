@@ -1,13 +1,10 @@
 import { ReactNode, createContext, useContext, useMemo } from "react"
 
-import { AuthControllerClient, AuthUserControllerClient } from "@react-workshop/userdb-api-client"
+import { useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 import { AuthDataQueries, createAuthDataQueries } from "./authDataQueries"
-import { useSessionTokenService } from "./sessionTokenService"
 
 export interface AuthDataServiceContextProps {
-	authClient: AuthControllerClient
-	authUserClient: AuthUserControllerClient
 	queries: AuthDataQueries
 }
 
@@ -21,28 +18,18 @@ export const useAuthDataService = () => {
 }
 
 export interface ProvideAuthDataServiceProps {
-	baseUrl?: string
 	children: ReactNode
 }
 
-export const ProvideAuthDataService = ({
-	baseUrl = "/",
-	children
-}: ProvideAuthDataServiceProps) => {
-	const { sessionToken } = useSessionTokenService()
-	const authClient = useMemo(() => new AuthControllerClient(baseUrl), [baseUrl])
-	const authUserClient = useMemo(() => new AuthUserControllerClient(baseUrl), [baseUrl])
-	const queries = useMemo(
-		() => createAuthDataQueries(authClient, authUserClient, !!sessionToken),
-		[authClient, authUserClient, sessionToken]
-	)
+export const ProvideAuthDataService = ({ children }: ProvideAuthDataServiceProps) => {
+	const { sessionToken, authClient, authUserClient } = useApiClientsService()
 
 	const value = useMemo((): AuthDataServiceContextProps => {
+		const queries = createAuthDataQueries(authClient, authUserClient, !!sessionToken)
+
 		return {
-			authClient,
-			authUserClient,
 			queries
 		}
-	}, [authClient, authUserClient, queries])
+	}, [authClient, authUserClient, sessionToken])
 	return <AuthDataServiceContext.Provider value={value}>{children}</AuthDataServiceContext.Provider>
 }

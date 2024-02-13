@@ -4,11 +4,8 @@ import { ReactNode } from "react"
 
 import { ProvideFieldsService } from "@react-workshop/fields"
 import { ProvideHeaderService } from "@react-workshop/ui"
-import {
-	ProvideAuthDataService,
-	ProvideAuthService,
-	ProvideSessionTokenService
-} from "@react-workshop/userdb-libs-auth"
+import { ProvideApiClientsService } from "@react-workshop/userdb-api-clients"
+import { ProvideAuthDataService, ProvideAuthService } from "@react-workshop/userdb-libs-auth"
 import { ProvideGroupsDataService } from "@react-workshop/userdb-libs-groups"
 import { ProvideUsersDataService } from "@react-workshop/userdb-libs-users"
 
@@ -23,7 +20,7 @@ const baseUrl = "//localhost:4210"
 export const Bootstrap = ({ children }: BootstrapProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ProvideSessionTokenService>
+			<ProvideApiClientsService baseUrl={baseUrl}>
 				<ProvideAuthDataService baseUrl={baseUrl}>
 					<ProvideAuthService>
 						<ProvideUsersDataService baseUrl={baseUrl}>
@@ -36,7 +33,7 @@ export const Bootstrap = ({ children }: BootstrapProps) => {
 						</ProvideUsersDataService>
 					</ProvideAuthService>
 				</ProvideAuthDataService>
-			</ProvideSessionTokenService>
+			</ProvideApiClientsService>
 		</QueryClientProvider>
 	)
 }

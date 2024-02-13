@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query"
 
-import { GroupsControllerClient } from "@react-workshop/userdb-api-client"
+import { GroupsControllerClient } from "@react-workshop/userdb-api-clients"
 
 export const createGroupsDataQueries = (groupsClient: GroupsControllerClient) => {
 	const queries = {

@@ -1,0 +1,43 @@
+{
+	"name": "userdb-api-clients",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "userdb/api-clients/src",
+	"projectType": "library",
+	"tags": [
+		"userdb",
+		"react",
+		"browser"
+	],
+	"implicitDependencies": [
+		"userdb-api"
+	],
+	"targets": {
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": [
+				"{workspaceRoot}/coverage/{projectRoot}"
+			],
+			"options": {
+				"jestConfig": "userdb/api-clients/jest.config.ts"
+			}
+		},
+		"genCode": {
+			"executor": "nx:run-commands",
+			"outputs": [
+				"{workspaceRoot}/userdb/api-clients/src/StoreApiClient.ts"
+			],
+			"dependsOn": [
+				"^openApi"
+			],
+			"options": {
+				"parallel": false,
+				"commands": [
+					"cross-env TS_NODE_PROJECT=tools/tsconfig.tools.json node --loader ts-node/esm -r ts-node/register/transpile-only tools/generateTsClient.ts UserDbApiClient dist/userdb/api/userdb-api-openapi.json userdb/api-clients/src UserDbApiClientBaseClass"
+				]
+			}
+		}
+	}
+}

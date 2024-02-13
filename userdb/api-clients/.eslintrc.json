@@ -1,0 +1,30 @@
+{
+	"extends": ["plugin:@nx/react", "../../.eslintrc.json"],
+	"ignorePatterns": ["!**/*"],
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+			"rules": {}
+		},
+		{
+			"files": ["*.ts", "*.tsx"],
+			"rules": {}
+		},
+		{
+			"files": ["UserDb*.ts", "UserDb*.tsx"],
+			"rules": {
+				"unicorn/prevent-abbreviations": ["off"]
+			}
+		},
+		{
+			"files": ["UserDbApiClient.ts"],
+			"rules": {
+				"unicorn/no-abusive-eslint-disable": ["off"]
+			}
+		},
+		{
+			"files": ["*.js", "*.jsx"],
+			"rules": {}
+		}
+	]
+}

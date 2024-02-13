@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-import { User } from "@react-workshop/userdb-api-client"
+import { User } from "@react-workshop/userdb-api-clients"
 import { RequireRoles } from "@react-workshop/userdb-libs-auth"
 import { GroupTags, RoleTags } from "@react-workshop/userdb-libs-groups"
 

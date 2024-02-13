@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useRef } from "react"
 
-import { AppControllerClient } from "@react-workshop/userdb-api-client"
+import { AppControllerClient } from "@react-workshop/userdb-api-clients"
 // import { delay } from "@react-workshop/utils"
 
 import { DisplayStats } from "./DisplayStats"

@@ -1,11 +1,10 @@
 import { ReactNode, createContext, useContext, useMemo } from "react"
 
-import { GroupsControllerClient } from "@react-workshop/userdb-api-client"
+import { useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 import { GroupsDataQueries, createGroupsDataQueries } from "./groupsDataQueries"
 
 export interface GroupsDataServiceContextProps {
-	groupsClient: GroupsControllerClient
 	queries: GroupsDataQueries
 }
 
@@ -19,23 +18,18 @@ export const useGroupsDataService = () => {
 }
 
 export interface ProvideGroupsDataServiceProps {
-	baseUrl?: string
 	children: ReactNode
 }
 
-export const ProvideGroupsDataService = ({
-	baseUrl = "/",
-	children
-}: ProvideGroupsDataServiceProps) => {
-	const groupsClient = useMemo(() => new GroupsControllerClient(baseUrl), [baseUrl])
-	const queries = useMemo(() => createGroupsDataQueries(groupsClient), [groupsClient])
+export const ProvideGroupsDataService = ({ children }: ProvideGroupsDataServiceProps) => {
+	const { groupsClient } = useApiClientsService()
 
 	const value = useMemo((): GroupsDataServiceContextProps => {
+		const queries = createGroupsDataQueries(groupsClient)
 		return {
-			groupsClient,
 			queries
 		}
-	}, [groupsClient, queries])
+	}, [groupsClient])
 	return (
 		<GroupsDataServiceContext.Provider value={value}>{children}</GroupsDataServiceContext.Provider>
 	)

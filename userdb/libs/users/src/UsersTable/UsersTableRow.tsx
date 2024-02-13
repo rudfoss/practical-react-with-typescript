@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-import { User } from "@react-workshop/userdb-api-client"
+import { User } from "@react-workshop/userdb-api-clients"
 
 export interface UsersTableRowProps {
 	user: User

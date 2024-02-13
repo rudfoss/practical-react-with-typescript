@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-import { NewUser, PatchUser } from "@react-workshop/userdb-api-client"
+import { NewUser, PatchUser, useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 import { useUsersDataService } from "./usersDataService"
 
 export const useCreateUser = () => {
 	const queryClient = useQueryClient()
-	const { usersClient, queries } = useUsersDataService()
+	const { usersClient } = useApiClientsService()
+	const { queries } = useUsersDataService()
 
 	return useMutation({
 		mutationFn: (newUser: NewUser) => usersClient.createUser(newUser),
@@ -20,7 +21,8 @@ export const useCreateUser = () => {
 
 export const useUpdateUser = () => {
 	const queryClient = useQueryClient()
-	const { usersClient, queries } = useUsersDataService()
+	const { usersClient } = useApiClientsService()
+	const { queries } = useUsersDataService()
 
 	return useMutation({
 		mutationFn: ({ userId, patchUser }: { userId: string; patchUser: PatchUser }) =>
@@ -38,7 +40,8 @@ export const useUpdateUser = () => {
 
 export const useDeleteUser = () => {
 	const queryClient = useQueryClient()
-	const { usersClient, queries } = useUsersDataService()
+	const { usersClient } = useApiClientsService()
+	const { queries } = useUsersDataService()
 
 	return useMutation({
 		mutationFn: (userId: string) => usersClient.deleteUser(userId),

@@ -1,11 +1,10 @@
 import { ReactNode, createContext, useContext, useMemo } from "react"
 
-import { UsersControllerClient } from "@react-workshop/userdb-api-client"
+import { useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 import { UsersDataQueries, createUserDataQueries } from "./userDataQueries"
 
 export interface UsersDataServiceContextProps {
-	usersClient: UsersControllerClient
 	queries: UsersDataQueries
 }
 
@@ -19,23 +18,18 @@ export const useUsersDataService = () => {
 }
 
 export interface ProvideUsersDataServiceProps {
-	baseUrl?: string
 	children: ReactNode
 }
 
-export const ProvideUsersDataService = ({
-	baseUrl = "/",
-	children
-}: ProvideUsersDataServiceProps) => {
-	const usersClient = useMemo(() => new UsersControllerClient(baseUrl), [baseUrl])
-	const queries = useMemo(() => createUserDataQueries(usersClient), [usersClient])
+export const ProvideUsersDataService = ({ children }: ProvideUsersDataServiceProps) => {
+	const { usersClient } = useApiClientsService()
 
 	const value = useMemo((): UsersDataServiceContextProps => {
+		const queries = createUserDataQueries(usersClient)
 		return {
-			usersClient,
 			queries
 		}
-	}, [queries, usersClient])
+	}, [usersClient])
 	return (
 		<UsersDataServiceContext.Provider value={value}>{children}</UsersDataServiceContext.Provider>
 	)

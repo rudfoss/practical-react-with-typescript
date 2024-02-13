@@ -7,7 +7,7 @@ import {
 	User,
 	UserDatabaseRole,
 	UserSession
-} from "@react-workshop/userdb-api-client"
+} from "@react-workshop/userdb-api-clients"
 
 import { useAuthDataService, useLogin, useLogout, useRefreshSession } from "../authDataService"
 
