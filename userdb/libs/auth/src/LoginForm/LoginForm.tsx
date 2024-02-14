@@ -33,7 +33,7 @@ export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) =
 		<form onSubmit={onSubmit}>
 			<TextField label="User name" value={username} onChange={setUsername} disabled={disabled} />
 			<TextField
-				type={isPasswordVisible ? "text" : "password"}
+				variant={isPasswordVisible ? "text" : "password"}
 				label="Password"
 				value={password}
 				onChange={setPassword}

@@ -29,7 +29,7 @@ export const FieldsPage = () => {
 		<>
 			<h2>Fields showcase</h2>
 			<TextField label="Text field" value={text} onChange={setText} />
-			<TextField type="password" label="Password field" value={text} onChange={setText} />
+			<TextField variant="password" label="Password field" value={text} onChange={setText} />
 			<MultiLineTextField
 				label="Multi line field"
 				value={multiLineText}
