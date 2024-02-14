@@ -1,11 +1,15 @@
 import React from "react"
 
-import { Header } from "./Header"
+import { TextField } from "./TextField"
 
 export const App = () => {
 	return (
 		<div>
-			<Header>Hello world 👋</Header>
+			<TextField label="Header text" />
+			<hr />
+			<TextField label="Header text" />
+			<hr />
+			<TextField label="Header text" />
 		</div>
 	)
 }
