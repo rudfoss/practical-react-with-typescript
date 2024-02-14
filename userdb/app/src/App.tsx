@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
 import { Header } from "./Header"
+import { PasswordField } from "./PasswordField"
 import { TextField } from "./TextField"
 
 export const App = () => {
@@ -11,6 +12,7 @@ export const App = () => {
 			<Header>{value}</Header>
 			<hr />
 			<TextField label="Header text" value={value} onChange={setValue} />
+			<PasswordField label="Password" value={value} onChange={setValue} />
 		</div>
 	)
 }

@@ -4,11 +4,25 @@ export interface TextFieldProps {
 	label: string
 	disabled?: boolean
 
+	/**
+	 * Specify whether you want a text field or a password field.
+	 * @default "text"
+	 */
+	variant?: "text" | "password"
+	maxLength?: number
+
 	value: string
 	onChange: (newValue: string) => unknown
 }
 
-export const TextField = ({ label, disabled, value, onChange }: TextFieldProps) => {
+export const TextField = ({
+	label,
+	disabled,
+	variant = "text",
+	maxLength,
+	value,
+	onChange
+}: TextFieldProps) => {
 	const id = useId()
 
 	return (
@@ -16,9 +30,10 @@ export const TextField = ({ label, disabled, value, onChange }: TextFieldProps) 
 			<label htmlFor={id}>{label}</label>
 			<input
 				id={id}
-				type="text"
+				type={variant}
 				value={value}
 				disabled={disabled}
+				maxLength={maxLength}
 				onChange={(event) => onChange(event.currentTarget.value)}
 			/>
 		</>
