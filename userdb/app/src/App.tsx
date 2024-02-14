@@ -1,23 +1,13 @@
-import React, { useState } from "react"
+import React from "react"
 
-import { CheckboxField } from "./CheckboxField"
-import { Header } from "./Header"
-import { PasswordField } from "./PasswordField"
-import { TextField } from "./TextField"
+import { LoginForm } from "./LoginForm"
+
+const onLogin = (username: string, password: string) => {
+	console.log({ username, password })
+}
 
 export const App = () => {
-	const [value, setValue] = useState("")
-	const [checked, setIsChecked] = useState(false)
-
-	return (
-		<div>
-			<Header>{value}</Header>
-			<hr />
-			<TextField label="Header text" value={value} onChange={setValue} />
-			<PasswordField label="Password" value={value} onChange={setValue} />
-			<CheckboxField label="Checkbox" value={checked} onChange={setIsChecked} />
-		</div>
-	)
+	return <LoginForm onLogin={onLogin} />
 }
 
 export const AppWithoutJsx = () => {
