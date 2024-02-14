@@ -16,8 +16,8 @@ import {
 	AuthUserControllerClient,
 	GroupsControllerClient,
 	UsersControllerClient
-} from "./UserDbApiClient"
-import { UserDbApiClientBaseClass as UserDatabaseApiClientBaseClass } from "./UserDbApiClientBaseClass"
+} from "./UserDbApiClients"
+import { UserDbApiClientsBaseClass } from "./UserDbApiClientsBaseClass"
 
 export interface ApiClientsServiceContextProps {
 	baseUrl: string
@@ -47,7 +47,7 @@ export interface ProvideApiClientsServiceProps {
 export const ProvideApiClientsService = ({ baseUrl, children }: ProvideApiClientsServiceProps) => {
 	const [sessionToken, setSessionTokenInternal] = useState<string>()
 	const setSessionToken = useCallback((newSessionToken?: string) => {
-		UserDatabaseApiClientBaseClass.bearerToken = newSessionToken
+		UserDbApiClientsBaseClass.bearerToken = newSessionToken
 		setSessionTokenInternal(newSessionToken)
 	}, [])
 
@@ -72,8 +72,8 @@ export const ProvideApiClientsService = ({ baseUrl, children }: ProvideApiClient
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [baseUrl]) // We must not depend on the stable objects returned by lazy ref as they are not directly manipulated. Otherwise this would look like (though in theroy not behave like) an infinite loop. Ref: https://github.com/facebook/react/issues/20752
 
-	const value = useMemo((): ApiClientsServiceContextProps => {
-		return {
+	const value = useMemo(
+		(): ApiClientsServiceContextProps => ({
 			baseUrl,
 			sessionToken,
 			setSessionToken,
@@ -82,16 +82,9 @@ export const ProvideApiClientsService = ({ baseUrl, children }: ProvideApiClient
 			authUserClient,
 			groupsClient,
 			usersClient
-		}
-	}, [
-		authClient,
-		authUserClient,
-		baseUrl,
-		groupsClient,
-		sessionToken,
-		setSessionToken,
-		usersClient
-	])
+		}),
+		[authClient, authUserClient, baseUrl, groupsClient, sessionToken, setSessionToken, usersClient]
+	)
 	return (
 		<ApiClientsServiceContext.Provider value={value}>{children}</ApiClientsServiceContext.Provider>
 	)
