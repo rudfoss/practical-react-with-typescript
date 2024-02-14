@@ -1,13 +1,9 @@
 import React from "react"
 
-import { LoginForm } from "./LoginForm"
-
-const onLogin = (username: string, password: string) => {
-	console.log({ username, password })
-}
+import { StaticGroupList } from "./StaticGroupList"
 
 export const App = () => {
-	return <LoginForm onLogin={onLogin} />
+	return <StaticGroupList />
 }
 
 export const AppWithoutJsx = () => {
