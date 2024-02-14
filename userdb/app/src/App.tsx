@@ -1,9 +1,11 @@
 import React from "react"
 
+import { Header } from "./Header"
+
 export const App = () => {
 	return (
 		<div>
-			<h1 aria-label="Hey there!">Hello world 👋</h1>
+			<Header>Hello world 👋</Header>
 		</div>
 	)
 }
