@@ -1,15 +1,16 @@
-import React from "react"
+import React, { useState } from "react"
 
+import { Header } from "./Header"
 import { TextField } from "./TextField"
 
 export const App = () => {
+	const [value, setValue] = useState("")
+
 	return (
 		<div>
-			<TextField label="Header text" />
+			<Header>{value}</Header>
 			<hr />
-			<TextField label="Header text" />
-			<hr />
-			<TextField label="Header text" />
+			<TextField label="Header text" value={value} onChange={setValue} />
 		</div>
 	)
 }
