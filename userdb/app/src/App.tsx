@@ -1,8 +1,8 @@
 import React from "react"
 
-import { StaticGroupList } from "./StaticGroupList"
+import { StaticGroupTable } from "./StaticGroupTable"
 
-export const App = () => <StaticGroupList />
+export const App = () => <StaticGroupTable />
 
 export const AppWithoutJsx = () =>
 	React.createElement("div", {}, [

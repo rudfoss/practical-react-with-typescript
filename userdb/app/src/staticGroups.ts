@@ -27,3 +27,5 @@ export const staticGroups = [
 		isSystemDefined: true
 	}
 ]
+
+export type StaticGroup = (typeof staticGroups)[number]
