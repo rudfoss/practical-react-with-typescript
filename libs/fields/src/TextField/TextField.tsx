@@ -13,7 +13,7 @@ export interface TextFieldProps {
 	value: string
 	onChange: (newValue: string) => unknown
 
-	type?: "text" | "password"
+	variant?: "text" | "password"
 	maxLength?: number
 
 	label: string
@@ -25,7 +25,7 @@ export const TextField = ({
 	onChange,
 	disabled,
 	label,
-	type = "text",
+	variant = "text",
 	maxLength
 }: TextFieldProps) => {
 	const id = useId()
@@ -39,7 +39,7 @@ export const TextField = ({
 		<FieldContainer>
 			<Label htmlFor={id}>{label}</Label>
 			<Input
-				type={type}
+				type={variant}
 				id={id}
 				value={value}
 				onChange={onInputChange}
