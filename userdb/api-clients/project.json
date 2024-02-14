@@ -38,6 +38,12 @@
 					"cross-env TS_NODE_PROJECT=tools/tsconfig.tools.json node --loader ts-node/esm -r ts-node/register/transpile-only tools/generateTsClient.ts UserDbApiClients dist/userdb/api/userdb-api-openapi.json userdb/api-clients/src UserDbApiClientsBaseClass"
 				]
 			}
+		},
+		"build": {
+			"executor": "nx:noop",
+			"dependsOn": [
+				"genCode"
+			]
 		}
 	}
 }
