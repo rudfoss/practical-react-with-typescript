@@ -9,19 +9,17 @@ export interface UsersTableRowProps {
 	onDelete?: () => unknown
 }
 
-export const UsersTableRow = ({ user, userLink, canDelete, onDelete }: UsersTableRowProps) => {
-	return (
-		<tr>
-			<td>{userLink ? <Link to={userLink}>{user.id}</Link> : user.id}</td>
-			<td>{user.username}</td>
-			<td>{user.displayName}</td>
-			<td>
-				{onDelete && (
-					<button onClick={() => onDelete()} disabled={!canDelete}>
-						❌
-					</button>
-				)}
-			</td>
-		</tr>
-	)
-}
+export const UsersTableRow = ({ user, userLink, canDelete, onDelete }: UsersTableRowProps) => (
+	<tr>
+		<td>{userLink ? <Link to={userLink}>{user.id}</Link> : user.id}</td>
+		<td>{user.username}</td>
+		<td>{user.displayName}</td>
+		<td>
+			{onDelete && (
+				<button onClick={() => onDelete()} disabled={!canDelete}>
+					❌
+				</button>
+			)}
+		</td>
+	</tr>
+)

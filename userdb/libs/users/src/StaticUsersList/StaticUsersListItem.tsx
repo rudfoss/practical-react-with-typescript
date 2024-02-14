@@ -25,17 +25,15 @@ export const StaticUsersListItem = ({
 	isHighlighted,
 	canDelete,
 	onDelete
-}: StaticUsersListItemProps) => {
-	return (
-		<HighlightableRow isHighlighted={isHighlighted}>
-			<td>{user.id}</td>
-			<td>{user.username}</td>
-			<td>{user.displayName}</td>
-			<td>
-				<button onClick={() => onDelete()} disabled={!canDelete}>
-					❌
-				</button>
-			</td>
-		</HighlightableRow>
-	)
-}
+}: StaticUsersListItemProps) => (
+	<HighlightableRow isHighlighted={isHighlighted}>
+		<td>{user.id}</td>
+		<td>{user.username}</td>
+		<td>{user.displayName}</td>
+		<td>
+			<button onClick={() => onDelete()} disabled={!canDelete}>
+				❌
+			</button>
+		</td>
+	</HighlightableRow>
+)

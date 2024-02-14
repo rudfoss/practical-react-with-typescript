@@ -4,6 +4,4 @@ export interface EditUserDetailsFormProps {
 	user: User
 }
 
-export const EditUserDetailsForm = (props: EditUserDetailsFormProps) => {
-	return <div>Test</div>
-}
+export const EditUserDetailsForm = (props: EditUserDetailsFormProps) => <div>Test</div>

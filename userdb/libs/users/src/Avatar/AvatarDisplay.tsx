@@ -17,6 +17,6 @@ export interface AvatarDisplayProps extends React.HTMLAttributes<HTMLDivElement>
 	children: ReactNode
 }
 
-export const AvatarDisplay = ({ children, ...restProps }: AvatarDisplayProps) => {
-	return <Container {...restProps}>{children}</Container>
-}
+export const AvatarDisplay = ({ children, ...restProps }: AvatarDisplayProps) => (
+	<Container {...restProps}>{children}</Container>
+)

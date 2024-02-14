@@ -9,28 +9,26 @@ export interface UsersTableProps {
 	onDelete?: (user: User) => unknown
 }
 
-export const UsersTable = ({ users, createUserLink, canDelete, onDelete }: UsersTableProps) => {
-	return (
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>User name</th>
-					<th>Display Name</th>
-					<th>Controls</th>
-				</tr>
-			</thead>
-			<tbody>
-				{users.map((user) => (
-					<UsersTableRow
-						key={user.id}
-						user={user}
-						userLink={createUserLink?.(user)}
-						onDelete={() => onDelete?.(user)}
-						canDelete={canDelete}
-					/>
-				))}
-			</tbody>
-		</table>
-	)
-}
+export const UsersTable = ({ users, createUserLink, canDelete, onDelete }: UsersTableProps) => (
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>User name</th>
+				<th>Display Name</th>
+				<th>Controls</th>
+			</tr>
+		</thead>
+		<tbody>
+			{users.map((user) => (
+				<UsersTableRow
+					key={user.id}
+					user={user}
+					userLink={createUserLink?.(user)}
+					onDelete={() => onDelete?.(user)}
+					canDelete={canDelete}
+				/>
+			))}
+		</tbody>
+	</table>
+)

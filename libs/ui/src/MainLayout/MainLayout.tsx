@@ -22,14 +22,12 @@ export interface MainLayoutProps {
 	children?: ReactNode
 }
 
-export const MainLayout = ({ header, menu, children = <Outlet /> }: MainLayoutProps) => {
-	return (
-		<>
-			{header}
-			<Columns>
-				<nav>{menu}</nav>
-				<main>{children}</main>
-			</Columns>
-		</>
-	)
-}
+export const MainLayout = ({ header, menu, children = <Outlet /> }: MainLayoutProps) => (
+	<>
+		{header}
+		<Columns>
+			<nav>{menu}</nav>
+			<main>{children}</main>
+		</Columns>
+	</>
+)

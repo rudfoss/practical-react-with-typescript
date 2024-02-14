@@ -2,7 +2,19 @@ import path from "node:path"
 import fs from "fs-extra"
 import { exec } from "child_process"
 import { promisify } from "node:util"
-import { invariant } from "./utils"
+import chalk from "chalk"
+
+/**
+ * Exits the process if the condition is false.
+ * @param condition
+ * @param message
+ */
+export const invariant = (condition: unknown, message: string) => {
+	if (!condition) {
+		console.error(chalk.bold.red.bgBlack(message))
+		process.exit(1)
+	}
+}
 
 const nswagParameters = (clientBaseClassName?: string) => {
 	let parameters = [

@@ -3,9 +3,9 @@ export type OptionTransformer = (options: RequestInit) => Promise<RequestInit>
 /**
  * A very simple base class that allows statically adding a transformer.
  */
-export class UserDbApiClientBaseClass {
+export class UserDbApiClientsBaseClass {
 	public async transformOptions(options: RequestInit) {
-		const bearerToken = UserDbApiClientBaseClass.bearerToken
+		const bearerToken = UserDbApiClientsBaseClass.bearerToken
 
 		if (!bearerToken) return options
 

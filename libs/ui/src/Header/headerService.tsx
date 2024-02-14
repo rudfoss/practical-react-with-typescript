@@ -25,8 +25,6 @@ export const ProvideHeaderService = ({
 }: ProvideHeaderServiceProps) => {
 	const [heading, setHeading] = useState(initialHeading)
 
-	const value = useMemo((): HeaderServiceContextProps => {
-		return { heading, setHeading }
-	}, [heading])
+	const value = useMemo((): HeaderServiceContextProps => ({ heading, setHeading }), [heading])
 	return <HeaderServiceContext.Provider value={value}>{children}</HeaderServiceContext.Provider>
 }

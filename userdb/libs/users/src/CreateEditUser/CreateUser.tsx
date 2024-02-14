@@ -1,5 +1,3 @@
 // export interface CreateUserProps {}
 
-export const CreateUser = () => {
-	return <div>Create user</div>
-}
+export const CreateUser = () => <div>Create user</div>

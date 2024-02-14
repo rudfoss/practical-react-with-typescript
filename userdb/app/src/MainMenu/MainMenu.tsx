@@ -13,38 +13,36 @@ const StyledNavLink = styled(NavLink)`
 	}
 `
 
-export const MainMenu = () => {
-	return (
-		<>
-			<StyledNavLink to="/">Home</StyledNavLink>
+export const MainMenu = () => (
+	<>
+		<StyledNavLink to="/">Home</StyledNavLink>
+		<hr />
+		<StyledNavLink to="/login/basic">Basic Login</StyledNavLink>
+		<StyledNavLink to="/login/data-service">Data Service Login</StyledNavLink>
+		<StyledNavLink to="/login/auth-service">Auth Service Login</StyledNavLink>
+		<RequireRoles>
 			<hr />
-			<StyledNavLink to="/login/basic">Basic Login</StyledNavLink>
-			<StyledNavLink to="/login/data-service">Data Service Login</StyledNavLink>
-			<StyledNavLink to="/login/auth-service">Auth Service Login</StyledNavLink>
-			<RequireRoles>
+			<RequireRoles roles={["User", "UserAdmin"]}>
+				<StyledNavLink to="/users">Users</StyledNavLink>
+				<StyledNavLink to="/groups">Groups</StyledNavLink>
 				<hr />
-				<RequireRoles roles={["User", "UserAdmin"]}>
-					<StyledNavLink to="/users">Users</StyledNavLink>
-					<StyledNavLink to="/groups">Groups</StyledNavLink>
-					<hr />
-					<StyledNavLink to="/users-static" end>
-						Static Users
-					</StyledNavLink>
-					<StyledNavLink to="/users-static/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">
-						Single static user
-					</StyledNavLink>
-					<StyledNavLink to="/groups-static">Static groups</StyledNavLink>
-				</RequireRoles>
+				<StyledNavLink to="/users-static" end>
+					Static Users
+				</StyledNavLink>
+				<StyledNavLink to="/users-static/67dc12eb-81dc-4a4a-9fe0-12cee1d11674">
+					Single static user
+				</StyledNavLink>
+				<StyledNavLink to="/groups-static">Static groups</StyledNavLink>
 			</RequireRoles>
-			<RequireRoles roles={["Admin"]}>
-				<hr />
-				<StyledNavLink to="/status">API Status</StyledNavLink>
-				<StyledNavLink to="/sessions">User sessions</StyledNavLink>
-			</RequireRoles>
+		</RequireRoles>
+		<RequireRoles roles={["Admin"]}>
 			<hr />
-			<StyledNavLink to="/optimization">Optimization</StyledNavLink>
-			<StyledNavLink to="/non-existent-page">404</StyledNavLink>
-			<StyledNavLink to="/fields">Fields</StyledNavLink>
-		</>
-	)
-}
+			<StyledNavLink to="/status">API Status</StyledNavLink>
+			<StyledNavLink to="/sessions">User sessions</StyledNavLink>
+		</RequireRoles>
+		<hr />
+		<StyledNavLink to="/optimization">Optimization</StyledNavLink>
+		<StyledNavLink to="/non-existent-page">404</StyledNavLink>
+		<StyledNavLink to="/fields">Fields</StyledNavLink>
+	</>
+)

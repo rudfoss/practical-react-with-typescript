@@ -17,7 +17,7 @@ import {
 	GroupsControllerClient,
 	UsersControllerClient
 } from "./UserDbApiClient"
-import { UserDbApiClientBaseClass as UserDatabaseApiClientBaseClass } from "./UserDbApiClientBaseClass"
+import { UserDbApiClientBaseClass as UserDatabaseApiClientBaseClass } from "./UserDbApiClientsBaseClass"
 
 export interface ApiClientsServiceContextProps {
 	baseUrl: string

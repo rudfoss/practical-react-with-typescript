@@ -11,6 +11,4 @@ export interface RoleTagProps {
 	roleName: string
 }
 
-export const RoleTag = ({ roleName }: RoleTagProps) => {
-	return <Tag>{roleName}</Tag>
-}
+export const RoleTag = ({ roleName }: RoleTagProps) => <Tag>{roleName}</Tag>

@@ -17,23 +17,21 @@ export interface BootstrapProps {
 
 const baseUrl = "//localhost:4210"
 
-export const Bootstrap = ({ children }: BootstrapProps) => {
-	return (
-		<QueryClientProvider client={queryClient}>
-			<ProvideApiClientsService baseUrl={baseUrl}>
-				<ProvideAuthDataService>
-					<ProvideAuthService>
-						<ProvideUsersDataService>
-							<ProvideGroupsDataService>
-								<ProvideFieldsService>
-									<ProvideHeaderService>{children}</ProvideHeaderService>
-								</ProvideFieldsService>
-								<ReactQueryDevtools />
-							</ProvideGroupsDataService>
-						</ProvideUsersDataService>
-					</ProvideAuthService>
-				</ProvideAuthDataService>
-			</ProvideApiClientsService>
-		</QueryClientProvider>
-	)
-}
+export const Bootstrap = ({ children }: BootstrapProps) => (
+	<QueryClientProvider client={queryClient}>
+		<ProvideApiClientsService baseUrl={baseUrl}>
+			<ProvideAuthDataService>
+				<ProvideAuthService>
+					<ProvideUsersDataService>
+						<ProvideGroupsDataService>
+							<ProvideFieldsService>
+								<ProvideHeaderService>{children}</ProvideHeaderService>
+							</ProvideFieldsService>
+							<ReactQueryDevtools />
+						</ProvideGroupsDataService>
+					</ProvideUsersDataService>
+				</ProvideAuthService>
+			</ProvideAuthDataService>
+		</ProvideApiClientsService>
+	</QueryClientProvider>
+)

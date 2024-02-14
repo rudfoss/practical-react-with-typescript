@@ -8,22 +8,20 @@ export interface GroupsTableRowProps {
 	onDelete?: () => unknown
 }
 
-export const GroupsTableRow = ({ group, canDelete, onDelete }: GroupsTableRowProps) => {
-	return (
-		<tr>
-			<td>
-				<Link to={`/groups/${group.id}`}>{group.id}</Link>
-			</td>
-			<td>{group.displayName}</td>
-			<td>{group.roles.join(", ")}</td>
-			<td>{group.isSystemDefined ? "✅" : "❌"}</td>
-			<td>
-				{onDelete && (
-					<button onClick={() => onDelete()} disabled={!canDelete}>
-						❌
-					</button>
-				)}
-			</td>
-		</tr>
-	)
-}
+export const GroupsTableRow = ({ group, canDelete, onDelete }: GroupsTableRowProps) => (
+	<tr>
+		<td>
+			<Link to={`/groups/${group.id}`}>{group.id}</Link>
+		</td>
+		<td>{group.displayName}</td>
+		<td>{group.roles.join(", ")}</td>
+		<td>{group.isSystemDefined ? "✅" : "❌"}</td>
+		<td>
+			{onDelete && (
+				<button onClick={() => onDelete()} disabled={!canDelete}>
+					❌
+				</button>
+			)}
+		</td>
+	</tr>
+)
