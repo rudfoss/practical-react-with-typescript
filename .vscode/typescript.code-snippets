@@ -10,20 +10,7 @@
 			"\treturn ()",
 			"}"
 		],
-		"description": "Log output to console"
-	},
-	"React Function Component": {
-		"prefix": "react-component-fn",
-		"body": [
-			"export interface ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props {",
-			"\t${0}",
-			"}",
-			"",
-			"export function ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}(props: ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props) {",
-			"\treturn ()",
-			"}"
-		],
-		"description": "Log output to console"
+		"description": "Create an arrow function component"
 	},
 	"React Service": {
 		"prefix": "react-service",
