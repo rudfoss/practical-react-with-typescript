@@ -1,20 +1,29 @@
-import React from "react"
+import React, { useState } from "react"
 
-import { Header } from "@react-workshop/ui"
-import { LoginForm } from "@react-workshop/userdb-libs-auth"
-import { StaticGroupTable } from "@react-workshop/userdb-libs-groups"
+import { ChoiceField, ChoiceFieldChoice } from "@react-workshop/fields"
+import { StaticGroup, staticGroups } from "@react-workshop/userdb-libs-groups"
 
-const onLogin = (username: string, password: string) => {
-	console.log({ username, password })
-}
-
-export const App = () => (
-	<>
-		<Header>Hello world</Header>
-		<LoginForm onLogin={onLogin} />
-		<StaticGroupTable />
-	</>
+const groupChoices = staticGroups.map(
+	(group): ChoiceFieldChoice<StaticGroup> => ({
+		label: group.displayName,
+		value: group.id,
+		data: group
+	})
 )
+
+export const App = () => {
+	const [value, setValue] = useState<ChoiceFieldChoice<StaticGroup>>()
+
+	return (
+		<ChoiceField
+			variant="dropDown"
+			label="Pick a group"
+			options={groupChoices}
+			value={value}
+			onChange={setValue}
+		/>
+	)
+}
 
 export const AppWithoutJsx = () =>
 	React.createElement("div", {}, [
