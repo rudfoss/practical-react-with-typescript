@@ -12,6 +12,8 @@ export const StaticGroupTable = () => {
 	const [groups, setGroups] = useState(staticGroups)
 	const [sortDirection, setSortDirection] = useState<SortDirection>()
 
+	const isBeingSorted = !!sortDirection
+
 	const sortedGroups = useMemo(() => {
 		if (!sortDirection) return groups
 
@@ -40,8 +42,12 @@ export const StaticGroupTable = () => {
 			setSortDirection("ascending")
 			return
 		}
+		if (sortDirection === "ascending") {
+			setSortDirection("descending")
+			return
+		}
 
-		setSortDirection(sortDirection === "ascending" ? "descending" : "ascending")
+		setSortDirection(undefined)
 	}
 
 	return (
@@ -64,8 +70,8 @@ export const StaticGroupTable = () => {
 					<StaticGroupTableRow
 						key={group.id}
 						group={group}
-						canMoveUp={index > 0}
-						canMoveDown={index < groupList.length - 1}
+						canMoveUp={!isBeingSorted && index > 0}
+						canMoveDown={!isBeingSorted && index < groupList.length - 1}
 						canDelete={groupList.length > 1}
 						deleteGroup={deleteGroup}
 						moveGroup={moveGroup}
