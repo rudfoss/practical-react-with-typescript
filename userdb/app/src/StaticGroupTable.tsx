@@ -1,12 +1,26 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import { arrayMove } from "@react-workshop/utils"
 
 import { StaticGroupTableRow } from "./StaticGroupTableRow"
 import { StaticGroup, staticGroups } from "./staticGroups"
 
+type SortDirection = "ascending" | "descending"
+
 export const StaticGroupTable = () => {
 	const [groups, setGroups] = useState(staticGroups)
+	const [sortDirection, setSortDirection] = useState<SortDirection>()
+
+	const sortedGroups = useMemo(() => {
+		if (!sortDirection) return groups
+
+		const groupsToSort = [...groups]
+		groupsToSort.sort((a, b) => {
+			const comparisonResult = a.displayName.localeCompare(b.displayName)
+			return sortDirection === "ascending" ? comparisonResult : comparisonResult * -1
+		})
+		return groupsToSort
+	}, [groups, sortDirection])
 
 	const moveGroup = (direction: "up" | "down", group: StaticGroup) => {
 		const groupIndex = groups.indexOf(group)
@@ -20,17 +34,32 @@ export const StaticGroupTable = () => {
 		setGroups(newGroups)
 	}
 
+	const toggleSortDirection = () => {
+		if (!sortDirection) {
+			setSortDirection("ascending")
+			return
+		}
+
+		setSortDirection(sortDirection === "ascending" ? "descending" : "ascending")
+	}
+
 	return (
 		<table>
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Display name</th>
+					<th>
+						<button onClick={toggleSortDirection}>
+							Display name
+							{sortDirection === "ascending" && "⬇️"}
+							{sortDirection === "descending" && "⬆️"}
+						</button>
+					</th>
 					<th>Controls</th>
 				</tr>
 			</thead>
 			<tbody>
-				{groups.map((group, index, groupList) => (
+				{sortedGroups.map((group, index, groupList) => (
 					<StaticGroupTableRow
 						key={group.id}
 						group={group}
