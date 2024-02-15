@@ -1,4 +1,4 @@
-import { staticGroups } from "./staticGroups"
+import { staticGroups } from "../data"
 
 export const StaticGroupList = () => (
 	<ul>

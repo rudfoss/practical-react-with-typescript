@@ -2,8 +2,9 @@ import { useMemo, useState } from "react"
 
 import { arrayMove } from "@react-workshop/utils"
 
+import { StaticGroup, staticGroups } from "../data"
+
 import { StaticGroupTableRow } from "./StaticGroupTableRow"
-import { StaticGroup, staticGroups } from "./staticGroups"
 
 type SortDirection = "ascending" | "descending"
 

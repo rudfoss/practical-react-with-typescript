@@ -1,12 +1,20 @@
 import React from "react"
 
-import { LoginForm } from "./LoginForm"
+import { Header } from "@react-workshop/ui"
+import { LoginForm } from "@react-workshop/userdb-libs-auth"
+import { StaticGroupTable } from "@react-workshop/userdb-libs-groups"
 
 const onLogin = (username: string, password: string) => {
 	console.log({ username, password })
 }
 
-export const App = () => <LoginForm onLogin={onLogin} />
+export const App = () => (
+	<>
+		<Header>Hello world</Header>
+		<LoginForm onLogin={onLogin} />
+		<StaticGroupTable />
+	</>
+)
 
 export const AppWithoutJsx = () =>
 	React.createElement("div", {}, [
