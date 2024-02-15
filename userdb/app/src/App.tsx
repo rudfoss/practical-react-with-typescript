@@ -1,8 +1,12 @@
 import React from "react"
 
-import { StaticGroupTable } from "./StaticGroupTable"
+import { LoginForm } from "./LoginForm"
 
-export const App = () => <StaticGroupTable />
+const onLogin = (username: string, password: string) => {
+	console.log({ username, password })
+}
+
+export const App = () => <LoginForm onLogin={onLogin} />
 
 export const AppWithoutJsx = () =>
 	React.createElement("div", {}, [

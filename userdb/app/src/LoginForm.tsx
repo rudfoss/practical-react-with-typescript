@@ -1,7 +1,6 @@
 import { FormEvent, useState } from "react"
 
-import { CheckboxField } from "./CheckboxField"
-import { TextField } from "./TextField"
+import { CheckboxField, TextField } from "@react-workshop/fields"
 
 export interface LoginFormProps {
 	disabled?: boolean
