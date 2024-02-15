@@ -1,29 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 
-import { ChoiceField, ChoiceFieldChoice } from "@react-workshop/fields"
-import { StaticGroup, staticGroups } from "@react-workshop/userdb-libs-groups"
+import { Header } from "@react-workshop/ui"
 
-const groupChoices = staticGroups.map(
-	(group): ChoiceFieldChoice<StaticGroup> => ({
-		label: group.displayName,
-		value: group.id,
-		data: group
-	})
-)
-
-export const App = () => {
-	const [value, setValue] = useState<ChoiceFieldChoice<StaticGroup>>()
-
-	return (
-		<ChoiceField
-			variant="dropDown"
-			label="Pick a group"
-			options={groupChoices}
-			value={value}
-			onChange={setValue}
-		/>
-	)
-}
+export const App = () => <Header>Hello world</Header>
 
 export const AppWithoutJsx = () =>
 	React.createElement("div", {}, [

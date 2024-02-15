@@ -1,0 +1,12 @@
+.heading {
+	font-weight: bold;
+	font-family: monospace;
+	color: hotpink;
+}
+
+.details {
+	font-size: 42px;
+}
+.foo {
+	text-decoration: underline;
+}
