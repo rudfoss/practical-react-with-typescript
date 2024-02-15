@@ -3,7 +3,11 @@ import styled from "@emotion/styled"
 const H1 = styled.h1`
 	font-weight: bold;
 	font-family: monospace;
-	color: hotpink;
+
+	&::selection {
+		background-color: hotpink;
+		color: #fff;
+	}
 `
 
 export interface HeaderProps {
