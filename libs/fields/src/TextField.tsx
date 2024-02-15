@@ -1,4 +1,12 @@
+import styled from "@emotion/styled"
 import { useId } from "react"
+
+import { FieldContainer, Label } from "./FieldStyles"
+
+const Input = styled.input`
+	display: block;
+	width: 100%;
+`
 
 export interface TextFieldProps {
 	label: string
@@ -26,9 +34,9 @@ export const TextField = ({
 	const id = useId()
 
 	return (
-		<>
-			<label htmlFor={id}>{label}</label>
-			<input
+		<FieldContainer>
+			<Label htmlFor={id}>{label}</Label>
+			<Input
 				id={id}
 				type={variant}
 				value={value}
@@ -36,6 +44,6 @@ export const TextField = ({
 				maxLength={maxLength}
 				onChange={(event) => onChange(event.currentTarget.value)}
 			/>
-		</>
+		</FieldContainer>
 	)
 }

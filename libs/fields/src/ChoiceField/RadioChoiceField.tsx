@@ -1,6 +1,15 @@
+import styled from "@emotion/styled"
 import { useId } from "react"
 
+import { LabelAfter } from "../FieldStyles"
+
 import { ChoiceFieldProps } from "./ChoiceFieldProps"
+
+const OptionContainer = styled.div`
+	margin: 4px 0;
+	display: flex;
+	align-items: center;
+`
 
 export const RadioChoiceField = <TDataType,>({
 	label,
@@ -15,7 +24,7 @@ export const RadioChoiceField = <TDataType,>({
 		<fieldset>
 			<legend>{label}</legend>
 			{options.map((option) => (
-				<div key={option.value}>
+				<OptionContainer key={option.value}>
 					<input
 						id={`${id}-${option.value}`}
 						name={id}
@@ -24,8 +33,8 @@ export const RadioChoiceField = <TDataType,>({
 						onChange={() => onChange(option)}
 						disabled={disabled}
 					/>
-					<label htmlFor={`${id}-${option.value}`}>{option.label}</label>
-				</div>
+					<LabelAfter htmlFor={`${id}-${option.value}`}>{option.label}</LabelAfter>
+				</OptionContainer>
 			))}
 		</fieldset>
 	)

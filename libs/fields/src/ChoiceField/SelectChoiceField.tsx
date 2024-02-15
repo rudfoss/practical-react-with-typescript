@@ -1,6 +1,14 @@
+import styled from "@emotion/styled"
 import { ChangeEvent, useId } from "react"
 
+import { FieldContainer, Label } from "../FieldStyles"
+
 import { ChoiceFieldProps } from "./ChoiceFieldProps"
+
+const Select = styled.select`
+	display: block;
+	width: 100%;
+`
 
 export const SelectChoiceField = <TDataType,>({
 	label,
@@ -18,16 +26,16 @@ export const SelectChoiceField = <TDataType,>({
 	}
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
-			<select id={id} value={value?.value ?? ""} onChange={handleChange} disabled={disabled}>
+		<FieldContainer>
+			<Label htmlFor={id}>{label}</Label>
+			<Select id={id} value={value?.value ?? ""} onChange={handleChange} disabled={disabled}>
 				<option value=""></option>
 				{options.map((option) => (
 					<option key={option.value} value={option.value}>
 						{option.label}
 					</option>
 				))}
-			</select>
-		</div>
+			</Select>
+		</FieldContainer>
 	)
 }

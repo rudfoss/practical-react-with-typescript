@@ -1,8 +1,8 @@
 import React from "react"
 
-import { Header } from "@react-workshop/ui"
+import { FieldsShowcase } from "./FieldsShowcase"
 
-export const App = () => <Header>Hello world</Header>
+export const App = () => <FieldsShowcase />
 
 export const AppWithoutJsx = () =>
 	React.createElement("div", {}, [
