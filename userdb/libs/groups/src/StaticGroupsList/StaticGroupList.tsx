@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import { arrayMove } from "@react-workshop/utils"
 
@@ -6,8 +6,22 @@ import { StaticGroup, staticGroups } from "../staticGroups"
 
 import { StaticGroupListItem } from "./StaticGroupListItem"
 
+type SortDirection = "ascending" | "descending"
+
 export const StaticGroupList = () => {
 	const [groups, setGroups] = useState(staticGroups)
+	const [sortDirection, setSortDirection] = useState<SortDirection>()
+
+	const sortedGroups = useMemo(() => {
+		if (!sortDirection) return groups
+
+		const groupsToSort = [...groups]
+		groupsToSort.sort((a, b) => {
+			const comparisonResult = a.displayName.localeCompare(b.displayName)
+			return sortDirection === "ascending" ? comparisonResult : comparisonResult * -1
+		})
+		return groupsToSort
+	}, [groups, sortDirection])
 
 	const onMove = (group: StaticGroup) => (direction: "up" | "down") => {
 		const itemIndex = groups.indexOf(group)
@@ -18,6 +32,19 @@ export const StaticGroupList = () => {
 
 	const onDelete = (group: StaticGroup) => {
 		setGroups(groups.filter((existingGroup) => existingGroup !== group))
+	}
+
+	const toggleSortDirection = () => {
+		if (!sortDirection) {
+			setSortDirection("ascending")
+			return
+		}
+		if (sortDirection === "ascending") {
+			setSortDirection("descending")
+			return
+		}
+
+		setSortDirection(undefined)
 	}
 
 	// Kept for documentation purposes
@@ -33,12 +60,18 @@ export const StaticGroupList = () => {
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Display Name</th>
+					<th>
+						<button onClick={toggleSortDirection}>
+							Display name
+							{sortDirection === "ascending" && "⬇️"}
+							{sortDirection === "descending" && "⬆️"}
+						</button>
+					</th>
 					<th>Controls</th>
 				</tr>
 			</thead>
 			<tbody>
-				{groups.map((group, index, array) => (
+				{sortedGroups.map((group, index, array) => (
 					<StaticGroupListItem
 						key={group.id}
 						group={group}
