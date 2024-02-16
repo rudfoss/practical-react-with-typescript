@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useMemo, useState } from "react"
+import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react"
 
 export interface HeaderContextContextProps {
 	heading: string
@@ -12,6 +12,12 @@ export const useHeaderContext = () => {
 	const context = useContext(HeaderContextContext)
 	if (!context) throw new Error("HeaderContext must be provided before use")
 	return context
+}
+export const useHeading = (heading: string) => {
+	const { setHeading } = useHeaderContext()
+	useEffect(() => {
+		setHeading(heading)
+	}, [heading, setHeading])
 }
 
 export interface ProvideHeaderContextProps {

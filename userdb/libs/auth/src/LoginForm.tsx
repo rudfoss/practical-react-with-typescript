@@ -24,7 +24,7 @@ export const LoginForm = ({ disabled, onLogin }: LoginFormProps) => {
 	return (
 		<form onSubmit={submitLogin}>
 			<TextField label="User name" value={username} onChange={setUsername} />
-			<TextField variant={showPassword} label="User name" value={password} onChange={setPassword} />
+			<TextField variant={showPassword} label="Password" value={password} onChange={setPassword} />
 			<CheckboxField
 				label="Show password"
 				value={isPasswordVisible}
