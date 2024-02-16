@@ -1,6 +1,6 @@
 {
-	"editor.rulers": [60],
-	"editor.wordWrapColumn": 60,
+	"editor.rulers": [100],
+	"editor.wordWrapColumn": 100,
 	"editor.formatOnSave": true,
 	"editor.tabSize": 2,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
