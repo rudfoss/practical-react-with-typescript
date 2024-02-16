@@ -8,7 +8,11 @@ import { StaticGroupTableRow } from "./StaticGroupTableRow"
 
 type SortDirection = "ascending" | "descending"
 
-export const StaticGroupTable = () => {
+export interface StaticGroupTableProps {
+	highlightGroupId?: string
+}
+
+export const StaticGroupTable = ({ highlightGroupId }: StaticGroupTableProps) => {
 	const [groups, setGroups] = useState(staticGroups)
 	const [sortDirection, setSortDirection] = useState<SortDirection>()
 
@@ -70,6 +74,7 @@ export const StaticGroupTable = () => {
 					<StaticGroupTableRow
 						key={group.id}
 						group={group}
+						isHighlighted={group.id === highlightGroupId}
 						canMoveUp={!isBeingSorted && index > 0}
 						canMoveDown={!isBeingSorted && index < groupList.length - 1}
 						canDelete={groupList.length > 1}

@@ -16,5 +16,9 @@ export const MainMenu = () => (
 	<>
 		<StyledNavLink to="/">Home</StyledNavLink>
 		<StyledNavLink to="/fields">Fields</StyledNavLink>
+		<StyledNavLink to="/groups" end>
+			Static Groups
+		</StyledNavLink>
+		<StyledNavLink to="/groups/12b2f31a-a8e6-4e08-971c-a8594f16ab76">A Static Group</StyledNavLink>
 	</>
 )
