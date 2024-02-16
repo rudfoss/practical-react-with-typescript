@@ -1,4 +1,5 @@
 export * from "./CheckboxField"
 export * from "./ChoiceField"
+export * from "./fieldsService"
 export * from "./PasswordField"
 export * from "./TextField"

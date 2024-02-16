@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { useId } from "react"
 
 import { FieldContainer, LabelAfter } from "./FieldStyles"
+import { useFieldsServiceIsDisabled } from "./fieldsService"
 
 const FlexFieldContainer = styled(FieldContainer)`
 	display: flex;
@@ -18,6 +19,7 @@ export interface CheckboxFieldProps {
 
 export const CheckboxField = ({ value, onChange, label, disabled }: CheckboxFieldProps) => {
 	const id = useId()
+	const isGloballyDisabled = useFieldsServiceIsDisabled()
 
 	return (
 		<FlexFieldContainer>
@@ -26,7 +28,7 @@ export const CheckboxField = ({ value, onChange, label, disabled }: CheckboxFiel
 				type="checkbox"
 				checked={value}
 				onChange={(event) => onChange(event.currentTarget.checked)}
-				disabled={disabled}
+				disabled={isGloballyDisabled || disabled}
 			/>
 			<LabelAfter htmlFor={id}>{label}</LabelAfter>
 		</FlexFieldContainer>
