@@ -10,7 +10,7 @@ import { StaticGroupPage } from "./pages/StaticGroupPage"
 
 export const router = createBrowserRouter([
 	{
-		element: <MainLayout header={<Header>Hello world 🥳</Header>} menu={<MainMenu />} />,
+		element: <MainLayout header={<Header />} menu={<MainMenu />} />,
 		errorElement: <p>Not found</p>,
 		children: [
 			{

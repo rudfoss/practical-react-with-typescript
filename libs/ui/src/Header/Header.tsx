@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
 
+import { useHeaderContext } from "./HeaderContext"
+
 const Container = styled.div`
 	border-bottom: 1px solid #000;
 	padding: 8px;
@@ -13,12 +15,11 @@ const H1 = styled.h1`
 	margin: 0;
 `
 
-export interface HeaderProps {
-	children: string
+export const Header = () => {
+	const { heading } = useHeaderContext()
+	return (
+		<Container>
+			<H1>{heading}</H1>
+		</Container>
+	)
 }
-
-export const Header = ({ children }: HeaderProps) => (
-	<Container>
-		<H1>{children}</H1>
-	</Container>
-)
