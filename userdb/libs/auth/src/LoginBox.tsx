@@ -1,13 +1,9 @@
 import styled from "@emotion/styled"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { LoadingSpinner } from "@react-workshop/ui"
-import { AuthControllerClient, LoginRequest } from "@react-workshop/userdb-api-clients"
-import { delay } from "@react-workshop/utils"
 
 import { LoginForm } from "./LoginForm"
-
-const authClient = new AuthControllerClient("http://localhost:4210")
+import { useAuthService } from "./authService"
 
 const Container = styled.div`
 	display: flex;
@@ -20,25 +16,16 @@ const Container = styled.div`
 export interface LoginBoxProps {}
 
 export const LoginBox = (props: LoginBoxProps) => {
-	const queryClient = useQueryClient()
-	const { mutate, isPending } = useMutation({
-		mutationFn: async (loginRequest: LoginRequest) => {
-			await delay(undefined, 3000)
-			return authClient.login(loginRequest)
-		},
-		onSuccess: (data) => {
-			queryClient.setQueryData(["session"], data)
-		}
-	})
+	const { login, isWorking } = useAuthService()
 
 	const onLogin = (username: string, password: string) => {
-		mutate({ username, password })
+		login({ username, password })
 	}
 
 	return (
 		<Container>
-			<LoginForm onLogin={onLogin} />
-			{isPending && <LoadingSpinner />}
+			<LoginForm onLogin={onLogin} disabled={isWorking} />
+			{isWorking && <LoadingSpinner />}
 		</Container>
 	)
 }
