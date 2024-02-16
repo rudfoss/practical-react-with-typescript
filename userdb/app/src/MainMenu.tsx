@@ -15,6 +15,8 @@ const StyledNavLink = styled(NavLink)`
 export const MainMenu = () => (
 	<>
 		<StyledNavLink to="/">Home</StyledNavLink>
+		<StyledNavLink to="/stats">Stats</StyledNavLink>
+		<StyledNavLink to="/naive-load-data">Naive Load Data</StyledNavLink>
 		<StyledNavLink to="/fields">Fields</StyledNavLink>
 		<StyledNavLink to="/groups" end>
 			Static Groups
