@@ -9,7 +9,6 @@
 				"@nx/enforce-module-boundaries": [
 					"error",
 					{
-						"enforceBuildableLibDependency": true,
 						"allow": [],
 						"depConstraints": [
 							{
@@ -57,6 +56,12 @@
 			"files": ["*.js", "*.jsx"],
 			"extends": ["plugin:@nx/javascript"],
 			"rules": {}
+		},
+		{
+			"files": "**/jest.config.ts",
+			"rules": {
+				"unicorn/no-abusive-eslint-disable": ["off"]
+			}
 		},
 		{
 			"files": [

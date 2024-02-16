@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-abusive-eslint-disable */
 /* eslint-disable */
 export default {
 	displayName: "fields",
