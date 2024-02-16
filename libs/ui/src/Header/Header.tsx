@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 
 import { useHeaderService } from "./headerService"
 
-const StyledHeader = styled.header`
+const Container = styled.div`
 	border-bottom: 1px solid #000;
 	padding: 8px;
 	margin-bottom: 8px;
@@ -19,8 +19,8 @@ export const Header = () => {
 	const { heading } = useHeaderService()
 
 	return (
-		<StyledHeader>
+		<Container>
 			<H1>{heading}</H1>
-		</StyledHeader>
+		</Container>
 	)
 }

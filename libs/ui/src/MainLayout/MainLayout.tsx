@@ -24,7 +24,7 @@ export interface MainLayoutProps {
 
 export const MainLayout = ({ header, menu, children = <Outlet /> }: MainLayoutProps) => (
 	<>
-		{header}
+		<header>{header}</header>
 		<Columns>
 			<nav>{menu}</nav>
 			<main>{children}</main>
