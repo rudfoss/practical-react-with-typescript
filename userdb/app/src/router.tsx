@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom"
 
 import { Header, MainLayout } from "@react-workshop/ui"
 
+import { MainMenu } from "./MainMenu"
 import { FieldsPage } from "./pages/FieldsPage"
 import { HomePage } from "./pages/HomePage"
 import { ParametersPage } from "./pages/ParametersPage"
@@ -11,7 +12,7 @@ export const router = createBrowserRouter([
 		element: (
 			<MainLayout
 				header={<Header>Hello world 🥳</Header>}
-				menu={<div />}
+				menu={<MainMenu />}
 			/>
 		),
 		errorElement: <p>Not found</p>,
