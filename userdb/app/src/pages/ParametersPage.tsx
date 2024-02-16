@@ -5,7 +5,9 @@ export const ParametersPage = () => {
 
 	return (
 		<pre>
-			<code>{JSON.stringify(parameters, undefined, 2)}</code>
+			<code>
+				{JSON.stringify(parameters, undefined, 2)}
+			</code>
 		</pre>
 	)
 }

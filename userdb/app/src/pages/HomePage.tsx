@@ -1,3 +1,5 @@
-import { Header } from "@react-workshop/ui"
+import { Link } from "react-router-dom"
 
-export const HomePage = () => <Header>Hello world!</Header>
+export const HomePage = () => (
+	<Link to="/fields">Fields</Link>
+)

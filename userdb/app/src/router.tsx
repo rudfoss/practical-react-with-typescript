@@ -8,7 +8,12 @@ import { ParametersPage } from "./pages/ParametersPage"
 
 export const router = createBrowserRouter([
 	{
-		element: <MainLayout header={<Header>Hello world 🥳</Header>} menu={<div />} />,
+		element: (
+			<MainLayout
+				header={<Header>Hello world 🥳</Header>}
+				menu={<div />}
+			/>
+		),
 		errorElement: <p>Not found</p>,
 		children: [
 			{
