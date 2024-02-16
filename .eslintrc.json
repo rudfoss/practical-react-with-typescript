@@ -58,6 +58,12 @@
 			"rules": {}
 		},
 		{
+			"files": "**/jest.config.ts",
+			"rules": {
+				"unicorn/no-abusive-eslint-disable": ["off"]
+			}
+		},
+		{
 			"files": [
 				"*.spec.ts",
 				"*.spec.tsx",
