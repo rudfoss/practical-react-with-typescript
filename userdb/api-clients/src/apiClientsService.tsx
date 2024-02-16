@@ -12,6 +12,7 @@ import {
 import { useLazyRef } from "@react-workshop/utils"
 
 import {
+	AppControllerClient,
 	AuthControllerClient,
 	AuthUserControllerClient,
 	GroupsControllerClient,
@@ -24,6 +25,7 @@ export interface ApiClientsServiceContextProps {
 	sessionToken?: string
 	setSessionToken: (newSessionToken?: string) => unknown
 
+	appClient: MutableRefObject<AppControllerClient>
 	authClient: MutableRefObject<AuthControllerClient>
 	authUserClient: MutableRefObject<AuthUserControllerClient>
 	groupsClient: MutableRefObject<GroupsControllerClient>
@@ -58,6 +60,7 @@ export const ProvideApiClientsService = ({ baseUrl, children }: ProvideApiClient
 	 *
 	 * To avoid this issue the reference (object with a current property) is passed to the queries instead so that the clients can be updated behind the scenes and the new instances passed to the queries while keeping a stable reference to the reference object. For this to work we need to hook up a custom effect that updates the controllers when any dependencies change (see below)
 	 */
+	const appClient = useLazyRef(() => new AppControllerClient(baseUrl))
 	const authClient = useLazyRef(() => new AuthControllerClient(baseUrl))
 	const authUserClient = useLazyRef(() => new AuthUserControllerClient(baseUrl))
 	const groupsClient = useLazyRef(() => new GroupsControllerClient(baseUrl))
@@ -65,6 +68,7 @@ export const ProvideApiClientsService = ({ baseUrl, children }: ProvideApiClient
 
 	// This is where we update the ref-objects if the baseUrl changes
 	useEffect(() => {
+		appClient.current = new AppControllerClient(baseUrl)
 		authClient.current = new AuthControllerClient(baseUrl)
 		authUserClient.current = new AuthUserControllerClient(baseUrl)
 		groupsClient.current = new GroupsControllerClient(baseUrl)
@@ -78,12 +82,22 @@ export const ProvideApiClientsService = ({ baseUrl, children }: ProvideApiClient
 			sessionToken,
 			setSessionToken,
 
+			appClient,
 			authClient,
 			authUserClient,
 			groupsClient,
 			usersClient
 		}),
-		[authClient, authUserClient, baseUrl, groupsClient, sessionToken, setSessionToken, usersClient]
+		[
+			appClient,
+			authClient,
+			authUserClient,
+			baseUrl,
+			groupsClient,
+			sessionToken,
+			setSessionToken,
+			usersClient
+		]
 	)
 	return (
 		<ApiClientsServiceContext.Provider value={value}>{children}</ApiClientsServiceContext.Provider>
