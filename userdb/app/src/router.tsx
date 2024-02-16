@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom"
 import { Header, MainLayout } from "@react-workshop/ui"
 
 import { MainMenu } from "./MainMenu"
+import { ApiHealthPage } from "./pages/ApiHealthPage"
 import { ApiStatsPage } from "./pages/ApiStatsPage"
 import { FieldsPage } from "./pages/FieldsPage"
 import { GroupDetailsPage } from "./pages/GroupDetailsPage"
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
 			{
 				path: "stats",
 				element: <ApiStatsPage />
+			},
+			{
+				path: "health",
+				element: <ApiHealthPage />
 			},
 			{
 				path: "naive-load-data",

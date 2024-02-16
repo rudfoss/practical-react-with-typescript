@@ -16,6 +16,7 @@ export const MainMenu = () => (
 	<>
 		<StyledNavLink to="/">Home</StyledNavLink>
 		<StyledNavLink to="/stats">Stats</StyledNavLink>
+		<StyledNavLink to="/health">Health</StyledNavLink>
 		<StyledNavLink to="/naive-load-data">Naive Load Data</StyledNavLink>
 		<StyledNavLink to="/fields">Fields</StyledNavLink>
 		<StyledNavLink to="/groups" end>
