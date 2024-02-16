@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import { StaticGroup } from "../data"
 
 export interface StaticGroupTableRowProps {
@@ -22,7 +24,9 @@ export const StaticGroupTableRow = ({
 	deleteGroup
 }: StaticGroupTableRowProps) => (
 	<tr key={group.id}>
-		<td style={{ border: isHighlighted ? "1px solid hotpink" : "" }}>{group.id}</td>
+		<td style={{ border: isHighlighted ? "1px solid hotpink" : "" }}>
+			<Link to={`/groups/${group.id}`}>{group.id}</Link>
+		</td>
 		<td>{group.displayName}</td>
 		<td>
 			<button disabled={!canMoveUp} onClick={() => moveGroup("up", group)}>

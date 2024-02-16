@@ -4,6 +4,7 @@ import { Header, MainLayout } from "@react-workshop/ui"
 
 import { MainMenu } from "./MainMenu"
 import { FieldsPage } from "./pages/FieldsPage"
+import { GroupDetailsPage } from "./pages/GroupDetailsPage"
 import { HomePage } from "./pages/HomePage"
 import { StaticGroupPage } from "./pages/StaticGroupPage"
 
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: ":groupId",
-						element: <StaticGroupPage />
+						element: <GroupDetailsPage />
 					}
 				]
 			}
