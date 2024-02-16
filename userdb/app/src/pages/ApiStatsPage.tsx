@@ -1,17 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 
-import { AppControllerClient } from "@react-workshop/userdb-api-clients"
-
-const appClient = new AppControllerClient("http://localhost:4210")
-
-const useStatsData = () =>
-	useQuery({
-		queryKey: ["stats"],
-		queryFn: () => appClient.getStats()
-	})
+import { useApiClientsService } from "@react-workshop/userdb-api-clients"
 
 export const ApiStatsPage = () => {
-	const { data: statsData, isError } = useStatsData()
+	const { appClient } = useApiClientsService()
+	const { data: statsData, isError } = useQuery({
+		queryKey: ["stats"],
+		queryFn: () => appClient.current.getStats()
+	})
 
 	if (isError) {
 		return <p>Something went 💥</p>

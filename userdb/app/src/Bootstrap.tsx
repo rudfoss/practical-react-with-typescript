@@ -4,6 +4,7 @@ import { ReactNode } from "react"
 
 import { ProvideFieldsService } from "@react-workshop/fields"
 import { ProvideHeaderContext } from "@react-workshop/ui"
+import { ProvideApiClientsService } from "@react-workshop/userdb-api-clients"
 
 const queryClient = new QueryClient()
 
@@ -13,9 +14,11 @@ export interface BootstrapProps {
 
 export const Bootstrap = ({ children }: BootstrapProps) => (
 	<QueryClientProvider client={queryClient}>
-		<ProvideFieldsService>
-			<ProvideHeaderContext>{children}</ProvideHeaderContext>
-		</ProvideFieldsService>
-		<ReactQueryDevtools />
+		<ProvideApiClientsService baseUrl="http://localhost:4210">
+			<ProvideFieldsService>
+				<ProvideHeaderContext>{children}</ProvideHeaderContext>
+			</ProvideFieldsService>
+			<ReactQueryDevtools />
+		</ProvideApiClientsService>
 	</QueryClientProvider>
 )
