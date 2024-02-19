@@ -47,7 +47,7 @@ The course will be using [Visual Studio Code](https://code.visualstudio.com) wit
 You can install Visual Studio Code from [their home page](https://code.visualstudio.com) or using `winget` if you are on Windows:
 
 ```ps1
-winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"'
+winget install -e --id Microsoft.VisualStudioCode --override '/VERYSILENT /SP- /MERGETAKS="!runcode,!desktopicon,addcontextmenufiles,addcontextmenufolders,addtopath"'
 ```
 
 ### Setting up your environment
