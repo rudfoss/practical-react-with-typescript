@@ -40,8 +40,6 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 👀 Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
 
-**Note on building the solution branch**: Because NSwag is used to build TypeScript clients you need to install its prerequisites as well to perform a full build of the entire monorepo. See [Generating API clients](#generating-api-clients) for more information.
-
 ### Recommended
 
 The course will be using [Visual Studio Code](https://code.visualstudio.com) with [some extensions](#vscode-extensions) and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
@@ -49,7 +47,7 @@ The course will be using [Visual Studio Code](https://code.visualstudio.com) wit
 You can install Visual Studio Code from [their home page](https://code.visualstudio.com) or using `winget` if you are on Windows:
 
 ```ps1
-winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"'
+winget install -e --id Microsoft.VisualStudioCode --override '/VERYSILENT /SP- /MERGETAKS="!runcode,!desktopicon,addcontextmenufiles,addcontextmenufolders,addtopath"'
 ```
 
 ### Setting up your environment
