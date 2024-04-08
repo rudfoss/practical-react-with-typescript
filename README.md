@@ -16,6 +16,7 @@
 
 - [Prerequisites](#prerequisites)
   - [Required](#required)
+  - [Optional](#optional)
   - [Recommended](#recommended)
   - [Setting up your environment](#setting-up-your-environment)
   - [Running the development environment](#running-the-development-environment)
@@ -32,12 +33,19 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 ### Required
 
-| What                                                      | Why                                                                    | How                                                                                    | Verify👀  |
-| --------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------- |
-| [Git](https://git-scm.com/downloads)                      | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`                  | `git -v`  |
-| [NodeJs LTS](https://nodejs.org/en)                       | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node`        | `node -v` |
-| [pnpm](https://pnpm.io/installation)                      | Faster and more efficient package manager for Node (replaces npm)      | Windows`iwr https://get.pnpm.io/install.ps1 -useb \| iex`<br/>Mac: `brew install pnpm` | `pnpm -v` |
-| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code                       | Windows: `winget install -e --id Microsoft.DotNet.SDK.8`                               |
+| What                                 | Why                                                                    | How                                                                                    | Verify👀  |
+| ------------------------------------ | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------- |
+| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`                  | `git -v`  |
+| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node`        | `node -v` |
+| [pnpm](https://pnpm.io/installation) | Faster and more efficient package manager for Node (replaces npm)      | Windows`iwr https://get.pnpm.io/install.ps1 -useb \| iex`<br/>Mac: `brew install pnpm` | `pnpm -v` |
+
+### Optional
+
+These dependencies are recommended if you want to use all tools in the repository (such as the genCode targets), but not essential to take the course.
+
+| What                                                      | Why                                              | How                                                      | Verify👀           |
+| --------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------- | ------------------ |
+| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | Windows: `winget install -e --id Microsoft.DotNet.SDK.8` | `dotnet --version` |
 
 👀 Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
 
