@@ -39,6 +39,15 @@
 				]
 			}
 		},
+		"typecheck": {
+			"dependsOn": [
+				"^typecheck"
+			],
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "tsc -b ./userdb/api-clients/tsconfig.json"
+			}
+		},
 		"build": {
 			"executor": "nx:noop",
 			"dependsOn": [

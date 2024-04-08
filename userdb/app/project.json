@@ -68,7 +68,16 @@
 			"outputs": [
 				"{options.outputFile}"
 			]
-		}
+		},
+		"typecheck": {
+			"dependsOn": [
+				"^typecheck"
+			],
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "tsc -b ./userdb/app/tsconfig.app.json"
+			}
+		},
 	},
 	"tags": [
 		"usedb",
