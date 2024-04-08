@@ -172,6 +172,6 @@ export const router = createBrowserRouter([
 				<ErrorPage />
 			</MainLayout>
 		),
-		children: [...appRoutes]
+		children: appRoutes
 	}
 ])
