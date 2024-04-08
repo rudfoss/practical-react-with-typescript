@@ -8,9 +8,10 @@
 
 1. Install [required](#required) prerequisites
 2. Clone this repository
-3. Run `pnpm run init`
-4. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `pnpm start`
-5. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
+3. Checkout the course branch `courses/[year-month]` e.g.. `courses/202404`
+4. Run `pnpm run init`
+5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `pnpm start`
+6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
 <h2>Table of content</h2>
 
