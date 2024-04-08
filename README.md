@@ -8,23 +8,23 @@
 
 1. Install [required](#required) prerequisites
 2. Clone this repository
-3. Checkout the course branch `courses/[year-month]` e.g.. `courses/202404`
-4. Run `pnpm run init`
+3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404`
+4. Run `pnpm run init` to verify required prerequisites and install dependencies
 5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `pnpm start`
 6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
 <h2>Table of content</h2>
 
 - [Prerequisites](#prerequisites)
-  - [Required](#required)
-  - [Optional](#optional)
-  - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
-  - [Running the development environment](#running-the-development-environment)
+	- [Required](#required)
+	- [Optional](#optional)
+	- [Recommended](#recommended)
+	- [Setting up your environment](#setting-up-your-environment)
+	- [Running the development environment](#running-the-development-environment)
 - [VSCode](#vscode)
-  - [VSCode Extensions](#vscode-extensions)
-  - [Hidden files](#hidden-files)
-  - [Generating API clients](#generating-api-clients)
+	- [VSCode Extensions](#vscode-extensions)
+	- [Hidden files](#hidden-files)
+	- [Generating API clients](#generating-api-clients)
 
 Here you will find the starter-project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
 
