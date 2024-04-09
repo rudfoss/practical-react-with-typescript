@@ -8,7 +8,7 @@
 
 1. Install [required](#required) prerequisites
 2. Clone this repository
-3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404` (We will create this branch on the first day of the course)
+3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404` (the branch may not exist until right before the course begins)
 4. Run `pnpm run init` to verify required prerequisites and install dependencies
 5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `pnpm start`
 6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
