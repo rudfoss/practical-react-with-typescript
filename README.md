@@ -2,13 +2,13 @@
 
 👋 Welcome to the repository for the workshop [Practical React with TypeScript](https://www.bouvet.no/kurs/kategorier/utvikling-for-web-og-mobil/workshop-praktisk-react-med-typescript)!
 
-❓ Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the Discussion section. There is no such thing as a dumb question!
+❓ Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the Discussion section or email me at thomas.rudfoss@bouvet.no. There is no such thing as a dumb question!
 
 **TLDR setup**:
 
 1. Install [required](#required) prerequisites
 2. Clone this repository
-3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404`
+3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404` (We will create this branch on the first day of the course)
 4. Run `pnpm run init` to verify required prerequisites and install dependencies
 5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `pnpm start`
 6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
@@ -16,15 +16,15 @@
 <h2>Table of content</h2>
 
 - [Prerequisites](#prerequisites)
-	- [Required](#required)
-	- [Optional](#optional)
-	- [Recommended](#recommended)
-	- [Setting up your environment](#setting-up-your-environment)
-	- [Running the development environment](#running-the-development-environment)
+  - [Required](#required)
+  - [Optional](#optional)
+  - [Recommended](#recommended)
+  - [Setting up your environment](#setting-up-your-environment)
+  - [Running the development environment](#running-the-development-environment)
 - [VSCode](#vscode)
-	- [VSCode Extensions](#vscode-extensions)
-	- [Hidden files](#hidden-files)
-	- [Generating API clients](#generating-api-clients)
+  - [VSCode Extensions](#vscode-extensions)
+  - [Hidden files](#hidden-files)
+  - [Generating API clients](#generating-api-clients)
 
 Here you will find the starter-project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
 
