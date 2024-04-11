@@ -8,7 +8,7 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
 	},
-	"npm.packageManager": "pnpm",
+	"npm.packageManager": "npm",
 	"workbench.iconTheme": "vscode-icons",
 	"debug.javascript.autoAttachFilter": "onlyWithFlag",
 
@@ -17,7 +17,7 @@
 		"dist": false,
 		"**/package.json": false,
 		"**/node_modules": false,
-		"pnpm-lock.yaml": false,
+		"package-lock.json": false,
 		"nx.json": false,
 		"**/project.json": false,
 		"**/tsconfig*.json": false,

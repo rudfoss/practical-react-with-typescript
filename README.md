@@ -9,8 +9,8 @@
 1. Install [required](#required) prerequisites
 2. Clone this repository
 3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404` (the branch may not exist until right before the course begins)
-4. Run `pnpm run init` to verify required prerequisites and install dependencies
-5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `pnpm start`
+4. Run `npm run init` to verify required prerequisites and install dependencies
+5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `npm start`
 6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
 <h2>Table of content</h2>
@@ -34,11 +34,10 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 ### Required
 
-| What                                 | Why                                                                    | How                                                                                    | Verify👀  |
-| ------------------------------------ | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------- |
-| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`                  | `git -v`  |
-| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node`        | `node -v` |
-| [pnpm](https://pnpm.io/installation) | Faster and more efficient package manager for Node (replaces npm)      | Windows`iwr https://get.pnpm.io/install.ps1 -useb \| iex`<br/>Mac: `brew install pnpm` | `pnpm -v` |
+| What                                 | Why                                                                    | How                                                                             | Verify👀  |
+| ------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------- |
+| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`           | `git -v`  |
+| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node` | `node -v` |
 
 ### Optional
 
@@ -74,33 +73,31 @@ git clone https://github.com/rudfoss/practical-react-with-typescript.git react-w
 It might be tempting to open your IDE immediately and point it to the folder you just created, but I recommend that you first open a terminal at the root of the repository and run the `init` command. VSCode and other IDEs will try to detect what type of workspace that is currently open and might also automatically set up and configure a few things on their own. These configurations (such as the Nx extension) might depend on packages being installed in the workspace which is why it is usually a good idea to install these dependencies before you start your IDE so that they can be found.
 
 ```bash
-pnpm run init
+npm run init
 ```
 
-👀 Usually you can just write `pnpm [scriptName]` e.g.: `pnpm start`, but pnpm already has a command called `init` that sets up a new `package.json` file which means we have to add `run` in front of it to avoid executing it instead. You can find all script names that can be run in the [`package.json`](./package.json) file under `scripts`
-
-This command verifies that the required prerequisites are installed correctly. To see exactly what the command does open the `package.json` file and find the `script` named `init`. If it doesn't work you might have installed the required prerequisites without adding them to the PATH-variable for your environment. If that is the case you can either reinstall them or add them manually, check the documentation for the respective tool. After verification it then installs the project dependencies using `pnpm install`. When it's done you can open your IDE in the root folder (for VSCode simply type `code .` and hit enter).
+This command verifies that the required prerequisites are installed correctly. To see exactly what the command does open the `package.json` file and find the `script` named `init`. If it doesn't work you might have installed the required prerequisites without adding them to the PATH-variable for your environment. If that is the case you can either reinstall them or add them manually, check the documentation for the respective tool. After verification it then installs the project dependencies using `npm install`. When it's done you can open your IDE in the root folder (for VSCode simply type `code .` and hit enter).
 
 ### Running the development environment
 
-👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `pnpm start` then open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
+👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `npm start` then open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
 The React app we will be building will be bundled (built) with [vite](https://vitejs.dev/). Vite also has a development server that we can run while we code. It will hot-reload pieces of our app as we change it making for a very snappy and efficient development environment.
 
-There are several ways you can start this environment. Personally, I prefer to use Tasks in VSCode as they start in their own tabs under the terminal panel which makes them easier to find and monitor. You can also use Nx or preconfigured pnpm scripts directly from the terminal.
+There are several ways you can start this environment. Personally, I prefer to use Tasks in VSCode as they start in their own tabs under the terminal panel which makes them easier to find and monitor. You can also use Nx or preconfigured npm scripts directly from the terminal.
 
 Some ways to start the react app:
 
-- From a terminal, run: `pnpm start:userdb-app`
-- From a terminal, run: `pnpm exec nx server userdb-app`
-- From a terminal, run: `pnpm exec nx run userdb-app:serve`
+- From a terminal, run: `npm run start:userdb-app`
+- From a terminal, run: `npx nx server userdb-app`
+- From a terminal, run: `npx nx run userdb-app:serve`
 - (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start:userdb-app`
 - In VSCode use the shortcut `Ctrl+Shift+P`, write `nx run` and hit enter, select `userdb-app` -> `serve` -> Execute.
 - From the NX exteions select the `userdb-app` project and run the target `serve`
 
 To work with the server API you also need to start the project `userdb-api`. Simply replace `userdb-app` with `userdb-api` in any of the examples above. Since they are usually started together this project includes some ways to start everything neatly:
 
-- From a terminal, run `pnpm start`
+- From a terminal, run `npm start`
 - (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start`
 
 Once the react application is running you can open your browser to [http://localhost:4200](http://localhost:4200) to se the app live. Changes you make in code will be reflected on screen as soon as you save them. If you also started the API you can browse to [http://localhost:4210](http://localhost:4210) as well to see the API documentation

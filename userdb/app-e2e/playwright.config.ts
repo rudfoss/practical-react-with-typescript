@@ -22,7 +22,7 @@ export default defineConfig({
 	},
 	/* Run your local dev server before starting the tests */
 	webServer: {
-		command: "pnpm exec nx serve userdb-app",
+		command: "npx nx serve userdb-app",
 		url: "http://localhost:4200",
 		reuseExistingServer: !process.env.CI,
 		cwd: workspaceRoot
