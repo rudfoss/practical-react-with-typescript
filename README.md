@@ -11,7 +11,8 @@
 3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404` (the branch may not exist until right before the course begins)
 4. Run `npm run init` to verify required prerequisites and install dependencies
 5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `npm start`
-6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
+6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210) and if everything worked you should see "👋 Hello there" and a Swagger UI respectively.
+7. You are now ready to start the course 🚀
 
 <h2>Table of content</h2>
 
@@ -34,18 +35,18 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 ### Required
 
-| What                                 | Why                                                                    | How                                                                             | Verify👀  |
-| ------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------- |
-| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`           | `git -v`  |
-| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node` | `node -v` |
+| What                                 | Why                                                                    | How                                                                              | Verify👀  |
+| ------------------------------------ | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------- |
+| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`            | `git -v`  |
+| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac: `brew install node` | `node -v` |
 
 ### Optional
 
 These dependencies are recommended if you want to use all tools in the repository (such as the genCode targets), but not essential to take the course.
 
-| What                                                      | Why                                              | How                                                      | Verify👀           |
-| --------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------- | ------------------ |
-| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | Windows: `winget install -e --id Microsoft.DotNet.SDK.8` | `dotnet --version` |
+| What                                                      | Why                                              | How                                                                                                                                            | Verify👀           |
+| --------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | Windows: `winget install -e --id Microsoft.DotNet.SDK.8`<br/>Mac: Check the [website](https://dotnet.microsoft.com/en-us/download) for details | `dotnet --version` |
 
 👀 Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
 
