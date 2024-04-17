@@ -2,7 +2,9 @@
 
 👋 Welcome to the repository for the workshop [Practical React with TypeScript](https://www.bouvet.no/kurs/kategorier/utvikling-for-web-og-mobil/workshop-praktisk-react-med-typescript)!
 
-❓ Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the Discussion section or email me at thomas.rudfoss@bouvet.no. There is no such thing as a dumb question!
+❓ Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the Discussion section or email me at thomas.rudfoss@bouvet.no.
+
+> `ℹ️` **_For course participants:_**<br/>Please install and verify all required prerequisites before the first day of the course. If you want feel free to install the optional ones as well. You can find the list [below](#prerequisites).
 
 **TLDR setup**:
 
