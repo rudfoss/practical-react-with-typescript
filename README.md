@@ -17,15 +17,15 @@
 <h2>Table of content</h2>
 
 - [Prerequisites](#prerequisites)
-  - [Required](#required)
-  - [Optional](#optional)
-  - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
-  - [Running the development environment](#running-the-development-environment)
+	- [Required](#required)
+	- [Optional](#optional)
+	- [Recommended](#recommended)
+	- [Setting up your environment](#setting-up-your-environment)
+	- [Running the development environment](#running-the-development-environment)
 - [VSCode](#vscode)
-  - [VSCode Extensions](#vscode-extensions)
-  - [Hidden files](#hidden-files)
-  - [Generating API clients](#generating-api-clients)
+	- [VSCode Extensions](#vscode-extensions)
+	- [Hidden files](#hidden-files)
+	- [Generating API clients](#generating-api-clients)
 
 Here you will find the starter-project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
 
@@ -69,7 +69,7 @@ Once you have installed all prerequisites you can clone the repository to your m
 git clone https://github.com/rudfoss/practical-react-with-typescript.git react-workshop
 ```
 
-👀 We will be cloning the repository again at the start of the course as it might have changed, but feel free to explore if you'd like.
+The main branch contains all the code that we are going to write as part of the course. Feel free to explore, but when the course starts you should check out the specific branch for that course iteration. It should be named `courses/[year-month]` e.g.: `courses/202404`.
 
 It might be tempting to open your IDE immediately and point it to the folder you just created, but I recommend that you first open a terminal at the root of the repository and run the `init` command. VSCode and other IDEs will try to detect what type of workspace that is currently open and might also automatically set up and configure a few things on their own. These configurations (such as the Nx extension) might depend on packages being installed in the workspace which is why it is usually a good idea to install these dependencies before you start your IDE so that they can be found.
 
