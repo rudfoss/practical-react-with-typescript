@@ -2,6 +2,7 @@ import { useState } from "react"
 
 import { CheckboxField } from "./CheckboxField"
 import { Header } from "./Header"
+import { ListDemo } from "./ListDemo"
 import { LoginForm } from "./LoginForm"
 import { PasswordField } from "./PasswordField"
 import { TextField } from "./TextField"
@@ -20,11 +21,7 @@ const MyComponent = (props: MyComponentProps) => (
 	</h2>
 )
 
-export const App = () => (
-	<div>
-		<LoginForm onLogin={(username, password) => console.log({ username, password })} />
-	</div>
-)
+export const App = () => <ListDemo />
 
 // <h1>
 // 	👋 Hello there
