@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+import { CheckboxField } from "./CheckboxField"
 import { Header } from "./Header"
 import { PasswordField } from "./PasswordField"
 import { TextField } from "./TextField"
@@ -20,17 +21,18 @@ const MyComponent = (props: MyComponentProps) => (
 
 export const App = () => {
 	const [headerValue, setHeaderValue] = useState("")
+	const [showPassword, setShowPassword] = useState(false)
 
 	return (
 		<div>
 			<TextField value={headerValue} onChange={setHeaderValue} label="Enter heading" />
-			<PasswordField value={headerValue} label="Password" onChange={setHeaderValue} />
 			<PasswordField
-				showPassword
+				showPassword={showPassword}
 				value={headerValue}
 				label="Password again"
 				onChange={setHeaderValue}
 			/>
+			<CheckboxField label="Show password" value={showPassword} onChange={setShowPassword} />
 			<Header>{headerValue}</Header>
 		</div>
 	)
