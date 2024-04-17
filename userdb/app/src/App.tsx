@@ -16,6 +16,6 @@ export const App = () => (
 	<h1>
 		👋 Hello there
 		<MyComponent greeting="Good morning" suffix="!" padWithWhitespaces={4} hideSuffix />
-		{/* React.createElement(MyComponent, {greeting: "Good morning", suffix:"!" }) */}
+		{/* React.createElement(MyComponent, {greeting: "Good morning", suffix:"!", padWithWhitespaces: 4, hideSuffix: true }) */}
 	</h1>
 )
