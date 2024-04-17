@@ -44,6 +44,7 @@ export const LoginForm = ({ disabled, errorMessage, onLogin }: LoginFormProps) =
 				label="Show password"
 				value={isPasswordVisible}
 				onChange={setIsPasswordVisible}
+				disabled={disabled}
 			/>
 			<input type="submit" value="Log in" disabled={!hasData || disabled} />
 		</form>
