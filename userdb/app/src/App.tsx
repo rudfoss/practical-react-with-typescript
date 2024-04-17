@@ -2,6 +2,7 @@ import { useState } from "react"
 
 import { CheckboxField } from "./CheckboxField"
 import { Header } from "./Header"
+import { LoginForm } from "./LoginForm"
 import { PasswordField } from "./PasswordField"
 import { TextField } from "./TextField"
 
@@ -19,24 +20,11 @@ const MyComponent = (props: MyComponentProps) => (
 	</h2>
 )
 
-export const App = () => {
-	const [headerValue, setHeaderValue] = useState("")
-	const [showPassword, setShowPassword] = useState(false)
-
-	return (
-		<div>
-			<TextField value={headerValue} onChange={setHeaderValue} label="Enter heading" />
-			<PasswordField
-				showPassword={showPassword}
-				value={headerValue}
-				label="Password again"
-				onChange={setHeaderValue}
-			/>
-			<CheckboxField label="Show password" value={showPassword} onChange={setShowPassword} />
-			<Header>{headerValue}</Header>
-		</div>
-	)
-}
+export const App = () => (
+	<div>
+		<LoginForm onLogin={(username, password) => console.log({ username, password })} />
+	</div>
+)
 
 // <h1>
 // 	👋 Hello there

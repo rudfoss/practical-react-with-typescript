@@ -4,9 +4,10 @@ export interface CheckboxFieldProps {
 	label: string
 	value: boolean
 	onChange: (newValue: boolean) => unknown
+	disabled?: boolean
 }
 
-export const CheckboxField = ({ label, value, onChange }: CheckboxFieldProps) => {
+export const CheckboxField = ({ label, value, onChange, disabled }: CheckboxFieldProps) => {
 	const id = useId()
 
 	return (
@@ -16,6 +17,7 @@ export const CheckboxField = ({ label, value, onChange }: CheckboxFieldProps) =>
 				type="checkbox"
 				checked={value}
 				onChange={(event) => onChange(event.currentTarget.checked)}
+				disabled={disabled}
 			/>
 			<label htmlFor={id}>{label}</label>
 		</div>
