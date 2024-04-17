@@ -53,7 +53,7 @@ export const Optimization = () => {
 				onChange={(newValue) => setModeChoice(newValue ?? modes[0])}
 			></ChoiceField>
 			<hr />
-			<TextField label="Some text" value={text} onChange={setText} />
+			<TextField label="Write some text here to trigger rerender" value={text} onChange={setText} />
 			<hr />
 			{mode === "naive" && <Fibonacci fibonacciNumber={fibonacciNumber} />}
 			{mode === "memoized" && <MemoFibonacci fibonacciNumber={fibonacciNumber} />}
