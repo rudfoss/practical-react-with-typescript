@@ -1,13 +1,23 @@
 import { useId } from "react"
 
-export interface TextFieldProps {
+type InputPropsWithoutOnChange = Omit<
+	React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+	"onChange"
+>
+
+export interface TextFieldProps extends InputPropsWithoutOnChange {
 	label: string
 	value: string
 	onChange: (newValue: string) => unknown
-	disabled?: boolean
 }
 
-export const TextField = ({ label, value, onChange, disabled }: TextFieldProps) => {
+export const TextField = ({
+	label,
+	value,
+	onChange,
+	type = "text",
+	...inputProps
+}: TextFieldProps) => {
 	const id = useId()
 
 	return (
@@ -16,9 +26,9 @@ export const TextField = ({ label, value, onChange, disabled }: TextFieldProps) 
 			<input
 				onChange={(event) => onChange(event.currentTarget.value)}
 				value={value}
-				type="text"
 				id={id}
-				disabled={disabled}
+				type={type}
+				{...inputProps}
 			/>
 		</div>
 	)
