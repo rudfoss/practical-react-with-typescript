@@ -29,6 +29,7 @@
 		"**/index.html": true,
 		"jsonDb.json": true,
 		"global.json": true,
-		"tools": true
+		"tools": true,
+		"LICENSE": true
 	}
 }
