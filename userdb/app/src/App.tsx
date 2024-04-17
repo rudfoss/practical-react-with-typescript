@@ -5,7 +5,9 @@ import { Header } from "./Header"
 import { ListDemo } from "./ListDemo"
 import { LoginForm } from "./LoginForm"
 import { PasswordField } from "./PasswordField"
+import { StaticGroupTable } from "./StaticGroupTable"
 import { TextField } from "./TextField"
+import { staticGroups } from "./staticGroups"
 
 interface MyComponentProps {
 	greeting: string
@@ -21,7 +23,10 @@ const MyComponent = (props: MyComponentProps) => (
 	</h2>
 )
 
-export const App = () => <ListDemo />
+export const App = () => {
+	const [groups, setGroups] = useState(staticGroups)
+	return <StaticGroupTable groups={groups} setGroups={setGroups} />
+}
 
 // <h1>
 // 	👋 Hello there
