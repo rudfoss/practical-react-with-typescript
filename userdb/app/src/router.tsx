@@ -9,6 +9,7 @@ import { ApiStatusPage } from "./pages/ApiStatusPage"
 import { ErrorPage } from "./pages/ErrorPage"
 import { FieldsPage } from "./pages/FieldsPage"
 import { HomePage } from "./pages/HomePage"
+import { KeyDemoPage } from "./pages/KeyDemoPage"
 import { OptimizationPage } from "./pages/OptimizationPage"
 import { StaticGroupsPage } from "./pages/StaticGroupsPage"
 import { GroupDetailsPage } from "./pages/groups/GroupDetailsPage"
@@ -137,6 +138,10 @@ const appRoutes: RouteObject[] = [
 				element: <StaticGroupsPage />
 			}
 		]
+	},
+	{
+		path: "key-demo",
+		element: <KeyDemoPage />
 	},
 	{
 		path: "status",

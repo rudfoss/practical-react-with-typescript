@@ -41,6 +41,7 @@ export const MainMenu = () => (
 			<StyledNavLink to="/sessions">User sessions</StyledNavLink>
 		</RequireRoles>
 		<hr />
+		<StyledNavLink to="/key-demo">Key Demo</StyledNavLink>
 		<StyledNavLink to="/optimization">Optimization</StyledNavLink>
 		<StyledNavLink to="/non-existent-page">404</StyledNavLink>
 		<StyledNavLink to="/fields">Fields</StyledNavLink>
