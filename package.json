@@ -6,7 +6,7 @@
 		"start:userdb-api": "nx serve userdb-api",
 		"start:userdb-app": "nx serve userdb-app",
 		"start": "concurrently \"npm run start:userdb-api\" \"npm run start:userdb-app\"",
-		"verify": "git -v && node -v && npm -v",
+		"verify": "git --version && node -v && npm -v",
 		"init": "npm run verify && npm ci",
 		"update:nx": "nx migrate latest",
 		"update:packages": "npx npm-check-updates --interactive --format group",
