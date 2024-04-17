@@ -11,20 +11,21 @@
 3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404` (the branch may not exist until right before the course begins)
 4. Run `npm run init` to verify required prerequisites and install dependencies
 5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `npm start`
-6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
+6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210) and if everything worked you should see "👋 Hello there" and a Swagger UI respectively.
+7. You are now ready to start the course 🚀
 
 <h2>Table of content</h2>
 
 - [Prerequisites](#prerequisites)
-  - [Required](#required)
-  - [Optional](#optional)
-  - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
-  - [Running the development environment](#running-the-development-environment)
+	- [Required](#required)
+	- [Optional](#optional)
+	- [Recommended](#recommended)
+	- [Setting up your environment](#setting-up-your-environment)
+	- [Running the development environment](#running-the-development-environment)
 - [VSCode](#vscode)
-  - [VSCode Extensions](#vscode-extensions)
-  - [Hidden files](#hidden-files)
-  - [Generating API clients](#generating-api-clients)
+	- [VSCode Extensions](#vscode-extensions)
+	- [Hidden files](#hidden-files)
+	- [Generating API clients](#generating-api-clients)
 
 Here you will find the starter-project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
 
@@ -34,18 +35,18 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 ### Required
 
-| What                                 | Why                                                                    | How                                                                             | Verify👀  |
-| ------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------- |
-| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`           | `git -v`  |
-| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac `brew install node` | `node -v` |
+| What                                 | Why                                                                    | How                                                                              | Verify👀  |
+| ------------------------------------ | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------- |
+| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`            | `git -v`  |
+| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac: `brew install node` | `node -v` |
 
 ### Optional
 
 These dependencies are recommended if you want to use all tools in the repository (such as the genCode targets), but not essential to take the course.
 
-| What                                                      | Why                                              | How                                                      | Verify👀           |
-| --------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------- | ------------------ |
-| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | Windows: `winget install -e --id Microsoft.DotNet.SDK.8` | `dotnet --version` |
+| What                                                      | Why                                              | How                                                                                                                                            | Verify👀           |
+| --------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | Windows: `winget install -e --id Microsoft.DotNet.SDK.8`<br/>Mac: Check the [website](https://dotnet.microsoft.com/en-us/download) for details | `dotnet --version` |
 
 👀 Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
 
@@ -68,7 +69,7 @@ Once you have installed all prerequisites you can clone the repository to your m
 git clone https://github.com/rudfoss/practical-react-with-typescript.git react-workshop
 ```
 
-👀 We will be cloning the repository again at the start of the course as it might have changed, but feel free to explore if you'd like.
+The main branch contains all the code that we are going to write as part of the course. Feel free to explore, but when the course starts you should check out the specific branch for that course iteration. It should be named `courses/[year-month]` e.g.: `courses/202404`.
 
 It might be tempting to open your IDE immediately and point it to the folder you just created, but I recommend that you first open a terminal at the root of the repository and run the `init` command. VSCode and other IDEs will try to detect what type of workspace that is currently open and might also automatically set up and configure a few things on their own. These configurations (such as the Nx extension) might depend on packages being installed in the workspace which is why it is usually a good idea to install these dependencies before you start your IDE so that they can be found.
 
