@@ -1,10 +1,21 @@
+import styled from "@emotion/styled"
 import { useId } from "react"
+
+import { Container } from "./FieldStyles"
+
+const Label = styled.label`
+	display: block;
+	padding-bottom: 4px;
+`
+const Input = styled.input`
+	display: block;
+	width: 100%;
+`
 
 type InputPropsWithoutOnChange = Omit<
 	React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
 	"onChange"
 >
-
 export interface TextFieldProps extends InputPropsWithoutOnChange {
 	label: string
 	value: string
@@ -21,15 +32,15 @@ export const TextField = ({
 	const id = useId()
 
 	return (
-		<div>
-			<label htmlFor={id}>{label}</label>
-			<input
+		<Container>
+			<Label htmlFor={id}>{label}</Label>
+			<Input
 				onChange={(event) => onChange(event.currentTarget.value)}
 				value={value}
 				id={id}
 				type={type}
 				{...inputProps}
 			/>
-		</div>
+		</Container>
 	)
 }

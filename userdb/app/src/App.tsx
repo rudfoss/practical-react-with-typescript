@@ -23,15 +23,11 @@ const MyComponent = (props: MyComponentProps) => (
 	</h2>
 )
 
-export const App = () => {
-	const [groups, setGroups] = useState(staticGroups)
-	return (
-		<>
-			<Header>Test with css</Header>
-			<StaticGroupTable groups={groups} setGroups={setGroups} />
-		</>
-	)
+const onLogin = (username: string, password: string) => {
+	console.log({ username, password })
 }
+
+export const App = () => <LoginForm onLogin={onLogin} />
 
 // <h1>
 // 	👋 Hello there
