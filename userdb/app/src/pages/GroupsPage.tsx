@@ -1,0 +1,11 @@
+import { useState } from "react"
+import { useParams } from "react-router-dom"
+
+import { StaticGroupTable } from "../StaticGroupTable"
+import { staticGroups } from "../staticGroups"
+
+export const GroupsPage = () => {
+	const { groupId } = useParams<"groupId">()
+	const [groups, setGroups] = useState(staticGroups)
+	return <StaticGroupTable highlightGroupId={groupId} groups={groups} setGroups={setGroups} />
+}

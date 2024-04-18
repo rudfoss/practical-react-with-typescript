@@ -5,10 +5,15 @@ import { StaticGroup } from "./staticGroups"
 
 export interface StaticGroupTableProps {
 	groups: StaticGroup[]
+	highlightGroupId?: string
 	setGroups: (newGroups: StaticGroup[]) => unknown
 }
 
-export const StaticGroupTable = ({ groups, setGroups }: StaticGroupTableProps) => {
+export const StaticGroupTable = ({
+	groups,
+	highlightGroupId,
+	setGroups
+}: StaticGroupTableProps) => {
 	const moveItemUp = (groupIndex: number) => {
 		setGroups(arrayMove(groups, groupIndex, groupIndex - 1))
 	}
@@ -35,6 +40,7 @@ export const StaticGroupTable = ({ groups, setGroups }: StaticGroupTableProps) =
 					<StaticGroupTableRow
 						key={group.id}
 						group={group}
+						highlighted={group.id === highlightGroupId}
 						onDelete={() => deleteItem(index)}
 						onMoveUp={index === 0 ? undefined : () => moveItemUp(index)}
 						onMoveDown={index === array.length - 1 ? undefined : () => moveItemDown(index)}

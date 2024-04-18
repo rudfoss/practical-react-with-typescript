@@ -2,6 +2,7 @@ import { StaticGroup } from "./staticGroups"
 
 export interface StaticGroupTableRowProps {
 	group: StaticGroup
+	highlighted?: boolean
 
 	onMoveUp?: () => unknown
 	onMoveDown?: () => unknown
@@ -10,12 +11,13 @@ export interface StaticGroupTableRowProps {
 
 export const StaticGroupTableRow = ({
 	group,
+	highlighted,
 	onMoveUp,
 	onMoveDown,
 	onDelete
 }: StaticGroupTableRowProps) => (
 	<tr key={group.id}>
-		<td>{group.id}</td>
+		<td style={{ fontWeight: highlighted ? "bold" : "" }}>{group.id}</td>
 		<td>{group.displayName}</td>
 		<td>
 			<button disabled={!onMoveUp} onClick={() => onMoveUp?.()}>

@@ -3,9 +3,9 @@ import { RouteObject, createBrowserRouter } from "react-router-dom"
 import { MainLayout } from "@react-workshop/ui"
 
 import { MainMenu } from "./MainMenu"
+import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { LoginPage } from "./pages/LoginPage"
-import { ParametersPage } from "./pages/ParametersPage"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -17,8 +17,17 @@ const appRoutes: RouteObject[] = [
 		element: <LoginPage />
 	},
 	{
-		path: "groups/:groupId",
-		element: <ParametersPage />
+		path: "groups",
+		children: [
+			{
+				index: true,
+				element: <GroupsPage />
+			},
+			{
+				path: ":groupId",
+				element: <GroupsPage />
+			}
+		]
 	}
 ]
 
