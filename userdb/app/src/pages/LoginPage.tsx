@@ -1,4 +1,4 @@
-import { LoginForm } from "../LoginForm"
+import { LoginForm } from "@react-workshop/userdb-auth"
 
 const onLogin = (username: string, password: string) => {
 	console.log({ username, password })

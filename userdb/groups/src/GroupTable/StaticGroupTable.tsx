@@ -1,7 +1,8 @@
 import { arrayMove } from "@react-workshop/utils"
 
+import { StaticGroup } from "../staticGroups"
+
 import { StaticGroupTableRow } from "./StaticGroupTableRow"
-import { StaticGroup } from "./staticGroups"
 
 export interface StaticGroupTableProps {
 	groups: StaticGroup[]

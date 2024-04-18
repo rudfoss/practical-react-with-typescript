@@ -1,4 +1,4 @@
-import { StaticGroup } from "./staticGroups"
+import { StaticGroup } from "../staticGroups"
 
 export interface StaticGroupTableRowProps {
 	group: StaticGroup

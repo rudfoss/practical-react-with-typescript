@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 
-import { StaticGroupTable } from "../StaticGroupTable"
-import { staticGroups } from "../staticGroups"
+import { StaticGroupTable } from "@react-workshop/userdb-groups"
+
+import { staticGroups } from "../../../groups/src/staticGroups"
 
 export const GroupsPage = () => {
 	const { groupId } = useParams<"groupId">()

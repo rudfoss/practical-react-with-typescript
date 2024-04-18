@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import { ChoiceField, ChoiceOption } from "@react-workshop/fields"
 
-import { StaticGroup, staticGroups } from "./staticGroups"
+import { StaticGroup, staticGroups } from "../../groups/src/staticGroups"
 
 interface MyComponentProps {
 	greeting: string

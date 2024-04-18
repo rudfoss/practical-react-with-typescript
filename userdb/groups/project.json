@@ -1,0 +1,19 @@
+{
+	"name": "userdb-groups",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "userdb/groups/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "userdb/groups/jest.config.ts"
+			}
+		}
+	}
+}

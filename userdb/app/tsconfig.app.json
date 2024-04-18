@@ -27,6 +27,7 @@
 		"../../libs/fields/src/CheckboxField.tsx",
 		"../../libs/fields/src/FieldStyles.ts",
 		"../../libs/fields/src/PasswordField.tsx",
-		"../../libs/fields/src/TextField.tsx"
+		"../../libs/fields/src/TextField.tsx",
+		"../groups/src/staticGroups.ts"
 	]
 }
