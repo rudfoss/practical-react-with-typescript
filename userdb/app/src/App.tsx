@@ -1,13 +1,8 @@
 import { useState } from "react"
 
-import { CheckboxField } from "../../../libs/fields/src/CheckboxField"
-import { Header } from "./Header"
-import { ListDemo } from "./ListDemo"
-import { LoginForm } from "./LoginForm"
-import { PasswordField } from "../../../libs/fields/src/PasswordField"
-import { StaticGroupTable } from "./StaticGroupTable"
-import { TextField } from "../../../libs/fields/src/TextField"
-import { staticGroups } from "./staticGroups"
+import { ChoiceField, ChoiceOption } from "@react-workshop/fields"
+
+import { StaticGroup, staticGroups } from "./staticGroups"
 
 interface MyComponentProps {
 	greeting: string
@@ -27,7 +22,27 @@ const onLogin = (username: string, password: string) => {
 	console.log({ username, password })
 }
 
-export const App = () => <LoginForm onLogin={onLogin} />
+const groupToChoiceOption = (group: StaticGroup): ChoiceOption => ({
+	label: group.displayName,
+	value: group.id
+})
+
+export const App = () => {
+	const [group, setGroup] = useState<StaticGroup>()
+
+	return (
+		<>
+			<ChoiceField
+				label="Select something"
+				value={group}
+				options={staticGroups}
+				optionsToChoiceOption={groupToChoiceOption}
+				onChange={setGroup}
+			/>
+			<p>{group?.description}</p>
+		</>
+	)
+}
 
 // <h1>
 // 	👋 Hello there

@@ -1,12 +1,8 @@
 import styled from "@emotion/styled"
 import { useId } from "react"
 
-import { Container } from "../FieldStyles"
+import { Container, Label } from "../FieldStyles"
 
-const Label = styled.label`
-	display: block;
-	padding-bottom: 4px;
-`
 const Input = styled.input`
 	display: block;
 	width: 100%;
