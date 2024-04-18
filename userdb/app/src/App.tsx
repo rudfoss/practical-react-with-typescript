@@ -25,7 +25,12 @@ const MyComponent = (props: MyComponentProps) => (
 
 export const App = () => {
 	const [groups, setGroups] = useState(staticGroups)
-	return <StaticGroupTable groups={groups} setGroups={setGroups} />
+	return (
+		<>
+			<Header>Test with css</Header>
+			<StaticGroupTable groups={groups} setGroups={setGroups} />
+		</>
+	)
 }
 
 // <h1>
