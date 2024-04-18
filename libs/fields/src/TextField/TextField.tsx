@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { useId } from "react"
 
-import { Container } from "./FieldStyles"
+import { Container } from "../FieldStyles"
 
 const Label = styled.label`
 	display: block;

@@ -19,5 +19,14 @@
 		"src/**/*.spec.jsx",
 		"src/**/*.test.jsx"
 	],
-	"include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+	"include": [
+		"src/**/*.js",
+		"src/**/*.jsx",
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"../../libs/fields/src/CheckboxField.tsx",
+		"../../libs/fields/src/FieldStyles.ts",
+		"../../libs/fields/src/PasswordField.tsx",
+		"../../libs/fields/src/TextField.tsx"
+	]
 }

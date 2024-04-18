@@ -1,12 +1,12 @@
 import { useState } from "react"
 
-import { CheckboxField } from "./CheckboxField"
+import { CheckboxField } from "../../../libs/fields/src/CheckboxField"
 import { Header } from "./Header"
 import { ListDemo } from "./ListDemo"
 import { LoginForm } from "./LoginForm"
-import { PasswordField } from "./PasswordField"
+import { PasswordField } from "../../../libs/fields/src/PasswordField"
 import { StaticGroupTable } from "./StaticGroupTable"
-import { TextField } from "./TextField"
+import { TextField } from "../../../libs/fields/src/TextField"
 import { staticGroups } from "./staticGroups"
 
 interface MyComponentProps {
