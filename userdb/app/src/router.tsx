@@ -5,6 +5,7 @@ import { MainLayout } from "@react-workshop/ui"
 import { MainMenu } from "./MainMenu"
 import { HomePage } from "./pages/HomePage"
 import { LoginPage } from "./pages/LoginPage"
+import { ParametersPage } from "./pages/ParametersPage"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -14,6 +15,10 @@ const appRoutes: RouteObject[] = [
 	{
 		path: "login",
 		element: <LoginPage />
+	},
+	{
+		path: "groups/:groupId",
+		element: <ParametersPage />
 	}
 ]
 
