@@ -1,7 +1,6 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom"
 
 import { MainLayout } from "@react-workshop/ui"
-import { delay } from "@react-workshop/utils"
 
 import { MainMenu } from "./MainMenu"
 import { GroupsPage } from "./pages/GroupsPage"
