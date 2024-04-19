@@ -16,6 +16,9 @@
 		},
 		"typecheck": {
 			"executor": "nx:run-commands",
+			"dependsOn": [
+				"^typecheck"
+			],
 			"options": {
 				"command": "tsc -b ./libs/utils/tsconfig.lib.json"
 			}
