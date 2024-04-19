@@ -20,7 +20,7 @@
 			],
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "tsc -b ./libs/utils/tsconfig.json"
+				"command": "tsc -b ./libs/utils/tsconfig.lib.json"
 			}
 		},
 		"test": {
