@@ -25,7 +25,7 @@ export interface MainLayoutProps {
 export const MainLayout = ({ menu }: MainLayoutProps) => (
 	<>
 		<header>
-			<Header>klasjlkdsja</Header>
+			<Header />
 		</header>
 		<Columns>
 			<nav>{menu}</nav>
