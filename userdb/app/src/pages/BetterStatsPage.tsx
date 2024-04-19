@@ -1,22 +1,29 @@
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 
-import { AppControllerClient, StatsResponse } from "@react-workshop/userdb-api-clients"
+import { LoadingSpinner } from "@react-workshop/ui"
+import { useApiClientsService } from "@react-workshop/userdb-api-clients"
+
+const useStatsQuery = () => {
+	const { appClient } = useApiClientsService()
+	return useQuery({
+		queryKey: ["users"],
+		queryFn: async () => {
+			const data = await appClient.current.getStats()
+			return data
+		}
+	})
+}
 
 export const BetterStatsPage = () => {
-	const [stats, setStats] = useState<StatsResponse>()
+	const { data, isLoading } = useStatsQuery()
 
-	useEffect(() => {
-		const doFetchStats = async () => {
-			const client = new AppControllerClient("http://localhost:4210")
-			const data = await client.getStats()
-			setStats(data)
-		}
-		doFetchStats()
-	}, [])
+	if (isLoading) {
+		return <LoadingSpinner />
+	}
 
 	return (
 		<pre>
-			<code>{JSON.stringify(stats, undefined, 2)}</code>
+			<code>{JSON.stringify(data, undefined, 2)}</code>
 		</pre>
 	)
 }
