@@ -3,19 +3,16 @@ import { useQuery } from "@tanstack/react-query"
 import { LoadingSpinner } from "@react-workshop/ui"
 import { useApiClientsService } from "@react-workshop/userdb-api-clients"
 
-const useStatsQuery = () => {
+const useHealthQuery = () => {
 	const { appClient } = useApiClientsService()
 	return useQuery({
-		queryKey: ["stats"],
-		queryFn: async () => {
-			const data = await appClient.current.getStats()
-			return data
-		}
+		queryKey: ["health"],
+		queryFn: () => appClient.current.getHealth()
 	})
 }
 
-export const BetterStatsPage = () => {
-	const { data, isLoading } = useStatsQuery()
+export const HealthPage = () => {
+	const { data, isLoading } = useHealthQuery()
 
 	if (isLoading) {
 		return <LoadingSpinner />

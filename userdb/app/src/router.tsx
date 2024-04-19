@@ -5,6 +5,7 @@ import { MainLayout } from "@react-workshop/ui"
 import { MainMenu } from "./MainMenu"
 import { BetterStatsPage } from "./pages/BetterStatsPage"
 import { GroupsPage } from "./pages/GroupsPage"
+import { HealthPage } from "./pages/HealthPage"
 import { HomePage } from "./pages/HomePage"
 import { OptimizationPage } from "./pages/OptimizationPage"
 
@@ -38,6 +39,10 @@ const appRoutes: RouteObject[] = [
 	{
 		path: "stats",
 		element: <BetterStatsPage />
+	},
+	{
+		path: "health",
+		element: <HealthPage />
 	},
 	{
 		path: "optimize",
