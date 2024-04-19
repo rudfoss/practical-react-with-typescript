@@ -6,6 +6,7 @@ import { MainMenu } from "./MainMenu"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { LoginPage } from "./pages/LoginPage"
+import { OptimizationPage } from "./pages/OptimizationPage"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -28,6 +29,10 @@ const appRoutes: RouteObject[] = [
 				element: <GroupsPage />
 			}
 		]
+	},
+	{
+		path: "optimize",
+		element: <OptimizationPage />
 	}
 ]
 
