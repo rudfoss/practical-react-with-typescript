@@ -35,9 +35,9 @@
 			"}",
 			"",
 			"export const Provide${TM_FILENAME_BASE/(.*)/${1:/capitalize}/} = ({children}: Provide${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Props) => {",
-			"\tconst value = useMemo((): ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}ContextProps => {",
-			"\t\treturn {}",
-			"\t}, [])",
+			"\tconst value: ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}ContextProps = {",
+			"\t\t",
+			"\t}",
 			"\treturn <${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Context.Provider value={value}>{children}</${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}Context.Provider>",
 			"}"
 		]
