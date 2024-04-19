@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { ReactNode } from "react"
 
 import { ProvideHeaderService } from "@react-workshop/ui"
@@ -14,6 +15,7 @@ export const Bootstrap = ({ children }: BootstrapProps) => (
 	<ProvideApiClientsService baseUrl="http://localhost:4210">
 		<QueryClientProvider client={queryClient}>
 			<ProvideHeaderService>{children}</ProvideHeaderService>
+			<ReactQueryDevtools />
 		</QueryClientProvider>
 	</ProvideApiClientsService>
 )

@@ -7,6 +7,7 @@ const useStatsQuery = () => {
 	const { appClient } = useApiClientsService()
 	return useQuery({
 		queryKey: ["stats"],
+		staleTime: 1000 * 60,
 		queryFn: async () => {
 			const data = await appClient.current.getStats()
 			return data
