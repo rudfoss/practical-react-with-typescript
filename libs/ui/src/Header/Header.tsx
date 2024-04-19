@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
-import { ReactNode } from "react"
+
+import { useHeaderService } from "./HeaderService"
 
 interface StyledH1Props {
 	emphasize?: boolean
@@ -13,9 +14,9 @@ const StyledH1 = styled.h1<StyledH1Props>`
 
 export interface HeaderProps {
 	emphasize?: boolean
-	children: ReactNode
 }
 
-export const Header = ({ emphasize, children }: HeaderProps) => (
-	<StyledH1 emphasize={emphasize}>{children}</StyledH1>
-)
+export const Header = ({ emphasize }: HeaderProps) => {
+	const { headerText } = useHeaderService()
+	return <StyledH1 emphasize={emphasize}>{headerText}</StyledH1>
+}

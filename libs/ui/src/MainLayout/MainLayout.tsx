@@ -2,6 +2,8 @@ import styled from "@emotion/styled"
 import { ReactNode } from "react"
 import { Outlet } from "react-router-dom"
 
+import { Header } from "../Header"
+
 const Columns = styled.div`
 	display: flex;
 	nav {
@@ -22,7 +24,9 @@ export interface MainLayoutProps {
 
 export const MainLayout = ({ menu }: MainLayoutProps) => (
 	<>
-		<header></header>
+		<header>
+			<Header>klasjlkdsja</Header>
+		</header>
 		<Columns>
 			<nav>{menu}</nav>
 			<main>
