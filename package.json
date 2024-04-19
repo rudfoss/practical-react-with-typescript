@@ -12,10 +12,11 @@
 		"update:packages": "npx npm-check-updates --interactive --format group",
 		"lint": "nx run-many --target=lint --verbose=true",
 		"lint:fix": "nx run-many --target=lint --configuration=fix --verbose=true",
+		"typecheck": "nx run-many --target=typecheck --verbose=true",
 		"test": "nx run-many --target=test --verbose=true",
 		"build:code": "nx run-many --target=buildCode --configuration=production --verbose=true",
 		"build": "nx run-many --target=build --configuration=production --verbose=true",
-		"build:ci": "npm run lint && npm run test && npm run build"
+		"build:ci": "npm run lint && npm run typecheck && npm run test && npm run build"
 	},
 	"private": true,
 	"sideEffects": false,
