@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { useId } from "react"
 
 import { Container, Label } from "../FieldStyles"
+import { useFieldsService, useFieldsServiceDisabled } from "../FieldsService"
 
 const Input = styled.input`
 	display: block;
@@ -23,9 +24,11 @@ export const TextField = ({
 	value,
 	onChange,
 	type = "text",
+	disabled,
 	...inputProps
 }: TextFieldProps) => {
 	const id = useId()
+	const fieldsServiceDisabled = useFieldsServiceDisabled()
 
 	return (
 		<Container>
@@ -35,6 +38,7 @@ export const TextField = ({
 				value={value}
 				id={id}
 				type={type}
+				disabled={fieldsServiceDisabled || disabled}
 				{...inputProps}
 			/>
 		</Container>

@@ -1,6 +1,7 @@
 import { ChangeEvent, useId } from "react"
 
 import { Container, Label } from "../FieldStyles"
+import { useFieldsService, useFieldsServiceDisabled } from "../FieldsService"
 
 export interface ChoiceOption {
 	label: string
@@ -25,6 +26,7 @@ export const ChoiceField = <TOption,>({
 	onChange
 }: ChoiceFieldProps<TOption>) => {
 	const id = useId()
+	const fieldsServiceDisabled = useFieldsServiceDisabled()
 
 	const selectedOption = value && optionsToChoiceOption(value)
 	const optionsAsChoiceOptions = options.map((option) => optionsToChoiceOption(option))
@@ -43,7 +45,12 @@ export const ChoiceField = <TOption,>({
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
-			<select id={id} value={selectedOption?.value ?? ""} onChange={onSelectChange}>
+			<select
+				id={id}
+				value={selectedOption?.value ?? ""}
+				onChange={onSelectChange}
+				disabled={fieldsServiceDisabled}
+			>
 				<option value=""></option>
 				{optionsAsChoiceOptions.map((option) => (
 					<option key={option.value} value={option.value}>

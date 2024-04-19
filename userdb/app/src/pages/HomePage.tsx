@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 
+import { CheckboxField, ProvideFieldsService, useFieldsService } from "@react-workshop/fields"
 import { useHeading } from "@react-workshop/ui"
 
 export const HomePage = () => {
