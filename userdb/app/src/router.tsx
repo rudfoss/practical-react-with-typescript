@@ -8,6 +8,7 @@ import { GroupsPage } from "./pages/GroupsPage"
 import { HealthPage } from "./pages/HealthPage"
 import { HomePage } from "./pages/HomePage"
 import { OptimizationPage } from "./pages/OptimizationPage"
+import { UserDetailsPage } from "./pages/UserDetailsPage"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -33,6 +34,15 @@ const appRoutes: RouteObject[] = [
 			{
 				path: ":groupId",
 				element: <GroupsPage />
+			}
+		]
+	},
+	{
+		path: "users",
+		children: [
+			{
+				path: ":userId",
+				element: <UserDetailsPage />
 			}
 		]
 	},
