@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { useId } from "react"
 
 import { Container } from "../FieldStyles"
-import { useFieldsService, useFieldsServiceDisabled } from "../FieldsService"
+import { useFieldsServiceDisabled } from "../FieldsService"
 
 const CheckboxContainer = styled(Container)`
 	display: flex;

@@ -1,7 +1,7 @@
 import { ChangeEvent, useId } from "react"
 
 import { Container, Label } from "../FieldStyles"
-import { useFieldsService, useFieldsServiceDisabled } from "../FieldsService"
+import { useFieldsServiceDisabled } from "../FieldsService"
 
 export interface ChoiceOption {
 	label: string
