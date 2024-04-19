@@ -1,7 +1,7 @@
 {
-	"name": "fields",
+	"name": "userdb-groups",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "libs/fields/src",
+	"sourceRoot": "userdb/libs/groups/src",
 	"projectType": "library",
 	"tags": [],
 	"targets": {
@@ -14,13 +14,13 @@
 				"{workspaceRoot}/coverage/{projectRoot}"
 			],
 			"options": {
-				"jestConfig": "libs/fields/jest.config.ts"
+				"jestConfig": "userdb/libs/groups/jest.config.ts"
 			}
 		},
 		"typecheck": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "tsc -b ./libs/ui/tsconfig.lib.json"
+				"command": "tsc -b ./userdb/libs/auth/tsconfig.lib.json"
 			}
 		}
 	}

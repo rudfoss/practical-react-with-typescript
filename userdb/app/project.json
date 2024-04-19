@@ -77,7 +77,7 @@
 			"options": {
 				"command": "tsc -b ./userdb/app/tsconfig.app.json"
 			}
-		},
+		}
 	},
 	"tags": [
 		"usedb",
