@@ -1,0 +1,21 @@
+{
+  "name": "userdb-api-spec",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "userdb/api-spec",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["userdb-api"],
+  "targets": {
+    "codegen": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "cache": true,
+      "outputs": ["{workspaceRoot}/userdb/api-spec/userdb-api-openapi.json"],
+      "options": {
+        "parallel": false,
+        "cwd": "dist/userdb/api",
+        "commands": ["node ./main.js openApi ../../../userdb/api-spec"]
+      }
+    }
+  }
+}

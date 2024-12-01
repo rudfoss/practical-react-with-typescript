@@ -32,5 +32,12 @@
     "tools": false
   },
 
-  "cSpell.words": ["Buildable", "nswag", "tsclient", "userdb", "winget"]
+  "cSpell.words": [
+    "Buildable",
+    "codegen",
+    "nswag",
+    "tsclient",
+    "userdb",
+    "winget"
+  ]
 }

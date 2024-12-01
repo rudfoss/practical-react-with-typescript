@@ -13,7 +13,7 @@ import { AppModule } from "./app"
 import { setupOpenApi } from "./openApi"
 
 const bootstrap = async (arguments_: string[]) => {
-  const [openApiArgument = ""] = arguments_.slice(2)
+  const [openApiArgument = "", openApiRelativePath = "./"] = arguments_.slice(2)
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter()
@@ -28,7 +28,11 @@ const bootstrap = async (arguments_: string[]) => {
   const { SwaggerModule, doc } = setupOpenApi(app)
   SwaggerModule.setup("/docs", app, doc)
   if (openApiArgument.toLocaleLowerCase() === "openapi") {
-    const openApiPath = path.join(__dirname, "userdb-api-openapi.json")
+    const openApiPath = path.join(
+      __dirname,
+      openApiRelativePath,
+      "userdb-api-openapi.json"
+    )
     Logger.log(
       `App run with arg 'openApi'. Outputting openApi doc to "${openApiPath}" and exiting`
     )

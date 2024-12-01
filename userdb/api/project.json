@@ -43,6 +43,13 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -b ./userdb/api/tsconfig.app.json"
+      }
     }
   }
 }
