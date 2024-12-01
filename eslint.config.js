@@ -49,21 +49,10 @@ module.exports = [
         "error",
         { returnStyle: "implicit" }
       ],
+      "unicorn/prevent-abbreviations": "off",
       "unicorn/filename-case": [
         "error",
         { cases: { camelCase: true, pascalCase: true } }
-      ],
-      "unicorn/prevent-abbreviations": [
-        "error",
-        {
-          allowList: {
-            props: true,
-            Props: true,
-            ref: true,
-            Env: true,
-            env: true
-          }
-        }
       ],
       "import/order": [
         "warn",

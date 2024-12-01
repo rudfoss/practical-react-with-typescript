@@ -1,5 +1,4 @@
 // useRef and Refs are a concept from react that we are specifically referring to here.
-/* eslint-disable unicorn/prevent-abbreviations */
 import { MutableRefObject, useRef } from "react"
 
 /**

@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prevent-abbreviations */
 export type OptionTransformer = (options: RequestInit) => Promise<RequestInit>
 
 /**

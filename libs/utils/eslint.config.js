@@ -3,6 +3,12 @@ const baseConfig = require("../../eslint.config.js")
 module.exports = [
   ...baseConfig,
   {
+    files: ["**/*.ts", "**/*.json"],
+    rules: {
+      "unicorn/prevent-abbreviations": "off"
+    }
+  },
+  {
     files: ["**/*.json"],
     rules: {
       "@nx/dependency-checks": [
