@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "setup": "npm ci"
+    "verify": "echo \"Testing that prerequisites are installed\" && node --version && npm --version && dotnet --version",
+    "install:deps": "echo \"Installing npm dependencies\" && npm ci",
+    "setup": "npm run verify && npm run install:deps"
   },
   "private": true,
   "dependencies": {},

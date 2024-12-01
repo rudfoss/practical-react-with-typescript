@@ -3,30 +3,15 @@
 👋 Welcome to the repository for the workshop [Practical React with TypeScript](https://www.bouvet.no/kurs/kategorier/utvikling-for-web-og-mobil/workshop-praktisk-react-med-typescript)!
 
 > [!IMPORTANT]
-> Please install and verify all required prerequisites before the first day of the course. If you want to feel free to install the optional ones as well. You can find the list [below](#prerequisites).
+> Please install and verify all prerequisites before the first day of the course. You can find the list [below](#prerequisites).
 
 > [!NOTE]
-> Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the Discussion section or email me at thomas.rudfoss@bouvet.no.
+> Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the [Discussion section](https://github.com/rudfoss/practical-react-with-typescript/discussions/categories/q-a) or email me at thomas.rudfoss@bouvet.no.
 
 - [Prerequisites](#prerequisites)
   - [Required](#required)
-  - [Optional](#optional)
-  - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
-  - [Running the development environment](#running-the-development-environment)
-- [VSCode](#vscode)
-  - [VSCode Extensions](#vscode-extensions)
-  - [Hidden files](#hidden-files)
-  - [Generating API clients](#generating-api-clients)
-
-<h2>Table of content</h2>
-
-- [Prerequisites](#prerequisites)
-  - [Required](#required)
-  - [Optional](#optional)
-  - [Recommended](#recommended)
-  - [Setting up your environment](#setting-up-your-environment)
-  - [Running the development environment](#running-the-development-environment)
+  - [Setting up your development environment](#setting-up-your-development-environment)
+  - [Running the applications](#running-the-applications)
 - [VSCode](#vscode)
   - [VSCode Extensions](#vscode-extensions)
   - [Hidden files](#hidden-files)
@@ -40,26 +25,16 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 ### Required
 
-| What                                                         | Why                                                                    | Verify👀                           |
+| What                                                         | Why                                                                    | Verify                             |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------- |
 | [Git](https://git-scm.com/downloads)                         | Version Control for the source code                                    | `git --version`                    |
 | [NodeJs LTS](https://nodejs.org/en/download/package-manager) | Runtime for dev environment, api, Nx (monorepo) and front-end projects | `node --version` / `npm --version` |
+| [.NET SDK LTS](https://dotnet.microsoft.com/en-us/download)  | Used by nswag to generate typescript client code                       | `dotnet --version`                 |
 
-### Optional
+> [!NOTE]
+> The course will be using [Visual Studio Code](https://code.visualstudio.com) with [some extensions](#vscode-extensions) and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
-These dependencies are recommended if you want to use all tools in the repository (such as the genCode targets), but not essential to take the course.
-
-| What                                                      | Why                                              | Verify👀           |
-| --------------------------------------------------------- | ------------------------------------------------ | ------------------ |
-| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | `dotnet --version` |
-
-👀 Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
-
-### Recommended
-
-The course will be using [Visual Studio Code](https://code.visualstudio.com) with [some extensions](#vscode-extensions) and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
-
-### Setting up your environment
+### Setting up your development environment
 
 Once you have installed all prerequisites you can clone the repository to your machine using git:
 
@@ -68,17 +43,15 @@ Once you have installed all prerequisites you can clone the repository to your m
 git clone https://github.com/rudfoss/practical-react-with-typescript.git practical-react
 ```
 
-The main branch contains all the code that we are going to write as part of the course. Feel free to explore, but when the course starts you should check out the specific branch for that course iteration. It should be named `courses/[year-month]` e.g.: `courses/202404`.
-
-It might be tempting to open your IDE immediately and point it to the folder you just created, but I recommend that you first open a terminal at the root of the repository and run the `init` command. VSCode and other IDEs will try to detect what type of workspace that is currently open and might also automatically set up and configure a few things on their own. These configurations (such as the Nx extension) might depend on packages being installed in the workspace which is why it is usually a good idea to install these dependencies before you start your IDE so that they can be found.
+This will clone the main branch to your machine. Open a terminal in the root folder of the workspace and execute the setup command.
 
 ```bash
-npm run init
+npm run setup
 ```
 
-This command verifies that the required prerequisites are installed correctly. To see exactly what the command does open the `package.json` file and find the `script` named `init`. If it doesn't work you might have installed the required prerequisites without adding them to the PATH-variable for your environment. If that is the case you can either reinstall them or add them manually, check the documentation for the respective tool. After verification it then installs the project dependencies using `npm install`. When it's done you can open your IDE in the root folder (for VSCode simply type `code .` and hit enter).
+If the command fails you might not have installed all the [required prerequisites](#prerequisites) or you may need to restart your terminal for your paths-environment to take effect.
 
-### Running the development environment
+### Running the applications
 
 👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `npm start` then open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
 
