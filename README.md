@@ -15,7 +15,6 @@
 - [VSCode](#vscode)
   - [VSCode Extensions](#vscode-extensions)
   - [Hidden files](#hidden-files)
-  - [Generating API clients](#generating-api-clients)
 
 > [!TIP]
 > A branch will be created for the specific course named `courses/[date]`. The date is the month the course started in e.g.: `courses/202412`. After the course you can go back to that branch and see each commit that was performed as well as find the full slide deck.
@@ -117,10 +116,6 @@ Below is a list of all recommended extensions and what they do:
 
 If you are using VSCode you might notice that there are quite a few files in the repository that are not visible inside the editor. This is because there is a setting in this repository that hides rarely used files.
 
-Inside the `.vscode` folder you'll find [`settings.json`](./.vscode/settings.json). In there is a setting called `files.exclude` which contains several file patterns that should be hidden. If you installed the `Peek Hidden Files` extension you can toggle these files by right-clicking in the explorer panel and selecting "Toggle Excluded Files" or by using the command palette `F1` -> `Toggle Excluded Files`.
+Inside the `.vscode` folder you'll find [`settings.json`](./.vscode/settings.json). This is the file that configures VSCode for the current workspace (folder). In there is a setting called `files.exclude` which contains several file patterns that should be hidden from the file explorer. If you installed the `Peek Hidden Files` extension (recommended) you can toggle these files by right-clicking in the explorer panel and selecting "Toggle Excluded Files" or by using the command palette `F1` -> `Toggle Excluded Files`.
 
 ![Toggle excluded files](docs/toggle-excluded-files.png)
-
-### Generating API clients
-
-The `userdb-api-client` project serves as the target for generated TypeScript clients for the api. The generator uses the npm-version of [nswag](https://github.com/RicoSuter/NSwag) which requires the Dotnet Core 6+ SDK to be installed. Because of this automatic client generation has not been set up and we will not be generating clients as part of the course. If you want to try it yourself you can install the [Dotnet Core SDK](https://dotnet.microsoft.com/en-us/download) and run the `genCode` build target for the `userdb-api-client` to see how it works.
