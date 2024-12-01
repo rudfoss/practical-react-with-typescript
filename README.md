@@ -51,6 +51,9 @@ npm run setup
 
 If the command fails you might not have installed all the [required prerequisites](#prerequisites) or you may need to restart your terminal for your paths-environment to take effect. Once setup is completed you are ready to run the applications in the workspace.
 
+> [!NOTE]
+> Why are we not using the latest version of NX? At the time of the last course (December 2024) Nx v20 still had [quite a few outstanding bugs](https://github.com/nrwl/nx/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22type%3A%20bug%22). The React generator was also not compatible yet. We are sticking with v19 until most of these issues are resolved.
+
 ### Running the applications
 
 The React application is bundled using Vite and started using the Nx task runner. Vite provides a live development environment that reloads modules when they are changed. To run the environment using Nx you can "run the target" `serve` for the project `userdb-app` like this:
@@ -62,6 +65,19 @@ npx nx run userdb-app:serve
 You should be able to open your browser to [http://localhost:4010](http://localhost:4010) and see this:
 
 ![React application works](docs/react-application-works.png)
+
+There are many ways to run these targets:
+
+1. You can use the terminal directly by typing `npx nx run [project]:[target]`
+2. You can use the VSCode extension:
+
+   ![Nx targets in VScode extension](docs/nx-targets-vscode.png)
+
+3. You can use the command palette: `F1` -> `Nx run`
+
+   ![Find Nx targets in command palette](docs/nx-targets-command-palette.png)
+   ![Pick the project to run](docs/nx-projects-command-palette.png)
+   ![Pick the target for that project](docs/nx-userdb-project-targets.png)
 
 ## VSCode
 

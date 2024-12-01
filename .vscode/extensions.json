@@ -11,6 +11,7 @@
     "yzhang.markdown-all-in-one",
     "adrianwilczynski.toggle-hidden",
     "streetsidesoftware.code-spell-checker",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "vitest.explorer"
   ]
 }
