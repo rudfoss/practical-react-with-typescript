@@ -6,7 +6,7 @@
 > Please install and verify all prerequisites before the first day of the course. You can find the list [below](#prerequisites).
 
 > [!NOTE]
-> Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the [Discussion section](https://github.com/rudfoss/practical-react-with-typescript/discussions/categories/q-a) or email me at thomas.rudfoss@bouvet.no.
+> Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the [Discussion section](https://github.com/rudfoss/practical-react-with-typescript/discussions/categories/q-a).
 
 - [Prerequisites](#prerequisites)
   - [Required](#required)
@@ -17,7 +17,8 @@
   - [Hidden files](#hidden-files)
   - [Generating API clients](#generating-api-clients)
 
-Here you will find the starter-project for the course. Once we begin you will also be able to follow the code and samples we create in a separate course branch named for the date of the first course day e.g.: `courses/20240124`.
+> [!TIP]
+> A branch will be created for the specific course named `courses/[date]`. The date is the month the course started in e.g.: `courses/202412`. After the course you can go back to that branch and see each commit that was performed as well as find the full slide deck.
 
 ## Prerequisites
 
@@ -50,6 +51,14 @@ npm run setup
 ```
 
 If the command fails you might not have installed all the [required prerequisites](#prerequisites) or you may need to restart your terminal for your paths-environment to take effect. Once setup is completed you are ready to run the applications in the workspace.
+
+Once setup is complete you should also be able to run the full suite of tests without failures. From a terminal in the root workspace folder run:
+
+```bash
+npm test
+```
+
+If the tests fail verify that you have all the required prerequisites installed correctly.
 
 > [!NOTE]
 > Why are we not using the latest version of NX? At the time of the last course (December 2024) Nx v20 still had [quite a few outstanding bugs](https://github.com/nrwl/nx/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22type%3A%20bug%22). The React generator was also not compatible yet. We are sticking with v19 until most of these issues are resolved.

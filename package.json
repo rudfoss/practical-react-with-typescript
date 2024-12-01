@@ -7,7 +7,7 @@
     "setup:deps": "echo \"Installing npm dependencies\" && npm i",
     "setup:codegen": "echo \"Generating code\" && nx run-many -t codegen",
     "setup": "npm run setup:verify && npm run setup:deps && npm run setup:codegen",
-    "test": "nx run-many -t lint,typecheck,test,codegen,build",
+    "test": "nx run-many -t lint,typecheck,codegen,build,test,e2e",
     "update:nx": "nx migrate latest",
     "update:packages": "npx npm-check-updates --interactive --format group"
   },
