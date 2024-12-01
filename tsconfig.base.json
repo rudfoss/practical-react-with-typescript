@@ -16,6 +16,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@practical-react/userdb-api-clients-react": [
+        "userdb/api-clients-react/src/index.ts"
+      ],
       "@practical-react/utils": ["libs/utils/src/index.ts"]
     }
   },

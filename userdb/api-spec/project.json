@@ -8,7 +8,7 @@
   "targets": {
     "codegen": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build"],
+      "dependsOn": ["^build"],
       "cache": true,
       "outputs": ["{workspaceRoot}/userdb/api-spec/userdb-api-openapi.json"],
       "options": {
