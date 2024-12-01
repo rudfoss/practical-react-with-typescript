@@ -2,19 +2,22 @@
 
 👋 Welcome to the repository for the workshop [Practical React with TypeScript](https://www.bouvet.no/kurs/kategorier/utvikling-for-web-og-mobil/workshop-praktisk-react-med-typescript)!
 
-❓ Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the Discussion section or email me at thomas.rudfoss@bouvet.no.
+> [!IMPORTANT]
+> Please install and verify all required prerequisites before the first day of the course. If you want to feel free to install the optional ones as well. You can find the list [below](#prerequisites).
 
-> `ℹ️` **_For course participants:_**<br/>Please install and verify all required prerequisites before the first day of the course. If you want feel free to install the optional ones as well. You can find the list [below](#prerequisites).
+> [!NOTE]
+> Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the Discussion section or email me at thomas.rudfoss@bouvet.no.
 
-**TLDR setup**:
-
-1. Install [required](#required) prerequisites
-2. Clone this repository
-3. Checkout the course branch for your course `courses/[year-month]` e.g.. `courses/202404` (the branch may not exist until right before the course begins)
-4. Run `npm run init` to verify required prerequisites and install dependencies
-5. In VSCode `Ctrl+P` -> `task ` -> `start` / in terminal `npm start`
-6. Open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210) and if everything worked you should see "👋 Hello there" and a Swagger UI respectively.
-7. You are now ready to start the course 🚀
+- [Prerequisites](#prerequisites)
+  - [Required](#required)
+  - [Optional](#optional)
+  - [Recommended](#recommended)
+  - [Setting up your environment](#setting-up-your-environment)
+  - [Running the development environment](#running-the-development-environment)
+- [VSCode](#vscode)
+  - [VSCode Extensions](#vscode-extensions)
+  - [Hidden files](#hidden-files)
+  - [Generating API clients](#generating-api-clients)
 
 <h2>Table of content</h2>
 
@@ -37,18 +40,18 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 ### Required
 
-| What                                 | Why                                                                    | How                                                                              | Verify👀  |
-| ------------------------------------ | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------- |
-| [Git](https://git-scm.com/downloads) | Version Control for source code                                        | Windows: `winget install -e --id Git.Git`<br/>Mac: `brew install git`            | `git -v`  |
-| [NodeJs LTS](https://nodejs.org/en)  | Runtime for dev environment, api, Nx (monorepo) and front-end projects | Windows: `winget install -e --id OpenJS.NodeJS.LTS`<br/>Mac: `brew install node` | `node -v` |
+| What                                                         | Why                                                                    | Verify👀                           |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------- |
+| [Git](https://git-scm.com/downloads)                         | Version Control for the source code                                    | `git --version`                    |
+| [NodeJs LTS](https://nodejs.org/en/download/package-manager) | Runtime for dev environment, api, Nx (monorepo) and front-end projects | `node --version` / `npm --version` |
 
 ### Optional
 
 These dependencies are recommended if you want to use all tools in the repository (such as the genCode targets), but not essential to take the course.
 
-| What                                                      | Why                                              | How                                                                                                                                            | Verify👀           |
-| --------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | Windows: `winget install -e --id Microsoft.DotNet.SDK.8`<br/>Mac: Check the [website](https://dotnet.microsoft.com/en-us/download) for details | `dotnet --version` |
+| What                                                      | Why                                              | Verify👀           |
+| --------------------------------------------------------- | ------------------------------------------------ | ------------------ |
+| [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download) | Used by nswag to generate typescript client code | `dotnet --version` |
 
 👀 Run this command in a terminal to verify that the installation worked. If it does not fail the tool has been installed correctly.
 
@@ -56,19 +59,13 @@ These dependencies are recommended if you want to use all tools in the repositor
 
 The course will be using [Visual Studio Code](https://code.visualstudio.com) with [some extensions](#vscode-extensions) and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
-You can install Visual Studio Code from [their home page](https://code.visualstudio.com) or using `winget` if you are on Windows:
-
-```ps1
-winget install -e --id Microsoft.VisualStudioCode --override '/VERYSILENT /SP- /MERGETAKS="!runcode,!desktopicon,addcontextmenufiles,addcontextmenufolders,addtopath"'
-```
-
 ### Setting up your environment
 
 Once you have installed all prerequisites you can clone the repository to your machine using git:
 
 ```bash
-# Clones the repository into the folder 'react-workshop' (feel free to change the name if you want)
-git clone https://github.com/rudfoss/practical-react-with-typescript.git react-workshop
+# Clones the repository into the folder 'practical-react' (feel free to change the name if you want)
+git clone https://github.com/rudfoss/practical-react-with-typescript.git practical-react
 ```
 
 The main branch contains all the code that we are going to write as part of the course. Feel free to explore, but when the course starts you should check out the specific branch for that course iteration. It should be named `courses/[year-month]` e.g.: `courses/202404`.
@@ -95,8 +92,8 @@ Some ways to start the react app:
 - From a terminal, run: `npx nx server userdb-app`
 - From a terminal, run: `npx nx run userdb-app:serve`
 - (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start:userdb-app`
-- In VSCode use the shortcut `Ctrl+Shift+P`, write `nx run` and hit enter, select `userdb-app` -> `serve` -> Execute.
-- From the NX exteions select the `userdb-app` project and run the target `serve`
+- In VSCode use the shortcut `F1`, write `nx run` and hit enter, select `userdb-app` -> `serve` -> Execute.
+- From the NX extension select the `userdb-app` project and run the target `serve`
 
 To work with the server API you also need to start the project `userdb-api`. Simply replace `userdb-app` with `userdb-api` in any of the examples above. Since they are usually started together this project includes some ways to start everything neatly:
 
@@ -109,7 +106,9 @@ Once the react application is running you can open your browser to [http://local
 
 ## VSCode
 
-This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There should also be a button next to the "recommended" section to install all of them at once.
+This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There's a button next to the "recommended" section that will install all of them at once.
+
+![Install recommended extensions](./docs/instrall-recommended-extensions.png)
 
 ### VSCode Extensions
 
@@ -118,6 +117,7 @@ Below is a list of all recommended extensions and what they do:
 | Extension                                                                                     | Description                                                                               |
 | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | [Auto Comment Blocks](vscode:extension/kevinkyang.auto-comment-blocks)                        | Helps when documenting your JS/TS code.                                                   |
+| [Code Spell Checker](vscode:extension/streetsidesoftware.code-spell-checker)                  | Spell checker for code and documentation.                                                 |
 | [EditorConfig for VS Code](vscode:extension/editorconfig.editorconfig)                        | ESupport for some [EditorConfig](https://editorconfig.org/) settings in VSCode.           |
 | [ESLint](vscode:extension/dbaeumer.vscode-eslint)                                             | Highlight issues and problems with your code in the editor and can fix many of them.      |
 | [Jest Runner](vscode:extension/firsttris.vscode-jest-runner)                                  | Run Jest tests from a separate panel.                                                     |
@@ -132,7 +132,11 @@ Below is a list of all recommended extensions and what they do:
 
 ### Hidden files
 
-If you are using VSCode you might notice that there are quite a few files in the repository that are not visible inside the editor. This is because there is a setting in this repository that hides rarely used files. Inside the `.vscode` folder you'll find `settings.json`. In there is a setting called `files.exclude` which contains several file patterns that should be hidden. If you installed the `Peek Hidden Files` extension you can toggle these files by right-clicking in the explorer panel and selecting "Toggle Excluded Files" or by using the commmand pallette `Ctrl+Shift+P` -> `Toggle Excluded Files`.
+If you are using VSCode you might notice that there are quite a few files in the repository that are not visible inside the editor. This is because there is a setting in this repository that hides rarely used files.
+
+Inside the `.vscode` folder you'll find [`settings.json`](./.vscode/settings.json). In there is a setting called `files.exclude` which contains several file patterns that should be hidden. If you installed the `Peek Hidden Files` extension you can toggle these files by right-clicking in the explorer panel and selecting "Toggle Excluded Files" or by using the command palette `F1` -> `Toggle Excluded Files`.
+
+![Toggle excluded files](docs/toggle-excluded-files.png)
 
 ### Generating API clients
 
