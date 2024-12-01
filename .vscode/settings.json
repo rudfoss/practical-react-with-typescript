@@ -21,15 +21,15 @@
     "nx.json": false,
     "**/project.json": false,
     "**/tsconfig*.json": false,
-    "**/vite.config.*": false,
-    "**/jest.config.*": false,
-    "**/webpack.config.*": false,
-    "**/jest.preset.*": false,
+    "**/*.config.*": false,
+    "**/vitest.*": false,
     "**/playwright.config.ts": false,
     "**/index.html": false,
     "jsonDb.json": false,
     "global.json": false,
-    "tools": false
+    "tools": false,
+    "tmp": false,
+    "docs": false
   },
 
   "cSpell.words": [
