@@ -49,39 +49,23 @@ This will clone the main branch to your machine. Open a terminal in the root fol
 npm run setup
 ```
 
-If the command fails you might not have installed all the [required prerequisites](#prerequisites) or you may need to restart your terminal for your paths-environment to take effect.
+If the command fails you might not have installed all the [required prerequisites](#prerequisites) or you may need to restart your terminal for your paths-environment to take effect. Once setup is completed you are ready to run the applications in the workspace.
 
 ### Running the applications
 
-👀 TLDR: In VSCode: `Ctrl+P` -> `task ` -> `start` / from terminal: `npm start` then open your browser to [http://localhost:4200](http://localhost:4200) and [http://localhost:4210](http://localhost:4210)
+The React application is bundled using Vite and started using the Nx task runner. Vite provides a live development environment that reloads modules when they are changed. To run the environment using Nx you can "run the target" `serve` for the project `userdb-app` like this:
 
-The React app we will be building will be bundled (built) with [vite](https://vitejs.dev/). Vite also has a development server that we can run while we code. It will hot-reload pieces of our app as we change it making for a very snappy and efficient development environment.
+```bash
+npx nx run userdb-app:serve
+```
 
-There are several ways you can start this environment. Personally, I prefer to use Tasks in VSCode as they start in their own tabs under the terminal panel which makes them easier to find and monitor. You can also use Nx or preconfigured npm scripts directly from the terminal.
+You should be able to open your browser to [http://localhost:4010](http://localhost:4010) and see this:
 
-Some ways to start the react app:
-
-- From a terminal, run: `npm run start:userdb-app`
-- From a terminal, run: `npx nx server userdb-app`
-- From a terminal, run: `npx nx run userdb-app:serve`
-- (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start:userdb-app`
-- In VSCode use the shortcut `F1`, write `nx run` and hit enter, select `userdb-app` -> `serve` -> Execute.
-- From the NX extension select the `userdb-app` project and run the target `serve`
-
-To work with the server API you also need to start the project `userdb-api`. Simply replace `userdb-app` with `userdb-api` in any of the examples above. Since they are usually started together this project includes some ways to start everything neatly:
-
-- From a terminal, run `npm start`
-- (Recommended) In VSCode use the shortcut `Ctrl+P`, write `task ` (the space at the end is important) and select the task `start`
-
-Once the react application is running you can open your browser to [http://localhost:4200](http://localhost:4200) to se the app live. Changes you make in code will be reflected on screen as soon as you save them. If you also started the API you can browse to [http://localhost:4210](http://localhost:4210) as well to see the API documentation
-
-🎊 Happy coding!
+![React application works](docs/react-application-works.png)
 
 ## VSCode
 
 This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There's a button next to the "recommended" section that will install all of them at once.
-
-![Install recommended extensions](./docs/instrall-recommended-extensions.png)
 
 ### VSCode Extensions
 

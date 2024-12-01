@@ -12,10 +12,6 @@
   "workbench.iconTheme": "vscode-icons",
   "debug.javascript.autoAttachFilter": "onlyWithFlag",
 
-  "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
-  "editor.fontLigatures": true,
-  "editor.fontSize": 12,
-
   "files.exclude": {
     "**/.*": false,
     "dist": false,
@@ -36,5 +32,5 @@
     "tools": false
   },
 
-  "cSpell.words": ["nswag", "userdb", "winget"]
+  "cSpell.words": ["Buildable", "nswag", "tsclient", "userdb", "winget"]
 }
