@@ -58,10 +58,11 @@ Once setup is complete you should also be able to run the full suite of tests wi
 npm test
 ```
 
-If the tests fail verify that you have all the required prerequisites installed correctly.
+You should see something similar to this:
 
-> [!NOTE]
-> Why are we not using the latest version of NX? At the time of the last course (December 2024) Nx v20 still had [quite a few outstanding bugs](https://github.com/nrwl/nx/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22type%3A%20bug%22). The React generator was also not compatible yet. We are sticking with v19 until most of these issues are resolved.
+![All tests executed without errors](docs/npm-test-successfull.png)
+
+If the tests fail verify that you have all the required prerequisites installed correctly.
 
 ### Running the applications
 
