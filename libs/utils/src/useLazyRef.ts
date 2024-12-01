@@ -1,5 +1,4 @@
 // useRef and Refs are a concept from react that we are specifically referring to here.
-/* eslint-disable unicorn/prevent-abbreviations */
 import { MutableRefObject, useRef } from "react"
 
 /**
@@ -8,9 +7,9 @@ import { MutableRefObject, useRef } from "react"
  * @returns
  */
 export const useLazyRef = <TValue>(init: () => TValue) => {
-	const ref = useRef<TValue>()
-	if (!ref.current) {
-		ref.current = init()
-	}
-	return ref as MutableRefObject<TValue>
+  const ref = useRef<TValue>()
+  if (!ref.current) {
+    ref.current = init()
+  }
+  return ref as MutableRefObject<TValue>
 }

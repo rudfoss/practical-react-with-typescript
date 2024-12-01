@@ -1,34 +1,43 @@
 {
-	"editor.rulers": [100],
-	"editor.wordWrapColumn": 100,
-	"editor.formatOnSave": true,
-	"editor.tabSize": 2,
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"task.quickOpen.history": 0,
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "explicit"
-	},
-	"npm.packageManager": "npm",
-	"workbench.iconTheme": "vscode-icons",
-	"debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "editor.rulers": [100],
+  "editor.wordWrapColumn": 100,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "task.quickOpen.history": 0,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "npm.packageManager": "npm",
+  "workbench.iconTheme": "vscode-icons",
+  "debug.javascript.autoAttachFilter": "onlyWithFlag",
 
-	"files.exclude": {
-		"**/.*": false,
-		"dist": false,
-		"**/package.json": false,
-		"**/node_modules": false,
-		"package-lock.json": false,
-		"nx.json": false,
-		"**/project.json": false,
-		"**/tsconfig*.json": false,
-		"**/vite.config.*": false,
-		"**/jest.config.*": false,
-		"**/webpack.config.*": false,
-		"**/jest.preset.*": false,
-		"**/playwright.config.ts": false,
-		"**/index.html": false,
-		"jsonDb.json": false,
-		"global.json": false,
-		"tools": false
-	}
+  "files.exclude": {
+    "**/.*": false,
+    "dist": false,
+    "**/package.json": false,
+    "**/node_modules": false,
+    "package-lock.json": false,
+    "nx.json": false,
+    "**/project.json": false,
+    "**/tsconfig*.json": false,
+    "**/*.config.*": false,
+    "**/vitest.*": false,
+    "**/playwright.config.ts": false,
+    "**/index.html": false,
+    "jsonDb.json": false,
+    "global.json": false,
+    "tools": false,
+    "tmp": false,
+    "docs": false
+  },
+
+  "cSpell.words": [
+    "Buildable",
+    "codegen",
+    "nswag",
+    "tsclient",
+    "userdb",
+    "winget"
+  ]
 }

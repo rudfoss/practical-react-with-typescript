@@ -1,108 +1,55 @@
 {
-	"name": "userdb-api",
-	"$schema": "../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "userdb/api/src",
-	"projectType": "application",
-	"targets": {
-		"buildCode": {
-			"executor": "@nx/webpack:webpack",
-			"outputs": [
-				"{options.outputPath}"
-			],
-			"defaultConfiguration": "production",
-			"options": {
-				"target": "node",
-				"compiler": "tsc",
-				"outputPath": "dist/userdb/api",
-				"main": "userdb/api/src/main.ts",
-				"tsConfig": "userdb/api/tsconfig.app.json",
-				"generatePackageJson": true,
-				"assets": [],
-				"webpackConfig": "userdb/api/webpack.config.js"
-			},
-			"configurations": {
-				"development": {},
-				"production": {}
-			}
-		},
-		"build": {
-			"executor": "nx:run-commands",
-			"dependsOn": [
-				"buildCode",
-				"openApi"
-			],
-			"outputs": [
-				"{workspaceRoot}/dist/userdb/api"
-			],
-			"options": {
-				"parallel": false,
-				"cwd": "dist/userdb/api",
-				"commands": [
-					"npm i"
-				]
-			}
-		},
-		"serve": {
-			"executor": "@nx/js:node",
-			"defaultConfiguration": "development",
-			"options": {
-				"buildTarget": "userdb-api:buildCode"
-			},
-			"configurations": {
-				"development": {
-					"buildTarget": "userdb-api:buildCode:development",
-					"inspect": true,
-					"port": 9229
-				},
-				"production": {
-					"buildTarget": "userdb-api:buildCode:production"
-				}
-			}
-		},
-		"lint": {
-			"executor": "@nx/eslint:lint",
-			"outputs": [
-				"{options.outputFile}"
-			]
-		},
-		"typecheck": {
-			"dependsOn": [
-				"^typecheck"
-			],
-			"executor": "nx:run-commands",
-			"options": {
-				"command": "tsc -b ./userdb/api/tsconfig.app.json"
-			}
-		},
-		"test": {
-			"executor": "@nx/jest:jest",
-			"outputs": [
-				"{workspaceRoot}/coverage/{projectRoot}"
-			],
-			"options": {
-				"jestConfig": "userdb/api/jest.config.ts"
-			}
-		},
-		"openApi": {
-			"executor": "nx:run-commands",
-			"dependsOn": [
-				"buildCode"
-			],
-			"outputs": [
-				"{workspaceRoot}/dist/userdb/api/userdb-api-openapi.json"
-			],
-			"options": {
-				"parallel": false,
-				"cwd": "dist/userdb/api",
-				"commands": [
-					"node ./main.js openApi"
-				]
-			}
-		}
-	},
-	"tags": [
-		"api",
-		"rest",
-		"userdb"
-	]
+  "name": "userdb-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "userdb/api/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/userdb/api",
+        "main": "userdb/api/src/main.ts",
+        "tsConfig": "userdb/api/tsconfig.app.json",
+        "assets": [],
+        "webpackConfig": "userdb/api/webpack.config.js",
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "userdb-api:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "userdb-api:build:development"
+        },
+        "production": {
+          "buildTarget": "userdb-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -b ./userdb/api/tsconfig.app.json"
+      }
+    }
+  }
 }

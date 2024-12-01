@@ -1,36 +1,26 @@
 {
-	"name": "utils",
-	"$schema": "../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "libs/utils/src",
-	"projectType": "library",
-	"tags": [
-		"node",
-		"browser"
-	],
-	"targets": {
-		"lint": {
-			"executor": "@nx/eslint:lint",
-			"outputs": [
-				"{options.outputFile}"
-			]
-		},
-		"typecheck": {
-			"dependsOn": [
-				"^typecheck"
-			],
-			"executor": "nx:run-commands",
-			"options": {
-				"command": "tsc -b ./libs/utils/tsconfig.lib.json"
-			}
-		},
-		"test": {
-			"executor": "@nx/jest:jest",
-			"outputs": [
-				"{workspaceRoot}/coverage/{projectRoot}"
-			],
-			"options": {
-				"jestConfig": "libs/utils/jest.config.ts"
-			}
-		}
-	}
+  "name": "utils",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utils/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -b ./libs/utils/tsconfig.lib.json"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/libs/utils"
+      }
+    }
+  }
 }

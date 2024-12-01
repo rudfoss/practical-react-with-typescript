@@ -31,7 +31,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.nx
+.nx/cache
+.nx/workspace-data
 
-# The databse created by the backend api
+# The database created by the backend api
 jsonDb.json

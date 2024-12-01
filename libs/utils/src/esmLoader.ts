@@ -8,5 +8,4 @@
  * @returns
  */
 export const esmLoader = async <T>(packageName: string) =>
-	// eslint-disable-next-line no-new-func
-	new Function(`return import('${packageName}')`)() as T
+  new Function(`return import('${packageName}')`)() as T
