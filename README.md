@@ -2,11 +2,8 @@
 
 👋 Welcome to the repository for the workshop [Practical React with TypeScript](https://www.bouvet.no/kurs/kategorier/utvikling-for-web-og-mobil/workshop-praktisk-react-med-typescript)!
 
-> [!IMPORTANT]
-> Please install and verify all prerequisites before the first day of the course. You can find the list [below](#prerequisites).
-
 > [!NOTE]
-> Got questions that weren't answered or that you thought of after the course ended? Feel free to ask in the [Discussion section](https://github.com/rudfoss/practical-react-with-typescript/discussions/categories/q-a).
+> Having trouble installing prerequisites? Got questions during or after the course that weren't answered fully? Feel free to open a thread in the [Discussion section](https://github.com/rudfoss/practical-react-with-typescript/discussions/categories/q-a)
 
 - [Prerequisites](#prerequisites)
   - [Required](#required)
@@ -21,7 +18,10 @@
 
 ## Prerequisites
 
-In this course we will be working with an [integrated Nx](https://nx.dev/)-managed [monorepo](https://monorepo.tools/). This setup requires a few things to be installed on your machine in order to work. The code and project will work fine on Windows, Linux or Mac, but please install the following before you proceed with [setting up your environment](#setting-up-your-environment).
+> [!IMPORTANT]
+> Please install and verify all prerequisites before the first day of the course.
+
+In this course we will be working with an [integrated Nx](https://nx.dev/)-managed [monorepo](https://monorepo.tools/). This setup requires a few things to be installed on your machine in order to work. The code and project will work fine on Windows, Linux or Mac, but please install the following before you proceed with [setting up your environment](#setting-up-your-environment). You should be able to verify that the installation succeeded by running the verify command from a terminal.
 
 ### Required
 
@@ -32,7 +32,7 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 | [.NET SDK LTS](https://dotnet.microsoft.com/en-us/download)  | Used by nswag to generate typescript client code                       | `dotnet --version`                 |
 
 > [!NOTE]
-> The course will be using [Visual Studio Code](https://code.visualstudio.com) with [some extensions](#vscode-extensions) and customized settings. You are free to choose any IDE you want, but it is highly recommended that you choose one that [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
+> The course will be using [Visual Studio Code](https://code.visualstudio.com) with [several extensions](#vscode-extensions) and customized settings that will be demonstrated when used. You are free to choose any IDE you want, but it is highly recommended that you pick one which [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
 ### Setting up your development environment
 
@@ -90,7 +90,7 @@ There are many ways to run these targets:
 
 ## VSCode
 
-This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why that IDE is recommended. This includes certain settings as well as a few recommended extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There's a button next to the "recommended" section that will install all of them at once.
+This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why it is highly recommended. This includes certain settings as well as a several extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There's a button next to the "recommended" section that will install all of them at once.
 
 ### VSCode Extensions
 
