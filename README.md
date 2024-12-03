@@ -6,7 +6,6 @@
 > Having trouble installing prerequisites? Got questions during or after the course that weren't answered fully? Feel free to open a thread in the [Discussion section](https://github.com/rudfoss/practical-react-with-typescript/discussions/categories/q-a)
 
 - [Prerequisites](#prerequisites)
-  - [Required](#required)
   - [Setting up your development environment](#setting-up-your-development-environment)
   - [Running the applications](#running-the-applications)
 - [VSCode](#vscode)
@@ -22,8 +21,6 @@
 > Please install and verify all prerequisites before the first day of the course.
 
 In this course we will be working with an [integrated Nx](https://nx.dev/)-managed [monorepo](https://monorepo.tools/). This setup requires a few things to be installed on your machine in order to work. The code and project will work fine on Windows, Linux or Mac, but please install the following before you proceed with [setting up your environment](#setting-up-your-environment). You should be able to verify that the installation succeeded by running the verify command from a terminal.
-
-### Required
 
 | What                                                         | Why                                                                    | Verify                             |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------- |
