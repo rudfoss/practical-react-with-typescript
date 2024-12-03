@@ -32,7 +32,7 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 | [.NET SDK LTS](https://dotnet.microsoft.com/en-us/download)  | Used by nswag to generate typescript client code                       | `dotnet --version`                 |
 
 > [!NOTE]
-> The course will be using [Visual Studio Code](https://code.visualstudio.com) with [several extensions](#vscode-extensions) and customized settings that will be demonstrated when used. You are free to choose any IDE you want, but it is highly recommended that you pick one which [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
+> The course will be using [Visual Studio Code](https://code.visualstudio.com) with [several extensions](#vscode) and customized settings that will be demonstrated when used. You are free to choose any IDE you want, but it is highly recommended that you pick one which [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
 ### Setting up your development environment
 
@@ -90,7 +90,9 @@ There are many ways to run these targets:
 
 ## VSCode
 
-This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why it is highly recommended. This includes certain settings as well as a several extensions. The first time you open this repository in VSCode you should be prompted to install them. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There's a button next to the "recommended" section that will install all of them at once.
+This repository has a few things pre-configured for [VSCode](https://code.visualstudio.com) which is why it is highly recommended. To avoid collision between different projects you might want to create a new [Profile](https://code.visualstudio.com/docs/editor/profiles) for the course before you begin.
+
+The first time you open this repository in VSCode you should be prompted to install all recommended extensions. If you missed the prompt you can open the `Extensions` panel and enter the search text `@recommended`. There's a button next to the "recommended" section that will install all of them at once.
 
 ### VSCode Extensions
 
