@@ -26,7 +26,6 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 | ------------------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------- |
 | [Git](https://git-scm.com/downloads)                         | Version Control for the source code                                    | `git --version`                    |
 | [NodeJs LTS](https://nodejs.org/en/download/package-manager) | Runtime for dev environment, api, Nx (monorepo) and front-end projects | `node --version` / `npm --version` |
-| [.NET SDK LTS](https://dotnet.microsoft.com/en-us/download)  | Used by nswag to generate typescript client code                       | `dotnet --version`                 |
 
 > [!NOTE]
 > The course will be using [Visual Studio Code](https://code.visualstudio.com) with [several extensions](#vscode) and customized settings that will be demonstrated when used. You are free to choose any IDE you want, but it is highly recommended that you pick one which [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
