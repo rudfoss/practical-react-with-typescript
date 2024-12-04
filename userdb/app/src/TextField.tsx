@@ -18,20 +18,28 @@ export interface TextFieldProps {
   setValue: (newValue: string) => unknown
 }
 
-export const TextField = (props: TextFieldProps) => {
+export const TextField = ({
+  label,
+  value,
+  setValue,
+  type = "text",
+  minLength,
+  maxLength,
+  disabled
+}: TextFieldProps) => {
   const id = useId()
 
   return (
     <div>
-      <label htmlFor={id}>{props.label}</label>
+      <label htmlFor={id}>{label}</label>
       <input
-        value={props.value}
+        value={value}
         id={id}
-        minLength={props.minLength}
-        maxLength={props.maxLength}
-        type={props.type ?? "text"}
-        onChange={(event) => props.setValue(event.currentTarget.value)}
-        disabled={props.disabled}
+        minLength={minLength}
+        maxLength={maxLength}
+        type={type}
+        onChange={(event) => setValue(event.currentTarget.value)}
+        disabled={disabled}
       />
     </div>
   )

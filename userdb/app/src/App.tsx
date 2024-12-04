@@ -1,22 +1,26 @@
 import { useState } from "react"
 
-import { Header } from "./Header"
+import { CheckboxField } from "./CheckboxField"
 import { PasswordField } from "./PasswordField"
-import { TextField } from "./TextField"
 
 export const App = () => {
-  const [heading, setHeading] = useState("Enter a heading 👋")
+  const [password, setPassword] = useState("")
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   return (
     <>
-      <Header>{heading}</Header>
-      <TextField label="Enter heading" value={heading} setValue={setHeading} />
       <PasswordField
         label="Password"
         minLength={8}
         maxLength={128}
-        value={heading}
-        setValue={setHeading}
+        showPassword={isPasswordVisible}
+        value={password}
+        setValue={setPassword}
+      />
+      <CheckboxField
+        label="Show password"
+        value={isPasswordVisible}
+        setValue={setIsPasswordVisible}
       />
     </>
   )
