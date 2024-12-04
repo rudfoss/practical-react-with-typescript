@@ -1,7 +1,7 @@
-import { HelloWorld } from "./HelloWorld"
+import { Header } from "./Header"
 
 export const App = () => (
   <div>
-    <HelloWorld name="Thomas" age={24} />
+    <Header>Hello world 🚀</Header>
   </div>
 )
