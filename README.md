@@ -6,8 +6,9 @@
 > Having trouble installing prerequisites? Got questions during or after the course that weren't answered fully? Feel free to open a thread in the [Discussion section](https://github.com/rudfoss/practical-react-with-typescript/discussions/categories/q-a)
 
 - [Prerequisites](#prerequisites)
-  - [Setting up your development environment](#setting-up-your-development-environment)
-  - [Running the applications](#running-the-applications)
+- [Setting up your development environment](#setting-up-your-development-environment)
+- [Running the applications](#running-the-applications)
+- [Regenerate api clients](#regenerate-api-clients)
 - [VSCode](#vscode)
   - [VSCode Extensions](#vscode-extensions)
   - [Hidden files](#hidden-files)
@@ -30,7 +31,7 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 > [!NOTE]
 > The course will be using [Visual Studio Code](https://code.visualstudio.com) with [several extensions](#vscode) and customized settings that will be demonstrated when used. You are free to choose any IDE you want, but it is highly recommended that you pick one which [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
-### Setting up your development environment
+## Setting up your development environment
 
 Once you have installed all prerequisites you can clone the repository to your machine using git:
 
@@ -59,7 +60,7 @@ You should see something similar to this:
 
 If the tests fail verify that you have all the required prerequisites installed correctly.
 
-### Running the applications
+## Running the applications
 
 The React application is bundled using Vite and started using the Nx task runner. Vite provides a live development environment that reloads modules when they are changed. To run the environment using Nx you can "run the target" `serve` for the project `userdb-app` like this:
 
@@ -83,6 +84,21 @@ There are many ways to run these targets:
    ![Find Nx targets in command palette](docs/nx-targets-command-palette.png)
    ![Pick the project to run](docs/nx-projects-command-palette.png)
    ![Pick the target for that project](docs/nx-userdb-project-targets.png)
+
+## Regenerate api clients
+
+> [!NOTE]
+> This part is **NOT** required for the course since generated code is already committed to the repository, but instructions are kept for those who'd like to try proper code generation.
+
+This repository is set up to use NSwag to generate clients directly from the API definition (OpenAPI/Swagger definition). To run the generator start the `codegen` targets for all relevant projects. NSwag is a tool written in .NET and therefore it requires the .NET runtime to work. Instructions for installing it can be found [here](https://dotnet.microsoft.com/en-us/download).
+
+Once dotnet is installed simply run all `codegen` targets to regenerate the React client using the latest type information from the API:
+
+```bash
+npx nx run-many -t codegen
+```
+
+For a full workspace this should be set up to dynamically generate code whenever it changes to ensure the front-end is compatible with the API at all times.
 
 ## VSCode
 
