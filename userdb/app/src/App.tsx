@@ -1,9 +1,15 @@
+import { useState } from "react"
+
+import { Header } from "./Header"
 import { TextField } from "./TextField"
 
-export const App = () => (
-  <div>
-    <TextField label="First name" />
-    <TextField label="Last name" />
-    <TextField label="Email" disabled />
-  </div>
-)
+export const App = () => {
+  const [heading, setHeading] = useState("Enter a heading 👋")
+
+  return (
+    <>
+      <Header>{heading}</Header>
+      <TextField label="Enter heading" value={heading} setValue={setHeading} />
+    </>
+  )
+}
