@@ -9,10 +9,6 @@ export const TextField = (props: TextFieldProps) => {
   const id = useId()
   const [value, setValue] = useState("")
 
-  const showMyText = () => {
-    alert("You wrote: " + value)
-  }
-
   return (
     <div>
       <label htmlFor={id}>{props.label}</label>
@@ -23,9 +19,6 @@ export const TextField = (props: TextFieldProps) => {
         onChange={(event) => setValue(event.currentTarget.value)}
         disabled={props.disabled}
       />
-      <button onClick={showMyText} disabled={props.disabled}>
-        Show my text
-      </button>
     </div>
   )
 }
