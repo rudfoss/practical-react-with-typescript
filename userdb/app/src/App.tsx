@@ -1,1 +1,7 @@
-export const App = () => <h1>It works 🥳</h1>
+import { HelloWorld } from "./HelloWorld"
+
+export const App = () => (
+  <div>
+    <HelloWorld name="Thomas" age={24} />
+  </div>
+)
