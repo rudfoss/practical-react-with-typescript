@@ -7,7 +7,7 @@
     "setup:deps": "echo \"Installing npm dependencies\" && npm i",
     "setup:codegen": "echo \"Generating code\" && nx run-many -t codegen",
     "setup": "npm run setup:verify && npm run setup:deps && npm run setup:codegen",
-    "test": "nx run-many -t lint,typecheck,codegen,build,test,e2e",
+    "test": "nx run-many -t lint,typecheck,build,test,e2e",
     "update:nx": "nx migrate latest",
     "update:packages": "npx npm-check-updates --interactive --format group"
   },
@@ -52,7 +52,6 @@
     "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-unicorn": "^56.0.1",
     "jsdom": "~25.0.1",
-    "nswag": "^14.2.0",
     "nx": "19.8.4",
     "prettier": "^2.6.2",
     "tslib": "^2.8.1",
