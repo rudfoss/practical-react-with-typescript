@@ -45,5 +45,5 @@
     "userdb",
     "winget"
   ],
-  "exportall.config.folderListener": ["/userdb/app/src/groups"]
+  "exportall.config.folderListener": ["/libs/ui/src"]
 }
