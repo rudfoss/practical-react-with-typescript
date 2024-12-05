@@ -51,6 +51,7 @@ If the command fails you might not have installed all the [required prerequisite
 Once setup is complete you should also be able to run the full suite of tests without failures. From a terminal in the root workspace folder run:
 
 ```bash
+# equivalent to "npm run test"
 npm test
 ```
 
@@ -66,6 +67,23 @@ The React application is bundled using Vite and started using the Nx task runner
 
 ```bash
 npx nx run userdb-app:serve
+# or
+npm run start:app
+```
+
+During the course we will also be working with an API application in order to learn how to talk to a remote server. You can start this API by running the target `serve` for the `userdb-api` project:
+
+```bash
+npx nx run userdb-api:serve
+# or
+npm run start:api
+```
+
+To simplify this the [`package.json`](./package.json) file contains a short cut for running both the App and the API together:
+
+```bash
+# equivalent to "npm run start"
+npm start
 ```
 
 You should be able to open your browser to [http://localhost:4010](http://localhost:4010) and see this:

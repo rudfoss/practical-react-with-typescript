@@ -6,7 +6,10 @@
     "setup:verify": "echo \"Testing that prerequisites are installed\" && node --version && npm --version",
     "setup:deps": "echo \"Installing npm dependencies\" && npm i",
     "setup:codegen": "echo \"Generating code\" && nx run-many -t codegen",
-    "setup": "npm run setup:verify && npm run setup:deps && npm run setup:codegen",
+    "setup": "npm run setup:verify && npm run setup:deps",
+    "start:app": "nx run userdb-app:serve",
+    "start:api": "nx run userdb-api:serve",
+    "start": "nx run-many -t serve",
     "test": "nx run-many -t lint,typecheck,build,test,e2e",
     "update:nx": "nx migrate latest",
     "update:packages": "npx npm-check-updates --interactive --format group"
