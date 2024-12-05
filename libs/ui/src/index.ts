@@ -1,5 +1,6 @@
 export * from "./CheckboxField"
 export * from "./ChoiceField"
+export * from "./HeaderMainLayout"
 export * from "./LoadingSpinner"
 export * from "./PasswordField"
 export * from "./TextField"
