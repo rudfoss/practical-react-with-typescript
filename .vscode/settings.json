@@ -37,6 +37,8 @@
   "cSpell.words": [
     "Buildable",
     "codegen",
+    "cssmodule",
+    "nestjs",
     "nswag",
     "tsclient",
     "userdb",

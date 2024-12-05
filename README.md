@@ -56,7 +56,7 @@ npm test
 
 You should see something similar to this:
 
-![All tests executed without errors](docs/npm-test-successfull.png)
+![Successful tests](docs/npm-tests-successful.png)
 
 If the tests fail verify that you have all the required prerequisites installed correctly.
 
