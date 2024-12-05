@@ -6,20 +6,25 @@ import { StaticGroup } from "./staticGroups"
 
 const useClasses = makeStyles({
   table: {
-    backgroundColor: "hotpink",
     padding: "20px",
     "& tr th": {
       border: "3px solid red"
     }
+  },
+  highlight: {
+    backgroundColor: "hotpink"
   }
 })
 
 export interface StaticGroupTableProps {
+  highlightGroupId?: string
+
   groups: StaticGroup[]
   setGroups: (groups: StaticGroup[]) => unknown
 }
 
 export const StaticGroupTable = ({
+  highlightGroupId,
   groups,
   setGroups
 }: StaticGroupTableProps) => {
@@ -46,7 +51,10 @@ export const StaticGroupTable = ({
       </thead>
       <tbody>
         {groups.map((group, index) => (
-          <tr key={group.id}>
+          <tr
+            key={group.id}
+            className={group.id === highlightGroupId ? classes.highlight : ""}
+          >
             <td>{group.id}</td>
             <td>{group.displayName}</td>
             <td>

@@ -5,6 +5,7 @@ import { MainLayout } from "@practical-react/ui"
 import { App } from "./App"
 import { Header } from "./Header"
 import { Menu } from "./Menu"
+import { GroupsPage } from "./pages/GroupsPage"
 import { LoginPage } from "./pages/LoginPage"
 import { ParameterPage } from "./pages/ParameterPage"
 
@@ -23,6 +24,19 @@ const appRoutes: RouteObject[] = [
       {
         path: "user",
         element: <p>User login page</p>
+      }
+    ]
+  },
+  {
+    path: "groups",
+    children: [
+      {
+        index: true,
+        element: <GroupsPage />
+      },
+      {
+        path: ":groupId",
+        element: <GroupsPage />
       }
     ]
   },
