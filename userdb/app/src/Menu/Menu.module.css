@@ -1,3 +1,8 @@
 .link {
   display: block;
 }
+
+.activeLink {
+  color: hotpink;
+  font-weight: bold;
+}
