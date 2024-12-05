@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
     "composite": true,
     "outDir": "../../dist/out-tsc",
     "types": [
@@ -14,6 +15,10 @@
     ]
   },
   "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "vite.config.ts",
     "vitest.config.ts",
     "src/**/*.test.ts",
