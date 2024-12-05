@@ -17,6 +17,7 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
+      "@practical-react/ui": ["libs/ui/src/index.ts"],
       "@practical-react/userdb-api-clients-react": [
         "userdb/api-clients-react/src/index.ts"
       ],

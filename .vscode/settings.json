@@ -38,6 +38,7 @@
     "Buildable",
     "codegen",
     "cssmodule",
+    "griffel",
     "nestjs",
     "Newtonsoft",
     "nswag",
