@@ -11,9 +11,11 @@ export const App = () => {
       <ListGroups groups={groups} />
       <StaticGroupTable groups={groups} setGroups={setGroups} />
       <table className="groupsTable">
-        <tr>
-          <th>My table</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>My table</th>
+          </tr>
+        </thead>
       </table>
     </>
   )
