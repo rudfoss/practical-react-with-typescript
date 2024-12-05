@@ -10,7 +10,7 @@
   },
   "npm.packageManager": "npm",
   "workbench.iconTheme": "vscode-icons",
-  "debug.javascript.autoAttachFilter": "onlyWithFlag",
+  "debug.javascript.autoAttachFilter": "disabled",
 
   "files.exclude": {
     "**/.*": true,
@@ -39,6 +39,7 @@
     "codegen",
     "cssmodule",
     "nestjs",
+    "Newtonsoft",
     "nswag",
     "tsclient",
     "userdb",
