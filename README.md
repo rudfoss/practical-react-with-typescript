@@ -88,17 +88,15 @@ There are many ways to run these targets:
 ## Regenerate api clients
 
 > [!NOTE]
-> This part is **NOT** required for the course since generated code is already committed to the repository, but instructions are kept for those who'd like to try proper code generation.
+> This part is **NOT** required for the course since generated code is already committed to the repository, but instructions are kept for those who'd like to try it out.
 
-This repository is set up to use NSwag to generate clients directly from the API definition (OpenAPI/Swagger definition). To run the generator start the `codegen` targets for all relevant projects. NSwag is a tool written in .NET and therefore it requires the .NET runtime to work. Instructions for installing it can be found [here](https://dotnet.microsoft.com/en-us/download).
-
-Once dotnet is installed simply run all `codegen` targets to regenerate the React client using the latest type information from the API:
+This repository is set up to use NSwag to generate clients directly from the API definition (OpenAPI/Swagger definition). To run the generator start the `codegen` targets for all relevant projects.
 
 ```bash
 npx nx run-many -t codegen
 ```
 
-For a full workspace this should be set up to dynamically generate code whenever it changes to ensure the front-end is compatible with the API at all times.
+NSwag is a tool written in .NET and therefore it requires the .NET runtime to work. Instructions for installing it can be found [here](https://dotnet.microsoft.com/en-us/download).
 
 ## VSCode
 
