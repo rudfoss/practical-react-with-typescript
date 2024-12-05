@@ -44,5 +44,9 @@
     "tsclient",
     "userdb",
     "winget"
+  ],
+  "exportall.config.folderListener": [
+    "/userdb/app/src/fields",
+    "/userdb/app/src/groups"
   ]
 }

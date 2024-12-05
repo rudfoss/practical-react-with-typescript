@@ -1,8 +1,11 @@
 import { useState } from "react"
 
-import { ListGroups } from "./ListGroups"
-import { StaticGroupTable } from "./StaticGroupTable"
-import { StaticGroup, staticGroups } from "./staticGroups"
+import {
+  ListGroups,
+  StaticGroup,
+  staticGroups,
+  StaticGroupTable
+} from "./groups"
 
 export const App = () => {
   const [groups, setGroups] = useState<StaticGroup[]>(staticGroups)
