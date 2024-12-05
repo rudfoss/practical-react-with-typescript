@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { CheckboxField, PasswordField, TextField } from "./fields"
+import { CheckboxField, PasswordField, TextField } from "@practical-react/ui"
 
 export interface LoginFormProps {
   disabled?: boolean
