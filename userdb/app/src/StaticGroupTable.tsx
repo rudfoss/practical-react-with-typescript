@@ -1,5 +1,6 @@
 import { arrayMove } from "@practical-react/utils"
 
+import classes from "./StaticGroupTable.module.css"
 import { StaticGroup } from "./staticGroups"
 
 export interface StaticGroupTableProps {
@@ -22,7 +23,7 @@ export const StaticGroupTable = ({
   }
 
   return (
-    <table>
+    <table className={classes.groupsTable}>
       <thead>
         <tr>
           <th>Id</th>
