@@ -1,7 +1,18 @@
+import { makeStyles } from "@griffel/react"
+
 import { arrayMove } from "@practical-react/utils"
 
-import classes from "./StaticGroupTable.module.css"
 import { StaticGroup } from "./staticGroups"
+
+const useClasses = makeStyles({
+  table: {
+    backgroundColor: "hotpink",
+    padding: "20px",
+    "& tr th": {
+      border: "3px solid red"
+    }
+  }
+})
 
 export interface StaticGroupTableProps {
   groups: StaticGroup[]
@@ -12,6 +23,8 @@ export const StaticGroupTable = ({
   groups,
   setGroups
 }: StaticGroupTableProps) => {
+  const classes = useClasses()
+
   const moveUp = (index: number) => {
     setGroups(arrayMove(groups, index, index - 1))
   }
@@ -23,7 +36,7 @@ export const StaticGroupTable = ({
   }
 
   return (
-    <table className={classes.groupsTable}>
+    <table className={classes.table}>
       <thead>
         <tr>
           <th>Id</th>
