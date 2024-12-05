@@ -1,4 +1,4 @@
-import { ChangeEvent, useId } from "react"
+import { ChangeEvent, useId, useMemo } from "react"
 
 import classes from "./ChoiceField.module.css"
 
@@ -31,7 +31,12 @@ export const ChoiceField = <TChoice,>({
   disabled
 }: ChoiceFieldProps<TChoice>) => {
   const id = useId()
-  const options = choices.map((choice) => choiceToOption(choice))
+
+  const options = useMemo(
+    () => choices.map((choice) => choiceToOption(choice)),
+    [choiceToOption, choices]
+  )
+
   const selectedOption = value && choiceToOption(value).value
 
   const selectOption = (event: ChangeEvent<HTMLSelectElement>) => {

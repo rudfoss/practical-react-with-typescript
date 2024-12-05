@@ -1,4 +1,5 @@
 import { makeStyles } from "@griffel/react"
+import React from "react"
 
 import { arrayMove } from "@practical-react/utils"
 
@@ -23,12 +24,13 @@ export interface StaticGroupTableProps {
   setGroups: (groups: StaticGroup[]) => unknown
 }
 
-export const StaticGroupTable = ({
+const StaticGroupTableDirect = ({
   highlightGroupId,
   groups,
   setGroups
 }: StaticGroupTableProps) => {
   const classes = useClasses()
+  console.log("rerender StaticGroupTable")
 
   const moveUp = (index: number) => {
     setGroups(arrayMove(groups, index, index - 1))
@@ -75,3 +77,5 @@ export const StaticGroupTable = ({
     </table>
   )
 }
+
+export const StaticGroupTable = React.memo(StaticGroupTableDirect)
