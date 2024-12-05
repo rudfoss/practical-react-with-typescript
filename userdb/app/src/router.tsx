@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom"
 
-import { HeaderMainLayout } from "@practical-react/ui"
+import { MainLayout } from "@practical-react/ui"
 
 import { App } from "./App"
+import { Header } from "./Header"
+import { Menu } from "./Menu"
 import { LoginPage } from "./pages/LoginPage"
 
 const appRoutes: RouteObject[] = [
@@ -27,7 +29,9 @@ const appRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
   {
-    element: <HeaderMainLayout />,
+    element: (
+      <MainLayout menu={<Menu />} header={<Header>Hello world!</Header>} />
+    ),
     children: appRoutes
   }
 ])
