@@ -6,6 +6,7 @@ import { App } from "./App"
 import { Header } from "./Header"
 import { Menu } from "./Menu"
 import { LoginPage } from "./pages/LoginPage"
+import { ParameterPage } from "./pages/ParameterPage"
 
 const appRoutes: RouteObject[] = [
   {
@@ -22,6 +23,15 @@ const appRoutes: RouteObject[] = [
       {
         path: "user",
         element: <p>User login page</p>
+      }
+    ]
+  },
+  {
+    path: "parameter",
+    children: [
+      {
+        path: ":param",
+        element: <ParameterPage />
       }
     ]
   }
