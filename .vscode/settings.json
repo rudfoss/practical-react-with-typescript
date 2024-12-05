@@ -29,7 +29,9 @@
     "global.json": true,
     "tools": true,
     "tmp": true,
-    "docs": true
+    "docs": true,
+    "userdb/api": true,
+    "userdb/api-spec": true
   },
 
   "cSpell.words": [
