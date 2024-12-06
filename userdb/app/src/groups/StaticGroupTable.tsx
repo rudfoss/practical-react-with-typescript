@@ -30,7 +30,6 @@ const StaticGroupTableDirect = ({
   setGroups
 }: StaticGroupTableProps) => {
   const classes = useClasses()
-  console.log("rerender StaticGroupTable")
 
   const moveUp = (index: number) => {
     setGroups(arrayMove(groups, index, index - 1))

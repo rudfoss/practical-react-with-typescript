@@ -2,16 +2,16 @@ import { createBrowserRouter, RouteObject } from "react-router-dom"
 
 import { MainLayout } from "@practical-react/ui"
 
-import { App } from "./App"
 import { Header } from "./Header"
 import { Menu } from "./Menu"
 import { GroupsPage } from "./pages/GroupsPage"
+import { HomePage } from "./pages/HomePage"
 import { ParameterPage } from "./pages/ParameterPage"
 
 const appRoutes: RouteObject[] = [
   {
     index: true,
-    element: <App />
+    element: <HomePage />
   },
   {
     path: "login",
