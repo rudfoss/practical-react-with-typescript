@@ -6,12 +6,17 @@ import { Header } from "./Header"
 import { Menu } from "./Menu"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
+import { LoadDataPage } from "./pages/LoadDataPage"
 import { ParameterPage } from "./pages/ParameterPage"
 
 const appRoutes: RouteObject[] = [
   {
     index: true,
     element: <HomePage />
+  },
+  {
+    path: "load",
+    element: <LoadDataPage />
   },
   {
     path: "login",
