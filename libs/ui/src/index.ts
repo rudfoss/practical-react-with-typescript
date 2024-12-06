@@ -1,5 +1,6 @@
 export * from "./CheckboxField"
 export * from "./ChoiceField"
+export * from "./fieldsService"
 export * from "./HeaderMainLayout"
 export * from "./LoadingSpinner"
 export * from "./MainLayout"

@@ -1,5 +1,7 @@
 import { useId } from "react"
 
+import { useFieldsServiceIsDisabled } from "./fieldsService"
+
 export interface TextFieldProps {
   label: string
   disabled?: boolean
@@ -28,6 +30,7 @@ export const TextField = ({
   disabled
 }: TextFieldProps) => {
   const id = useId()
+  const isGloballyDisabled = useFieldsServiceIsDisabled()
 
   return (
     <div>
@@ -39,7 +42,7 @@ export const TextField = ({
         maxLength={maxLength}
         type={type}
         onChange={(event) => setValue(event.currentTarget.value)}
-        disabled={disabled}
+        disabled={isGloballyDisabled || disabled}
       />
     </div>
   )

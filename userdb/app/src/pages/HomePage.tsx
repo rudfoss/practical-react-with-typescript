@@ -7,5 +7,6 @@ export const HomePage = () => {
   useEffect(() => {
     setHeader("Home")
   }, [setHeader])
+
   return <p>Welcome 👋</p>
 }

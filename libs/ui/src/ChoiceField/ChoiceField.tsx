@@ -1,5 +1,7 @@
 import { ChangeEvent, useId, useMemo } from "react"
 
+import { useFieldsServiceIsDisabled } from "../fieldsService"
+
 import classes from "./ChoiceField.module.css"
 
 export interface ChoiceFieldOption {
@@ -31,6 +33,7 @@ export const ChoiceField = <TChoice,>({
   disabled
 }: ChoiceFieldProps<TChoice>) => {
   const id = useId()
+  const isGloballyDisabled = useFieldsServiceIsDisabled()
 
   const options = useMemo(
     () => choices.map((choice) => choiceToOption(choice)),
@@ -54,7 +57,7 @@ export const ChoiceField = <TChoice,>({
         id={id}
         value={selectedOption ?? ""}
         onChange={selectOption}
-        disabled={disabled}
+        disabled={isGloballyDisabled || disabled}
       >
         <option value=""></option>
         {options.map((option) => (

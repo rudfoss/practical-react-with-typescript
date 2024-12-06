@@ -1,5 +1,7 @@
 import { useId } from "react"
 
+import { useFieldsServiceIsDisabled } from "./fieldsService"
+
 export interface CheckboxFieldProps {
   label: string
   value: boolean
@@ -14,6 +16,7 @@ export const CheckboxField = ({
   disabled
 }: CheckboxFieldProps) => {
   const id = useId()
+  const isGloballyDisabled = useFieldsServiceIsDisabled()
 
   return (
     <div>
@@ -22,7 +25,7 @@ export const CheckboxField = ({
         type="checkbox"
         checked={value}
         onChange={(event) => setValue(event.currentTarget.checked)}
-        disabled={disabled}
+        disabled={isGloballyDisabled || disabled}
       />
       <label htmlFor={id}>{label}</label>
     </div>
