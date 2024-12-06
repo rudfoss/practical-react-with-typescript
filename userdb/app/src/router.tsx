@@ -6,6 +6,7 @@ import { Header } from "./Header"
 import { Menu } from "./Menu"
 import { ApiHealthPage } from "./pages/ApiHealthPage"
 import { ApiStatsPage } from "./pages/ApiStatsPage"
+import { GroupDetailsPage } from "./pages/GroupDetailsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { LoadDataPage } from "./pages/LoadDataPage"
@@ -49,7 +50,7 @@ const appRoutes: RouteObject[] = [
       },
       {
         path: ":groupId",
-        element: <GroupsPage />
+        element: <GroupDetailsPage />
       }
     ]
   },
