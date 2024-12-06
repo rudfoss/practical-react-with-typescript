@@ -1,12 +1,10 @@
-import { useContext } from "react"
-
-import { HeaderContext } from "./HeaderContext"
+import { useHeaderService } from "./headerService"
 
 interface HeaderProps {
   children: string
 }
 
 export const Header = (props: HeaderProps) => {
-  const { header } = useContext(HeaderContext)
+  const { header } = useHeaderService()
   return <h1>{header}</h1>
 }

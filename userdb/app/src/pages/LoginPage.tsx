@@ -1,14 +1,14 @@
-import { useContext, useEffect } from "react"
+import { useEffect } from "react"
 
-import { HeaderContext } from "../HeaderContext"
 import { LoginForm } from "../LoginForm"
+import { useHeaderService } from "../headerService"
 
 const onLogin = (username: string, password: string) => {
   console.log({ username, password })
 }
 
 export const LoginPage = () => {
-  const { setHeader } = useContext(HeaderContext)
+  const { setHeader } = useHeaderService()
   useEffect(() => {
     setHeader("Login")
   }, [setHeader])

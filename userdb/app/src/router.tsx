@@ -4,7 +4,6 @@ import { MainLayout } from "@practical-react/ui"
 
 import { App } from "./App"
 import { Header } from "./Header"
-import { HeaderContextProvider } from "./HeaderContext"
 import { Menu } from "./Menu"
 import { GroupsPage } from "./pages/GroupsPage"
 import { ParameterPage } from "./pages/ParameterPage"
@@ -53,9 +52,7 @@ const appRoutes: RouteObject[] = [
 export const router = createBrowserRouter([
   {
     element: (
-      <HeaderContextProvider>
-        <MainLayout menu={<Menu />} header={<Header>Hello world!</Header>} />
-      </HeaderContextProvider>
+      <MainLayout menu={<Menu />} header={<Header>Hello world!</Header>} />
     ),
     children: appRoutes
   }
