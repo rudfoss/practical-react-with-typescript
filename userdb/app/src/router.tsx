@@ -4,9 +4,9 @@ import { MainLayout } from "@practical-react/ui"
 
 import { App } from "./App"
 import { Header } from "./Header"
+import { HeaderContextProvider } from "./HeaderContext"
 import { Menu } from "./Menu"
 import { GroupsPage } from "./pages/GroupsPage"
-import { LoginPage } from "./pages/LoginPage"
 import { ParameterPage } from "./pages/ParameterPage"
 
 const appRoutes: RouteObject[] = [
@@ -19,11 +19,10 @@ const appRoutes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <LoginPage />
-      },
-      {
-        path: "user",
-        element: <p>User login page</p>
+        lazy: async () => {
+          const { LoginPage } = await import("./pages/LoginPage")
+          return { Component: LoginPage }
+        }
       }
     ]
   },
@@ -54,7 +53,9 @@ const appRoutes: RouteObject[] = [
 export const router = createBrowserRouter([
   {
     element: (
-      <MainLayout menu={<Menu />} header={<Header>Hello world!</Header>} />
+      <HeaderContextProvider>
+        <MainLayout menu={<Menu />} header={<Header>Hello world!</Header>} />
+      </HeaderContextProvider>
     ),
     children: appRoutes
   }
