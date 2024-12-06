@@ -4,6 +4,7 @@ import { MainLayout } from "@practical-react/ui"
 
 import { Header } from "./Header"
 import { Menu } from "./Menu"
+import { ApiHealthPage } from "./pages/ApiHealthPage"
 import { ApiStatsPage } from "./pages/ApiStatsPage"
 import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
@@ -18,6 +19,10 @@ const appRoutes: RouteObject[] = [
   {
     path: "stats",
     element: <ApiStatsPage />
+  },
+  {
+    path: "health",
+    element: <ApiHealthPage />
   },
   {
     path: "load",

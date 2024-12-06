@@ -19,6 +19,9 @@ export const Menu = () => (
     <NavLink to="/stats" className={linkClasses}>
       API Stats
     </NavLink>
+    <NavLink to="/health" className={linkClasses}>
+      API Health
+    </NavLink>
     <NavLink to="/login" className={linkClasses}>
       Login
     </NavLink>
