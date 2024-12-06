@@ -7,7 +7,8 @@ export const ApiHealthPage = () => {
   const { appClient } = useApiClientsService()
   const { data, isLoading } = useQuery({
     queryKey: ["health"],
-    queryFn: () => appClient.current.getHealth()
+    queryFn: () => appClient.current.getHealth(),
+    staleTime: 1000 * 60
   })
 
   return isLoading ? <LoadingSpinner /> : <p>Uptime: {data?.upTime}</p>
