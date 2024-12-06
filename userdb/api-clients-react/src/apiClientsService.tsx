@@ -12,6 +12,7 @@ import {
 import { useLazyRef } from "@practical-react/utils"
 
 import {
+  AppControllerClient,
   AuthControllerClient,
   AuthUserControllerClient,
   GroupsControllerClient,
@@ -24,6 +25,7 @@ export interface ApiClientsServiceContextProps {
   sessionToken?: string
   setSessionToken: (newSessionToken?: string) => unknown
 
+  appClient: MutableRefObject<AppControllerClient>
   authClient: MutableRefObject<AuthControllerClient>
   authUserClient: MutableRefObject<AuthUserControllerClient>
   groupsClient: MutableRefObject<GroupsControllerClient>
@@ -63,6 +65,7 @@ export const ProvideApiClientsService = ({
    *
    * To avoid this issue the reference (object with a current property) is passed to the queries instead so that the clients can be updated behind the scenes and the new instances passed to the queries while keeping a stable reference to the reference object. For this to work we need to hook up a custom effect that updates the controllers when any dependencies change (see below)
    */
+  const appClient = useLazyRef(() => new AppControllerClient(baseUrl))
   const authClient = useLazyRef(() => new AuthControllerClient(baseUrl))
   const authUserClient = useLazyRef(() => new AuthUserControllerClient(baseUrl))
   const groupsClient = useLazyRef(() => new GroupsControllerClient(baseUrl))
@@ -83,12 +86,14 @@ export const ProvideApiClientsService = ({
       sessionToken,
       setSessionToken,
 
+      appClient,
       authClient,
       authUserClient,
       groupsClient,
       usersClient
     }),
     [
+      appClient,
       authClient,
       authUserClient,
       baseUrl,
