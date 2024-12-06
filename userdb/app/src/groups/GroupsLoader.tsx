@@ -9,7 +9,7 @@ export type GroupsLoaderProps = Pick<GroupsTableProps, "createGroupLink">
 
 export const GroupsLoader = (props: GroupsLoaderProps) => {
   const queryClient = useQueryClient()
-  const { groupsClient } = useApiClientsService()
+  const { groupsClient, authUserClient } = useApiClientsService()
   const {
     data: groups,
     isLoading,
@@ -18,6 +18,12 @@ export const GroupsLoader = (props: GroupsLoaderProps) => {
     queryKey: ["groups", "all"],
     queryFn: () => groupsClient.current.getGroups()
   })
+
+  const { data: currentUser } = useQuery({
+    queryKey: ["currentUser"],
+    queryFn: () => authUserClient.current.getCurrentUser()
+  })
+  const isAdmin = currentUser?.roles.includes("Admin") ?? false
 
   const {
     mutate: deleteGroup,
@@ -40,5 +46,12 @@ export const GroupsLoader = (props: GroupsLoaderProps) => {
     return <LoadingSpinner />
   }
 
-  return <GroupsTable groups={groups} deleteGroup={deleteGroup} {...props} />
+  return (
+    <GroupsTable
+      groups={groups}
+      deleteGroup={deleteGroup}
+      showDeleteButton={isAdmin}
+      {...props}
+    />
+  )
 }

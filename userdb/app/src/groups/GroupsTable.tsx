@@ -18,12 +18,14 @@ const useClasses = makeStyles({
 
 export interface GroupsTableProps {
   groups: Group[]
+  showDeleteButton: boolean
   createGroupLink: (group: Group) => string
   deleteGroup: (groupId: string) => unknown
 }
 
 const GroupsTableDirect = ({
   groups,
+  showDeleteButton,
   createGroupLink,
   deleteGroup
 }: GroupsTableProps) => {
@@ -46,7 +48,9 @@ const GroupsTableDirect = ({
             </td>
             <td>{group.displayName}</td>
             <td>
-              <button onClick={() => deleteGroup(group.id)}>🗑️</button>
+              {showDeleteButton && (
+                <button onClick={() => deleteGroup(group.id)}>🗑️</button>
+              )}
             </td>
           </tr>
         ))}
