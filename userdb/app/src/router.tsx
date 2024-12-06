@@ -7,10 +7,10 @@ import { Menu } from "./Menu"
 import { ApiHealthPage } from "./pages/ApiHealthPage"
 import { ApiStatsPage } from "./pages/ApiStatsPage"
 import { GroupDetailsPage } from "./pages/GroupDetailsPage"
-import { GroupsPage } from "./pages/GroupsPage"
 import { HomePage } from "./pages/HomePage"
 import { LoadDataPage } from "./pages/LoadDataPage"
 import { ParameterPage } from "./pages/ParameterPage"
+import { ServerGroupsPage } from "./pages/ServerGroupsPage"
 
 const appRoutes: RouteObject[] = [
   {
@@ -46,7 +46,7 @@ const appRoutes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <GroupsPage />
+        element: <ServerGroupsPage />
       },
       {
         path: ":groupId",
