@@ -1,0 +1,37 @@
+{
+	"name": "userdb-api",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "userdb/api/src",
+	"projectType": "application",
+	"tags": ["product:userdb"],
+	"targets": {
+		"serve": {
+			"executor": "nx:run-commands",
+			"inputs": ["nestDefaults"],
+			"options": {
+				"cwd": "{projectRoot}",
+				"command": "nest start --watch"
+			},
+			"configurations": {
+				"debug": {
+					"command": "nest start --debug --watch"
+				}
+			}
+		},
+		"openApi": {
+			"executor": "nx:run-commands",
+			"inputs": ["sourceDefaults", "nestDefaults"],
+			"cache": true,
+			"outputs": ["{workspaceRoot}/userdb/api-spec/src/json/userdb-api-openapi.json"],
+			"options": {
+				"cwd": "{projectRoot}",
+				"command": "nest start"
+			}
+		},
+		"typecheck": {},
+		"lint": {},
+		"test": {
+			"inputs": ["viteDefaults"]
+		}
+	}
+}

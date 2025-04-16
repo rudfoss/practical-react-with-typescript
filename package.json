@@ -1,0 +1,41 @@
+{
+	"name": "@prwt/source",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"update:npm": "npm-check-updates --interactive --format group -ws",
+		"update:nx1": "nx migrate latest",
+		"update:nx2": "nx migrate --run-migrations"
+	},
+	"keywords": [],
+	"author": "Thomas Haugland Rudfoss",
+	"private": true,
+	"license": "MIT",
+	"packageManager": "pnpm@10.8.1",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@dotenvx/dotenvx": "^1.40.0",
+		"@nestjs/cli": "^11.0.6",
+		"@nx/devkit": "^20.8.0",
+		"@types/node": "^22.14.1",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"@vitejs/plugin-react": "^4.4.0",
+		"npm-check-updates": "^17.1.18",
+		"nx": "20.8.0",
+		"sass-embedded": "^1.86.3",
+		"tsx": "^4.19.3",
+		"type-fest": "^4.40.0",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.0",
+		"vitest": "^3.1.1"
+	},
+	"dependencies": {
+		"date-fns": "^4.1.0",
+		"modern-normalize": "^3.0.1",
+		"nanoid": "^5.1.5",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0"
+	}
+}

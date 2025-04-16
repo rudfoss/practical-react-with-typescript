@@ -1,0 +1,15 @@
+linkWorkspacePackages: true
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@nestjs/core'
+  - '@swc/core'
+  - esbuild
+  - nx
+
+ignoredBuiltDependencies:
+  - "@scarf/scarf"
+
+packages:
+  - userdb/*
+  - libs/*

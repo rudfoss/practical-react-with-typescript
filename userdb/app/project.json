@@ -1,0 +1,31 @@
+{
+	"name": "userdb-app",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "userdb/app/src",
+	"projectType": "application",
+	"tags": ["product:userdb"],
+	"targets": {
+		"serve": {
+			"executor": "nx:run-commands",
+			"inputs": ["viteDefaults"],
+			"options": {
+				"cwd": "{projectRoot}",
+				"command": "vite"
+			}
+		},
+		"build": {
+			"executor": "nx:run-commands",
+			"inputs": ["viteDefaults"],
+			"outputs": ["{workspaceRoot}/dist/userdb/app"],
+			"options": {
+				"cwd": "{projectRoot}",
+				"command": "vite build"
+			}
+		},
+		"typecheck": {},
+		"lint": {},
+		"test": {
+			"inputs": ["viteDefaults"]
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"jsx": "preserve",
+		"outDir": "./dist",
+		"lib": ["DOM", "ES2024"]
+	},
+	"include": ["src"]
+}

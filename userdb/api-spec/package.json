@@ -1,0 +1,14 @@
+{
+	"name": "@prwt/userdb-api-spec",
+	"version": "1.0.0",
+	"sideEffects": false,
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./ts": "./src/ts",
+		"./react": "./src/react"
+	},
+	"devDependencies": {
+		"nswag": "^14.3.0"
+	}
+}

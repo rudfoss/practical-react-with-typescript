@@ -1,0 +1,56 @@
+{
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"defaultBase": "origin/main",
+	"namedInputs": {
+		"viteDefaults": ["{projectRoot}/vite.config.ts"],
+		"nestDefaults": ["{projectRoot}/nest-cli.json"],
+		"sourceDefaults": [
+			"{projectRoot}/src/**/*",
+			"{projectRoot}/project.json",
+			"{projectRoot}/tsconfig.json",
+			"{projectRoot}/package.json"
+		]
+	},
+	"targetDefaults": {
+		"serve": {
+			"dependsOn": ["^build", "typecheck"],
+			"inputs": ["sourceDefaults"],
+			"cache": true
+		},
+		"build": {
+			"dependsOn": ["^build", "typecheck"],
+			"inputs": ["sourceDefaults"],
+			"cache": true
+		},
+		"typecheck": {
+			"dependsOn": ["^build"],
+			"inputs": ["sourceDefaults"],
+			"cache": true,
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "{projectRoot}",
+				"command": "tsc -b"
+			}
+		},
+		"lint": {
+			"dependsOn": ["^build"],
+			"inputs": ["sourceDefaults"],
+			"cache": true,
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "{projectRoot}",
+				"command": "biome lint ."
+			}
+		},
+		"test": {
+			"dependsOn": ["^build"],
+			"inputs": ["sourceDefaults", "viteDefaults"],
+			"cache": true,
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "{projectRoot}",
+				"command": "vitest"
+			}
+		}
+	}
+}

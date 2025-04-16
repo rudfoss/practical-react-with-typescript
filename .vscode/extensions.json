@@ -1,0 +1,14 @@
+{
+	"recommendations": [
+		"nrwl.angular-console",
+		"editorconfig.editorconfig",
+		"dbaeumer.vscode-eslint",
+		"eliostruyf.vscode-typescript-exportallmodules",
+		"vscode-icons-team.vscode-icons",
+		"yzhang.markdown-all-in-one",
+		"adrianwilczynski.toggle-hidden",
+		"streetsidesoftware.code-spell-checker",
+		"vitest.explorer",
+		"biomejs.biome"
+	]
+}
