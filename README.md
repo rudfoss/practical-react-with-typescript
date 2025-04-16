@@ -33,6 +33,9 @@ In this course we will be working with an [integrated Nx](https://nx.dev/)-manag
 
 ## Setting up your development environment
 
+> [!NOTE]
+> We will do these steps at the start of the course. If you have finished the [Prerequisites](#prerequisites) section you are ready to begin 🚀.
+
 Once you have installed all prerequisites you can clone the repository to your machine using git:
 
 ```bash
