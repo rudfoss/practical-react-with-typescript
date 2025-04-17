@@ -1,7 +1,7 @@
-import { defineConfig } from "vitest/config"
-import react from "@vitejs/plugin-react"
-import { workspaceRoot } from "@nx/devkit"
 import path from "node:path"
+import { workspaceRoot } from "@nx/devkit"
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vitest/config"
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -22,6 +22,7 @@ export default defineConfig({
 
 	test: {
 		watch: false,
-		passWithNoTests: true
+		passWithNoTests: true,
+		environment: "jsdom"
 	}
 })
