@@ -20,11 +20,7 @@
 				"command": "nswag openapi2tsclient /input:src/json/userdb-api-openapi.json /output:src/ts/UserDbApiClients.ts /TypeScriptVersion:4,3 /GenerateClientClasses:True /Template:Fetch /UseAbortSignal:True /GenerateOptionalParameters:True /GenerateDtoTypes:True /TypeStyle:Interface /EnumStyle:StringLiteral /NullValue:Undefined /DateTimeType:String /GenerateDefaultValues:True /MarkOptionalProperties:True /ExportTypes:True /NewLineBehavior:LF"
 			}
 		},
-		"typecheck": {
-			"dependsOn": ["codegen"]
-		},
-		"lint": {
-			"dependsOn": ["codegen"]
-		}
+		"typecheck": {},
+		"lint": {}
 	}
 }
