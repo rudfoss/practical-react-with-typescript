@@ -24,8 +24,6 @@
 		},
 		"typecheck": {},
 		"lint": {},
-		"test": {
-			"inputs": ["viteDefaults"]
-		}
+		"test": {}
 	}
 }

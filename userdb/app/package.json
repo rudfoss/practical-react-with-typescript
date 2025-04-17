@@ -5,6 +5,6 @@
 	"private": true,
 	"type": "module",
 	"dependencies": {
-		"@prwt/libs-utils": "workspace:*"
+		"@prwt/libs-ui": "workspace:*"
 	}
 }

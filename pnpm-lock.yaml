@@ -85,6 +85,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(@types/node@22.14.1)(jsdom@26.1.0)(sass-embedded@1.86.3)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1)
 
+  libs/ui: {}
+
   libs/utils: {}
 
   userdb/api:
@@ -186,9 +188,9 @@ importers:
 
   userdb/app:
     dependencies:
-      '@prwt/libs-utils':
+      '@prwt/libs-ui':
         specifier: workspace:*
-        version: link:../../libs/utils
+        version: link:../../libs/ui
 
 packages:
 

@@ -23,11 +23,20 @@
 		"rules": {
 			"recommended": true,
 			"style": {
-				"useImportType": "off"
+				"useImportType": "off",
+				"useForOf": "error",
+				"noNegationElse": "error"
 			},
 			"complexity": {
 				"useArrowFunction": "error",
-				"noExcessiveCognitiveComplexity": "error"
+				"noExcessiveCognitiveComplexity": "error",
+				"useDateNow": "error"
+			},
+			"correctness": {
+				"useHookAtTopLevel": "error"
+			},
+			"suspicious": {
+				"useErrorMessage": "error"
 			}
 		}
 	},

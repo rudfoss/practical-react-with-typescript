@@ -1,0 +1,8 @@
+{
+	"name": "@prwt/libs-ui",
+	"version": "1.0.0",
+	"sideEffects": false,
+	"type": "module",
+	"private": true,
+	"exports": "./src/index.ts"
+}
