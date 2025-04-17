@@ -19,8 +19,8 @@
 		},
 		"openApi": {
 			"executor": "nx:run-commands",
-			"inputs": ["^default"],
 			"cache": true,
+			"inputs": ["default"],
 			"outputs": ["{workspaceRoot}/userdb/api-spec/src/json/userdb-api-openapi.json"],
 			"options": {
 				"cwd": "{projectRoot}",

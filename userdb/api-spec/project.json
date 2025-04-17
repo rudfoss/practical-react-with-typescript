@@ -13,6 +13,7 @@
 			"dependsOn": ["build"],
 			"cache": true,
 			"executor": "nx:run-commands",
+			"inputs": ["{projectRoot}/src/json/userdb-api-openapi.json"],
 			"outputs": ["{projectRoot}/src/ts/UserDbApiClients.ts"],
 			"options": {
 				"cwd": "{projectRoot}",
