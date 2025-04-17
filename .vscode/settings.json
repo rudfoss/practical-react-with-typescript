@@ -1,5 +1,5 @@
 {
-	"editor.rulers": [100],
+	"editor.rulers": [110],
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "biomejs.biome",
 	"task.quickOpen.history": 0,
