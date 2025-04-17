@@ -15,7 +15,7 @@
 	"React Service": {
 		"prefix": "react-service",
 		"body": [
-			"import { ReactNode, createContext, useContext, useMemo } from \"react\"",
+			"import { ReactNode, createContext, useContext } from \"react\"",
 			"",
 			"export interface ${TM_FILENAME_BASE/(.*)/${1:/capitalize}/}ContextProps {",
 			"\t${0}",

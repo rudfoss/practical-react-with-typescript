@@ -1,1 +1,1 @@
-export * from "./UsersModule"
+export * from "./Users.module"

@@ -20,11 +20,4 @@ export class HttpUnauthorizedException extends UnauthorizedException {
 	})
 	@Equals(401)
 	statusCode: 401
-
-	public constructor(
-		objectOrError?: ConstructorParameters<typeof UnauthorizedException>[0],
-		descriptionOrOptions?: ConstructorParameters<typeof UnauthorizedException>[1]
-	) {
-		super(objectOrError, descriptionOrOptions)
-	}
 }

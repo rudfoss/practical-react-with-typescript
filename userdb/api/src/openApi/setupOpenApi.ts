@@ -2,13 +2,12 @@ import { INestApplication } from "@nestjs/common"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 
 import { bearerAuthName, bearerConfig } from "../auth"
-
-import description from "./userdb-api-documentation.md"
+import { apiDescription } from "./apiDescription"
 
 export const setupOpenApi = (app: INestApplication) => {
 	const config = new DocumentBuilder()
 		.setTitle("User DB API")
-		.setDescription(description)
+		.setDescription(apiDescription)
 		.setVersion("1.0")
 		.setExternalDoc("OpenAPI document", "./docs-json")
 		.setContact(

@@ -1,1 +1,1 @@
-export * from "./GroupsModule"
+export * from "./Groups.module"

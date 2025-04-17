@@ -20,11 +20,4 @@ export class HttpForbiddenException extends ForbiddenException {
 	})
 	@Equals(403)
 	statusCode: 403
-
-	public constructor(
-		objectOrError?: ConstructorParameters<typeof ForbiddenException>[0],
-		descriptionOrOptions?: ConstructorParameters<typeof ForbiddenException>[1]
-	) {
-		super(objectOrError, descriptionOrOptions)
-	}
 }

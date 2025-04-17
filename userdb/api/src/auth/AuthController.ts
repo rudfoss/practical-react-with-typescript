@@ -10,12 +10,8 @@ import {
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
-import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
-import {
-	HttpBadRequestException,
-	HttpForbiddenException,
-	HttpUnauthorizedException
-} from "../httpExceptions"
+import { UserDatabaseApiRequestAuthenticated } from "../RequestReply"
+import { HttpBadRequestException, HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
 import { UserDatabaseRole, UserSession } from "../models"
 import { StorageService, StorageServiceKey } from "../storage"
 
@@ -43,8 +39,7 @@ export class AuthController {
 	@ApiBadRequestResponse({ type: HttpBadRequestException })
 	public async login(@Body() loginRequest: LoginRequest) {
 		const userSession = await this.authService.login(loginRequest)
-		if (!userSession)
-			throw new HttpUnauthorizedException("Username and password combination incorrect.")
+		if (!userSession) throw new HttpUnauthorizedException("Username and password combination incorrect.")
 		return userSession
 	}
 
@@ -64,7 +59,8 @@ export class AuthController {
 	@RequireRoles([UserDatabaseRole.Admin])
 	@ApiOperation({
 		summary: "Get all currently active sessions",
-		description: `Return a list of all active session including their tokens (for debugging). Requires admin role.`
+		description:
+			"Return a list of all active session including their tokens (for debugging). Requires admin role."
 	})
 	@ApiOkResponse({ type: UserSession, isArray: true })
 	@ApiBearerAuth(bearerAuthName)

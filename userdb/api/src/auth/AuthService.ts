@@ -91,9 +91,7 @@ export class AuthService {
 	public async getUsersInGroups(groupIds: string[]) {
 		const groupsToFind = new Set(groupIds)
 		const allUsers = await this.storageService.getUsers()
-		const members = allUsers.filter((user) =>
-			user.groupIds.some((groupId) => groupsToFind.has(groupId))
-		)
+		const members = allUsers.filter((user) => user.groupIds.some((groupId) => groupsToFind.has(groupId)))
 		return members.map((member) => new User(member, { whitelist: true }))
 	}
 
@@ -102,9 +100,7 @@ export class AuthService {
 	}
 	public async getUsers() {
 		const usersWithPassword = await this.getUsersWithPassword()
-		return usersWithPassword.map(
-			(userWithPassword) => new User(userWithPassword, { whitelist: true })
-		)
+		return usersWithPassword.map((userWithPassword) => new User(userWithPassword, { whitelist: true }))
 	}
 	public async createUser(newUser: NewUser) {
 		const userWithPassword = new UserWithPassword(
@@ -160,15 +156,11 @@ export class AuthService {
 		if (roles.includes(UserDatabaseRole.Admin)) {
 			const usersWithAdminRole = await this.getUsersByRole(UserDatabaseRole.Admin)
 			if (usersWithAdminRole.length <= 1) {
-				throw new HttpConflictException(
-					`User ${userId} is the last administrator and cannot be deleted.`
-				)
+				throw new HttpConflictException(`User ${userId} is the last administrator and cannot be deleted.`)
 			}
 		}
 
-		await this.storageService.setUsers((existingUsers) =>
-			existingUsers.filter((user) => user.id !== userId)
-		)
+		await this.storageService.setUsers((existingUsers) => existingUsers.filter((user) => user.id !== userId))
 		return user
 	}
 
@@ -194,9 +186,7 @@ export class AuthService {
 		})
 
 		await this.storageService.setUserSessions((oldSessions) => {
-			const nextSesssions = oldSessions.filter(
-				(session) => session.token !== basedOnSesssion?.token
-			)
+			const nextSesssions = oldSessions.filter((session) => session.token !== basedOnSesssion?.token)
 			nextSesssions.push(newSession)
 			return nextSesssions
 		})

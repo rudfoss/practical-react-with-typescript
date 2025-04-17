@@ -1,26 +1,14 @@
 {
-  "name": "utils",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/utils/src",
-  "projectType": "library",
-  "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "typecheck": {
-      "dependsOn": ["^typecheck"],
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "tsc -b ./libs/utils/tsconfig.lib.json"
-      }
-    },
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": ["{options.reportsDirectory}"],
-      "options": {
-        "reportsDirectory": "../../coverage/libs/utils"
-      }
-    }
-  }
+	"name": "libs-utils",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/utils/src",
+	"projectType": "application",
+	"tags": ["product:libs"],
+	"targets": {
+		"typecheck": {},
+		"lint": {},
+		"test": {
+			"inputs": ["^viteDefaults"]
+		}
+	}
 }

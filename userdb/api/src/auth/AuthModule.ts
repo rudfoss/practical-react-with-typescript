@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common"
 
-import { esmLoader } from "@practical-react/utils"
+import { esmLoader } from "../utils"
 
 import { StorageModule } from "../storage"
 
@@ -12,18 +12,18 @@ import { UidGeneratorKey } from "./UidGenerator"
 const importNanoid = () => esmLoader<typeof import("nanoid")>("nanoid")
 
 @Module({
-  imports: [StorageModule],
-  providers: [
-    AuthService,
-    {
-      provide: UidGeneratorKey,
-      useFactory: async () => {
-        const { nanoid } = await importNanoid()
-        return nanoid
-      }
-    }
-  ],
-  controllers: [AuthController, AuthUserController],
-  exports: [AuthService]
+	imports: [StorageModule],
+	providers: [
+		AuthService,
+		{
+			provide: UidGeneratorKey,
+			useFactory: async () => {
+				const { nanoid } = await importNanoid()
+				return nanoid
+			}
+		}
+	],
+	controllers: [AuthController, AuthUserController],
+	exports: [AuthService]
 })
 export class AuthModule {}

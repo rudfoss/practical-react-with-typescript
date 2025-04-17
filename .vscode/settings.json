@@ -1,49 +1,44 @@
 {
-  "editor.rulers": [100],
-  "editor.wordWrapColumn": 100,
-  "editor.formatOnSave": true,
-  "editor.tabSize": 2,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "task.quickOpen.history": 0,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  "npm.packageManager": "npm",
-  "workbench.iconTheme": "vscode-icons",
-  "debug.javascript.autoAttachFilter": "disabled",
+	"editor.rulers": [100],
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "biomejs.biome",
+	"task.quickOpen.history": 0,
 
-  "files.exclude": {
-    "**/.*": true,
-    "dist": true,
-    "**/package.json": true,
-    "**/node_modules": true,
-    "package-lock.json": true,
-    "nx.json": true,
-    "**/project.json": true,
-    "**/tsconfig*.json": true,
-    "**/*.config.*": true,
-    "**/vitest.*": true,
-    "**/playwright.config.ts": true,
-    "**/index.html": true,
-    "jsonDb.json": true,
-    "global.json": true,
-    "tools": true,
-    "tmp": true,
-    "docs": true,
-    "userdb/api": true,
-    "userdb/api-spec": true
-  },
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
 
-  "cSpell.words": [
-    "Buildable",
-    "codegen",
-    "cssmodule",
-    "griffel",
-    "nestjs",
-    "Newtonsoft",
-    "nswag",
-    "tsclient",
-    "userdb",
-    "winget"
-  ]
+	"npm.packageManager": "pnpm",
+	"workbench.iconTheme": "vscode-icons",
+	"debug.javascript.autoAttachFilter": "disabled",
+
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/dist": true
+	},
+
+	"files.associations": {
+		"*.env": "properties"
+	},
+
+	"files.exclude": {
+		"**/.*": false,
+		"**/dist": false,
+		"**/package.json": false,
+		"**/node_modules": false,
+		"pnpm-*.yaml": false,
+		"nx.json": false,
+		"**/biome.json": false,
+		"**/project.json": false,
+		"**/tsconfig*.json": false,
+		"**/vite.*": false,
+		"**/vitest.*": false,
+		"**/vite-env.d.ts": false
+	},
+
+	"[markdown]": {
+		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+	},
+	"cSpell.words": ["Haugland", "Rudfoss"]
 }

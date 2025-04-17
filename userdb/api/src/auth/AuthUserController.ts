@@ -8,7 +8,7 @@ import {
 	ApiUnauthorizedResponse
 } from "@nestjs/swagger"
 
-import { UserDatabaseApiRequestAuthenticated as UserDatabaseApiRequestAuthenticated } from "../RequestReply"
+import { UserDatabaseApiRequestAuthenticated } from "../RequestReply"
 import { HttpForbiddenException, HttpUnauthorizedException } from "../httpExceptions"
 import { UserInformation, UserSession } from "../models"
 

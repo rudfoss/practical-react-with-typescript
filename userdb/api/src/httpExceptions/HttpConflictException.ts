@@ -17,11 +17,4 @@ export class HttpConflictException extends ConflictException {
 	})
 	@Equals(409)
 	statusCode: 409
-
-	public constructor(
-		objectOrError?: ConstructorParameters<typeof ConflictException>[0],
-		descriptionOrOptions?: ConstructorParameters<typeof ConflictException>[1]
-	) {
-		super(objectOrError, descriptionOrOptions)
-	}
 }

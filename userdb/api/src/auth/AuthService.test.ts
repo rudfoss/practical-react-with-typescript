@@ -10,6 +10,8 @@ import {
 import { Setter, StorageService } from "../storage"
 import { StorageData } from "../storage/StorageData"
 
+import { beforeEach, describe, expect, it, vitest } from "vitest"
+
 import { AuthService } from "./AuthService"
 
 const mockUidGenerator = (() => {
@@ -90,27 +92,28 @@ const createServiceMocks = () => {
 		async (): Promise<StorageData[TDBItem]> => {
 			const data = store[key]
 			// Typescript can't follow this through to the end, but the type is correct from the outside
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			const instances = data.map((item) => instanceFactory(item)) as any
 			return instances
 		}
 	const set =
 		<TDBItem extends keyof StorageData>(key: TDBItem) =>
 		async (valueSetter: Setter<StorageData[TDBItem]>) =>
+			// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 			(store[key] = await valueSetter(store[key]))
 
 	const storageService: StorageService = {
-		getGroups: jest.fn(get("groups", (group) => new Group(group))),
-		setGroups: jest.fn(set("groups")),
+		getGroups: vitest.fn(get("groups", (group) => new Group(group))),
+		setGroups: vitest.fn(set("groups")),
 
-		getUsers: jest.fn(get("users", (user) => new UserWithPassword(user))),
-		setUsers: jest.fn(set("users")),
+		getUsers: vitest.fn(get("users", (user) => new UserWithPassword(user))),
+		setUsers: vitest.fn(set("users")),
 
-		getUserSessions: jest.fn(get("userSessions", (userSession) => new UserSession(userSession))),
-		setUserSessions: jest.fn(set("userSessions"))
+		getUserSessions: vitest.fn(get("userSessions", (userSession) => new UserSession(userSession))),
+		setUserSessions: vitest.fn(set("userSessions"))
 	}
 
-	const uidGenerator = jest.fn(() => mockUidGenerator())
+	const uidGenerator = vitest.fn(() => mockUidGenerator())
 
 	return {
 		defaultGroupId: GUEST_GROUP_ID,
@@ -119,18 +122,13 @@ const createServiceMocks = () => {
 		store,
 		storageService,
 		uidGenerator,
-		authService: new AuthService(
-			storageService,
-			uidGenerator,
-			GUEST_GROUP_ID,
-			UserDatabaseRole.Guest
-		)
+		authService: new AuthService(storageService, uidGenerator, GUEST_GROUP_ID, UserDatabaseRole.Guest)
 	}
 }
 
 const { setGlobalTime } = (() => {
 	let nowTime = Date.now()
-	jest.spyOn(Date, "now").mockImplementation(() => nowTime)
+	vitest.spyOn(Date, "now").mockImplementation(() => nowTime)
 	return {
 		setGlobalTime: (newTime: number) => {
 			nowTime = newTime
@@ -140,7 +138,7 @@ const { setGlobalTime } = (() => {
 
 describe("AuthService", () => {
 	beforeEach(() => {
-		jest.clearAllMocks()
+		vitest.clearAllMocks()
 	})
 
 	it("is defined", () => {
@@ -153,9 +151,7 @@ describe("AuthService", () => {
 	describe("users", () => {
 		it("returns all users without passwords", async () => {
 			const { authService, store } = createServiceMocks()
-			const storedUsersWithoutPasswords = store.users.map(
-				(user) => new User(user, { whitelist: true })
-			)
+			const storedUsersWithoutPasswords = store.users.map((user) => new User(user, { whitelist: true }))
 			const users = await authService.getUsers()
 			expect(users).toEqual(storedUsersWithoutPasswords)
 		})
@@ -186,9 +182,7 @@ describe("AuthService", () => {
 		it("returns user with password by id", async () => {
 			const { authService } = createServiceMocks()
 			const user = await authService.getUserWithPasswordById(ADMIN_USER_ID)
-			const notUser = await authService.getUserWithPasswordById(
-				"da876ee7-e02d-4714-81f3-27139d124a49"
-			)
+			const notUser = await authService.getUserWithPasswordById("da876ee7-e02d-4714-81f3-27139d124a49")
 
 			expect(user).toBeInstanceOf(UserWithPassword)
 			expect(user).toBeInstanceOf(User)
@@ -245,7 +239,7 @@ describe("AuthService", () => {
 				username: "mockUser",
 				password: "mockPassword",
 				displayName: "Mock user"
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			} as any)
 
 			expect(newUser.id).not.toEqual("id")

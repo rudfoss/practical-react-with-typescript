@@ -1,13 +1,7 @@
-import {
-	CanActivate,
-	ExecutionContext,
-	Inject,
-	Injectable,
-	UnauthorizedException
-} from "@nestjs/common"
+import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from "@nestjs/common"
 import { Reflector } from "@nestjs/core"
 
-import { UserDatabaseApiRequest as UserDatabaseApiRequest } from "../RequestReply"
+import { UserDatabaseApiRequest } from "../RequestReply"
 import { UserDatabaseRole } from "../models"
 
 import { AuthService } from "./AuthService"
@@ -46,9 +40,7 @@ export class AuthGuard implements CanActivate {
 			!roles.some((userRole) => requiredRoles.includes(userRole))
 		)
 			throw new UnauthorizedException(
-				`User id "${user.id}" does not have role any of the required roles ${JSON.stringify(
-					requiredRoles
-				)}`
+				`User id "${user.id}" does not have role any of the required roles ${JSON.stringify(requiredRoles)}`
 			)
 
 		request.userSession = session

@@ -1,1 +1,1 @@
-export const App = () => <h1>It works 🥳</h1>
+export const App = () => <h1>Hello world</h1>
