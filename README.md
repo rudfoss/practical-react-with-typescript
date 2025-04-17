@@ -81,4 +81,10 @@ $ cd prwt # Change this to the folder name you chose to clone into
 $ pnpm run first-time # Install dependencies and verify that tools are installed
 ```
 
-🌟 You are now ready to start the course 🌟
+If everything worked you can test the application by running this command and opening your browser to [`http://localhost:4200`](http://localhost:4200) and [`http://localhost:4000`](http://localhost:4000).
+
+```bash
+$ pnpm exec nx run-many -t serve
+```
+
+You should see "Hello world" in one tab and a Swagger UI in another. To stop the commands focus in the terminal and type `Ctrl+C`.
