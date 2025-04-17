@@ -264,7 +264,7 @@ describe("AuthService", () => {
 		it("cannot remove admin group membership from the last admin", async () => {
 			const { authService } = createServiceMocks()
 
-			expect(async () => {
+			await expect(async () => {
 				await authService.patchUser(
 					{
 						groupIds: [GUEST_GROUP_ID]
@@ -381,7 +381,7 @@ describe("AuthService", () => {
 		it("cannot delete a group where a user is a member of it and no other group", async () => {
 			const { authService } = createServiceMocks()
 
-			expect(async () => {
+			await expect(async () => {
 				await authService.deleteGroup(GUEST_GROUP_ID)
 			}).rejects.toThrow()
 		})
