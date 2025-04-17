@@ -1,7 +1,0 @@
-{
-	"editorconfig": true,
-	"semi": false,
-	"arrowParens": "always",
-	"jsxSingleQuote": false,
-	"trailingComma": "none"
-}
