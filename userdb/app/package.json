@@ -3,5 +3,8 @@
 	"version": "1.0.0",
 	"sideEffects": false,
 	"private": true,
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@prwt/libs-utils": "workspace:*"
+	}
 }
