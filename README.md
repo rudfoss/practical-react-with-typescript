@@ -53,8 +53,8 @@ Node comes with a package manager called `npm`, but this course will be using an
 How to install Node depends on the Operating System you use. Follow the instructions on the [Pnpm page](https://pnpm.io/installation). It is recommended that you use [Corepack](https://pnpm.io/installation#using-corepack) to install Pnpm as it will automatically use the appropriate tool for the workspace. Corepack can be installed using a few simple commands:
 
 ```bash
-npm install --global corepack@latest
-corepack enable pnpm
+$ npm install --global corepack@latest
+$ corepack enable pnpm
 ```
 
 Once it is installed you can verify that everything is working by opening a terminal and typing `pnpm --version`. You should see something similar to this (version number may differ):
@@ -66,7 +66,7 @@ $ pnpm --version
 
 ## Cloning the repository
 
-To work with the code we need to [clone](https://git-scm.com/docs/git-clone) the repository to our machine. We will do this at the start of the course, but you can also do this in advance if you want to get a small head start 🚀. To do this open a terminal in the folder where you wish to store the repository and run this command:
+To work with the code we need to [clone](https://git-scm.com/docs/git-clone) the repository to our machine. We will do this at the start of the course, but you can also do this in advance if you want to get a small head start 🚀. To clone the repository open a terminal in the folder where you wish to store it and run this command:
 
 ```bash
 $ git clone https://github.com/rudfoss/practical-react-with-typescript.git prwt
@@ -77,8 +77,8 @@ The `prwt` argument tells git to create a new folder in the current directory na
 Once you have cloned the repository navigate the terminal to the root folder and run the `first-time` script to install dependencies and verify:
 
 ```bash
-cd prwt # Change this to the folder name you chose to clone into
-pnpm run first-time # Install dependencies and verify that tools are installed
+$ cd prwt # Change this to the folder name you chose to clone into
+$ pnpm run first-time # Install dependencies and verify that tools are installed
 ```
 
 🌟 You are now ready to start the course 🌟
