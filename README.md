@@ -66,7 +66,7 @@ $ pnpm --version
 
 ## Cloning the repository
 
-To work with the code we need to [clone](https://git-scm.com/docs/git-clone) the repository to our machine. We will do this at the start of the course, but you can also do this in advance if you want to get a small head start 🚀. To do this open a terminal in the folder where you wish to store the repository and run this command:
+To work with the code we need to [clone](https://git-scm.com/docs/git-clone) the repository to our machine. We will do this at the start of the course, but you can also do this in advance if you want to get a small head start 🚀. To clone the repository open a terminal in the folder where you wish to store the repository and run this command:
 
 ```bash
 $ git clone https://github.com/rudfoss/practical-react-with-typescript.git prwt
