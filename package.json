@@ -8,7 +8,9 @@
 		"first-time": "pnpm i --frozen-lockfile && pnpm verify",
 		"update:npm": "npm-check-updates --interactive --format group -ws",
 		"update:nx1": "nx migrate latest",
-		"update:nx2": "nx migrate --run-migrations"
+		"update:nx2": "nx migrate --run-migrations",
+		"pr": "pnpm exec nx affected -t typecheck,lint,test",
+		"pr:full": "pnpm exec nx run-many -t typecheck,lint,test"
 	},
 	"keywords": [],
 	"author": "Thomas Haugland Rudfoss",
