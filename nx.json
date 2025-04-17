@@ -2,29 +2,23 @@
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
 	"defaultBase": "origin/main",
 	"namedInputs": {
-		"viteDefaults": ["{projectRoot}/vite.config.ts"],
-		"nestDefaults": ["{projectRoot}/nest-cli.json"],
-		"sourceDefaults": [
-			"{projectRoot}/src/**/*",
-			"{projectRoot}/project.json",
-			"{projectRoot}/tsconfig.json",
-			"{projectRoot}/package.json"
-		]
+		"sharedGlobals": ["{workspaceRoot}/nx.json", "biome.json"],
+		"default": ["{projectRoot}/**/*", "sharedGlobals"]
 	},
 	"targetDefaults": {
 		"serve": {
 			"dependsOn": ["^build", "typecheck"],
-			"inputs": ["sourceDefaults"],
+			"inputs": ["default"],
 			"cache": true
 		},
 		"build": {
 			"dependsOn": ["^build", "typecheck"],
-			"inputs": ["sourceDefaults"],
+			"inputs": ["default"],
 			"cache": true
 		},
 		"typecheck": {
 			"dependsOn": ["^build"],
-			"inputs": ["sourceDefaults"],
+			"inputs": ["default"],
 			"cache": true,
 			"executor": "nx:run-commands",
 			"options": {
@@ -34,17 +28,22 @@
 		},
 		"lint": {
 			"dependsOn": ["^build"],
-			"inputs": ["sourceDefaults"],
+			"inputs": ["default"],
 			"cache": true,
 			"executor": "nx:run-commands",
 			"options": {
 				"cwd": "{projectRoot}",
-				"command": "biome lint ."
+				"command": "biome lint"
+			},
+			"configurations": {
+				"fix": {
+					"command": "biome lint --fix"
+				}
 			}
 		},
 		"test": {
 			"dependsOn": ["^build"],
-			"inputs": ["sourceDefaults", "viteDefaults"],
+			"inputs": ["default"],
 			"cache": true,
 			"executor": "nx:run-commands",
 			"options": {

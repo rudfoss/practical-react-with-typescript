@@ -7,7 +7,6 @@
 	"targets": {
 		"serve": {
 			"executor": "nx:run-commands",
-			"inputs": ["nestDefaults"],
 			"options": {
 				"cwd": "{projectRoot}",
 				"command": "nest start --watch"
@@ -20,7 +19,7 @@
 		},
 		"openApi": {
 			"executor": "nx:run-commands",
-			"inputs": ["sourceDefaults", "nestDefaults"],
+			"inputs": ["^default"],
 			"cache": true,
 			"outputs": ["{workspaceRoot}/userdb/api-spec/src/json/userdb-api-openapi.json"],
 			"options": {
@@ -30,8 +29,6 @@
 		},
 		"typecheck": {},
 		"lint": {},
-		"test": {
-			"inputs": ["viteDefaults"]
-		}
+		"test": {}
 	}
 }
