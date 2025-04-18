@@ -9,13 +9,12 @@
 	- [Git](#git)
 	- [NodeJs LTS](#nodejs-lts)
 	- [Pnpm](#pnpm)
+	- [VSCode](#vscode)
 - [Cloning the repository](#cloning-the-repository)
 
 ## Prerequisites
 
 In this course we will be working with a [Pnpm Workspace](https://pnpm.io/workspaces) and [Nx](https://nx.dev/) managed [monorepo](https://monorepo.tools/). This setup requires a few things to be installed on your machine in order to work properly. The code and project should work fine on Windows, Linux or Mac, but please install the following before the course begins.
-
-Our primary IDE will be [Visual Studio Code](https://code.visualstudio.com) with [several extensions](https://github.com/rudfoss/practical-react-with-typescript/blob/v2025/.vscode/extensions.json) and [customized settings](https://github.com/rudfoss/practical-react-with-typescript/blob/v2025/.vscode/settings.json). You are free to choose any IDE you want, but it is highly recommended that you pick one which [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
 > [!IMPORTANT]
 > Please install and verify all prerequisites before the first day of the course.
@@ -63,6 +62,10 @@ Once it is installed you can verify that everything is working by opening a term
 $ pnpm --version
 10.8.1
 ```
+
+### VSCode
+
+Our primary IDE will be [VS Code (Visual Studio Code)](https://code.visualstudio.com) with [several extensions](https://github.com/rudfoss/practical-react-with-typescript/blob/v2025/.vscode/extensions.json) and [customized settings](https://github.com/rudfoss/practical-react-with-typescript/blob/v2025/.vscode/settings.json). You are free to choose any IDE you want, but it is highly recommended that you pick one which [integrates well with Nx](https://nx.dev/core-features/integrate-with-editors). Plugins for the IDE are not strictly required, but it makes working with the project and with nx commands much easier.
 
 ## Cloning the repository
 
