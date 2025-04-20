@@ -19,7 +19,7 @@
 	"packageManager": "pnpm@10.8.1",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@dotenvx/dotenvx": "^1.40.0",
+		"@dotenvx/dotenvx": "^1.41.0",
 		"@nestjs/cli": "^11.0.6",
 		"@nx/devkit": "^20.8.0",
 		"@swc-node/register": "^1.10.10",
@@ -30,7 +30,7 @@
 		"@types/node": "^22.14.1",
 		"@types/react": "^19.1.2",
 		"@types/react-dom": "^19.1.2",
-		"@vitejs/plugin-react": "^4.4.0",
+		"@vitejs/plugin-react": "^4.4.1",
 		"jsdom": "^26.1.0",
 		"npm-check-updates": "^17.1.18",
 		"nx": "20.8.0",
@@ -38,7 +38,7 @@
 		"tsx": "^4.19.3",
 		"type-fest": "^4.40.0",
 		"typescript": "^5.8.3",
-		"vite": "^6.3.0",
+		"vite": "^6.3.2",
 		"vitest": "^3.1.1"
 	},
 	"dependencies": {
