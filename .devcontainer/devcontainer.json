@@ -12,7 +12,11 @@
 			"version": "lts",
 			"nodeGypDependencies": true
 		},
-		"ghcr.io/devcontainers-extra/features/corepack:1": {}
+		"ghcr.io/devcontainers-extra/features/corepack:1": {},
+		"ghcr.io/devcontainers/features/dotnet:2": {
+			"version": "none",
+			"dotnetRuntimeVersions": "latest"
+		}
 	},
 	"mounts": ["source=devcontainer-bashhistory,target=/commandhistory,type=volume"],
 
