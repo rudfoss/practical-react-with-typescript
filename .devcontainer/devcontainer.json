@@ -7,9 +7,12 @@
 		"dockerfile": "Dockerfile"
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/git:1": {
-			"version": "latest"
-		}
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts",
+			"nodeGypDependencies": true
+		},
+		"ghcr.io/devcontainers-extra/features/corepack:1": {}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
