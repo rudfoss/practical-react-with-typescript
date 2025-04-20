@@ -7,6 +7,7 @@
 		"yzhang.markdown-all-in-one",
 		"streetsidesoftware.code-spell-checker",
 		"vitest.explorer",
-		"biomejs.biome"
+		"biomejs.biome",
+		"ms-vscode-remote.vscode-remote-extensionpack"
 	]
 }
