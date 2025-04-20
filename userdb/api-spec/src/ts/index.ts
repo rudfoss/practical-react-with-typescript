@@ -1,1 +1,1 @@
-export * from "./UserDbApiClients"
+export * from "./UserDbApiClients.generated"
