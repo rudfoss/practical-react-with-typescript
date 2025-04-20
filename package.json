@@ -4,8 +4,6 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"verify": "git --version && node --version && pnpm --version",
-		"first-time": "pnpm i --frozen-lockfile && pnpm verify",
 		"update:npm": "npm-check-updates --interactive --format group -ws",
 		"update:nx1": "nx migrate latest",
 		"update:nx2": "nx migrate --run-migrations",
