@@ -7,7 +7,7 @@
 			"{workspaceRoot}/biome.json",
 			"{workspaceRoot}/package.json"
 		],
-		"default": ["{projectRoot}/**/*", "sharedGlobals"]
+		"default": ["{projectRoot}/**", "sharedGlobals"]
 	},
 	"targetDefaults": {
 		"serve": {
