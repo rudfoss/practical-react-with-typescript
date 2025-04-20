@@ -32,7 +32,13 @@
 				"biomejs.biome",
 				"ms-vscode-remote.vscode-remote-extensionpack",
 				"ms-azuretools.vscode-docker"
-			]
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"zsh": {
+					"path": "zsh"
+				}
+			}
 		}
 	}
 }
