@@ -35,8 +35,14 @@
 			],
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "zsh",
-				"zsh": {
-					"path": "zsh"
+				"terminal.integrated.profiles.linux": {
+					"bash": {
+						"path": "bash",
+						"icon": "terminal-bash"
+					},
+					"zsh": {
+						"path": "zsh"
+					}
 				}
 			}
 		}
