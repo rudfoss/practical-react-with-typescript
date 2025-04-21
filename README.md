@@ -1,4 +1,4 @@
-<h1>Practical React with TypeScript</h1>
+<h1>Practical React</h1>
 
 👋 Welcome to the repository for the workshop [Practical React with TypeScript](https://www.bouvet.no/kurs/kategorier/utvikling-for-web-og-mobil/workshop-praktisk-react-med-typescript)!
 

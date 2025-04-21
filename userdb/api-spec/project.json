@@ -14,10 +14,10 @@
 			"cache": true,
 			"executor": "nx:run-commands",
 			"inputs": ["{projectRoot}/src/json/userdb-api-openapi.json"],
-			"outputs": ["{projectRoot}/src/ts/UserDbApiClients.ts"],
+			"outputs": ["{projectRoot}/src/ts/UserDbApiClients.generated.ts"],
 			"options": {
 				"cwd": "{projectRoot}",
-				"command": "nswag openapi2tsclient /input:src/json/userdb-api-openapi.json /output:src/ts/UserDbApiClients.ts /TypeScriptVersion:4,3 /GenerateClientClasses:True /Template:Fetch /UseAbortSignal:True /GenerateOptionalParameters:True /GenerateDtoTypes:True /TypeStyle:Interface /EnumStyle:StringLiteral /NullValue:Undefined /DateTimeType:String /GenerateDefaultValues:True /MarkOptionalProperties:True /ExportTypes:True /NewLineBehavior:LF"
+				"command": "nswag openapi2tsclient /input:src/json/userdb-api-openapi.json /output:src/ts/UserDbApiClients.generated.ts /TypeScriptVersion:4,3 /GenerateClientClasses:True /Template:Fetch /UseAbortSignal:True /GenerateOptionalParameters:True /GenerateDtoTypes:True /TypeStyle:Interface /EnumStyle:StringLiteral /NullValue:Undefined /DateTimeType:String /GenerateDefaultValues:True /MarkOptionalProperties:True /ExportTypes:True /NewLineBehavior:LF"
 			}
 		},
 		"typecheck": {},
