@@ -7,7 +7,7 @@
 
 - [Prerequisites](#prerequisites)
 	- [Git](#git)
-	- [NodeJs LTS](#nodejs-lts)
+	- [Node.js LTS](#nodejs-lts)
 	- [Pnpm](#pnpm)
 	- [VSCode](#vscode)
 - [Cloning the repository](#cloning-the-repository)
@@ -18,6 +18,14 @@ In this course we will be working with a [Pnpm Workspace](https://pnpm.io/worksp
 
 > [!IMPORTANT]
 > Please install and verify all prerequisites before the first day of the course.
+
+| Checklist | Prerequisite                              |
+| :-------: | ----------------------------------------- |
+|     ✅     | [Git](#git)                               |
+|     ✅     | [Node.js latest LTS version](#nodejs-lts) |
+|     ✅     | [Pnpm package manager](#pnpm)             |
+|     ✅     | [Visual Studio Code](#vscode)             |
+
 
 ### Git
 
@@ -32,9 +40,9 @@ $ git --version
 git version 2.48.1.windows.1
 ```
 
-### NodeJs LTS
+### Node.js LTS
 
-NodeJs is our primary runtime for tooling, testing and extensions and is required to work with the project. We will use the latest Long-Term Support version of NodeJs as it is the most stable and supported version available.
+Node.js is our primary runtime for tooling, testing and extensions and is required to work with the project. We will use the latest Long-Term Support version of NodeJs as it is the most stable and supported version available.
 
 How to install Node depends on the Operating System you use. Follow the instructions on the [nodejs.org page](https://nodejs.org/en).
 
