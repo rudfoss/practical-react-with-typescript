@@ -21,6 +21,7 @@
 			}
 		},
 		"typecheck": {},
-		"lint": {}
+		"lint": {},
+		"test": {}
 	}
 }
