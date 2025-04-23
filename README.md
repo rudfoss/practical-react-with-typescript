@@ -80,7 +80,7 @@ Our primary IDE will be [VS Code (Visual Studio Code)](https://code.visualstudio
 To work with the code we need to [clone](https://git-scm.com/docs/git-clone) the repository to our machine. We will do this at the start of the course, but you can also do this in advance if you want to get a small head start 🚀. To clone the repository open a terminal in the folder where you wish to store it and run this command:
 
 ```bash
-$ git clone https://github.com/rudfoss/practical-react-with-typescript.git prwt
+$ git clone https://github.com/rudfoss/practical-react.git prwt
 ```
 
 The `prwt` argument tells git to create a new folder in the current directory named `prwt` and clone into it. If you leave this out git will create a folder name matching the repository name `practical-react-with-typescript` which is also perfectly fine, but a bit long so it may be useful to shorten it.
