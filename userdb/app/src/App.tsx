@@ -1,3 +1,9 @@
-import { Count } from "./Count"
+import { Header } from "./Header"
 
-export const App = () => <Count max={10} />
+export const App = () => {
+	return (
+		<Header>
+			Hello <code>from</code> app
+		</Header>
+	)
+}
