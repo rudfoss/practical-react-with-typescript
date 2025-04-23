@@ -1,3 +1,3 @@
-import { MyFirstComponent } from "./MyFirstComponent"
+import { Count } from "./Count"
 
-export const App = () => <MyFirstComponent>My first component</MyFirstComponent>
+export const App = () => <Count max={10} />
