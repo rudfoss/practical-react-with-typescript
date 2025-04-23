@@ -4,6 +4,11 @@ export interface TextFieldProps {
 	label: string
 	disabled?: boolean
 
+	/**
+	 * @default "text"
+	 */
+	type?: "text" | "password"
+
 	value: string
 	onChange: (newText: string) => unknown
 }
@@ -11,6 +16,9 @@ export interface TextFieldProps {
 export const TextField = ({
 	label,
 	disabled,
+
+	type = "text",
+
 	value,
 	onChange
 }: TextFieldProps) => {
@@ -23,7 +31,13 @@ export const TextField = ({
 	return (
 		<div>
 			<label htmlFor={id}>{label}</label>
-			<input value={value} id={id} disabled={disabled} onChange={updateValue} />
+			<input
+				type={type}
+				value={value}
+				id={id}
+				disabled={disabled}
+				onChange={updateValue}
+			/>
 		</div>
 	)
 }
