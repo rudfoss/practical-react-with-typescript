@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { CheckboxField } from "./CheckboxField"
-import { Header } from "./Header"
+import { ControlledHeader } from "./ControlledHeader"
 import { TextField } from "./TextField"
 
 export const App = () => {
@@ -15,9 +15,7 @@ export const App = () => {
 
 	return (
 		<>
-			<Header>
-				Hello <code>from</code> app
-			</Header>
+			<ControlledHeader />
 			<TextField label="First name" value={firstName} onChange={setFirstName} />
 			<TextField label="Last name" value={lastName} onChange={setLastName} />
 			<CheckboxField
