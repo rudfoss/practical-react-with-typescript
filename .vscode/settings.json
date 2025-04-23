@@ -12,28 +12,6 @@
   "workbench.iconTheme": "vscode-icons",
   "debug.javascript.autoAttachFilter": "disabled",
 
-  "files.exclude": {
-    "**/.*": true,
-    "dist": true,
-    "**/package.json": true,
-    "**/node_modules": true,
-    "package-lock.json": true,
-    "nx.json": true,
-    "**/project.json": true,
-    "**/tsconfig*.json": true,
-    "**/*.config.*": true,
-    "**/vitest.*": true,
-    "**/playwright.config.ts": true,
-    "**/index.html": true,
-    "jsonDb.json": true,
-    "global.json": true,
-    "tools": true,
-    "tmp": true,
-    "docs": true,
-    "userdb/api": true,
-    "userdb/api-spec": true
-  },
-
   "cSpell.words": [
     "Buildable",
     "codegen",
