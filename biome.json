@@ -12,7 +12,7 @@
 	"formatter": {
 		"enabled": true,
 		"useEditorconfig": true,
-		"lineWidth": 110,
+		"lineWidth": 80,
 		"indentWidth": 2
 	},
 	"organizeImports": {
