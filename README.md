@@ -36,7 +36,7 @@ How to install Git depends on the Operating System you use. Follow the instructi
 Once it is installed you can verify that everything is working by opening a terminal and typing `git --version`. You should see something similar to this (version number may differ):
 
 ```bash
-$ git --version
+git --version
 git version 2.48.1.windows.1
 ```
 
@@ -49,7 +49,7 @@ How to install Node depends on the Operating System you use. Follow the instruct
 Once it is installed you can verify that everything is working by opening a terminal and typing `node --version`. You should see something similar to this (version number may differ):
 
 ```bash
-$ node --version
+node --version
 v22.14.0
 ```
 
@@ -60,14 +60,14 @@ Node comes with a package manager called `npm`, but this course will be using an
 How to install Node depends on the Operating System you use. Follow the instructions on the [Pnpm page](https://pnpm.io/installation). It is recommended that you use [Corepack](https://pnpm.io/installation#using-corepack) to install Pnpm as it will automatically use the appropriate tool for the workspace. Corepack can be installed using a few simple commands:
 
 ```bash
-$ npm install --global corepack@latest
-$ corepack enable pnpm
+npm install --global corepack@latest
+corepack enable pnpm
 ```
 
 Once it is installed you can verify that everything is working by opening a terminal and typing `pnpm --version`. You should see something similar to this (version number may differ):
 
 ```bash
-$ pnpm --version
+pnpm --version
 10.8.1
 ```
 
@@ -80,20 +80,20 @@ Our primary IDE will be [VS Code (Visual Studio Code)](https://code.visualstudio
 To work with the code we need to [clone](https://git-scm.com/docs/git-clone) the repository to our machine. We will do this at the start of the course, but you can also do this in advance if you want to get a small head start 🚀. To clone the repository open a terminal in the folder where you wish to store it and run this command:
 
 ```bash
-$ git clone https://github.com/rudfoss/practical-react.git
+git clone https://github.com/rudfoss/practical-react.git
 ```
 
 Once you have cloned the repository navigate the terminal to the root folder and run the `first-time` script to install dependencies and verify:
 
 ```bash
-$ cd practical-react # Change this to the folder name you chose to clone into
-$ pnpm run first-time # Install dependencies and verify that tools are installed
+cd practical-react # Change this to the folder name you chose to clone into
+pnpm run first-time # Install dependencies and verify that tools are installed
 ```
 
 If everything worked you can test the application by running this command and opening your browser to [`http://localhost:4200`](http://localhost:4200) and [`http://localhost:4000`](http://localhost:4000).
 
 ```bash
-$ pnpm exec nx run-many -t serve
+pnpm exec nx run-many -t serve
 ```
 
 You should see "Hello world" in one tab and a Swagger UI in another. To stop the commands focus in the terminal and type `Ctrl+C`.
