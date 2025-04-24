@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { StaticGroup } from "./StaticGroups"
+import { StaticGroup } from "./staticGroups"
 
 type SortBy = "id" | "displayName" | "description"
 type SortDirection = "ascending" | "descending"
