@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { StaticGroup } from "./staticGroups"
 
 type SortBy = "id" | "displayName" | "description"
@@ -12,18 +12,13 @@ export const GroupsTable = ({ groups }: GroupsTableProps) => {
 	const [sortBy, setSortBy] = useState<SortBy>()
 	const [sortDirection, setSortDirection] = useState<SortDirection>("ascending")
 
-	const setOrToggleSort = (newSortBy: SortBy) => {
-		if (newSortBy !== sortBy) {
-			setSortBy(newSortBy)
-			setSortDirection("ascending")
-			return
+	const sortedGroups = useMemo(() => {
+		if (!sortBy) {
+			return groups
 		}
 
-		setSortDirection(sortDirection === "ascending" ? "descending" : "ascending")
-	}
-
-	if (sortBy) {
-		groups.sort((groupA, groupB) => {
+		const groupsToSort = [...groups]
+		groupsToSort.sort((groupA, groupB) => {
 			const reverse = sortDirection === "ascending" ? 1 : -1
 
 			switch (sortBy) {
@@ -35,6 +30,18 @@ export const GroupsTable = ({ groups }: GroupsTableProps) => {
 					return groupA.description.localeCompare(groupB.description) * reverse
 			}
 		})
+
+		return groupsToSort
+	}, [groups, sortBy, sortDirection])
+
+	const setOrToggleSort = (newSortBy: SortBy) => {
+		if (newSortBy !== sortBy) {
+			setSortBy(newSortBy)
+			setSortDirection("ascending")
+			return
+		}
+
+		setSortDirection(sortDirection === "ascending" ? "descending" : "ascending")
 	}
 
 	return (
@@ -71,7 +78,7 @@ export const GroupsTable = ({ groups }: GroupsTableProps) => {
 				</tr>
 			</thead>
 			<tbody>
-				{groups.map((group) => (
+				{sortedGroups.map((group) => (
 					<tr key={group.id}>
 						<td>{group.id}</td>
 						<td>{group.displayName}</td>

@@ -197,6 +197,9 @@ importers:
       '@prwt/libs-ui':
         specifier: workspace:*
         version: link:../../libs/ui
+      '@prwt/libs-utils':
+        specifier: workspace:*
+        version: link:../../libs/utils
 
 packages:
 
