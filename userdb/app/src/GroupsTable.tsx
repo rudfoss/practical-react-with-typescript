@@ -4,11 +4,19 @@ import { StaticGroup } from "./staticGroups"
 type SortBy = "id" | "displayName" | "description"
 type SortDirection = "ascending" | "descending"
 
+import classes from "./GroupsTable.module.css"
+
 export interface GroupsTableProps {
 	groups: StaticGroup[]
+	expanded?: boolean
+	className?: string
 }
 
-export const GroupsTable = ({ groups }: GroupsTableProps) => {
+export const GroupsTable = ({
+	groups,
+	expanded,
+	className = ""
+}: GroupsTableProps) => {
 	const [sortBy, setSortBy] = useState<SortBy>()
 	const [sortDirection, setSortDirection] = useState<SortDirection>("ascending")
 
@@ -45,7 +53,9 @@ export const GroupsTable = ({ groups }: GroupsTableProps) => {
 	}
 
 	return (
-		<table>
+		<table
+			className={`${classes.table} ${expanded && classes.expanded} ${className}`}
+		>
 			<thead>
 				<tr>
 					<th>

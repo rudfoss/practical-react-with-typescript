@@ -11,7 +11,7 @@ export const App = () => {
 		<>
 			<Header>{header}</Header>
 			<TextField label="Header" value={header} onChange={setHeader} />
-			<GroupsTable groups={staticGroups} />
+			<GroupsTable className="foo" groups={staticGroups} expanded />
 		</>
 	)
 }
