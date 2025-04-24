@@ -1,15 +1,13 @@
-import { ReactNode } from "react"
 import { StaticGroup } from "./StaticGroups"
 
 export interface ListStaticGroupsProps {
 	groups: StaticGroup[]
 }
 
-export const ListStaticGroups = ({ groups }: ListStaticGroupsProps) => {
-	const groupElements: ReactNode[] = []
-	for (const group of groups) {
-		groupElements.push(<li>{group.displayName}</li>)
-	}
-
-	return <ul>{groupElements}</ul>
-}
+export const ListStaticGroups = ({ groups }: ListStaticGroupsProps) => (
+	<ul>
+		{groups.map((group) => (
+			<li key={group.id}>{group.displayName}</li>
+		))}
+	</ul>
+)
