@@ -1,7 +1,5 @@
+import { CheckboxField, PasswordField, TextField } from "@prwt/libs-ui"
 import { FormEvent, useState } from "react"
-import { CheckboxField } from "./CheckboxField"
-import { PasswordField } from "./PasswordField"
-import { TextField } from "./TextField"
 
 export interface LoginFormProps {
 	disabled?: boolean
