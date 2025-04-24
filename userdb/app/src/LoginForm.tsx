@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react"
 import { CheckboxField } from "./CheckboxField"
+import { PasswordField } from "./PasswordField"
 import { TextField } from "./TextField"
 
 export interface LoginFormProps {
@@ -27,7 +28,7 @@ export const LoginForm = ({ disabled, onLogin }: LoginFormProps) => {
 				value={username}
 				onChange={setUsername}
 			/>
-			<TextField
+			<PasswordField
 				disabled={disabled}
 				label="Password"
 				value={password}
