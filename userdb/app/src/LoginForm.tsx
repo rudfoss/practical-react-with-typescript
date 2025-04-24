@@ -30,6 +30,7 @@ export const LoginForm = ({ disabled, onLogin }: LoginFormProps) => {
 			/>
 			<PasswordField
 				disabled={disabled}
+				showPassword={showPassword}
 				label="Password"
 				value={password}
 				onChange={setPassword}
