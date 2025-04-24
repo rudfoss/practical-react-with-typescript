@@ -1,5 +1,7 @@
 import { ChangeEvent, useId } from "react"
 
+import classes from "./CheckboxField.module.css"
+
 export interface CheckboxFieldProps {
 	label: string
 	disabled?: boolean
@@ -21,7 +23,7 @@ export const CheckboxField = ({
 	}
 
 	return (
-		<div>
+		<div className={classes.container}>
 			<input
 				type="checkbox"
 				id={id}

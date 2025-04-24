@@ -1,5 +1,7 @@
 import { ChangeEvent, useId } from "react"
 
+import classes from "./TextField.module.css"
+
 export interface TextFieldProps {
 	label: string
 	disabled?: boolean
@@ -29,7 +31,7 @@ export const TextField = ({
 	}
 
 	return (
-		<div>
+		<div className={classes.container}>
 			<label htmlFor={id}>{label}</label>
 			<input
 				type={type}

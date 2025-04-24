@@ -1,17 +1,5 @@
-import { useState } from "react"
-import { GroupsTable } from "./GroupsTable"
-import { Header } from "./Header"
-import { TextField } from "./TextField"
-import { staticGroups } from "./staticGroups"
+import { LoginForm } from "./LoginForm"
 
 export const App = () => {
-	const [header, setHeader] = useState("")
-
-	return (
-		<>
-			<Header>{header}</Header>
-			<TextField label="Header" value={header} onChange={setHeader} />
-			<GroupsTable className="foo" groups={staticGroups} expanded />
-		</>
-	)
+	return <LoginForm onLogin={() => ""} />
 }
