@@ -3,7 +3,7 @@ export const staticGroups = [
 		id: "5dd0a91a-d493-4fa1-b447-f90121f00bb0",
 		displayName: "Administrator",
 		description: "The administrator role has full access.",
-		roles: ["Admin"],
+		roles: ["Admin", "User", "Guest"],
 		isSystemDefined: true
 	},
 	{
