@@ -1,4 +1,4 @@
-import { StaticGroup } from "./StaticGroups"
+import { StaticGroup } from "./staticGroups"
 
 export interface ListStaticGroupsProps {
 	groups: StaticGroup[]

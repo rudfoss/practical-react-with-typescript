@@ -1,6 +1,4 @@
 .table {
-	background-color: red;
-
 	&.expanded td {
 		padding: 24px;
 	}
