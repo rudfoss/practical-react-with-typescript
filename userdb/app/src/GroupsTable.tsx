@@ -43,7 +43,8 @@ export const GroupsTable = ({ groups }: GroupsTableProps) => {
 				<tr>
 					<th>
 						<button type="button" onClick={() => setOrToggleSort("id")}>
-							ID
+							ID{" "}
+							{sortBy === "id" && (sortDirection === "ascending" ? "⬇️" : "⬆️")}
 						</button>
 					</th>
 					<th>
@@ -51,7 +52,9 @@ export const GroupsTable = ({ groups }: GroupsTableProps) => {
 							type="button"
 							onClick={() => setOrToggleSort("displayName")}
 						>
-							Display Name
+							Display Name{" "}
+							{sortBy === "displayName" &&
+								(sortDirection === "ascending" ? "⬇️" : "⬆️")}
 						</button>
 					</th>
 					<th>
@@ -59,7 +62,9 @@ export const GroupsTable = ({ groups }: GroupsTableProps) => {
 							type="button"
 							onClick={() => setOrToggleSort("description")}
 						>
-							Description
+							Description{" "}
+							{sortBy === "description" &&
+								(sortDirection === "ascending" ? "⬇️" : "⬆️")}
 						</button>
 					</th>
 					<th>Roles</th>
