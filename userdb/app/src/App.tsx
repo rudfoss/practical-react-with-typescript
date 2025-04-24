@@ -1,8 +1,6 @@
-import { LoginForm } from "./LoginForm"
+import { ListStaticGroups } from "./ListStaticGroups"
+import { staticGroups } from "./StaticGroups"
 
 export const App = () => {
-	const onLogin = (username: string, password: string) => {
-		alert(`${username} : ${password}`)
-	}
-	return <LoginForm onLogin={onLogin} />
+	return <ListStaticGroups groups={staticGroups} />
 }
