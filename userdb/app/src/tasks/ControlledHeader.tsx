@@ -1,7 +1,5 @@
+import { CheckboxField, Header, TextField } from "@prwt/libs-ui"
 import { useState } from "react"
-import { CheckboxField } from "./CheckboxField"
-import { Header } from "./Header"
-import { TextField } from "./TextField"
 
 export const ControlledHeader = () => {
 	const [heading, setHeading] = useState("")
