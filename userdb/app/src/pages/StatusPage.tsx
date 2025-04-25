@@ -1,8 +1,9 @@
 import { LoadingSpinner } from "@prwt/libs-ui"
-import { useHealthQuery } from "../healthQueries"
+import { useHealthQuery, useStatsQuery } from "../healthQueries"
 
 export const StatusPage = () => {
-	const { data, error, isLoading, refetch } = useHealthQuery()
+	const { data: health, error, isLoading: isLoadingHealth, refetch } = useHealthQuery()
+	const { data: stats, isLoading: isLoadingStats } = useStatsQuery()
 
 	if (error) {
 		return (
@@ -15,13 +16,21 @@ export const StatusPage = () => {
 		)
 	}
 
-	if (isLoading) {
+	if (isLoadingStats || isLoadingHealth) {
 		return <LoadingSpinner />
 	}
 
 	return (
+		<>
+		<dl>
+			<dt>Nr of users</dt>
+			<dd>{stats.userCount}</dd>
+			<dt>Nr of groups</dt>
+			<dd>{stats.groupCount}</dd>
+		</dl>
 		<pre>
-			<code>{JSON.stringify(data, undefined, 2)}</code>
+			<code>{JSON.stringify(health, undefined, 2)}</code>
 		</pre>
+		</>
 	)
 }
