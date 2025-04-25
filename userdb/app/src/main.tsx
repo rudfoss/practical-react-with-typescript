@@ -5,10 +5,13 @@ import { RouterProvider } from "react-router-dom"
 import { router } from "./router"
 
 import "./global.css"
+import { Bootstrap } from "./Bootstrap"
 
 // biome-ignore lint/style/noNonNullAssertion: This boots the app, we control the index.html which means we can guarantee this
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<Bootstrap>
+			<RouterProvider router={router} />
+		</Bootstrap>
 	</StrictMode>
 )
