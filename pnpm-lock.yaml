@@ -206,6 +206,9 @@ importers:
       '@prwt/libs-utils':
         specifier: workspace:*
         version: link:../../libs/utils
+      '@prwt/userdb-api-spec':
+        specifier: workspace:*
+        version: link:../api-spec
 
 packages:
 

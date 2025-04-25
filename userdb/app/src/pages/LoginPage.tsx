@@ -1,7 +1,7 @@
 import { useHeader } from "@prwt/libs-ui"
+import { useUserDbApiService } from "@prwt/userdb-api-spec/react"
+import { LoginRequest } from "@prwt/userdb-api-spec/ts"
 import { useMutation } from "@tanstack/react-query"
-import { useUserDbApiService } from "../clients/react"
-import { LoginRequest } from "../clients/ts"
 import { LoginForm } from "../tasks"
 
 export const LoginPage = () => {

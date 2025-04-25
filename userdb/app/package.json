@@ -6,6 +6,7 @@
 	"type": "module",
 	"dependencies": {
 		"@prwt/libs-ui": "workspace:*",
-		"@prwt/libs-utils": "workspace:*"
+		"@prwt/libs-utils": "workspace:*",
+		"@prwt/userdb-api-spec": "workspace:*"
 	}
 }

@@ -1,5 +1,5 @@
 import { LoadingSpinner } from "@prwt/libs-ui"
-import { useUserDbApiService } from "../clients/react"
+import { useUserDbApiService } from "@prwt/userdb-api-spec/react"
 import { useHealthQuery } from "../healthQueries"
 
 export const StatusPage = () => {

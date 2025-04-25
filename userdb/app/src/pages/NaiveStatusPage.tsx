@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 export const StatusPage = () => {
 	const [healthData, setHealthData] = useState()
 	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState<Error>()
+	const [_, setError] = useState<Error>()
 
 	useEffect(() => {
 		const getHealth = async () => {

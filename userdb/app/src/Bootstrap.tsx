@@ -1,8 +1,8 @@
 import { ProvideHeaderService } from "@prwt/libs-ui"
+import { ProvideUserDbApiService } from "@prwt/userdb-api-spec/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { ReactNode } from "react"
-import { ProvideUserDbApiService } from "./clients/react"
 
 const queryClient = new QueryClient()
 

@@ -5,8 +5,8 @@
 	"private": true,
 	"type": "module",
 	"exports": {
-		"./ts": "./src/ts",
-		"./react": "./src/react"
+		"./ts": "./src/ts/index.ts",
+		"./react": "./src/react/index.ts"
 	},
 	"devDependencies": {
 		"nswag": "^14.3.0"

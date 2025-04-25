@@ -1,6 +1,6 @@
+import { ClientGetter } from "@prwt/userdb-api-spec/react"
+import { AppControllerClient } from "@prwt/userdb-api-spec/ts"
 import { useQuery } from "@tanstack/react-query"
-import { ClientGetter } from "./clients/react"
-import { AppControllerClient } from "./clients/ts"
 
 export const useHealthQuery = (
 	getClient: ClientGetter<AppControllerClient>
