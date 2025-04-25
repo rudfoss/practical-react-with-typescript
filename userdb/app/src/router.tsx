@@ -1,4 +1,5 @@
-import { Outlet, RouteObject, createBrowserRouter } from "react-router-dom"
+import { CenteredLayout } from "@prwt/libs-ui"
+import { RouteObject, createBrowserRouter } from "react-router-dom"
 import { ParametersPage } from "./pages/ParametersPage"
 
 const appRoutes: RouteObject[] = [
@@ -28,16 +29,7 @@ const appRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
 	{
-		element: (
-			<>
-				<header>
-					<h1>Hello from the router</h1>
-				</header>
-				<main>
-					<Outlet />
-				</main>
-			</>
-		),
+		element: <CenteredLayout />,
 		children: appRoutes
 	}
 ])
