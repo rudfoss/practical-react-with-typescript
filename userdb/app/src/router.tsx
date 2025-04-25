@@ -1,13 +1,28 @@
-import { Outlet, createBrowserRouter } from "react-router-dom"
+import { Outlet, RouteObject, createBrowserRouter } from "react-router-dom"
+import { ParametersPage } from "./pages/ParametersPage"
 
-const appRoutes = [
+const appRoutes: RouteObject[] = [
 	{
 		index: true,
-		element: <p>Welcome to the User Database</p>
+		element: <p>Welcome</p>
 	},
 	{
 		path: "status",
-		element: <p>This is the status page</p>
+		children: [
+			{
+				path: "details",
+				element: <p>Details</p>
+			}
+		]
+	},
+	{
+		path: "users",
+		children: [
+			{
+				path: ":id",
+				element: <ParametersPage />
+			}
+		]
 	}
 ]
 
