@@ -1,9 +1,15 @@
 import { LoadingSpinner } from "@prwt/libs-ui"
-import { useHealthQuery, useStatsQuery } from "../healthQueries"
+import { useUserDbApiService } from "../clients/react"
+import { useHealthQuery } from "../healthQueries"
 
 export const StatusPage = () => {
-	const { data: health, error, isLoading: isLoadingHealth, refetch } = useHealthQuery()
-	const { data: stats, isLoading: isLoadingStats } = useStatsQuery()
+	const { appClient } = useUserDbApiService()
+	const {
+		data: health,
+		error,
+		isLoading: isLoadingHealth,
+		refetch
+	} = useHealthQuery(appClient)
 
 	if (error) {
 		return (
@@ -16,21 +22,15 @@ export const StatusPage = () => {
 		)
 	}
 
-	if (isLoadingStats || isLoadingHealth) {
+	if (isLoadingHealth) {
 		return <LoadingSpinner />
 	}
 
 	return (
 		<>
-		<dl>
-			<dt>Nr of users</dt>
-			<dd>{stats.userCount}</dd>
-			<dt>Nr of groups</dt>
-			<dd>{stats.groupCount}</dd>
-		</dl>
-		<pre>
-			<code>{JSON.stringify(health, undefined, 2)}</code>
-		</pre>
+			<pre>
+				<code>{health?.ok}</code>
+			</pre>
 		</>
 	)
 }

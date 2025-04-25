@@ -1,22 +1,21 @@
 import { useQuery } from "@tanstack/react-query"
+import { ClientGetter } from "./clients/react"
+import { AppControllerClient } from "./clients/ts"
 
-const getter = async (what: string) => {
-	const response = await fetch(`http://localhost:4000/${what}`)
-	return await response.json()
-}
-
-export const useHealthQuery = () => {
+export const useHealthQuery = (
+	getClient: ClientGetter<AppControllerClient>
+) => {
 	return useQuery({
 		queryKey: ["health"],
-		queryFn: () => getter("health"),
+		queryFn: () => getClient().getHealth(),
 		staleTime: 1000 * 30
 	})
 }
 
-export const useStatsQuery = () => {
+export const useStatsQuery = (getClient: ClientGetter<AppControllerClient>) => {
 	return useQuery({
 		queryKey: ["stats"],
-		queryFn: () => getter("stats"),
+		queryFn: () => getClient().getStats(),
 		staleTime: 1000 * 30
 	})
 }
