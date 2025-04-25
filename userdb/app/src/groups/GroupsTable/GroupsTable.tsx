@@ -8,13 +8,13 @@ import classes from "./GroupsTable.module.css"
 
 export interface GroupsTableProps {
 	groups: StaticGroup[]
-	expanded?: boolean
+	highlightGroupId?: string
 	className?: string
 }
 
 export const GroupsTable = ({
 	groups,
-	expanded,
+	highlightGroupId,
 	className = ""
 }: GroupsTableProps) => {
 	const [sortBy, setSortBy] = useState<SortBy>()
@@ -53,9 +53,7 @@ export const GroupsTable = ({
 	}
 
 	return (
-		<table
-			className={`${classes.table} ${expanded && classes.expanded} ${className}`}
-		>
+		<table className={`${classes.table} ${className}`}>
 			<thead>
 				<tr>
 					<th>
@@ -89,7 +87,10 @@ export const GroupsTable = ({
 			</thead>
 			<tbody>
 				{sortedGroups.map((group) => (
-					<tr key={group.id}>
+					<tr
+						key={group.id}
+						className={group.id === highlightGroupId ? classes.highlighted : ""}
+					>
 						<td>{group.id}</td>
 						<td>{group.displayName}</td>
 						<td>{group.description}</td>

@@ -1,6 +1,6 @@
 import { Header, MainLayout } from "@prwt/libs-ui"
 import { RouteObject, createBrowserRouter } from "react-router-dom"
-import { ParametersPage } from "./pages/ParametersPage"
+import { GroupsPage } from "./pages/GroupsPage"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -17,11 +17,15 @@ const appRoutes: RouteObject[] = [
 		]
 	},
 	{
-		path: "users",
+		path: "grupper",
 		children: [
 			{
+				index: true,
+				element: <GroupsPage />
+			},
+			{
 				path: ":id",
-				element: <ParametersPage />
+				element: <GroupsPage />
 			}
 		]
 	}
