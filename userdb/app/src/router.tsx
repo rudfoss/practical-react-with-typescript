@@ -1,4 +1,4 @@
-import { Header, MainLayout } from "@prwt/libs-ui"
+import { MainLayout } from "@prwt/libs-ui"
 import { RouteObject, createBrowserRouter } from "react-router-dom"
 import { MainMenu } from "./MainMenu"
 import { HomePage } from "./pages/HomePage"
@@ -15,12 +15,7 @@ const appRoutes: RouteObject[] = [
 	},
 	{
 		path: "status",
-		children: [
-			{
-				path: "details",
-				element: <p>Details</p>
-			}
-		]
+		element: <p>test</p>
 	},
 	{
 		path: "groups",
@@ -58,9 +53,7 @@ const appRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
 	{
-		element: (
-			<MainLayout header={<Header>User database</Header>} menu={<MainMenu />} />
-		),
+		element: <MainLayout menu={<MainMenu />} />,
 		children: appRoutes
 	}
 ])
