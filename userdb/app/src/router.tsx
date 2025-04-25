@@ -1,11 +1,17 @@
 import { Header, MainLayout } from "@prwt/libs-ui"
 import { RouteObject, createBrowserRouter } from "react-router-dom"
 import { MainMenu } from "./MainMenu"
+import { HomePage } from "./pages/HomePage"
+import { LoginPage } from "./pages/LoginPage"
 
 const appRoutes: RouteObject[] = [
 	{
 		index: true,
-		element: <p>Welcome</p>
+		element: <HomePage />
+	},
+	{
+		path: "login",
+		element: <LoginPage />
 	},
 	{
 		path: "status",

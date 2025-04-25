@@ -6,6 +6,9 @@ export const MainMenu = () => {
 			<Link to="/" style={{ display: "block" }}>
 				Front page
 			</Link>
+			<Link to="/login" style={{ display: "block" }}>
+				login
+			</Link>
 			<Link to="/groups" style={{ display: "block" }}>
 				Groups
 			</Link>
