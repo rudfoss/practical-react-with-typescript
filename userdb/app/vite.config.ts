@@ -5,8 +5,6 @@ import { defineConfig } from "vitest/config"
 
 // https://vite.dev/config/
 export default defineConfig({
-	root: path.resolve("src"),
-
 	server: {
 		port: 4200
 	},
