@@ -3,6 +3,7 @@ import { RouteObject, createBrowserRouter } from "react-router-dom"
 import { MainMenu } from "./MainMenu"
 import { HomePage } from "./pages/HomePage"
 import { LoginPage } from "./pages/LoginPage"
+import { StatusPage } from "./pages/StatusPage"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -15,7 +16,7 @@ const appRoutes: RouteObject[] = [
 	},
 	{
 		path: "status",
-		element: <p>test</p>
+		element: <StatusPage />
 	},
 	{
 		path: "groups",
