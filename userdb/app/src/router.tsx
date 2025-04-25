@@ -1,4 +1,4 @@
-import { CenteredLayout } from "@prwt/libs-ui"
+import { Header, MainLayout } from "@prwt/libs-ui"
 import { RouteObject, createBrowserRouter } from "react-router-dom"
 import { ParametersPage } from "./pages/ParametersPage"
 
@@ -29,7 +29,9 @@ const appRoutes: RouteObject[] = [
 
 export const router = createBrowserRouter([
 	{
-		element: <CenteredLayout />,
+		element: (
+			<MainLayout header={<Header>User database</Header>} menu={<p>Menu</p>} />
+		),
 		children: appRoutes
 	}
 ])
