@@ -1,6 +1,6 @@
 import spinner from "./netscape-loader.gif"
 
-import classes from "./LoadingSpinner.module.scss"
+import classes from "./LoadingSpinner.module.css"
 
 export interface LoadingSpinnerProps {
 	size?: number
