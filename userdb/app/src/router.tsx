@@ -1,6 +1,6 @@
 import { Header, MainLayout } from "@prwt/libs-ui"
 import { RouteObject, createBrowserRouter } from "react-router-dom"
-import { GroupsPage } from "./pages/GroupsPage"
+import { MainMenu } from "./MainMenu"
 
 const appRoutes: RouteObject[] = [
 	{
@@ -21,11 +21,21 @@ const appRoutes: RouteObject[] = [
 		children: [
 			{
 				index: true,
-				element: <GroupsPage />
+				lazy: async () => {
+					const { GroupsPage } = await import("./pages/GroupsPage")
+					return {
+						Component: GroupsPage
+					}
+				}
 			},
 			{
 				path: ":id",
-				element: <GroupsPage />
+				lazy: async () => {
+					const { GroupsPage } = await import("./pages/GroupsPage")
+					return {
+						Component: GroupsPage
+					}
+				}
 			}
 		]
 	}
@@ -34,7 +44,7 @@ const appRoutes: RouteObject[] = [
 export const router = createBrowserRouter([
 	{
 		element: (
-			<MainLayout header={<Header>User database</Header>} menu={<p>Menu</p>} />
+			<MainLayout header={<Header>User database</Header>} menu={<MainMenu />} />
 		),
 		children: appRoutes
 	}
