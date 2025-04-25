@@ -72,9 +72,6 @@ importers:
       nx:
         specifier: 20.8.0
         version: 20.8.0(@swc-node/register@1.10.10(@swc/core@1.11.21)(@swc/types@0.1.21)(typescript@5.8.3))(@swc/core@1.11.21)
-      sass-embedded:
-        specifier: ^1.86.3
-        version: 1.86.3
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
@@ -5202,7 +5199,8 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@bufbuild/protobuf@2.2.5': {}
+  '@bufbuild/protobuf@2.2.5':
+    optional: true
 
   '@colors/colors@1.5.0':
     optional: true
@@ -7025,7 +7023,8 @@ snapshots:
     dependencies:
       node-int64: 0.4.0
 
-  buffer-builder@0.2.0: {}
+  buffer-builder@0.2.0:
+    optional: true
 
   buffer-crc32@0.2.13: {}
 
@@ -7152,7 +7151,8 @@ snapshots:
 
   colorette@2.0.20: {}
 
-  colorjs.io@0.5.2: {}
+  colorjs.io@0.5.2:
+    optional: true
 
   combined-stream@1.0.8:
     dependencies:
@@ -7972,7 +7972,8 @@ snapshots:
 
   ignore@5.3.2: {}
 
-  immutable@5.1.1: {}
+  immutable@5.1.1:
+    optional: true
 
   import-fresh@3.3.1:
     dependencies:
@@ -9224,6 +9225,7 @@ snapshots:
       sass-embedded-win32-arm64: 1.86.3
       sass-embedded-win32-ia32: 1.86.3
       sass-embedded-win32-x64: 1.86.3
+    optional: true
 
   saxes@6.0.0:
     dependencies:
@@ -9492,8 +9494,10 @@ snapshots:
   sync-child-process@1.0.2:
     dependencies:
       sync-message-port: 1.1.3
+    optional: true
 
-  sync-message-port@1.1.3: {}
+  sync-message-port@1.1.3:
+    optional: true
 
   tapable@2.2.1: {}
 
@@ -9749,7 +9753,8 @@ snapshots:
 
   validator@13.15.0: {}
 
-  varint@6.0.0: {}
+  varint@6.0.0:
+    optional: true
 
   vary@1.1.2: {}
 
