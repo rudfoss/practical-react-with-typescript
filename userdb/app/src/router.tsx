@@ -17,7 +17,7 @@ const appRoutes: RouteObject[] = [
 		]
 	},
 	{
-		path: "grupper",
+		path: "groups",
 		children: [
 			{
 				index: true,
@@ -36,6 +36,15 @@ const appRoutes: RouteObject[] = [
 						Component: GroupsPage
 					}
 				}
+			}
+		]
+	},
+	{
+		path: "users",
+		children: [
+			{
+				index: true,
+				element: <p>Users</p>
 			}
 		]
 	}
